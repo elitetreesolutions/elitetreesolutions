@@ -1,0 +1,1096 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio — Elite Tree Solutions Uganda</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --forest:#0d2818; --moss:#1a4a2e; --sage:#4a7c59;
+    --leaf:#7ab648; --gold:#c8a96e; --cream:#f5f0e8;
+    --bark:#5c3d1e; --mist:#e8f0e4;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--forest);overflow-x:hidden;}
+
+  /* ── NAV ── */
+  nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1.4rem 4rem;backdrop-filter:blur(20px);background:rgba(13,40,24,0.92);border-bottom:1px solid rgba(122,182,72,0.15);}
+  .nav-logo{display:flex;align-items:center;gap:0.8rem;font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700;color:var(--cream);text-decoration:none;letter-spacing:0.04em;}
+  .nav-links{display:flex;gap:2rem;}
+  .nav-links a{color:rgba(245,240,232,0.7);text-decoration:none;font-size:0.85rem;letter-spacing:0.08em;text-transform:uppercase;transition:color 0.3s;}
+  .nav-links a:hover,.nav-links a.active{color:var(--leaf);}
+  .nav-cta{background:var(--leaf);color:var(--forest)!important;padding:0.5rem 1.4rem;border-radius:2rem;font-weight:500;}
+
+  /* ── HERO ── */
+  .port-hero{
+    min-height:100vh; background:var(--forest);
+    display:flex; align-items:center;
+    position:relative; overflow:hidden; padding-top:5rem;
+  }
+  .port-hero::before{
+    content:''; position:absolute; inset:0;
+    background:radial-gradient(ellipse 80% 70% at 30% 60%, #1a4a2e 0%, #0d2818 65%);
+  }
+  /* Animated ring */
+  .hero-ring{
+    position:absolute; right:-10%; top:50%; transform:translateY(-50%);
+    width:70vw; max-width:700px; aspect-ratio:1;
+    border-radius:50%;
+    border:1px solid rgba(122,182,72,0.08);
+    animation:spin 60s linear infinite;
+  }
+  .hero-ring::before{
+    content:''; position:absolute; inset:8%;
+    border-radius:50%; border:1px solid rgba(200,169,110,0.06);
+  }
+  .hero-ring::after{
+    content:''; position:absolute; inset:16%;
+    border-radius:50%; border:1px solid rgba(122,182,72,0.05);
+  }
+  @keyframes spin{from{transform:translateY(-50%) rotate(0deg);}to{transform:translateY(-50%) rotate(360deg);}}
+
+  .port-hero-content{position:relative;z-index:2;padding:0 4rem;max-width:780px;}
+  .hero-eyebrow{
+    display:inline-flex;align-items:center;gap:0.6rem;
+    background:rgba(200,169,110,0.12);border:1px solid rgba(200,169,110,0.25);
+    color:var(--gold);padding:0.4rem 1.1rem;border-radius:2rem;
+    font-size:0.76rem;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:2rem;
+  }
+  .hero-eyebrow::before{content:'';width:6px;height:6px;background:var(--gold);border-radius:50%;animation:pulse 2s infinite;}
+  @keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.3;}}
+  .port-hero h1{
+    font-family:'Playfair Display',serif;
+    font-size:clamp(3rem,7vw,6.5rem);font-weight:900;
+    color:var(--cream);line-height:0.95;margin-bottom:1.5rem;
+  }
+  .port-hero h1 .line2{display:block;font-style:italic;color:var(--leaf);}
+  .port-hero h1 .line3{display:block;color:var(--gold);font-size:0.65em;}
+  .port-hero p{font-size:1.05rem;color:rgba(245,240,232,0.55);line-height:1.8;max-width:480px;font-weight:300;margin-bottom:2.5rem;}
+  .hero-actions{display:flex;gap:1rem;flex-wrap:wrap;}
+  .btn-gold{background:var(--gold);color:var(--forest);padding:0.9rem 2.2rem;border-radius:3rem;font-weight:500;text-decoration:none;font-size:0.95rem;transition:all 0.3s;box-shadow:0 0 40px rgba(200,169,110,0.25);}
+  .btn-gold:hover{transform:translateY(-2px);box-shadow:0 0 60px rgba(200,169,110,0.4);}
+  .btn-ghost{border:1.5px solid rgba(245,240,232,0.25);color:var(--cream);padding:0.9rem 2.2rem;border-radius:3rem;font-weight:400;text-decoration:none;font-size:0.95rem;transition:all 0.3s;}
+  .btn-ghost:hover{border-color:var(--leaf);color:var(--leaf);}
+
+  /* Hero numbers */
+  .hero-numbers{
+    position:absolute;bottom:3rem;left:4rem;right:4rem;z-index:2;
+    display:flex;gap:0;
+    border-top:1px solid rgba(122,182,72,0.1);padding-top:2rem;
+  }
+  .hnum{flex:1;padding-right:2rem;border-right:1px solid rgba(122,182,72,0.1);}
+  .hnum:last-child{border-right:none;padding-left:2rem;padding-right:0;}
+  .hnum-val{font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:900;color:var(--leaf);line-height:1;}
+  .hnum-label{font-size:0.72rem;color:rgba(245,240,232,0.35);text-transform:uppercase;letter-spacing:0.1em;margin-top:0.3rem;}
+
+  /* ── SECTION STYLES ── */
+  .section-wrap{padding:6rem 4rem;}
+  .section-wrap.dark{background:var(--forest);}
+  .section-wrap.mid{background:var(--moss);}
+  .section-wrap.light{background:var(--cream);}
+  .section-wrap.mist{background:var(--mist);}
+  .sec-label{font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--sage);margin-bottom:0.8rem;display:flex;align-items:center;gap:0.8rem;}
+  .sec-label::before{content:'';width:25px;height:1px;background:var(--leaf);display:block;flex-shrink:0;}
+  .sec-label.light-label{color:var(--leaf);}
+  .sec-label.light-label::before{background:var(--leaf);}
+  .sec-title{font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3.2rem);font-weight:900;line-height:1.1;margin-bottom:0.5rem;}
+  .sec-sub{font-size:1rem;color:var(--sage);font-weight:300;margin-bottom:3rem;max-width:600px;line-height:1.7;}
+  .sec-title.light{color:var(--cream);}
+  .sec-sub.light{color:rgba(245,240,232,0.5);}
+
+  /* ── FEATURED PROJECTS ── */
+  .projects-list{display:flex;flex-direction:column;gap:5rem;}
+  .project-item{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;}
+  .project-item.reverse{direction:rtl;}
+  .project-item.reverse > *{direction:ltr;}
+  .project-visual{border-radius:1.8rem;overflow:hidden;position:relative;}
+  .project-visual svg{display:block;width:100%;}
+  .project-badge{
+    position:absolute;top:1.2rem;left:1.2rem;
+    background:rgba(13,40,24,0.85);backdrop-filter:blur(8px);
+    border:1px solid rgba(122,182,72,0.2);
+    color:var(--leaf);font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;
+    padding:0.35rem 0.9rem;border-radius:1rem;
+  }
+  .project-year{
+    position:absolute;bottom:1.2rem;right:1.2rem;
+    background:var(--gold);color:var(--forest);
+    font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;
+    padding:0.5rem 1rem;border-radius:0.6rem;
+  }
+  .project-num{
+    font-family:'Playfair Display',serif;font-size:5rem;font-weight:900;
+    color:rgba(122,182,72,0.08);line-height:1;margin-bottom:-1rem;
+  }
+  .project-title{font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:900;color:var(--forest);margin-bottom:0.5rem;line-height:1.2;}
+  .project-location{font-size:0.8rem;color:var(--sage);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem;}
+  .project-location::before{content:'📍';font-size:0.9rem;}
+  .project-desc{font-size:0.95rem;color:#3a5040;line-height:1.8;font-weight:300;margin-bottom:1.5rem;}
+  .project-tags{display:flex;gap:0.6rem;flex-wrap:wrap;margin-bottom:1.5rem;}
+  .tag{background:var(--mist);color:var(--sage);font-size:0.72rem;padding:0.25rem 0.8rem;border-radius:1rem;letter-spacing:0.05em;}
+  .project-stats{display:flex;gap:2rem;}
+  .pstat-val{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;color:var(--forest);line-height:1;}
+  .pstat-label{font-size:0.72rem;color:var(--sage);margin-top:0.2rem;text-transform:uppercase;letter-spacing:0.06em;}
+
+  /* ── BEFORE / AFTER ── */
+  .ba-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:1rem;}
+  .ba-card{border-radius:1.5rem;overflow:hidden;background:var(--forest);}
+  .ba-panels{display:grid;grid-template-columns:1fr 1fr;}
+  .ba-panel{position:relative;}
+  .ba-panel svg{display:block;width:100%;}
+  .ba-label{
+    position:absolute;bottom:0;left:0;right:0;
+    padding:0.5rem;text-align:center;font-size:0.7rem;font-weight:500;
+    letter-spacing:0.08em;text-transform:uppercase;
+  }
+  .ba-label.before{background:rgba(92,61,30,0.9);color:#d4a574;}
+  .ba-label.after{background:rgba(122,182,72,0.9);color:var(--forest);}
+  .ba-divider{width:3px;background:var(--gold);position:relative;z-index:2;}
+  .ba-info{padding:1.2rem 1.4rem;}
+  .ba-info h4{font-family:'Playfair Display',serif;font-size:1rem;color:var(--cream);margin-bottom:0.3rem;}
+  .ba-info p{font-size:0.78rem;color:rgba(245,240,232,0.45);line-height:1.5;}
+  .ba-result{display:inline-block;background:rgba(122,182,72,0.15);color:var(--leaf);font-size:0.7rem;padding:0.2rem 0.7rem;border-radius:1rem;margin-top:0.5rem;letter-spacing:0.05em;}
+
+  /* ── ESTATES ── */
+  .estates-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem;}
+  .estate-card{
+    border-radius:1.8rem;overflow:hidden;position:relative;
+    cursor:pointer;transition:transform 0.4s,box-shadow 0.4s;
+  }
+  .estate-card:hover{transform:scale(1.02);box-shadow:0 25px 60px rgba(13,40,24,0.25);}
+  .estate-card svg{display:block;width:100%;}
+  .estate-overlay{
+    position:absolute;inset:0;
+    background:linear-gradient(to top, rgba(13,40,24,0.97) 0%, rgba(13,40,24,0.4) 50%, transparent 100%);
+    display:flex;flex-direction:column;justify-content:flex-end;padding:2rem;
+  }
+  .estate-cat{font-size:0.7rem;color:var(--leaf);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.5rem;}
+  .estate-name{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:900;color:var(--cream);line-height:1.1;margin-bottom:0.5rem;}
+  .estate-loc{font-size:0.8rem;color:rgba(245,240,232,0.5);margin-bottom:1rem;}
+  .estate-meta{display:flex;gap:1.5rem;}
+  .emeta{font-size:0.75rem;color:rgba(245,240,232,0.6);}
+  .emeta strong{color:var(--leaf);display:block;font-size:1rem;font-family:'Playfair Display',serif;}
+
+  /* ── AWARDS ── */
+  .awards-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;}
+  .award-card{
+    background:rgba(255,255,255,0.04);border:1px solid rgba(200,169,110,0.15);
+    border-radius:1.5rem;padding:2.2rem;text-align:center;
+    transition:all 0.4s;position:relative;overflow:hidden;
+  }
+  .award-card::before{
+    content:'';position:absolute;top:-50%;left:-50%;
+    width:200%;height:200%;
+    background:radial-gradient(circle at center,rgba(200,169,110,0.05) 0%,transparent 60%);
+    opacity:0;transition:opacity 0.4s;
+  }
+  .award-card:hover{border-color:rgba(200,169,110,0.4);transform:translateY(-4px);}
+  .award-card:hover::before{opacity:1;}
+  .award-icon{margin-bottom:1.5rem;}
+  .award-year{font-size:0.72rem;color:var(--gold);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.5rem;}
+  .award-title{font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--cream);font-weight:700;margin-bottom:0.6rem;}
+  .award-body{font-size:0.82rem;color:rgba(245,240,232,0.4);line-height:1.6;}
+  .award-org{font-size:0.72rem;color:rgba(200,169,110,0.5);margin-top:0.8rem;text-transform:uppercase;letter-spacing:0.06em;}
+
+  /* ── TESTIMONIALS ── */
+  .testi-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;}
+  .testi-card{
+    background:rgba(255,255,255,0.05);border:1px solid rgba(122,182,72,0.12);
+    border-radius:1.5rem;padding:2rem;position:relative;transition:all 0.4s;
+  }
+  .testi-card:hover{border-color:rgba(122,182,72,0.3);transform:translateY(-3px);}
+  .testi-quote{
+    font-size:4rem;font-family:'Playfair Display',serif;
+    color:rgba(122,182,72,0.15);line-height:1;margin-bottom:-0.5rem;
+  }
+  .testi-text{font-size:0.95rem;color:rgba(245,240,232,0.7);line-height:1.75;font-style:italic;font-weight:300;margin-bottom:1.5rem;}
+  .testi-author{display:flex;align-items:center;gap:1rem;}
+  .testi-avatar{
+    width:44px;height:44px;border-radius:50%;
+    background:linear-gradient(135deg,#1a4a2e,#4a7c59);
+    display:flex;align-items:center;justify-content:center;flex-shrink:0;
+    font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--leaf);font-weight:700;
+  }
+  .testi-name{font-weight:500;color:var(--cream);font-size:0.9rem;}
+  .testi-role{font-size:0.75rem;color:var(--sage);}
+  .testi-stars{color:var(--gold);font-size:0.8rem;margin-top:0.2rem;letter-spacing:0.1em;}
+
+  /* ── CTA ── */
+  .port-cta{
+    background:var(--forest);padding:7rem 4rem;
+    display:grid;grid-template-columns:1fr auto;gap:4rem;align-items:center;
+    position:relative;overflow:hidden;
+  }
+  .port-cta::before{
+    content:'';position:absolute;right:-5%;top:50%;transform:translateY(-50%);
+    width:500px;height:500px;border-radius:50%;
+    background:radial-gradient(circle,rgba(122,182,72,0.06) 0%,transparent 70%);
+  }
+  .port-cta h2{font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3.2rem);font-weight:900;color:var(--cream);margin-bottom:1rem;line-height:1.1;}
+  .port-cta p{color:rgba(245,240,232,0.5);font-weight:300;line-height:1.7;max-width:500px;}
+  .cta-box{flex-shrink:0;display:flex;flex-direction:column;gap:1rem;min-width:220px;}
+
+  /* ── REVEAL ── */
+  .reveal{opacity:0;transform:translateY(35px);transition:all 0.8s ease;}
+  .reveal.visible{opacity:1;transform:translateY(0);}
+  .reveal-left{opacity:0;transform:translateX(-35px);transition:all 0.8s ease;}
+  .reveal-left.visible{opacity:1;transform:translateX(0);}
+  .reveal-right{opacity:0;transform:translateX(35px);transition:all 0.8s ease;}
+  .reveal-right.visible{opacity:1;transform:translateX(0);}
+
+  /* ── FOOTER ── */
+  footer{background:#070f0a;padding:2rem 4rem;display:flex;align-items:center;justify-content:space-between;border-top:1px solid rgba(122,182,72,0.1);flex-wrap:wrap;gap:1rem;}
+  footer p{font-size:0.8rem;color:rgba(245,240,232,0.3);}
+  .footer-logo{font-family:'Playfair Display',serif;font-size:1rem;color:rgba(245,240,232,0.4);}
+
+  /* ── WHATSAPP ── */
+  #waBtn{position:fixed;bottom:2rem;right:2rem;z-index:9998;background:#25D366;width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(37,211,102,0.5);text-decoration:none;animation:waPulse 2.5s ease-in-out infinite;}
+  @keyframes waPulse{0%,100%{box-shadow:0 4px 20px rgba(37,211,102,0.5);transform:scale(1);}50%{box-shadow:0 4px 40px rgba(37,211,102,0.8);transform:scale(1.08);}}
+
+  /* ── MOBILE ── */
+  @media(max-width:900px){
+    .project-item{grid-template-columns:1fr;gap:2rem;}
+    .project-item.reverse{direction:ltr;}
+    .estates-grid{grid-template-columns:1fr;}
+    .awards-grid{grid-template-columns:1fr 1fr;}
+    .testi-grid{grid-template-columns:1fr;}
+    .ba-grid{grid-template-columns:1fr;}
+    .port-cta{grid-template-columns:1fr;gap:2rem;}
+    .hero-numbers{flex-wrap:wrap;gap:1.5rem;}
+    .hnum{border-right:none;padding:0;}
+  }
+  @media(max-width:768px){
+    nav{padding:1.2rem 1.5rem;}
+    .nav-links{display:none;}
+    .section-wrap{padding:4rem 1.5rem;}
+    .port-hero-content{padding:0 1.5rem;}
+    .hero-numbers{left:1.5rem;right:1.5rem;bottom:2rem;}
+    .awards-grid{grid-template-columns:1fr;}
+    .port-cta{padding:4rem 1.5rem;}
+    footer{flex-direction:column;text-align:center;padding:2rem 1.5rem;}
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">
+    <svg width="26" height="26" viewBox="0 0 28 28" fill="none">
+      <path d="M14 2C14 2 7 8 7 15C7 19.4 10.1 23 14 23C17.9 23 21 19.4 21 15C21 8 14 2 14 2Z" fill="#7ab648"/>
+      <path d="M14 8C14 8 9 13 9 17.5C9 20 11.2 22 14 22C16.8 22 19 20 19 17.5C19 13 14 8 14 8Z" fill="#4a7c59"/>
+      <line x1="14" y1="22" x2="14" y2="26" stroke="#5c3d1e" stroke-width="2" stroke-linecap="round"/>
+    </svg>
+    Elite Tree Solutions
+  </a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="about.html">About</a>
+    <a href="portfolio.html" class="active">Portfolio</a>
+    <a href="blog.html">Blog</a>
+    <a href="faq.html">FAQ</a>
+    <a href="index.html#contact" class="nav-cta">Get a Quote</a>
+  </div>
+</nav>
+
+<!-- ═══ HERO ═══ -->
+<section class="port-hero">
+  <div class="hero-ring"></div>
+  <div class="port-hero-content">
+    <div class="hero-eyebrow">Owner Portfolio</div>
+    <h1>
+      Two Decades of
+      <span class="line2">Transforming</span>
+      <span class="line3">Uganda's Landscapes</span>
+    </h1>
+    <p>Every project tells a story of vision, patience, and craft. Explore 20 years of landmark work by Kakuye Hitler Musajja and the Elite Tree Solutions team.</p>
+    <div class="hero-actions">
+      <a href="#projects" class="btn-gold">View Projects</a>
+      <a href="#awards" class="btn-ghost">See Awards</a>
+    </div>
+  </div>
+  <div class="hero-numbers">
+    <div class="hnum">
+      <div class="hnum-val">47</div>
+      <div class="hnum-label">Major Projects</div>
+    </div>
+    <div class="hnum">
+      <div class="hnum-val">12</div>
+      <div class="hnum-label">Districts Served</div>
+    </div>
+    <div class="hnum">
+      <div class="hnum-val">8,400+</div>
+      <div class="hnum-label">Trees Planted</div>
+    </div>
+    <div class="hnum">
+      <div class="hnum-val">100%</div>
+      <div class="hnum-label">Client Satisfaction</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FEATURED PROJECTS ═══ -->
+<div class="section-wrap light" id="projects">
+  <div class="sec-label">Signature Work</div>
+  <h2 class="sec-title">Landmark Projects</h2>
+  <p class="sec-sub">From private estates to public green corridors — each project is a testament to what Uganda's landscapes can become.</p>
+
+  <div class="projects-list">
+
+    <!-- PROJECT 1 -->
+    <div class="project-item reveal">
+      <div class="project-visual">
+        <svg viewBox="0 0 560 380" fill="none">
+          <rect width="560" height="380" fill="#0a1f0a"/>
+          <!-- Sky -->
+          <rect width="560" height="220" fill="#0d1f12"/>
+          <!-- Sunrise glow -->
+          <ellipse cx="280" cy="220" rx="280" ry="80" fill="#c8572a" opacity="0.12"/>
+          <ellipse cx="280" cy="220" rx="200" ry="50" fill="#e8803a" opacity="0.08"/>
+          <!-- Grand avenue of trees -->
+          <!-- Left row -->
+          <path d="M28 375 C26 335 24 305 26 280 C28 255 35 240 35 240 C35 240 42 255 44 280 C46 305 44 335 42 375Z" fill="#5c3a14"/>
+          <ellipse cx="35" cy="275" rx="38" ry="32" fill="#1a4a1a"/>
+          <ellipse cx="35" cy="250" rx="30" ry="26" fill="#2d6a20"/>
+          <ellipse cx="35" cy="228" rx="22" ry="20" fill="#1a4a1a"/>
+          <ellipse cx="35" cy="210" rx="15" ry="15" fill="#3a7a28"/>
+
+          <path d="M88 375 C86 330 84 296 86 268 C88 240 96 223 96 223 C96 223 104 240 106 268 C108 296 106 330 104 375Z" fill="#5c3a14"/>
+          <ellipse cx="96" cy="262" rx="44" ry="37" fill="#1a4a1a"/>
+          <ellipse cx="96" cy="234" rx="35" ry="30" fill="#2d6a20"/>
+          <ellipse cx="96" cy="210" rx="26" ry="23" fill="#1a4a1a"/>
+          <ellipse cx="96" cy="190" rx="18" ry="17" fill="#3a7a28"/>
+
+          <path d="M158 375 C155 324 153 285 155 254 C157 223 166 204 166 204 C166 204 175 223 177 254 C179 285 177 324 174 375Z" fill="#5c3a14"/>
+          <ellipse cx="166" cy="248" rx="50" ry="43" fill="#1a4a1a"/>
+          <ellipse cx="166" cy="216" rx="40" ry="35" fill="#2d6a20"/>
+          <ellipse cx="166" cy="188" rx="30" ry="27" fill="#1a4a1a"/>
+          <ellipse cx="166" cy="165" rx="20" ry="19" fill="#3a7a28"/>
+          <ellipse cx="166" cy="148" rx="13" ry="13" fill="#4a8a34"/>
+
+          <!-- Right row (mirror) -->
+          <path d="M532 375 C534 335 536 305 534 280 C532 255 525 240 525 240 C525 240 518 255 516 280 C514 305 516 335 518 375Z" fill="#5c3a14"/>
+          <ellipse cx="525" cy="275" rx="38" ry="32" fill="#1a4a1a"/>
+          <ellipse cx="525" cy="250" rx="30" ry="26" fill="#2d6a20"/>
+          <ellipse cx="525" cy="228" rx="22" ry="20" fill="#1a4a1a"/>
+          <ellipse cx="525" cy="210" rx="15" ry="15" fill="#3a7a28"/>
+
+          <path d="M472 375 C474 330 476 296 474 268 C472 240 464 223 464 223 C464 223 456 240 454 268 C452 296 454 330 456 375Z" fill="#5c3a14"/>
+          <ellipse cx="464" cy="262" rx="44" ry="37" fill="#1a4a1a"/>
+          <ellipse cx="464" cy="234" rx="35" ry="30" fill="#2d6a20"/>
+          <ellipse cx="464" cy="210" rx="26" ry="23" fill="#1a4a1a"/>
+          <ellipse cx="464" cy="190" rx="18" ry="17" fill="#3a7a28"/>
+
+          <path d="M402 375 C405 324 407 285 405 254 C403 223 394 204 394 204 C394 204 385 223 383 254 C381 285 383 324 386 375Z" fill="#5c3a14"/>
+          <ellipse cx="394" cy="248" rx="50" ry="43" fill="#1a4a1a"/>
+          <ellipse cx="394" cy="216" rx="40" ry="35" fill="#2d6a20"/>
+          <ellipse cx="394" cy="188" rx="30" ry="27" fill="#1a4a1a"/>
+          <ellipse cx="394" cy="165" rx="20" ry="19" fill="#3a7a28"/>
+          <ellipse cx="394" cy="148" rx="13" ry="13" fill="#4a8a34"/>
+
+          <!-- Central path -->
+          <path d="M240 375 L255 220 L280 200 L305 220 L320 375Z" fill="#c8a96e" opacity="0.25"/>
+          <path d="M258 375 L268 240 L280 230 L292 240 L302 375Z" fill="#c8a96e" opacity="0.3"/>
+          <!-- Ground -->
+          <rect y="340" width="560" height="40" fill="#1a3a12" opacity="0.8"/>
+          <!-- Light rays -->
+          <path d="M280 220 L180 375" stroke="#c8a96e" stroke-width="1" opacity="0.04"/>
+          <path d="M280 220 L380 375" stroke="#c8a96e" stroke-width="1" opacity="0.04"/>
+          <path d="M280 220 L80 375" stroke="#c8a96e" stroke-width="0.8" opacity="0.03"/>
+        </svg>
+        <span class="project-badge">Landscaping</span>
+        <span class="project-year">2022</span>
+      </div>
+      <div class="project-info">
+        <div class="project-num">01</div>
+        <h3 class="project-title">Nakasero Royal Avenue</h3>
+        <div class="project-location">Nakasero Hill, Kampala, Uganda</div>
+        <p class="project-desc">A landmark urban greening commission spanning 1.2 kilometres of Kampala's most prestigious boulevard. We planted 86 mature avenue trees — a mix of Ficus benjamina and African Tulip — creating a breathtaking canopied corridor that has transformed the character of the entire neighbourhood.</p>
+        <div class="project-tags">
+          <span class="tag">Avenue Planting</span>
+          <span class="tag">86 Trees</span>
+          <span class="tag">Urban Greening</span>
+          <span class="tag">Kampala</span>
+        </div>
+        <div class="project-stats">
+          <div>
+            <div class="pstat-val">1.2km</div>
+            <div class="pstat-label">Boulevard Length</div>
+          </div>
+          <div>
+            <div class="pstat-val">86</div>
+            <div class="pstat-label">Trees Planted</div>
+          </div>
+          <div>
+            <div class="pstat-val">100%</div>
+            <div class="pstat-label">Survival Rate</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROJECT 2 -->
+    <div class="project-item reverse reveal">
+      <div class="project-visual">
+        <svg viewBox="0 0 560 380" fill="none">
+          <rect width="560" height="380" fill="#0a1a0e"/>
+          <!-- Estate grounds - aerial feel -->
+          <rect width="560" height="380" fill="url(#estateGrad)"/>
+          <defs>
+            <linearGradient id="estateGrad" x1="0" y1="0" x2="560" y2="380">
+              <stop offset="0%" stop-color="#0d2818"/>
+              <stop offset="100%" stop-color="#1a4a2e"/>
+            </linearGradient>
+          </defs>
+          <!-- Large estate home silhouette -->
+          <rect x="175" y="200" width="210" height="130" rx="4" fill="#1a2818"/>
+          <path d="M160 200 L280 140 L400 200Z" fill="#0d1f0d"/>
+          <rect x="240" y="255" width="40" height="75" rx="2" fill="#0d1f0d"/>
+          <!-- Windows glow -->
+          <rect x="190" y="215" width="25" height="20" rx="2" fill="#c8a96e" opacity="0.4"/>
+          <rect x="225" y="215" width="25" height="20" rx="2" fill="#c8a96e" opacity="0.3"/>
+          <rect x="310" y="215" width="25" height="20" rx="2" fill="#c8a96e" opacity="0.4"/>
+          <rect x="345" y="215" width="25" height="20" rx="2" fill="#c8a96e" opacity="0.3"/>
+          <!-- Garden boundary trees -->
+          <ellipse cx="60" cy="260" rx="55" ry="48" fill="#1a4a1a" opacity="0.9"/>
+          <ellipse cx="60" cy="235" rx="44" ry="38" fill="#2a6020"/>
+          <ellipse cx="60" cy="213" rx="32" ry="28" fill="#3a7028"/>
+          <path d="M57 305 C55 280 54 262 56 248 C58 235 60 228 60 228 L64 248 C66 262 65 280 63 305Z" fill="#5c3a14"/>
+
+          <ellipse cx="500" cy="255" rx="55" ry="48" fill="#1a4a1a" opacity="0.9"/>
+          <ellipse cx="500" cy="230" rx="44" ry="38" fill="#2a6020"/>
+          <ellipse cx="500" cy="208" rx="32" ry="28" fill="#3a7028"/>
+          <path d="M497 300 C495 275 494 257 496 243 C498 230 500 223 500 223 L504 243 C506 257 505 275 503 300Z" fill="#5c3a14"/>
+
+          <!-- Formal garden hedges -->
+          <rect x="170" y="330" width="220" height="18" rx="4" fill="#2d6a20"/>
+          <rect x="170" y="310" width="95" height="18" rx="4" fill="#2d6a20"/>
+          <rect x="295" y="310" width="95" height="18" rx="4" fill="#2d6a20"/>
+          <!-- Hedge topiary balls -->
+          <circle cx="205" cy="305" r="12" fill="#3a7a28"/>
+          <circle cx="245" cy="305" r="10" fill="#2d6a20"/>
+          <circle cx="315" cy="305" r="10" fill="#2d6a20"/>
+          <circle cx="355" cy="305" r="12" fill="#3a7a28"/>
+          <!-- Driveway -->
+          <path d="M265 330 L240 380 L320 380 L295 330Z" fill="#8b7355" opacity="0.4"/>
+          <!-- Stars/night -->
+          <circle cx="50" cy="30" r="1.5" fill="white" opacity="0.5"/>
+          <circle cx="120" cy="15" r="1" fill="white" opacity="0.4"/>
+          <circle cx="450" cy="25" r="1.5" fill="white" opacity="0.5"/>
+          <circle cx="520" cy="45" r="1" fill="white" opacity="0.3"/>
+          <!-- Moon -->
+          <circle cx="490" cy="50" r="20" fill="#c8a96e" opacity="0.2"/>
+          <circle cx="498" cy="44" r="16" fill="#0a1a0e"/>
+        </svg>
+        <span class="project-badge">Private Estate</span>
+        <span class="project-year">2020</span>
+      </div>
+      <div class="project-info">
+        <div class="project-num">02</div>
+        <h3 class="project-title">Munyonyo Lakeside Estate</h3>
+        <div class="project-location">Munyonyo, Kampala, Uganda</div>
+        <p class="project-desc">A complete landscape transformation of a 4-acre private estate on the shores of Lake Victoria. The commission included formal garden hedging, specimen tree planting, a flowering avenue approach, and a full irrigation system — delivered over 8 months to create one of Kampala's finest private gardens.</p>
+        <div class="project-tags">
+          <span class="tag">Private Estate</span>
+          <span class="tag">4 Acres</span>
+          <span class="tag">Lake Victoria</span>
+          <span class="tag">Full Design</span>
+        </div>
+        <div class="project-stats">
+          <div>
+            <div class="pstat-val">4ac</div>
+            <div class="pstat-label">Estate Size</div>
+          </div>
+          <div>
+            <div class="pstat-val">120+</div>
+            <div class="pstat-label">Trees & Shrubs</div>
+          </div>
+          <div>
+            <div class="pstat-val">8mo</div>
+            <div class="pstat-label">Project Duration</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROJECT 3 -->
+    <div class="project-item reveal">
+      <div class="project-visual">
+        <svg viewBox="0 0 560 380" fill="none">
+          <rect width="560" height="380" fill="#0d2010"/>
+          <!-- Reforestation hillside -->
+          <path d="M0 280 C80 240 160 220 280 230 C400 240 480 260 560 250 L560 380 L0 380Z" fill="#1a3a12"/>
+          <path d="M0 300 C100 270 200 258 280 265 C360 272 460 285 560 275 L560 380 L0 380Z" fill="#0d2810"/>
+          <!-- Sky with mist -->
+          <rect width="560" height="280" fill="#0d1a0d"/>
+          <ellipse cx="280" cy="270" rx="350" ry="60" fill="#e8f0e4" opacity="0.04"/>
+          <!-- Rows and rows of trees - reforestation -->
+          <!-- Row 1 far back -->
+          <path d="M30 230 L38 205 L46 230Z" fill="#1a3a12" opacity="0.7"/>
+          <path d="M55 228 L64 201 L73 228Z" fill="#2a4a18" opacity="0.7"/>
+          <path d="M80 232 L90 204 L100 232Z" fill="#1a3a12" opacity="0.7"/>
+          <path d="M108 229 L118 202 L128 229Z" fill="#2a4a18" opacity="0.7"/>
+          <path d="M135 231 L145 204 L155 231Z" fill="#1a3a12" opacity="0.7"/>
+          <path d="M162 228 L172 201 L182 228Z" fill="#2a4a18" opacity="0.7"/>
+          <path d="M190 230 L200 203 L210 230Z" fill="#1a3a12" opacity="0.7"/>
+          <path d="M218 229 L228 202 L238 229Z" fill="#2a4a18" opacity="0.7"/>
+          <path d="M245 231 L255 204 L265 231Z" fill="#1a3a12" opacity="0.7"/>
+          <path d="M272 228 L282 201 L292 228Z" fill="#2a4a18" opacity="0.7"/>
+          <path d="M300 230 L310 203 L320 230Z" fill="#1a3a12" opacity="0.7"/>
+          <path d="M328 229 L338 202 L348 229Z" fill="#2a4a18" opacity="0.7"/>
+          <path d="M356 231 L366 204 L376 231Z" fill="#1a3a12" opacity="0.7"/>
+          <path d="M384 228 L394 201 L404 228Z" fill="#2a4a18" opacity="0.7"/>
+          <path d="M412 230 L422 203 L432 230Z" fill="#1a3a12" opacity="0.7"/>
+          <path d="M440 229 L450 202 L460 229Z" fill="#2a4a18" opacity="0.7"/>
+          <path d="M468 231 L478 204 L488 231Z" fill="#1a3a12" opacity="0.7"/>
+          <path d="M495 228 L505 201 L515 228Z" fill="#2a4a18" opacity="0.7"/>
+          <path d="M523 230 L533 203 L543 230Z" fill="#1a3a12" opacity="0.7"/>
+          <!-- Row 2 mid -->
+          <path d="M15 258 L26 225 L37 258Z" fill="#2d5a1e"/>
+          <path d="M47 255 L59 220 L71 255Z" fill="#3a6a24"/>
+          <path d="M82 260 L95 223 L108 260Z" fill="#2d5a1e"/>
+          <path d="M120 257 L133 221 L146 257Z" fill="#3a6a24"/>
+          <path d="M158 259 L171 223 L184 259Z" fill="#2d5a1e"/>
+          <path d="M196 256 L209 220 L222 256Z" fill="#3a6a24"/>
+          <path d="M234 260 L247 223 L260 260Z" fill="#2d5a1e"/>
+          <path d="M272 257 L285 221 L298 257Z" fill="#3a6a24"/>
+          <path d="M310 259 L323 223 L336 259Z" fill="#2d5a1e"/>
+          <path d="M348 256 L361 220 L374 256Z" fill="#3a6a24"/>
+          <path d="M386 260 L399 223 L412 260Z" fill="#2d5a1e"/>
+          <path d="M424 257 L437 221 L450 257Z" fill="#3a6a24"/>
+          <path d="M462 259 L475 223 L488 259Z" fill="#2d5a1e"/>
+          <path d="M500 256 L513 220 L526 256Z" fill="#3a6a24"/>
+          <!-- Row 3 foreground -->
+          <path d="M0 290 L18 248 L36 290Z" fill="#3a7a24"/>
+          <path d="M44 288 L63 244 L82 288Z" fill="#4a8a2e"/>
+          <path d="M92 292 L112 246 L132 292Z" fill="#3a7a24"/>
+          <path d="M142 289 L162 244 L182 289Z" fill="#4a8a2e"/>
+          <path d="M192 291 L212 246 L232 291Z" fill="#3a7a24"/>
+          <path d="M242 288 L262 243 L282 288Z" fill="#4a8a2e"/>
+          <path d="M292 291 L312 246 L332 291Z" fill="#3a7a24"/>
+          <path d="M342 288 L362 243 L382 288Z" fill="#4a8a2e"/>
+          <path d="M392 291 L412 246 L432 291Z" fill="#3a7a24"/>
+          <path d="M442 288 L462 243 L482 288Z" fill="#4a8a2e"/>
+          <path d="M492 291 L512 246 L532 291Z" fill="#3a7a24"/>
+          <!-- Label -->
+          <rect x="10" y="12" width="190" height="30" rx="15" fill="rgba(122,182,72,0.12)" stroke="rgba(122,182,72,0.3)" stroke-width="1"/>
+          <text x="22" y="32" font-family="sans-serif" font-size="12" fill="#7ab648">Reforestation · 2,000 Trees</text>
+        </svg>
+        <span class="project-badge">Reforestation</span>
+        <span class="project-year">2021</span>
+      </div>
+      <div class="project-info">
+        <div class="project-num">03</div>
+        <h3 class="project-title">Mabira Forest Restoration</h3>
+        <div class="project-location">Mabira, Buikwe District, Uganda</div>
+        <p class="project-desc">Partnering with the Uganda Forestry Authority and a European conservation NGO, we delivered the largest single reforestation commission in our history — planting 2,000 indigenous trees across 18 hectares of degraded Mabira Forest buffer zone. Species selection prioritised biodiversity, and survival rates exceeded all targets at 94%.</p>
+        <div class="project-tags">
+          <span class="tag">Reforestation</span>
+          <span class="tag">Indigenous Species</span>
+          <span class="tag">18 Hectares</span>
+          <span class="tag">NGO Partnership</span>
+        </div>
+        <div class="project-stats">
+          <div>
+            <div class="pstat-val">2,000</div>
+            <div class="pstat-label">Trees Planted</div>
+          </div>
+          <div>
+            <div class="pstat-val">18ha</div>
+            <div class="pstat-label">Area Restored</div>
+          </div>
+          <div>
+            <div class="pstat-val">94%</div>
+            <div class="pstat-label">Survival Rate</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══ BEFORE & AFTER ═══ -->
+<div class="section-wrap dark" id="beforeafter">
+  <div class="sec-label light-label">Transformations</div>
+  <h2 class="sec-title light">Before &amp; After</h2>
+  <p class="sec-sub light">The proof is in the transformation. See how barren spaces become thriving landscapes under our care.</p>
+
+  <div class="ba-grid">
+
+    <!-- BA 1 -->
+    <div class="ba-card reveal">
+      <div style="display:flex;">
+        <div class="ba-panel" style="flex:1;position:relative;">
+          <svg viewBox="0 0 200 160" fill="none" width="100%">
+            <rect width="200" height="160" fill="#8b7355"/>
+            <rect y="100" width="200" height="60" fill="#6b5535"/>
+            <!-- Dry cracked ground -->
+            <path d="M20 120 L35 115 L50 122 L65 118 L80 124" stroke="#7a6030" stroke-width="1.5" fill="none"/>
+            <path d="M100 118 L120 114 L140 120 L160 115 L180 121" stroke="#7a6030" stroke-width="1.5" fill="none"/>
+            <!-- Dry stick/dead tree -->
+            <path d="M95 100 C94 80 93 60 95 40" stroke="#8b6914" stroke-width="3" stroke-linecap="round" fill="none"/>
+            <path d="M95 70 C85 60 78 55 72 53" stroke="#8b6914" stroke-width="2" stroke-linecap="round" fill="none"/>
+            <path d="M95 60 C105 50 110 44 115 42" stroke="#8b6914" stroke-width="2" stroke-linecap="round" fill="none"/>
+            <!-- Harsh sun -->
+            <circle cx="160" cy="30" r="18" fill="#e8a030" opacity="0.6"/>
+            <path d="M160 8 L160 2" stroke="#e8a030" stroke-width="1.5"/>
+            <path d="M178 30 L184 30" stroke="#e8a030" stroke-width="1.5"/>
+            <path d="M174 14 L178 10" stroke="#e8a030" stroke-width="1.5"/>
+          </svg>
+          <div class="ba-label before">BEFORE</div>
+        </div>
+        <div class="ba-divider"></div>
+        <div class="ba-panel" style="flex:1;position:relative;">
+          <svg viewBox="0 0 200 160" fill="none" width="100%">
+            <rect width="200" height="160" fill="#1a3a12"/>
+            <rect y="110" width="200" height="50" fill="#1a4a1a"/>
+            <path d="M96 155 C94 130 92 110 94 94 C96 78 100 70 100 70 C100 70 104 78 106 94 C108 110 106 130 104 155Z" fill="#5c3a14"/>
+            <ellipse cx="100" cy="100" rx="52" ry="44" fill="#1a5c12"/>
+            <ellipse cx="100" cy="76" rx="40" ry="35" fill="#2d7a1e"/>
+            <ellipse cx="100" cy="56" rx="28" ry="26" fill="#1a5c12"/>
+            <ellipse cx="100" cy="40" rx="18" ry="18" fill="#3a8a24"/>
+            <!-- Fruits -->
+            <circle cx="82" cy="92" r="5" fill="#f4a128" opacity="0.9"/>
+            <circle cx="118" cy="88" r="4" fill="#e8902a"/>
+            <circle cx="100" cy="104" r="6" fill="#f4a128"/>
+            <!-- Green ground -->
+            <ellipse cx="60" cy="140" rx="30" ry="10" fill="#3a7a24" opacity="0.5"/>
+            <ellipse cx="150" cy="138" rx="28" ry="9" fill="#2d6a20" opacity="0.4"/>
+          </svg>
+          <div class="ba-label after">AFTER</div>
+        </div>
+      </div>
+      <div class="ba-info">
+        <h4>Residential Garden — Jinja</h4>
+        <p>Bare, sun-baked compound transformed into a shaded fruit garden with mature mango and guava trees.</p>
+        <span class="ba-result">↑ 18 months · 12 trees planted</span>
+      </div>
+    </div>
+
+    <!-- BA 2 -->
+    <div class="ba-card reveal">
+      <div style="display:flex;">
+        <div class="ba-panel" style="flex:1;position:relative;">
+          <svg viewBox="0 0 200 160" fill="none" width="100%">
+            <rect width="200" height="160" fill="#4a3a28"/>
+            <rect y="100" width="200" height="60" fill="#3a2a18"/>
+            <!-- Eroded hillside -->
+            <path d="M0 100 C30 85 60 90 90 80 C120 70 150 78 180 72 L200 75 L200 100Z" fill="#5a4a30"/>
+            <path d="M0 115 C40 100 80 108 120 98 C155 90 180 102 200 95 L200 115Z" fill="#4a3a20"/>
+            <!-- Erosion channels -->
+            <path d="M40 100 L55 160" stroke="#3a2810" stroke-width="3" opacity="0.6"/>
+            <path d="M110 90 L125 160" stroke="#3a2810" stroke-width="2.5" opacity="0.5"/>
+            <path d="M165 88 L178 160" stroke="#3a2810" stroke-width="2" opacity="0.4"/>
+            <!-- Few dead stumps -->
+            <rect x="78" y="85" width="6" height="15" rx="2" fill="#5c3a14" opacity="0.7"/>
+            <rect x="140" y="82" width="5" height="12" rx="2" fill="#5c3a14" opacity="0.6"/>
+          </svg>
+          <div class="ba-label before">BEFORE</div>
+        </div>
+        <div class="ba-divider"></div>
+        <div class="ba-panel" style="flex:1;position:relative;">
+          <svg viewBox="0 0 200 160" fill="none" width="100%">
+            <rect width="200" height="160" fill="#0d2010"/>
+            <path d="M0 100 C30 85 60 88 90 78 C120 68 150 76 180 70 L200 73 L200 160 L0 160Z" fill="#1a4a1a"/>
+            <!-- Dense hillside vegetation -->
+            <path d="M20 100 L32 72 L44 100Z" fill="#2d6a20"/>
+            <path d="M50 96 L63 65 L76 96Z" fill="#3a7a28"/>
+            <path d="M82 98 L96 64 L110 98Z" fill="#2d6a20"/>
+            <path d="M116 95 L130 62 L144 95Z" fill="#3a7a28"/>
+            <path d="M150 97 L164 65 L178 97Z" fill="#2d6a20"/>
+            <!-- Ground cover -->
+            <ellipse cx="35" cy="130" rx="22" ry="8" fill="#3a7a24" opacity="0.6"/>
+            <ellipse cx="100" cy="128" rx="25" ry="9" fill="#2d6a20" opacity="0.5"/>
+            <ellipse cx="165" cy="130" rx="22" ry="8" fill="#3a7a24" opacity="0.6"/>
+          </svg>
+          <div class="ba-label after">AFTER</div>
+        </div>
+      </div>
+      <div class="ba-info">
+        <h4>Hillside Erosion Control — Mbale</h4>
+        <p>Severely eroded slope stabilised with deep-rooted indigenous species. Erosion eliminated within 2 seasons.</p>
+        <span class="ba-result">↑ 2 years · 340 trees planted</span>
+      </div>
+    </div>
+
+    <!-- BA 3 -->
+    <div class="ba-card reveal">
+      <div style="display:flex;">
+        <div class="ba-panel" style="flex:1;position:relative;">
+          <svg viewBox="0 0 200 160" fill="none" width="100%">
+            <rect width="200" height="160" fill="#2a3a2a"/>
+            <!-- Plain grass compound -->
+            <rect y="100" width="200" height="60" fill="#3a4a2a"/>
+            <rect x="60" y="60" width="80" height="65" rx="3" fill="#2a3020"/>
+            <path d="M50 60 L100 28 L150 60Z" fill="#1a2818"/>
+            <!-- Plain, no trees -->
+            <rect x="85" y="95" width="20" height="30" rx="1" fill="#1a2010"/>
+            <rect x="75" y="70" width="15" height="12" rx="1" fill="#223020" opacity="0.6"/>
+            <rect x="115" y="72" width="14" height="11" rx="1" fill="#223020" opacity="0.6"/>
+            <!-- Bare, dusty ground -->
+            <ellipse cx="30" cy="140" rx="20" ry="6" fill="#3a4020" opacity="0.4"/>
+            <ellipse cx="170" cy="138" rx="18" ry="5" fill="#3a4020" opacity="0.3"/>
+          </svg>
+          <div class="ba-label before">BEFORE</div>
+        </div>
+        <div class="ba-divider"></div>
+        <div class="ba-panel" style="flex:1;position:relative;">
+          <svg viewBox="0 0 200 160" fill="none" width="100%">
+            <rect width="200" height="160" fill="#0d2010"/>
+            <rect y="105" width="200" height="55" fill="#1a3a12"/>
+            <!-- House with trees -->
+            <rect x="65" y="65" width="70" height="60" rx="3" fill="#1a2818"/>
+            <path d="M55 65 L100 35 L145 65Z" fill="#0d1f0d"/>
+            <rect x="87" y="95" width="16" height="28" rx="1" fill="#0d1808"/>
+            <!-- Left tree -->
+            <path d="M25 155 C23 130 22 112 23 98 C24 84 28 76 28 76 C28 76 32 84 33 98 C34 112 33 130 31 155Z" fill="#5c3a14"/>
+            <ellipse cx="28" cy="94" rx="32" ry="28" fill="#1a4a1a"/>
+            <ellipse cx="28" cy="74" rx="25" ry="22" fill="#2d6a20"/>
+            <ellipse cx="28" cy="57" rx="18" ry="17" fill="#3a7a28"/>
+            <!-- Right purple tree -->
+            <path d="M169 155 C167 130 166 112 167 98 C168 84 172 76 172 76 C172 76 176 84 177 98 C178 112 177 130 175 155Z" fill="#5c3a14"/>
+            <ellipse cx="172" cy="90" rx="30" ry="26" fill="#4a1a7a" opacity="0.8"/>
+            <ellipse cx="172" cy="70" rx="24" ry="21" fill="#5a2090" opacity="0.9"/>
+            <ellipse cx="172" cy="52" rx="17" ry="16" fill="#4a1a7a"/>
+            <circle cx="160" cy="78" r="5" fill="#c880f0" opacity="0.7"/>
+            <circle cx="184" cy="72" r="4" fill="#9b59d0" opacity="0.8"/>
+          </svg>
+          <div class="ba-label after">AFTER</div>
+        </div>
+      </div>
+      <div class="ba-info">
+        <h4>School Compound — Entebbe</h4>
+        <p>A bare school compound given full shade coverage and beauty with indigenous fig and jacaranda planting.</p>
+        <span class="ba-result">↑ 3 years · 28 trees planted</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══ CLIENT ESTATES ═══ -->
+<div class="section-wrap mist" id="estates">
+  <div class="sec-label">Prestigious Commissions</div>
+  <h2 class="sec-title">Client Estates &amp; Properties</h2>
+  <p class="sec-sub">Trusted by Uganda's most discerning landowners, developers, and institutions.</p>
+
+  <div class="estates-grid reveal">
+
+    <div class="estate-card">
+      <svg viewBox="0 0 540 320" fill="none" width="100%">
+        <rect width="540" height="320" fill="#0a1a2a"/>
+        <!-- Lake view estate -->
+        <rect width="540" height="180" fill="#0d1a2a"/>
+        <!-- Lake reflection -->
+        <ellipse cx="270" cy="290" rx="350" ry="80" fill="#0a2040" opacity="0.8"/>
+        <ellipse cx="270" cy="300" rx="280" ry="50" fill="#0d2848" opacity="0.6"/>
+        <!-- Light on water -->
+        <path d="M220 280 L260 295 L300 280" stroke="#c8a96e" stroke-width="1.5" opacity="0.3" fill="none"/>
+        <path d="M200 290 L270 308 L340 290" stroke="#c8a96e" stroke-width="1" opacity="0.2" fill="none"/>
+        <!-- Grand estate building -->
+        <rect x="140" y="155" width="260" height="120" rx="3" fill="#1a1a2a"/>
+        <path d="M120 155 L270 90 L420 155Z" fill="#0f0f1e"/>
+        <rect x="240" y="220" width="30" height="55" rx="2" fill="#0a0a18"/>
+        <!-- Windows lit up -->
+        <rect x="155" y="170" width="22" height="16" rx="2" fill="#c8a96e" opacity="0.5"/>
+        <rect x="188" y="170" width="22" height="16" rx="2" fill="#c8a96e" opacity="0.4"/>
+        <rect x="330" y="170" width="22" height="16" rx="2" fill="#c8a96e" opacity="0.5"/>
+        <rect x="363" y="170" width="22" height="16" rx="2" fill="#c8a96e" opacity="0.4"/>
+        <rect x="220" y="172" width="22" height="16" rx="2" fill="#c8a96e" opacity="0.3"/>
+        <rect x="298" y="172" width="22" height="16" rx="2" fill="#c8a96e" opacity="0.3"/>
+        <!-- Flanking trees -->
+        <path d="M52 275 C50 235 48 205 50 182 C52 159 60 146 60 146 C60 146 68 159 70 182 C72 205 70 235 68 275Z" fill="#5c3a14"/>
+        <ellipse cx="60" cy="176" rx="48" ry="40" fill="#1a4a1a"/>
+        <ellipse cx="60" cy="148" rx="38" ry="33" fill="#2d6a20"/>
+        <ellipse cx="60" cy="122" rx="28" ry="26" fill="#1a4a1a"/>
+        <ellipse cx="60" cy="100" rx="19" ry="18" fill="#3a7a28"/>
+
+        <path d="M488 275 C490 235 492 205 490 182 C488 159 480 146 480 146 C480 146 472 159 470 182 C468 205 470 235 472 275Z" fill="#5c3a14"/>
+        <ellipse cx="480" cy="176" rx="48" ry="40" fill="#1a4a1a"/>
+        <ellipse cx="480" cy="148" rx="38" ry="33" fill="#2d6a20"/>
+        <ellipse cx="480" cy="122" rx="28" ry="26" fill="#1a4a1a"/>
+        <ellipse cx="480" cy="100" rx="19" ry="18" fill="#3a7a28"/>
+        <!-- Stars -->
+        <circle cx="80" cy="25" r="1.5" fill="white" opacity="0.6"/>
+        <circle cx="200" cy="12" r="1" fill="white" opacity="0.4"/>
+        <circle cx="350" cy="20" r="1.5" fill="white" opacity="0.5"/>
+        <circle cx="460" cy="35" r="1" fill="white" opacity="0.3"/>
+        <!-- Moon -->
+        <circle cx="450" cy="45" r="22" fill="#c8a96e" opacity="0.2"/>
+        <circle cx="460" cy="38" r="18" fill="#0a1a2a"/>
+      </svg>
+      <div class="estate-overlay">
+        <div class="estate-cat">Private Estate · Lake Victoria</div>
+        <div class="estate-name">Ggaba Lakefront Residence</div>
+        <div class="estate-loc">Ggaba, Kampala — Completed 2023</div>
+        <div class="estate-meta">
+          <div class="emeta"><strong>6ac</strong>Estate Size</div>
+          <div class="emeta"><strong>180+</strong>Plants</div>
+          <div class="emeta"><strong>12mo</strong>Duration</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="estate-card">
+      <svg viewBox="0 0 540 320" fill="none" width="100%">
+        <rect width="540" height="320" fill="#0d1a0d"/>
+        <!-- Daytime coffee estate -->
+        <rect width="540" height="200" fill="#1a2e0d"/>
+        <!-- Rolling hills -->
+        <path d="M0 200 C80 160 160 150 270 158 C380 166 460 180 540 170 L540 320 L0 320Z" fill="#1a3a10"/>
+        <path d="M0 220 C100 190 200 182 270 188 C340 194 440 210 540 200 L540 320 L0 320Z" fill="#2a4a18"/>
+        <!-- Coffee rows (small plant rows) -->
+        <path d="M50 260 L90 260" stroke="#3a6020" stroke-width="4" stroke-linecap="round"/>
+        <path d="M100 255 L140 255" stroke="#3a6020" stroke-width="4" stroke-linecap="round"/>
+        <path d="M50 275 L90 275" stroke="#3a6020" stroke-width="3.5" stroke-linecap="round"/>
+        <path d="M100 270 L140 270" stroke="#3a6020" stroke-width="3.5" stroke-linecap="round"/>
+        <path d="M150 260 L190 260" stroke="#3a6020" stroke-width="4" stroke-linecap="round"/>
+        <path d="M200 255 L240 255" stroke="#3a6020" stroke-width="4" stroke-linecap="round"/>
+        <!-- Shade trees over coffee -->
+        <ellipse cx="100" cy="222" rx="55" ry="40" fill="#1a4a1a" opacity="0.9"/>
+        <ellipse cx="100" cy="200" rx="42" ry="35" fill="#2d6a20"/>
+        <path d="M97 262 C95 242 94 228 96 215 L104 215 C106 228 105 242 103 262Z" fill="#5c3a14"/>
+
+        <ellipse cx="280" cy="215" rx="60" ry="44" fill="#1a4a1a" opacity="0.9"/>
+        <ellipse cx="280" cy="192" rx="46" ry="38" fill="#2d6a20"/>
+        <path d="M277 260 C275 238 274 222 276 208 L284 208 C286 222 285 238 283 260Z" fill="#5c3a14"/>
+
+        <ellipse cx="450" cy="220" rx="55" ry="40" fill="#1a4a1a" opacity="0.9"/>
+        <ellipse cx="450" cy="198" rx="42" ry="35" fill="#2d6a20"/>
+        <path d="M447 262 C445 242 444 228 446 215 L454 215 C456 228 455 242 453 262Z" fill="#5c3a14"/>
+        <!-- Sun -->
+        <circle cx="480" cy="50" r="30" fill="#c8a96e" opacity="0.3"/>
+        <circle cx="480" cy="50" r="18" fill="#c8a96e" opacity="0.4"/>
+      </svg>
+      <div class="estate-overlay">
+        <div class="estate-cat">Agricultural Estate · Western Uganda</div>
+        <div class="estate-name">Rwenzori Coffee &amp; Shade Estate</div>
+        <div class="estate-loc">Kasese District — Completed 2022</div>
+        <div class="estate-meta">
+          <div class="emeta"><strong>22ac</strong>Farm Size</div>
+          <div class="emeta"><strong>320</strong>Shade Trees</div>
+          <div class="emeta"><strong>6mo</strong>Duration</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══ AWARDS ═══ -->
+<div class="section-wrap dark" id="awards">
+  <div class="sec-label light-label">Recognition</div>
+  <h2 class="sec-title light">Awards &amp; Certifications</h2>
+  <p class="sec-sub light">Two decades of excellence recognised by Uganda's leading horticultural and environmental bodies.</p>
+
+  <div class="awards-grid">
+
+    <div class="award-card reveal">
+      <div class="award-icon">
+        <svg width="56" height="56" viewBox="0 0 56 56" fill="none">
+          <circle cx="28" cy="28" r="26" fill="rgba(200,169,110,0.08)" stroke="rgba(200,169,110,0.3)" stroke-width="1"/>
+          <path d="M28 10 L32 20 L43 20 L35 27 L38 38 L28 32 L18 38 L21 27 L13 20 L24 20Z" fill="#c8a96e" opacity="0.9"/>
+        </svg>
+      </div>
+      <div class="award-year">2023</div>
+      <div class="award-title">Best Landscaping Project of the Year</div>
+      <div class="award-body">Awarded for the Nakasero Royal Avenue commission — recognised as Uganda's most impactful urban greening project of the year.</div>
+      <div class="award-org">Uganda Landscape Association</div>
+    </div>
+
+    <div class="award-card reveal">
+      <div class="award-icon">
+        <svg width="56" height="56" viewBox="0 0 56 56" fill="none">
+          <circle cx="28" cy="28" r="26" fill="rgba(122,182,72,0.08)" stroke="rgba(122,182,72,0.3)" stroke-width="1"/>
+          <path d="M28 14C28 14 18 20 18 28C18 34 22.5 39 28 39C33.5 39 38 34 38 28C38 20 28 14 28 14Z" fill="#7ab648" opacity="0.8"/>
+          <path d="M28 20C28 20 23 24 23 28C23 30.8 25.2 33 28 33C30.8 33 33 30.8 33 28C33 24 28 20 28 20Z" fill="#4a7c59"/>
+          <line x1="28" y1="33" x2="28" y2="40" stroke="#5c3d1e" stroke-width="2.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="award-year">2021</div>
+      <div class="award-title">Conservation Excellence Award</div>
+      <div class="award-body">Honoured for the Mabira Forest Restoration project and our sustained commitment to Uganda's indigenous forest regeneration.</div>
+      <div class="award-org">National Environment Management Authority</div>
+    </div>
+
+    <div class="award-card reveal">
+      <div class="award-icon">
+        <svg width="56" height="56" viewBox="0 0 56 56" fill="none">
+          <circle cx="28" cy="28" r="26" fill="rgba(200,169,110,0.08)" stroke="rgba(200,169,110,0.3)" stroke-width="1"/>
+          <rect x="18" y="16" width="20" height="26" rx="3" stroke="#c8a96e" stroke-width="1.5" fill="none"/>
+          <path d="M22 24 L26 28 L34 20" stroke="#c8a96e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M22 32 L34 32" stroke="rgba(200,169,110,0.4)" stroke-width="1" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="award-year">2019</div>
+      <div class="award-title">ISA Certified Arborist</div>
+      <div class="award-body">International Society of Arboriculture certification — the global gold standard in professional tree care, held by Kakuye Hitler Musajja.</div>
+      <div class="award-org">International Society of Arboriculture</div>
+    </div>
+
+    <div class="award-card reveal">
+      <div class="award-icon">
+        <svg width="56" height="56" viewBox="0 0 56 56" fill="none">
+          <circle cx="28" cy="28" r="26" fill="rgba(122,182,72,0.08)" stroke="rgba(122,182,72,0.3)" stroke-width="1"/>
+          <circle cx="28" cy="22" r="8" stroke="#7ab648" stroke-width="1.5" fill="none"/>
+          <path d="M18 40 C18 34 22 30 28 30 C34 30 38 34 38 40" stroke="#7ab648" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+          <path d="M22 22 L26 25 L34 17" stroke="#7ab648" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div class="award-year">2018</div>
+      <div class="award-title">Top 10 SME — Green Economy</div>
+      <div class="award-body">Recognised as one of Uganda's Top 10 Small &amp; Medium Enterprises contributing to the green economy and environmental sustainability.</div>
+      <div class="award-org">Uganda Investment Authority</div>
+    </div>
+
+    <div class="award-card reveal">
+      <div class="award-icon">
+        <svg width="56" height="56" viewBox="0 0 56 56" fill="none">
+          <circle cx="28" cy="28" r="26" fill="rgba(200,169,110,0.08)" stroke="rgba(200,169,110,0.3)" stroke-width="1"/>
+          <path d="M14 28 C16 20 20 16 28 14 C36 16 40 20 42 28 C40 36 36 40 28 42 C20 40 16 36 14 28Z" stroke="#c8a96e" stroke-width="1.5" fill="none"/>
+          <circle cx="28" cy="28" r="6" fill="#c8a96e" opacity="0.5"/>
+          <path d="M28 14 L28 22" stroke="#c8a96e" stroke-width="1" opacity="0.5"/>
+          <path d="M28 34 L28 42" stroke="#c8a96e" stroke-width="1" opacity="0.5"/>
+          <path d="M14 28 L22 28" stroke="#c8a96e" stroke-width="1" opacity="0.5"/>
+          <path d="M34 28 L42 28" stroke="#c8a96e" stroke-width="1" opacity="0.5"/>
+        </svg>
+      </div>
+      <div class="award-year">2015</div>
+      <div class="award-title">NEMA Registered Nursery</div>
+      <div class="award-body">Fully registered and compliant with Uganda's National Environment Management Authority — one of the first nurseries in Kayunga District to achieve full registration.</div>
+      <div class="award-org">NEMA Uganda</div>
+    </div>
+
+    <div class="award-card reveal">
+      <div class="award-icon">
+        <svg width="56" height="56" viewBox="0 0 56 56" fill="none">
+          <circle cx="28" cy="28" r="26" fill="rgba(122,182,72,0.08)" stroke="rgba(122,182,72,0.3)" stroke-width="1"/>
+          <path d="M20 38 C22 30 24 26 28 22 C32 26 34 30 36 38" stroke="#7ab648" stroke-width="2" fill="none" stroke-linecap="round"/>
+          <path d="M24 30 C20 26 16 24 12 24" stroke="#7ab648" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+          <path d="M32 28 C36 24 40 22 44 22" stroke="#7ab648" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+          <circle cx="28" cy="40" r="4" fill="#7ab648" opacity="0.6"/>
+        </svg>
+      </div>
+      <div class="award-year">2024</div>
+      <div class="award-title">20 Years of Excellence Award</div>
+      <div class="award-body">Special recognition by the Uganda Horticultural Association for two decades of outstanding service to Uganda's tree and landscape industry.</div>
+      <div class="award-org">Uganda Horticultural Association</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══ TESTIMONIALS ═══ -->
+<div class="section-wrap light">
+  <div class="sec-label">Client Voices</div>
+  <h2 class="sec-title">What Our Clients Say</h2>
+  <p class="sec-sub">The highest praise comes from the people who see our trees growing every day.</p>
+
+  <div class="testi-grid">
+
+    <div class="testi-card reveal">
+      <div class="testi-quote">"</div>
+      <div class="testi-text">Kakuye and his team planted 40 trees on our Munyonyo property three years ago. Every single one is thriving. The transformation is extraordinary — our estate has won two garden awards since. There is no one else I would trust with our land.</div>
+      <div class="testi-author">
+        <div class="testi-avatar">AM</div>
+        <div>
+          <div class="testi-name">Ambassador Mukasa</div>
+          <div class="testi-role">Private Residence, Munyonyo</div>
+          <div class="testi-stars">★★★★★</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="testi-card reveal">
+      <div class="testi-quote">"</div>
+      <div class="testi-text">We commissioned Elite Tree Solutions for our entire 22-acre coffee estate shade programme. The results exceeded every expectation — yields have improved 35% since the shade trees matured. Kakuye's knowledge of the right species for our altitude was invaluable.</div>
+      <div class="testi-author">
+        <div class="testi-avatar">RK</div>
+        <div>
+          <div class="testi-name">Robert Kyomukama</div>
+          <div class="testi-role">Rwenzori Coffee Estate, Kasese</div>
+          <div class="testi-stars">★★★★★</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="testi-card reveal">
+      <div class="testi-quote">"</div>
+      <div class="testi-text">As headteacher, I wanted our school compound to inspire our children. Elite Tree Solutions planted 28 trees and today our school is the most beautiful in the district. The children are proud, and so are we. Thank you, Kakuye.</div>
+      <div class="testi-author">
+        <div class="testi-avatar">FN</div>
+        <div>
+          <div class="testi-name">Florence Nakato</div>
+          <div class="testi-role">Headteacher, Entebbe Primary</div>
+          <div class="testi-stars">★★★★★</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="testi-card reveal">
+      <div class="testi-quote">"</div>
+      <div class="testi-text">We contracted Elite Tree Solutions for the Mabira restoration project. Their professionalism, species knowledge, and passion for conservation were outstanding. A 94% survival rate on 2,000 trees is genuinely world-class performance. We will work with them again.</div>
+      <div class="testi-author">
+        <div class="testi-avatar">JO</div>
+        <div>
+          <div class="testi-name">James Opio</div>
+          <div class="testi-role">Programme Director, Green Futures NGO</div>
+          <div class="testi-stars">★★★★★</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══ CTA ═══ -->
+<div class="port-cta">
+  <div>
+    <div class="sec-label light-label" style="margin-bottom:1rem;">Start Your Project</div>
+    <h2>Ready to Create<br>Your Own Legacy?</h2>
+    <p>Whether it's a single signature tree or a landmark landscape — Kakuye and the Elite Tree Solutions team are ready to bring your vision to life. Let's talk.</p>
+  </div>
+  <div class="cta-box">
+    <a href="index.html#contact" class="btn-gold">Get a Free Quote</a>
+    <a href="https://wa.me/256706191725?text=Hello%20Elite%20Tree%20Solutions%2C%20I%20saw%20your%20portfolio%20and%20would%20like%20to%20discuss%20a%20project." target="_blank" class="btn-ghost" style="display:flex;align-items:center;justify-content:center;gap:0.5rem;">
+      <svg width="18" height="18" viewBox="0 0 28 28" fill="none"><path d="M14 2C7.37 2 2 7.37 2 14C2 16.39 2.68 18.62 3.85 20.5L2.1 25.9L7.65 24.18C9.47 25.24 11.67 25.86 14 25.86C20.63 25.86 26 20.49 26 13.86C26 7.37 20.63 2 14 2Z" fill="#25D366"/><path d="M20.5 17.5C20.2 18.3 18.9 19 18 19.1C17.2 19.2 16.2 19.2 15.1 18.9C14.4 18.6 13.5 18.3 12.4 17.8C9.9 16.6 8.3 14.1 8.1 13.9C7.9 13.6 6.5 11.7 6.5 9.8C6.5 7.8 7.5 6.9 7.9 6.4C8.3 5.9 8.8 5.8 9.1 5.8C9.3 5.8 9.6 5.8 9.8 5.8C10.1 5.8 10.4 5.7 10.8 6.6C11.1 7.4 11.9 9.3 12 9.5C12.1 9.7 12.1 9.9 12 10.1C11.9 10.3 11.8 10.5 11.6 10.7C11.4 10.9 11.2 11.2 11 11.4C10.8 11.6 10.6 11.8 10.8 12.1C11 12.5 11.8 13.7 12.9 14.7C14.3 15.9 15.5 16.3 15.9 16.5C16.2 16.6 16.5 16.6 16.7 16.3C16.9 16 17.7 15.1 18 14.8C18.2 14.5 18.5 14.5 18.8 14.6C19.1 14.7 21 15.6 21.3 15.8C21.6 16 21.8 16.1 21.9 16.2C22 16.7 22 17.5 20.5 17.5Z" fill="white"/></svg>
+      WhatsApp Us
+    </a>
+    <a href="gallery.html" class="btn-ghost">View Gallery</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="footer-logo">Elite Tree Solutions</div>
+    <p style="margin-top:0.3rem;">Owned by Kakuye Hitler Musajja &middot; Kabimbiri, Uganda</p>
+  </div>
+  <p>&#169; 2025 Elite Tree Solutions. All rights reserved.</p>
+  <div style="display:flex;gap:1.5rem;">
+    <a href="index.html" style="color:rgba(245,240,232,0.4);font-size:0.8rem;text-decoration:none;">Home</a>
+    <a href="gallery.html" style="color:rgba(245,240,232,0.4);font-size:0.8rem;text-decoration:none;">Gallery</a>
+    <a href="index.html#contact" style="color:var(--leaf);font-size:0.8rem;text-decoration:none;">Contact</a>
+  </div>
+</footer>
+
+<!-- WHATSAPP -->
+<a href="https://wa.me/256706191725?text=Hello%20Elite%20Tree%20Solutions!" target="_blank" id="waBtn" title="Chat on WhatsApp">
+  <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+    <path d="M14 2C7.37 2 2 7.37 2 14C2 16.39 2.68 18.62 3.85 20.5L2.1 25.9L7.65 24.18C9.47 25.24 11.67 25.86 14 25.86C20.63 25.86 26 20.49 26 13.86C26 7.37 20.63 2 14 2Z" fill="white" opacity="0.95"/>
+    <path d="M20.5 17.5C20.2 18.3 18.9 19 18 19.1C17.2 19.2 16.2 19.2 15.1 18.9C14.4 18.6 13.5 18.3 12.4 17.8C9.9 16.6 8.3 14.1 8.1 13.9C7.9 13.6 6.5 11.7 6.5 9.8C6.5 7.8 7.5 6.9 7.9 6.4C8.3 5.9 8.8 5.8 9.1 5.8C9.3 5.8 9.6 5.8 9.8 5.8C10.1 5.8 10.4 5.7 10.8 6.6C11.1 7.4 11.9 9.3 12 9.5C12.1 9.7 12.1 9.9 12 10.1C11.9 10.3 11.8 10.5 11.6 10.7C11.4 10.9 11.2 11.2 11 11.4C10.8 11.6 10.6 11.8 10.8 12.1C11 12.5 11.8 13.7 12.9 14.7C14.3 15.9 15.5 16.3 15.9 16.5C16.2 16.6 16.5 16.6 16.7 16.3C16.9 16 17.7 15.1 18 14.8C18.2 14.5 18.5 14.5 18.8 14.6C19.1 14.7 21 15.6 21.3 15.8C21.6 16 21.8 16.1 21.9 16.2C22 16.7 22 17.5 20.5 17.5Z" fill="#25D366"/>
+  </svg>
+</a>
+
+<script>
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
