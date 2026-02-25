@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About Us — Elite Tree Solutions Uganda</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --forest:#0d2818; --moss:#1a4a2e; --sage:#4a7c59;
+    --leaf:#7ab648; --gold:#c8a96e; --cream:#f5f0e8;
+    --bark:#5c3d1e; --mist:#e8f0e4;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--forest);overflow-x:hidden;}
+
+  nav{
+    position:fixed;top:0;left:0;right:0;z-index:100;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:1.4rem 4rem;
+    backdrop-filter:blur(20px);
+    background:rgba(13,40,24,0.92);
+    border-bottom:1px solid rgba(122,182,72,0.15);
+  }
+  .nav-logo{
+    display:flex;align-items:center;gap:0.8rem;
+    font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700;
+    color:var(--cream);text-decoration:none;letter-spacing:0.04em;
+  }
+  .nav-links{display:flex;gap:2rem;}
+  .nav-links a{
+    color:rgba(245,240,232,0.7);text-decoration:none;
+    font-size:0.85rem;letter-spacing:0.08em;text-transform:uppercase;transition:color 0.3s;
+  }
+  .nav-links a:hover,.nav-links a.active{color:var(--leaf);}
+  .nav-cta{background:var(--leaf);color:var(--forest)!important;padding:0.5rem 1.4rem;border-radius:2rem;font-weight:500;}
+
+  /* HERO */
+  .page-hero{
+    min-height:50vh;background:var(--forest);
+    display:flex;align-items:center;justify-content:center;
+    flex-direction:column;text-align:center;
+    position:relative;overflow:hidden;padding-top:5rem;
+  }
+  .page-hero::before{
+    content:'';position:absolute;inset:0;
+    background:radial-gradient(ellipse 70% 80% at 50% 60%,#1a4a2e 0%,#0d2818 70%);
+  }
+  .page-hero-content{position:relative;z-index:2;padding:3rem 2rem;}
+  .section-label{
+    font-size:0.75rem;letter-spacing:0.15em;text-transform:uppercase;
+    color:var(--leaf);margin-bottom:1rem;
+    display:flex;align-items:center;justify-content:center;gap:0.8rem;
+  }
+  .section-label::before,.section-label::after{content:'';display:block;width:30px;height:1px;background:var(--leaf);}
+  .page-hero h1{
+    font-family:'Playfair Display',serif;
+    font-size:clamp(2.5rem,6vw,5rem);font-weight:900;
+    color:var(--cream);line-height:1.1;margin-bottom:1rem;
+  }
+  .page-hero h1 em{font-style:italic;color:var(--leaf);}
+  .page-hero p{color:rgba(245,240,232,0.6);font-size:1rem;max-width:500px;line-height:1.7;font-weight:300;}
+
+  /* OWNER SECTION */
+  .owner-section{
+    padding:7rem 4rem;
+    display:grid;grid-template-columns:1fr 1.4fr;gap:6rem;align-items:center;
+    background:var(--cream);
+  }
+  .owner-visual{position:relative;}
+  .owner-card{
+    background:var(--forest);border-radius:2rem;
+    padding:3rem;position:relative;overflow:hidden;
+    display:flex;flex-direction:column;align-items:center;text-align:center;
+  }
+  .owner-card::before{
+    content:'';position:absolute;top:-40%;right:-20%;
+    width:280px;height:280px;
+    background:radial-gradient(circle,rgba(122,182,72,0.12) 0%,transparent 70%);
+    border-radius:50%;
+  }
+  .owner-avatar{
+    width:140px;height:140px;border-radius:50%;
+    border:4px solid var(--leaf);margin-bottom:1.5rem;
+    background:linear-gradient(135deg,#1a4a2e,#4a7c59);
+    display:flex;align-items:center;justify-content:center;position:relative;z-index:1;
+    overflow:hidden;
+  }
+  .owner-name{
+    font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;
+    color:var(--cream);margin-bottom:0.3rem;position:relative;z-index:1;
+  }
+  .owner-title{color:var(--leaf);font-size:0.85rem;letter-spacing:0.08em;text-transform:uppercase;position:relative;z-index:1;}
+  .owner-badge{
+    position:absolute;top:-1rem;right:1.5rem;
+    background:var(--gold);color:var(--forest);
+    padding:0.6rem 1.2rem;border-radius:1rem;
+    font-family:'Playfair Display',serif;font-size:0.95rem;font-weight:700;
+    box-shadow:0 8px 30px rgba(200,169,110,0.4);
+  }
+  .owner-quote{
+    background:rgba(122,182,72,0.08);border-left:3px solid var(--leaf);
+    padding:1rem 1.5rem;border-radius:0 0.5rem 0.5rem 0;
+    margin-top:1.5rem;position:relative;z-index:1;text-align:left;
+  }
+  .owner-quote p{color:rgba(245,240,232,0.7);font-size:0.9rem;line-height:1.7;font-style:italic;}
+
+  .about-text h2{
+    font-family:'Playfair Display',serif;
+    font-size:clamp(2rem,3.5vw,3rem);font-weight:900;
+    line-height:1.15;margin-bottom:1.5rem;
+  }
+  .about-text p{font-size:1rem;line-height:1.85;color:#3a5040;margin-bottom:1.2rem;font-weight:300;}
+  .about-text strong{color:var(--forest);font-weight:500;}
+
+  /* VALUES */
+  .values{background:var(--forest);padding:6rem 4rem;}
+  .values .section-label{color:var(--leaf);justify-content:flex-start;}
+  .values .section-label::before{display:none;}
+  .values h2{
+    font-family:'Playfair Display',serif;
+    font-size:clamp(2rem,3.5vw,3rem);font-weight:900;
+    color:var(--cream);margin-bottom:3rem;
+  }
+  .values-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;}
+  .value-card{
+    background:rgba(255,255,255,0.04);
+    border:1px solid rgba(122,182,72,0.15);
+    border-radius:1.5rem;padding:2rem;
+    transition:all 0.4s;
+  }
+  .value-card:hover{border-color:rgba(122,182,72,0.4);transform:translateY(-4px);}
+  .value-icon{margin-bottom:1.2rem;}
+  .value-card h3{font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--cream);margin-bottom:0.7rem;}
+  .value-card p{font-size:0.88rem;color:rgba(245,240,232,0.5);line-height:1.7;font-weight:300;}
+
+  /* TIMELINE */
+  .timeline{padding:6rem 4rem;background:var(--mist);}
+  .timeline h2{
+    font-family:'Playfair Display',serif;
+    font-size:clamp(2rem,3.5vw,3rem);font-weight:900;
+    margin-bottom:3.5rem;text-align:center;
+  }
+  .timeline-list{max-width:700px;margin:0 auto;position:relative;}
+  .timeline-list::before{
+    content:'';position:absolute;left:1.8rem;top:0;bottom:0;
+    width:2px;background:linear-gradient(to bottom,var(--leaf),transparent);
+  }
+  .tl-item{display:flex;gap:2rem;margin-bottom:3rem;position:relative;}
+  .tl-dot{
+    width:3.6rem;height:3.6rem;border-radius:50%;flex-shrink:0;
+    background:var(--forest);border:2px solid var(--leaf);
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Playfair Display',serif;font-size:0.75rem;font-weight:700;
+    color:var(--leaf);z-index:1;
+  }
+  .tl-content h4{font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--forest);margin-bottom:0.4rem;}
+  .tl-content p{font-size:0.88rem;color:var(--sage);line-height:1.6;font-weight:300;}
+
+  /* TEAM / CERTIFICATIONS */
+  .certs{padding:5rem 4rem;background:var(--cream);}
+  .certs h2{
+    font-family:'Playfair Display',serif;
+    font-size:clamp(1.8rem,3vw,2.8rem);font-weight:900;
+    margin-bottom:2.5rem;text-align:center;
+  }
+  .cert-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem;}
+  .cert-card{
+    background:var(--forest);border-radius:1.2rem;padding:1.8rem;
+    text-align:center;transition:transform 0.3s;
+  }
+  .cert-card:hover{transform:translateY(-4px);}
+  .cert-card svg{margin-bottom:1rem;}
+  .cert-card h4{font-family:'Playfair Display',serif;font-size:0.95rem;color:var(--cream);margin-bottom:0.4rem;}
+  .cert-card p{font-size:0.78rem;color:rgba(245,240,232,0.4);line-height:1.5;}
+
+  /* CTA */
+  .cta-section{
+    background:var(--moss);padding:5rem 4rem;
+    text-align:center;position:relative;overflow:hidden;
+  }
+  .cta-section::before{
+    content:'🌳';position:absolute;font-size:15rem;
+    opacity:0.04;top:50%;left:50%;transform:translate(-50%,-50%);
+  }
+  .cta-section h2{
+    font-family:'Playfair Display',serif;
+    font-size:clamp(2rem,4vw,3.2rem);font-weight:900;
+    color:var(--cream);margin-bottom:1rem;
+  }
+  .cta-section p{color:rgba(245,240,232,0.6);margin-bottom:2rem;font-size:1rem;}
+  .btn-primary{
+    background:var(--leaf);color:var(--forest);
+    padding:1rem 2.5rem;border-radius:3rem;
+    font-weight:500;text-decoration:none;font-size:1rem;
+    transition:all 0.3s;display:inline-block;
+    box-shadow:0 0 40px rgba(122,182,72,0.3);
+  }
+  .btn-primary:hover{background:var(--gold);transform:translateY(-2px);}
+
+  .reveal{opacity:0;transform:translateY(30px);transition:all 0.7s ease;}
+  .reveal.visible{opacity:1;transform:translateY(0);}
+
+  footer{
+    background:#070f0a;padding:2rem 4rem;
+    display:flex;align-items:center;justify-content:space-between;
+    border-top:1px solid rgba(122,182,72,0.1);flex-wrap:wrap;gap:1rem;
+  }
+  footer p{font-size:0.8rem;color:rgba(245,240,232,0.3);}
+  .footer-logo{font-family:'Playfair Display',serif;font-size:1rem;color:rgba(245,240,232,0.4);}
+
+  #waBtn{
+    position:fixed;bottom:2rem;right:2rem;z-index:9998;
+    background:#25D366;width:56px;height:56px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:0 4px 20px rgba(37,211,102,0.5);text-decoration:none;
+    animation:waPulse 2.5s ease-in-out infinite;
+  }
+  @keyframes waPulse{
+    0%,100%{box-shadow:0 4px 20px rgba(37,211,102,0.5);transform:scale(1);}
+    50%{box-shadow:0 4px 40px rgba(37,211,102,0.8);transform:scale(1.08);}
+  }
+
+  @media(max-width:768px){
+    nav{padding:1.2rem 1.5rem;}
+    .nav-links{display:none;}
+    .owner-section{grid-template-columns:1fr;padding:4rem 1.5rem;gap:3rem;}
+    .values{padding:4rem 1.5rem;}
+    .values-grid{grid-template-columns:1fr;}
+    .timeline{padding:4rem 1.5rem;}
+    .certs{padding:4rem 1.5rem;}
+    .cert-grid{grid-template-columns:1fr 1fr;}
+    .cta-section{padding:4rem 1.5rem;}
+    footer{flex-direction:column;text-align:center;padding:2rem 1.5rem;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">
+    <svg width="26" height="26" viewBox="0 0 28 28" fill="none">
+      <path d="M14 2C14 2 7 8 7 15C7 19.4 10.1 23 14 23C17.9 23 21 19.4 21 15C21 8 14 2 14 2Z" fill="#7ab648"/>
+      <path d="M14 8C14 8 9 13 9 17.5C9 20 11.2 22 14 22C16.8 22 19 20 19 17.5C19 13 14 8 14 8Z" fill="#4a7c59"/>
+      <line x1="14" y1="22" x2="14" y2="26" stroke="#5c3d1e" stroke-width="2" stroke-linecap="round"/>
+    </svg>
+    Elite Tree Solutions
+  </a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="about.html" class="active">About</a>
+    <a href="blog.html">Blog</a>
+    <a href="faq.html">FAQ</a>
+    <a href="index.html#contact" class="nav-cta">Get a Quote</a>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <div class="page-hero-content">
+    <div class="section-label">Our Story</div>
+    <h1>Rooted in <em>Passion</em></h1>
+    <p>From a single seedling of an idea to Uganda's most trusted tree nursery — this is the story of Elite Tree Solutions.</p>
+  </div>
+</div>
+
+<!-- OWNER -->
+<section class="owner-section reveal">
+  <div class="owner-visual">
+    <div class="owner-card">
+      <div class="owner-badge">Founder & Owner</div>
+      <div class="owner-avatar">
+        <svg viewBox="0 0 140 140" fill="none" width="140">
+          <rect width="140" height="140" fill="#1a4a2e"/>
+          <!-- Person silhouette -->
+          <circle cx="70" cy="48" r="26" fill="#4a7c59"/>
+          <path d="M20 120 C20 90 40 78 70 78 C100 78 120 90 120 120Z" fill="#4a7c59"/>
+          <!-- Tree growing from head - playful touch -->
+          <path d="M67 24 C65 14 64 6 65 2 C66 -2 70 0 70 0 C70 0 74 -2 75 2 C76 6 75 14 73 24Z" fill="#7ab648" opacity="0.6"/>
+          <ellipse cx="70" cy="8" rx="12" ry="10" fill="#1a4a2e" opacity="0.5"/>
+          <ellipse cx="70" cy="3" rx="8" ry="7" fill="#7ab648" opacity="0.7"/>
+        </svg>
+      </div>
+      <div class="owner-name">Kakuye Hitler Musajja</div>
+      <div class="owner-title">Founder &amp; Lead Arborist</div>
+      <div class="owner-quote">
+        <p>"Every tree I plant is a gift to the next generation. Uganda's forests are our greatest inheritance — and our greatest responsibility."</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="about-text">
+    <div class="section-label" style="justify-content:flex-start;">
+      <span style="width:30px;height:1px;background:var(--leaf);display:block;"></span>
+      Meet the Owner
+    </div>
+    <h2>Two Decades of Trees, One Unwavering Passion</h2>
+    <p>Kakuye Hitler Musajja founded Elite Tree Solutions with a single, powerful belief: that <strong>Uganda deserves world-class trees and world-class service.</strong> What began as a modest nursery in Kabimbiri along the Kayunga Road has grown into one of Uganda's most respected tree cultivation businesses.</p>
+    <p>With over 20 years of hands-on experience in horticulture, arboriculture, and landscape design, Kakuye personally oversees every tree that leaves the nursery — ensuring that quality, health, and beauty are never compromised.</p>
+    <p>His deep knowledge of Uganda's soils, climates, and native species means that every recommendation is tailored, every planting is precise, and every client relationship is built on <strong>trust, expertise, and genuine care.</strong></p>
+    <p>From humble farmers wanting a mango tree to large estates requiring full landscape design — Kakuye treats every project with the same dedication and passion that has defined Elite Tree Solutions since day one.</p>
+  </div>
+</section>
+
+<!-- VALUES -->
+<section class="values reveal">
+  <div class="section-label">What Drives Us</div>
+  <h2>Our Core Values</h2>
+  <div class="values-grid">
+    <div class="value-card">
+      <div class="value-icon">
+        <svg width="44" height="44" viewBox="0 0 44 44" fill="none">
+          <circle cx="22" cy="22" r="20" fill="rgba(122,182,72,0.1)" stroke="rgba(122,182,72,0.3)" stroke-width="1"/>
+          <path d="M22 8C22 8 14 13 14 20C14 24.4 17.6 28 22 28C26.4 28 30 24.4 30 20C30 13 22 8 22 8Z" fill="#7ab648" opacity="0.8"/>
+          <path d="M22 14C22 14 18 18 18 21C18 23 19.8 24.5 22 24.5C24.2 24.5 26 23 26 21C26 18 22 14 22 14Z" fill="#4a7c59"/>
+          <line x1="22" y1="28" x2="22" y2="34" stroke="#5c3d1e" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <h3>Quality First</h3>
+      <p>Every tree is individually inspected, nurtured, and certified before it leaves our nursery. We never compromise on the health or form of our specimens.</p>
+    </div>
+    <div class="value-card">
+      <div class="value-icon">
+        <svg width="44" height="44" viewBox="0 0 44 44" fill="none">
+          <circle cx="22" cy="22" r="20" fill="rgba(122,182,72,0.1)" stroke="rgba(122,182,72,0.3)" stroke-width="1"/>
+          <circle cx="22" cy="22" r="10" stroke="#7ab648" stroke-width="1.5" fill="none"/>
+          <path d="M22 14 L24 18 L28 18 L25 21 L26.5 25 L22 22.5 L17.5 25 L19 21 L16 18 L20 18Z" fill="#c8a96e" opacity="0.8"/>
+        </svg>
+      </div>
+      <h3>Uganda First</h3>
+      <p>We prioritise native Ugandan species, local knowledge, and sustainable practices that support our ecosystem and the communities we serve.</p>
+    </div>
+    <div class="value-card">
+      <div class="value-icon">
+        <svg width="44" height="44" viewBox="0 0 44 44" fill="none">
+          <circle cx="22" cy="22" r="20" fill="rgba(122,182,72,0.1)" stroke="rgba(122,182,72,0.3)" stroke-width="1"/>
+          <path d="M14 30 C16 22 20 18 22 14 C22 14 24 20 22 26 C20 32 16 36 14 30Z" fill="#7ab648" opacity="0.7"/>
+          <path d="M30 30 C28 22 24 18 22 14 C22 14 20 20 22 26 C24 32 28 36 30 30Z" fill="#4a7c59" opacity="0.7"/>
+          <circle cx="22" cy="28" r="3" fill="#c8a96e" opacity="0.8"/>
+        </svg>
+      </div>
+      <h3>Long-Term Care</h3>
+      <p>We don't just sell trees — we build lasting relationships. Our aftercare programmes ensure your trees thrive for decades to come.</p>
+    </div>
+    <div class="value-card">
+      <div class="value-icon">
+        <svg width="44" height="44" viewBox="0 0 44 44" fill="none">
+          <circle cx="22" cy="22" r="20" fill="rgba(122,182,72,0.1)" stroke="rgba(122,182,72,0.3)" stroke-width="1"/>
+          <path d="M14 22 C16 16 19 13 22 11 C25 13 28 16 30 22 C28 28 25 31 22 33 C19 31 16 28 14 22Z" stroke="#7ab648" stroke-width="1.5" fill="none"/>
+          <path d="M22 11 L22 33" stroke="#7ab648" stroke-width="1" opacity="0.4"/>
+          <path d="M14 22 L30 22" stroke="#7ab648" stroke-width="1" opacity="0.4"/>
+        </svg>
+      </div>
+      <h3>Sustainability</h3>
+      <p>From our growing practices to our packaging, we operate with the environment in mind — because healthy trees begin with a healthy planet.</p>
+    </div>
+    <div class="value-card">
+      <div class="value-icon">
+        <svg width="44" height="44" viewBox="0 0 44 44" fill="none">
+          <circle cx="22" cy="22" r="20" fill="rgba(122,182,72,0.1)" stroke="rgba(122,182,72,0.3)" stroke-width="1"/>
+          <circle cx="16" cy="20" r="5" fill="#7ab648" opacity="0.6"/>
+          <circle cx="28" cy="20" r="5" fill="#7ab648" opacity="0.6"/>
+          <circle cx="22" cy="28" r="5" fill="#7ab648" opacity="0.8"/>
+          <path d="M16 20 L22 28 L28 20" stroke="#c8a96e" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <h3>Community</h3>
+      <p>We actively partner with schools, local governments, and NGOs to plant trees across Uganda and build a greener future for all.</p>
+    </div>
+    <div class="value-card">
+      <div class="value-icon">
+        <svg width="44" height="44" viewBox="0 0 44 44" fill="none">
+          <circle cx="22" cy="22" r="20" fill="rgba(122,182,72,0.1)" stroke="rgba(122,182,72,0.3)" stroke-width="1"/>
+          <path d="M12 28 C16 20 20 18 22 14 C24 18 28 20 32 28" stroke="#7ab648" stroke-width="2" fill="none" stroke-linecap="round"/>
+          <path d="M15 28 L29 28" stroke="#7ab648" stroke-width="2" stroke-linecap="round"/>
+          <circle cx="22" cy="32" r="3" fill="#c8a96e"/>
+        </svg>
+      </div>
+      <h3>Expertise</h3>
+      <p>20+ years of specialised knowledge in Ugandan horticulture, soil science, tree health, and landscape design — at your service.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section class="timeline reveal">
+  <div class="section-label" style="justify-content:center;">Our Journey</div>
+  <h2>How We Grew</h2>
+  <div class="timeline-list">
+    <div class="tl-item">
+      <div class="tl-dot">2004</div>
+      <div class="tl-content">
+        <h4>The Beginning</h4>
+        <p>Kakuye Hitler Musajja plants his first seedlings in Kabimbiri, Kayunga. A dream of creating Uganda's finest tree nursery takes root.</p>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot">2008</div>
+      <div class="tl-content">
+        <h4>First Major Landscape Contract</h4>
+        <p>Elite Tree Solutions completes its first large-scale residential landscape project — 80 trees planted across a private estate in central Uganda.</p>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot">2012</div>
+      <div class="tl-content">
+        <h4>Nursery Expansion</h4>
+        <p>Growing demand leads to a major expansion of our Kabimbiri nursery grounds. We begin cultivating over 200 distinct tree species.</p>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot">2016</div>
+      <div class="tl-content">
+        <h4>Reforestation Partnerships</h4>
+        <p>We partner with local government and NGOs to launch Uganda's first community reforestation programme, planting over 2,000 trees in two years.</p>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot">2020</div>
+      <div class="tl-content">
+        <h4>500+ Species Milestone</h4>
+        <p>Our collection surpasses 500 distinct tree species — one of the most diverse tree nursery catalogues in East Africa.</p>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot">2025</div>
+      <div class="tl-content">
+        <h4>Going Digital</h4>
+        <p>Elite Tree Solutions launches its world-class website, bringing Uganda's finest trees to a global audience. The journey continues. 🌍</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section class="certs reveal">
+  <div class="section-label" style="justify-content:center;">Credentials</div>
+  <h2>Trusted, Certified, Professional</h2>
+  <div class="cert-grid">
+    <div class="cert-card">
+      <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+        <circle cx="20" cy="20" r="18" stroke="#c8a96e" stroke-width="1.5" fill="none"/>
+        <path d="M20 10 L22.5 16 L29 16 L24 20 L26 26 L20 22 L14 26 L16 20 L11 16 L17.5 16Z" fill="#c8a96e" opacity="0.8"/>
+      </svg>
+      <h4>Certified Arborist</h4>
+      <p>ISA certified tree care professional with 20+ years field experience</p>
+    </div>
+    <div class="cert-card">
+      <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+        <rect x="8" y="8" width="24" height="28" rx="3" stroke="#7ab648" stroke-width="1.5" fill="none"/>
+        <path d="M13 18 L17 22 L27 14" stroke="#7ab648" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M13 26 L27 26" stroke="rgba(122,182,72,0.4)" stroke-width="1" stroke-linecap="round"/>
+      </svg>
+      <h4>NEMA Registered</h4>
+      <p>Fully registered with Uganda's National Environment Management Authority</p>
+    </div>
+    <div class="cert-card">
+      <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+        <circle cx="20" cy="20" r="18" stroke="#7ab648" stroke-width="1.5" fill="none"/>
+        <path d="M12 20 C14 14 17 11 20 9 C23 11 26 14 28 20 C26 26 23 29 20 31 C17 29 14 26 12 20Z" stroke="#7ab648" stroke-width="1" fill="none"/>
+        <circle cx="20" cy="20" r="4" fill="#7ab648" opacity="0.6"/>
+      </svg>
+      <h4>Ugandan Horticulture</h4>
+      <p>Member of the Uganda Horticultural Association and National Farmers Federation</p>
+    </div>
+    <div class="cert-card">
+      <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+        <path d="M20 4 L24 14 L35 14 L27 21 L30 32 L20 26 L10 32 L13 21 L5 14 L16 14Z" stroke="#c8a96e" stroke-width="1.5" fill="none"/>
+        <path d="M20 4 L24 14 L35 14 L27 21 L30 32 L20 26 L10 32 L13 21 L5 14 L16 14Z" fill="#c8a96e" opacity="0.1"/>
+      </svg>
+      <h4>20 Years Excellence</h4>
+      <p>Two decades of outstanding service, trusted by hundreds of Ugandan families and businesses</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section reveal">
+  <div class="section-label">Ready to Start?</div>
+  <h2>Let's Grow Uganda Together</h2>
+  <p>Whether you need one tree or one thousand — we're here, rooted in Kabimbiri and ready to serve you.</p>
+  <a href="index.html#contact" class="btn-primary">Get in Touch Today</a>
+</section>
+
+<footer>
+  <div>
+    <div class="footer-logo">Elite Tree Solutions</div>
+    <p style="margin-top:0.3rem;">Owned by Kakuye Hitler Musajja &middot; Kabimbiri, Uganda</p>
+  </div>
+  <p>&#169; 2025 Elite Tree Solutions. All rights reserved.</p>
+  <div style="display:flex;gap:1.5rem;">
+    <a href="index.html" style="color:rgba(245,240,232,0.4);font-size:0.8rem;text-decoration:none;">Home</a>
+    <a href="gallery.html" style="color:rgba(245,240,232,0.4);font-size:0.8rem;text-decoration:none;">Gallery</a>
+    <a href="index.html#contact" style="color:var(--leaf);font-size:0.8rem;text-decoration:none;">Contact</a>
+  </div>
+</footer>
+
+<a href="https://wa.me/256706191725?text=Hello%20Elite%20Tree%20Solutions!" target="_blank" id="waBtn" title="Chat on WhatsApp">
+  <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+    <path d="M14 2C7.37 2 2 7.37 2 14C2 16.39 2.68 18.62 3.85 20.5L2.1 25.9L7.65 24.18C9.47 25.24 11.67 25.86 14 25.86C20.63 25.86 26 20.49 26 13.86C26 7.37 20.63 2 14 2Z" fill="white" opacity="0.95"/>
+    <path d="M20.5 17.5C20.2 18.3 18.9 19 18 19.1C17.2 19.2 16.2 19.2 15.1 18.9C14.4 18.6 13.5 18.3 12.4 17.8C9.9 16.6 8.3 14.1 8.1 13.9C7.9 13.6 6.5 11.7 6.5 9.8C6.5 7.8 7.5 6.9 7.9 6.4C8.3 5.9 8.8 5.8 9.1 5.8C9.3 5.8 9.6 5.8 9.8 5.8C10.1 5.8 10.4 5.7 10.8 6.6C11.1 7.4 11.9 9.3 12 9.5C12.1 9.7 12.1 9.9 12 10.1C11.9 10.3 11.8 10.5 11.6 10.7C11.4 10.9 11.2 11.2 11 11.4C10.8 11.6 10.6 11.8 10.8 12.1C11 12.5 11.8 13.7 12.9 14.7C14.3 15.9 15.5 16.3 15.9 16.5C16.2 16.6 16.5 16.6 16.7 16.3C16.9 16 17.7 15.1 18 14.8C18.2 14.5 18.5 14.5 18.8 14.6C19.1 14.7 21 15.6 21.3 15.8C21.6 16 21.8 16.1 21.9 16.2C22 16.7 22 17.5 20.5 17.5Z" fill="#25D366"/>
+  </svg>
+</a>
+
+<script>
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blog — Elite Tree Solutions Uganda</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root{--forest:#0d2818;--moss:#1a4a2e;--sage:#4a7c59;--leaf:#7ab648;--gold:#c8a96e;--cream:#f5f0e8;--mist:#e8f0e4;}
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--forest);overflow-x:hidden;}
+
+  nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1.4rem 4rem;backdrop-filter:blur(20px);background:rgba(13,40,24,0.92);border-bottom:1px solid rgba(122,182,72,0.15);}
+  .nav-logo{display:flex;align-items:center;gap:0.8rem;font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700;color:var(--cream);text-decoration:none;letter-spacing:0.04em;}
+  .nav-links{display:flex;gap:2rem;}
+  .nav-links a{color:rgba(245,240,232,0.7);text-decoration:none;font-size:0.85rem;letter-spacing:0.08em;text-transform:uppercase;transition:color 0.3s;}
+  .nav-links a:hover,.nav-links a.active{color:var(--leaf);}
+  .nav-cta{background:var(--leaf);color:var(--forest)!important;padding:0.5rem 1.4rem;border-radius:2rem;font-weight:500;}
+
+  .page-hero{min-height:45vh;background:var(--forest);display:flex;align-items:center;justify-content:center;flex-direction:column;text-align:center;position:relative;overflow:hidden;padding-top:5rem;}
+  .page-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 80% at 50% 60%,#1a4a2e 0%,#0d2818 70%);}
+  .page-hero-content{position:relative;z-index:2;padding:3rem 2rem;}
+  .section-label{font-size:0.75rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--leaf);margin-bottom:1rem;display:flex;align-items:center;justify-content:center;gap:0.8rem;}
+  .section-label::before,.section-label::after{content:'';display:block;width:30px;height:1px;background:var(--leaf);}
+  .page-hero h1{font-family:'Playfair Display',serif;font-size:clamp(2.5rem,6vw,5rem);font-weight:900;color:var(--cream);line-height:1.1;margin-bottom:1rem;}
+  .page-hero h1 em{font-style:italic;color:var(--leaf);}
+  .page-hero p{color:rgba(245,240,232,0.6);font-size:1rem;max-width:500px;line-height:1.7;font-weight:300;}
+
+  /* BLOG GRID */
+  .blog-section{padding:5rem 4rem;}
+  .blog-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;margin-top:2rem;}
+  .blog-card{background:white;border-radius:1.5rem;overflow:hidden;transition:all 0.4s;box-shadow:0 4px 20px rgba(13,40,24,0.06);cursor:pointer;}
+  .blog-card:hover{transform:translateY(-8px);box-shadow:0 20px 50px rgba(13,40,24,0.15);}
+  .blog-card.featured{grid-column:span 2;}
+
+  .blog-thumb{position:relative;overflow:hidden;}
+  .blog-thumb svg{display:block;width:100%;}
+  .blog-cat{
+    position:absolute;top:1rem;left:1rem;
+    background:var(--leaf);color:var(--forest);
+    font-size:0.7rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;
+    padding:0.3rem 0.8rem;border-radius:1rem;
+  }
+  .blog-body{padding:1.8rem;}
+  .blog-meta{font-size:0.75rem;color:var(--sage);margin-bottom:0.8rem;display:flex;gap:1rem;align-items:center;}
+  .blog-meta span::before{content:'·';margin-right:0.5rem;opacity:0.5;}
+  .blog-meta span:first-child::before{display:none;}
+  .blog-card h3{font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--forest);margin-bottom:0.7rem;line-height:1.3;}
+  .blog-card.featured h3{font-size:1.5rem;}
+  .blog-card p{font-size:0.88rem;color:var(--sage);line-height:1.7;font-weight:300;margin-bottom:1.2rem;}
+  .read-more{font-size:0.82rem;color:var(--leaf);font-weight:500;text-decoration:none;display:inline-flex;align-items:center;gap:0.4rem;transition:gap 0.3s;}
+  .read-more:hover{gap:0.8rem;}
+
+  /* ARTICLE MODAL */
+  .article-modal{position:fixed;inset:0;z-index:9990;background:rgba(7,15,10,0.95);overflow-y:auto;opacity:0;pointer-events:none;transition:opacity 0.3s;}
+  .article-modal.open{opacity:1;pointer-events:all;}
+  .article-inner{max-width:780px;margin:0 auto;padding:6rem 2rem 4rem;}
+  .article-close{position:fixed;top:1.5rem;right:1.5rem;background:rgba(255,255,255,0.1);border:none;color:white;width:44px;height:44px;border-radius:50%;font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background 0.3s;}
+  .article-close:hover{background:rgba(122,182,72,0.3);}
+  .article-cat{display:inline-block;background:var(--leaf);color:var(--forest);font-size:0.72rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;padding:0.3rem 0.9rem;border-radius:1rem;margin-bottom:1.5rem;}
+  .article-inner h1{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,4vw,3rem);font-weight:900;color:var(--cream);line-height:1.15;margin-bottom:1rem;}
+  .article-meta{font-size:0.82rem;color:rgba(245,240,232,0.4);margin-bottom:2.5rem;display:flex;gap:1.5rem;}
+  .article-content p{font-size:1rem;line-height:1.9;color:rgba(245,240,232,0.7);margin-bottom:1.5rem;font-weight:300;}
+  .article-content h2{font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--cream);margin:2.5rem 0 1rem;}
+  .article-content ul{margin:1rem 0 1.5rem 1.5rem;}
+  .article-content li{font-size:0.95rem;color:rgba(245,240,232,0.65);line-height:1.8;margin-bottom:0.4rem;}
+  .article-content .tip{background:rgba(122,182,72,0.1);border-left:3px solid var(--leaf);padding:1rem 1.5rem;border-radius:0 0.5rem 0.5rem 0;margin:1.5rem 0;}
+  .article-content .tip p{color:rgba(245,240,232,0.8);margin:0;}
+
+  /* NEWSLETTER */
+  .newsletter{background:var(--forest);padding:5rem 4rem;text-align:center;}
+  .newsletter h2{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3vw,2.8rem);font-weight:900;color:var(--cream);margin-bottom:0.8rem;}
+  .newsletter p{color:rgba(245,240,232,0.55);margin-bottom:2rem;font-weight:300;}
+  .newsletter-form{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;}
+  .newsletter-form input{
+    background:rgba(255,255,255,0.07);border:1px solid rgba(122,182,72,0.2);
+    color:var(--cream);padding:0.9rem 1.5rem;border-radius:3rem;
+    font-family:'DM Sans',sans-serif;font-size:0.9rem;outline:none;
+    min-width:280px;transition:border-color 0.3s;
+  }
+  .newsletter-form input:focus{border-color:var(--leaf);}
+  .newsletter-form input::placeholder{color:rgba(245,240,232,0.3);}
+  .newsletter-form button{background:var(--leaf);color:var(--forest);padding:0.9rem 2rem;border:none;border-radius:3rem;font-family:'DM Sans',sans-serif;font-weight:500;cursor:pointer;transition:all 0.3s;}
+  .newsletter-form button:hover{background:var(--gold);}
+
+  .reveal{opacity:0;transform:translateY(30px);transition:all 0.7s ease;}
+  .reveal.visible{opacity:1;transform:translateY(0);}
+
+  footer{background:#070f0a;padding:2rem 4rem;display:flex;align-items:center;justify-content:space-between;border-top:1px solid rgba(122,182,72,0.1);flex-wrap:wrap;gap:1rem;}
+  footer p{font-size:0.8rem;color:rgba(245,240,232,0.3);}
+  .footer-logo{font-family:'Playfair Display',serif;font-size:1rem;color:rgba(245,240,232,0.4);}
+
+  #waBtn{position:fixed;bottom:2rem;right:2rem;z-index:9998;background:#25D366;width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(37,211,102,0.5);text-decoration:none;animation:waPulse 2.5s ease-in-out infinite;}
+  @keyframes waPulse{0%,100%{box-shadow:0 4px 20px rgba(37,211,102,0.5);transform:scale(1);}50%{box-shadow:0 4px 40px rgba(37,211,102,0.8);transform:scale(1.08);}}
+
+  @media(max-width:768px){
+    nav{padding:1.2rem 1.5rem;}
+    .nav-links{display:none;}
+    .blog-section{padding:3rem 1.2rem;}
+    .blog-grid{grid-template-columns:1fr;}
+    .blog-card.featured{grid-column:span 1;}
+    .newsletter{padding:4rem 1.5rem;}
+    .newsletter-form{flex-direction:column;align-items:center;}
+    .newsletter-form input{min-width:unset;width:100%;max-width:380px;}
+    footer{flex-direction:column;text-align:center;padding:2rem 1.5rem;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">
+    <svg width="26" height="26" viewBox="0 0 28 28" fill="none">
+      <path d="M14 2C14 2 7 8 7 15C7 19.4 10.1 23 14 23C17.9 23 21 19.4 21 15C21 8 14 2 14 2Z" fill="#7ab648"/>
+      <path d="M14 8C14 8 9 13 9 17.5C9 20 11.2 22 14 22C16.8 22 19 20 19 17.5C19 13 14 8 14 8Z" fill="#4a7c59"/>
+      <line x1="14" y1="22" x2="14" y2="26" stroke="#5c3d1e" stroke-width="2" stroke-linecap="round"/>
+    </svg>
+    Elite Tree Solutions
+  </a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="about.html">About</a>
+    <a href="blog.html" class="active">Blog</a>
+    <a href="faq.html">FAQ</a>
+    <a href="index.html#contact" class="nav-cta">Get a Quote</a>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <div class="page-hero-content">
+    <div class="section-label">Knowledge & Insights</div>
+    <h1>The Tree <em>Journal</em></h1>
+    <p>Expert tips, seasonal guides, and stories from the nursery — written by Uganda's most passionate arborists.</p>
+  </div>
+</div>
+
+<section class="blog-section">
+  <div class="section-label" style="justify-content:flex-start;margin-bottom:0;">Latest Articles</div>
+  <div class="blog-grid">
+
+    <!-- Featured Post -->
+    <div class="blog-card featured reveal" onclick="openArticle(0)">
+      <div class="blog-thumb">
+        <svg viewBox="0 0 600 260" fill="none">
+          <rect width="600" height="260" fill="#0d2818"/>
+          <rect width="600" height="260" fill="url(#grad1)"/>
+          <defs><linearGradient id="grad1" x1="0" y1="0" x2="600" y2="260"><stop offset="0%" stop-color="#1a4a2e"/><stop offset="100%" stop-color="#0d2818"/></linearGradient></defs>
+          <!-- Big mango tree -->
+          <path d="M290 255 C287 215 284 182 287 158 C290 134 300 118 300 118 C300 118 310 134 313 158 C316 182 313 215 310 255Z" fill="#6b4423"/>
+          <ellipse cx="300" cy="170" rx="100" ry="82" fill="#1a5c12"/>
+          <ellipse cx="260" cy="152" rx="70" ry="60" fill="#2d7a1e"/>
+          <ellipse cx="340" cy="145" rx="68" ry="58" fill="#1a5c12"/>
+          <ellipse cx="300" cy="128" rx="82" ry="68" fill="#2d7a1e"/>
+          <ellipse cx="300" cy="98" rx="62" ry="54" fill="#1a5c12"/>
+          <ellipse cx="300" cy="72" rx="44" ry="40" fill="#3a7a28"/>
+          <ellipse cx="300" cy="48" rx="28" ry="28" fill="#2d7a1e"/>
+          <!-- Mangoes -->
+          <ellipse cx="272" cy="162" rx="10" ry="14" fill="#f4a128" opacity="0.9"/>
+          <ellipse cx="328" cy="155" rx="9" ry="13" fill="#e8902a" opacity="0.9"/>
+          <ellipse cx="298" cy="178" rx="11" ry="15" fill="#f4a128"/>
+          <ellipse cx="248" cy="155" rx="8" ry="11" fill="#ffb347" opacity="0.8"/>
+          <!-- Text overlay -->
+          <rect x="0" y="160" width="600" height="100" fill="url(#fadeDown)"/>
+          <defs><linearGradient id="fadeDown" x1="0" y1="0" x2="0" y2="100"><stop offset="0%" stop-color="#0d2818" stop-opacity="0"/><stop offset="100%" stop-color="#0d2818" stop-opacity="0.8"/></linearGradient></defs>
+        </svg>
+        <span class="blog-cat">Tree Care</span>
+      </div>
+      <div class="blog-body">
+        <div class="blog-meta">
+          <span>January 2025</span>
+          <span>By Kakuye H. Musajja</span>
+          <span>8 min read</span>
+        </div>
+        <h3>The Complete Guide to Growing Mango Trees in Uganda's Climate</h3>
+        <p>From choosing the right variety for your altitude to the secrets of maximising fruit production — everything you need to know about Uganda's favourite fruit tree.</p>
+        <span class="read-more">Read Article →</span>
+      </div>
+    </div>
+
+    <!-- Post 2 -->
+    <div class="blog-card reveal" onclick="openArticle(1)">
+      <div class="blog-thumb">
+        <svg viewBox="0 0 300 180" fill="none">
+          <rect width="300" height="180" fill="#1a2e1a"/>
+          <rect y="120" width="300" height="60" fill="#1a3a12"/>
+          <path d="M143 175 C141 150 139 128 141 112 C143 96 150 86 150 86 C150 86 157 96 159 112 C161 128 159 150 157 175Z" fill="#6b4423"/>
+          <ellipse cx="150" cy="118" rx="68" ry="55" fill="#1a5c12"/>
+          <ellipse cx="150" cy="90" rx="52" ry="45" fill="#2d7a1e"/>
+          <ellipse cx="150" cy="65" rx="36" ry="34" fill="#1a5c12"/>
+          <ellipse cx="150" cy="44" rx="24" ry="22" fill="#3a7a28"/>
+          <!-- Rain drops -->
+          <ellipse cx="80" cy="30" rx="2" ry="6" fill="#90caf9" opacity="0.6" transform="rotate(-15 80 30)"/>
+          <ellipse cx="120" cy="15" rx="2" ry="6" fill="#90caf9" opacity="0.5" transform="rotate(-15 120 15)"/>
+          <ellipse cx="200" cy="25" rx="2" ry="6" fill="#90caf9" opacity="0.6" transform="rotate(-15 200 25)"/>
+          <ellipse cx="240" cy="10" rx="2" ry="6" fill="#90caf9" opacity="0.4" transform="rotate(-15 240 10)"/>
+          <ellipse cx="50" cy="50" rx="2" ry="6" fill="#90caf9" opacity="0.5" transform="rotate(-15 50 50)"/>
+          <ellipse cx="260" cy="45" rx="2" ry="6" fill="#90caf9" opacity="0.5" transform="rotate(-15 260 45)"/>
+        </svg>
+        <span class="blog-cat">Seasonal Guide</span>
+      </div>
+      <div class="blog-body">
+        <div class="blog-meta">
+          <span>February 2025</span>
+          <span>5 min read</span>
+        </div>
+        <h3>Planting Season in Uganda: When Is the Best Time to Plant?</h3>
+        <p>Uganda's two rainy seasons create ideal planting windows. Here's how to work with nature for the best survival rates.</p>
+        <span class="read-more">Read Article →</span>
+      </div>
+    </div>
+
+    <!-- Post 3 -->
+    <div class="blog-card reveal" onclick="openArticle(2)">
+      <div class="blog-thumb">
+        <svg viewBox="0 0 300 180" fill="none">
+          <rect width="300" height="180" fill="#2d1a0d"/>
+          <!-- Soil cross-section -->
+          <rect y="90" width="300" height="90" fill="#5c3d1e"/>
+          <rect y="120" width="300" height="60" fill="#4a2e12"/>
+          <rect y="150" width="300" height="30" fill="#3a2208"/>
+          <!-- Roots -->
+          <path d="M150 90 C148 105 142 115 130 125" stroke="#8b5e20" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <path d="M150 90 C152 108 158 118 170 128" stroke="#8b5e20" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <path d="M150 90 C150 110 148 130 145 155" stroke="#8b5e20" stroke-width="2" fill="none" stroke-linecap="round"/>
+          <path d="M130 125 C118 132 108 138 95 140" stroke="#7a5218" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+          <path d="M170 128 C182 135 194 140 205 142" stroke="#7a5218" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+          <!-- Above ground -->
+          <path d="M147 92 C145 70 143 52 145 38 C147 24 150 16 150 16 C150 16 153 24 155 38 C157 52 155 70 153 92Z" fill="#5c3d1e"/>
+          <ellipse cx="150" cy="55" rx="40" ry="34" fill="#2d7a1e"/>
+          <ellipse cx="150" cy="38" rx="28" ry="25" fill="#3a8a24"/>
+          <ellipse cx="150" cy="24" rx="18" ry="17" fill="#2d7a1e"/>
+          <!-- Soil labels -->
+          <rect x="8" y="93" width="65" height="18" rx="9" fill="rgba(200,169,110,0.2)"/>
+          <text x="14" y="106" font-family="sans-serif" font-size="9" fill="#c8a96e">Topsoil</text>
+          <rect x="8" y="123" width="65" height="18" rx="9" fill="rgba(200,169,110,0.15)"/>
+          <text x="14" y="136" font-family="sans-serif" font-size="9" fill="#c8a96e">Subsoil</text>
+        </svg>
+        <span class="blog-cat">Education</span>
+      </div>
+      <div class="blog-body">
+        <div class="blog-meta">
+          <span>March 2025</span>
+          <span>6 min read</span>
+        </div>
+        <h3>Understanding Ugandan Soils: What Your Trees Need to Thrive</h3>
+        <p>Not all soil is equal. Learn how to test, prepare, and improve your soil for maximum tree health and growth.</p>
+        <span class="read-more">Read Article →</span>
+      </div>
+    </div>
+
+    <!-- Post 4 -->
+    <div class="blog-card reveal" onclick="openArticle(3)">
+      <div class="blog-thumb">
+        <svg viewBox="0 0 300 180" fill="none">
+          <rect width="300" height="180" fill="#1a1a3e"/>
+          <path d="M143 175 C141 148 139 124 141 106 C143 88 150 78 150 78 C150 78 157 88 159 106 C161 124 159 148 157 175Z" fill="#5c3d1e"/>
+          <ellipse cx="150" cy="115" rx="72" ry="60" fill="#4a1a7a" opacity="0.8"/>
+          <ellipse cx="150" cy="88" rx="58" ry="50" fill="#5a2090" opacity="0.9"/>
+          <ellipse cx="150" cy="64" rx="42" ry="38" fill="#4a1a7a"/>
+          <ellipse cx="150" cy="44" rx="28" ry="26" fill="#6a28a8" opacity="0.9"/>
+          <circle cx="130" cy="100" r="7" fill="#c880f0" opacity="0.7"/>
+          <circle cx="168" cy="94" r="6" fill="#9b59d0" opacity="0.8"/>
+          <circle cx="150" cy="108" r="8" fill="#b06ae0" opacity="0.7"/>
+          <circle cx="118" cy="110" r="5" fill="#c880f0" opacity="0.6"/>
+          <circle cx="182" cy="105" r="6" fill="#9b59d0" opacity="0.7"/>
+          <circle cx="40" cy="20" r="1.5" fill="white" opacity="0.6"/>
+          <circle cx="260" cy="15" r="1" fill="white" opacity="0.5"/>
+          <circle cx="80" cy="35" r="1" fill="white" opacity="0.4"/>
+        </svg>
+        <span class="blog-cat">Species Guide</span>
+      </div>
+      <div class="blog-body">
+        <div class="blog-meta">
+          <span>April 2025</span>
+          <span>4 min read</span>
+        </div>
+        <h3>Jacaranda Trees in Uganda: Beauty, Care & Planting Tips</h3>
+        <p>The purple crown of East Africa. Everything you need to know about growing this breathtaking ornamental tree.</p>
+        <span class="read-more">Read Article →</span>
+      </div>
+    </div>
+
+    <!-- Post 5 -->
+    <div class="blog-card reveal" onclick="openArticle(4)">
+      <div class="blog-thumb">
+        <svg viewBox="0 0 300 180" fill="none">
+          <rect width="300" height="180" fill="#0d2818"/>
+          <!-- People planting tree -->
+          <rect y="130" width="300" height="50" fill="#1a3a12"/>
+          <path d="M143 135 C141 115 139 98 141 85 C143 72 150 64 150 64 C150 64 157 72 159 85 C161 98 159 115 157 135Z" fill="#6b4423"/>
+          <ellipse cx="150" cy="90" rx="50" ry="42" fill="#2d7a1e"/>
+          <ellipse cx="150" cy="70" rx="36" ry="32" fill="#1a5c12"/>
+          <ellipse cx="150" cy="52" rx="24" ry="22" fill="#3a7a28"/>
+          <!-- Person 1 -->
+          <circle cx="100" cy="118" r="8" fill="#c8a96e"/>
+          <path d="M92 126 C88 135 86 142 88 150" stroke="#c8a96e" stroke-width="3" stroke-linecap="round"/>
+          <path d="M108 126 C112 135 114 142 112 150" stroke="#c8a96e" stroke-width="3" stroke-linecap="round"/>
+          <path d="M92 128 C88 124 82 122 78 124" stroke="#c8a96e" stroke-width="2" stroke-linecap="round"/>
+          <!-- Person 2 -->
+          <circle cx="200" cy="120" r="8" fill="#7ab648" opacity="0.9"/>
+          <path d="M192 128 C188 137 186 144 188 152" stroke="#7ab648" stroke-width="3" stroke-linecap="round" opacity="0.9"/>
+          <path d="M208 128 C212 137 214 144 212 152" stroke="#7ab648" stroke-width="3" stroke-linecap="round" opacity="0.9"/>
+          <path d="M208 130 C214 126 220 124 224 126" stroke="#7ab648" stroke-width="2" stroke-linecap="round" opacity="0.9"/>
+          <!-- Shovel -->
+          <path d="M224 126 L234 155" stroke="#8b6914" stroke-width="2.5" stroke-linecap="round"/>
+          <ellipse cx="234" cy="158" rx="5" ry="4" fill="#8b6914"/>
+          <!-- Sun -->
+          <circle cx="260" cy="30" r="18" fill="#c8a96e" opacity="0.3"/>
+          <circle cx="260" cy="30" r="10" fill="#c8a96e" opacity="0.5"/>
+        </svg>
+        <span class="blog-cat">Community</span>
+      </div>
+      <div class="blog-body">
+        <div class="blog-meta">
+          <span>May 2025</span>
+          <span>5 min read</span>
+        </div>
+        <h3>Why Reforestation Matters for Uganda's Future</h3>
+        <p>Uganda loses thousands of acres of forest annually. Here's what we can all do — and why Elite Tree Solutions is committed to the fight.</p>
+        <span class="read-more">Read Article →</span>
+      </div>
+    </div>
+
+    <!-- Post 6 -->
+    <div class="blog-card reveal" onclick="openArticle(5)">
+      <div class="blog-thumb">
+        <svg viewBox="0 0 300 180" fill="none">
+          <rect width="300" height="180" fill="#1a3a1a"/>
+          <path d="M143 175 C141 145 139 118 141 98 C143 78 150 66 150 66 C150 66 157 78 159 98 C161 118 159 145 157 175Z" fill="#6b4423"/>
+          <ellipse cx="150" cy="105" rx="72" ry="60" fill="#1a5a12"/>
+          <ellipse cx="150" cy="80" rx="56" ry="48" fill="#2a6a18"/>
+          <!-- Avocados -->
+          <ellipse cx="122" cy="112" rx="12" ry="16" fill="#2d4a1a" opacity="0.95"/>
+          <ellipse cx="178" cy="105" rx="11" ry="15" fill="#3a5a20"/>
+          <ellipse cx="148" cy="125" rx="13" ry="18" fill="#2d4a1a"/>
+          <!-- Price tag SVG -->
+          <rect x="195" y="15" width="85" height="40" rx="8" fill="rgba(200,169,110,0.15)" stroke="rgba(200,169,110,0.4)" stroke-width="1"/>
+          <text x="205" y="32" font-family="sans-serif" font-size="9" fill="#c8a96e">Income from</text>
+          <text x="205" y="47" font-family="sans-serif" font-size="9" fill="#c8a96e">Avocados 🥑</text>
+        </svg>
+        <span class="blog-cat">Business</span>
+      </div>
+      <div class="blog-body">
+        <div class="blog-meta">
+          <span>June 2025</span>
+          <span>7 min read</span>
+        </div>
+        <h3>Avocado Farming in Uganda: A Profitable Guide for Smallholders</h3>
+        <p>Avocado demand is booming both locally and for export. Learn how to start, grow, and profit from avocado farming in Uganda.</p>
+        <span class="read-more">Read Article →</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="newsletter reveal">
+  <div class="section-label">Stay Updated</div>
+  <h2>Get Tree Tips in Your Inbox</h2>
+  <p>Monthly guides, seasonal advice, and nursery news — straight from Kakuye's desk to you.</p>
+  <form class="newsletter-form" onsubmit="subNewsletter(event)">
+    <input type="email" placeholder="Your email address" required id="nlEmail">
+    <button type="submit" id="nlBtn">Subscribe Free</button>
+  </form>
+</section>
+
+<!-- ARTICLE MODAL -->
+<div class="article-modal" id="articleModal">
+  <button class="article-close" onclick="closeArticle()">✕</button>
+  <div class="article-inner">
+    <span class="article-cat" id="articleCat"></span>
+    <h1 id="articleTitle"></h1>
+    <div class="article-meta" id="articleMeta"></div>
+    <div class="article-content" id="articleContent"></div>
+  </div>
+</div>
+
+<footer>
+  <div>
+    <div class="footer-logo">Elite Tree Solutions</div>
+    <p style="margin-top:0.3rem;">Owned by Kakuye Hitler Musajja &middot; Kabimbiri, Uganda</p>
+  </div>
+  <p>&#169; 2025 Elite Tree Solutions. All rights reserved.</p>
+  <div style="display:flex;gap:1.5rem;">
+    <a href="index.html" style="color:rgba(245,240,232,0.4);font-size:0.8rem;text-decoration:none;">Home</a>
+    <a href="gallery.html" style="color:rgba(245,240,232,0.4);font-size:0.8rem;text-decoration:none;">Gallery</a>
+    <a href="index.html#contact" style="color:var(--leaf);font-size:0.8rem;text-decoration:none;">Contact</a>
+  </div>
+</footer>
+
+<a href="https://wa.me/256706191725?text=Hello%20Elite%20Tree%20Solutions!" target="_blank" id="waBtn" title="Chat on WhatsApp">
+  <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+    <path d="M14 2C7.37 2 2 7.37 2 14C2 16.39 2.68 18.62 3.85 20.5L2.1 25.9L7.65 24.18C9.47 25.24 11.67 25.86 14 25.86C20.63 25.86 26 20.49 26 13.86C26 7.37 20.63 2 14 2Z" fill="white" opacity="0.95"/>
+    <path d="M20.5 17.5C20.2 18.3 18.9 19 18 19.1C17.2 19.2 16.2 19.2 15.1 18.9C14.4 18.6 13.5 18.3 12.4 17.8C9.9 16.6 8.3 14.1 8.1 13.9C7.9 13.6 6.5 11.7 6.5 9.8C6.5 7.8 7.5 6.9 7.9 6.4C8.3 5.9 8.8 5.8 9.1 5.8C9.3 5.8 9.6 5.8 9.8 5.8C10.1 5.8 10.4 5.7 10.8 6.6C11.1 7.4 11.9 9.3 12 9.5C12.1 9.7 12.1 9.9 12 10.1C11.9 10.3 11.8 10.5 11.6 10.7C11.4 10.9 11.2 11.2 11 11.4C10.8 11.6 10.6 11.8 10.8 12.1C11 12.5 11.8 13.7 12.9 14.7C14.3 15.9 15.5 16.3 15.9 16.5C16.2 16.6 16.5 16.6 16.7 16.3C16.9 16 17.7 15.1 18 14.8C18.2 14.5 18.5 14.5 18.8 14.6C19.1 14.7 21 15.6 21.3 15.8C21.6 16 21.8 16.1 21.9 16.2C22 16.7 22 17.5 20.5 17.5Z" fill="#25D366"/>
+  </svg>
+</a>
+
+<script>
+const articles = [
+  {
+    cat:'Tree Care', title:'The Complete Guide to Growing Mango Trees in Uganda\'s Climate',
+    meta:'January 2025 · By Kakuye H. Musajja · 8 min read',
+    content:`<p>The African mango (<em>Mangifera indica</em>) is perhaps Uganda's most beloved fruit tree — and for good reason. With the right care, a single mature mango tree can produce hundreds of kilograms of fruit each season, provide deep cooling shade, and become a landmark feature of any landscape for generations.</p>
+    <h2>Choosing the Right Variety</h2>
+    <p>Uganda's diverse climate — from the cool highlands around Kabale to the hot lowlands near Jinja — means variety selection is critical. At Elite Tree Solutions, we recommend:</p>
+    <ul><li><strong>Apple Mango</strong> — Sweet, round, and highly marketable. Excellent for Kampala's urban market.</li><li><strong>Kent</strong> — A late-season variety ideal for export. Large fruit with minimal fibre.</li><li><strong>Haden</strong> — The workhorse of Ugandan mango farms. Reliable, early-bearing, and disease-resistant.</li><li><strong>Tommy Atkins</strong> — Best for altitudes above 1,200m. Hardy and slow-maturing.</li></ul>
+    <h2>Soil & Site Preparation</h2>
+    <p>Mango trees thrive in deep, well-drained loam soils with a pH between 5.5 and 7.5. Before planting, dig holes at least 60cm deep and 60cm wide. Mix the excavated soil with well-rotted compost at a 2:1 ratio. Avoid waterlogged sites — mango roots are highly susceptible to rot.</p>
+    <div class="tip"><p>💡 <strong>Pro Tip from Kakuye:</strong> Plant on a slight slope if possible. This naturally improves drainage and reduces the risk of root disease, which is Uganda's number one mango killer.</p></div>
+    <h2>Planting & Spacing</h2>
+    <p>The ideal planting time is at the beginning of either rainy season — March or September. Space trees at least 10 metres apart to allow full canopy development. Stake young trees firmly for the first year to prevent wind rock.</p>
+    <h2>Watering & Fertilisation</h2>
+    <p>Young mango trees need watering every 2-3 days for the first three months. Once established, they are remarkably drought-tolerant. Apply a balanced NPK fertiliser (17:17:17) twice a year — once at the start of each rainy season. From year 3, switch to a potassium-rich fertiliser to encourage flowering and fruiting.</p>
+    <h2>When Will My Tree Bear Fruit?</h2>
+    <p>Grafted trees from a reputable nursery (like ours!) typically bear fruit within 3-4 years. Seedling trees can take 6-8 years. This is why buying quality grafted stock matters enormously — it literally saves you years of waiting.</p>`
+  },
+  {
+    cat:'Seasonal Guide', title:'Planting Season in Uganda: When Is the Best Time to Plant?',
+    meta:'February 2025 · By Elite Tree Solutions · 5 min read',
+    content:`<p>One of the most common questions we receive at Elite Tree Solutions is: <em>"When should I plant my trees?"</em> The answer lies in understanding Uganda's unique dual-rainy-season climate.</p>
+    <h2>Uganda's Two Planting Windows</h2>
+    <p>Uganda is blessed with two distinct rainy seasons each year, creating two ideal planting windows:</p>
+    <ul><li><strong>March to May (Long Rains)</strong> — The primary planting season. Rainfall is consistent and temperatures are moderate. This is the best window for most species, especially fruit trees and large shade trees.</li><li><strong>September to November (Short Rains)</strong> — Excellent for ornamental trees, hedging plants, and fast-growing species. Slightly shorter but very reliable in most Ugandan regions.</li></ul>
+    <h2>Why Rainy Season Planting Works Best</h2>
+    <p>Planting during rains dramatically reduces watering requirements, lowers transplant shock, and encourages rapid root establishment. Trees planted at the start of the rains typically show 40-60% better survival rates than dry-season plantings.</p>
+    <div class="tip"><p>💡 <strong>Kakuye's Rule:</strong> Plant on a cloudy day, never in direct midday sun. The cooler conditions reduce stress on the transplant enormously.</p></div>
+    <h2>Can You Plant in the Dry Season?</h2>
+    <p>Yes — but only if you can guarantee irrigation every 2-3 days for the first 8 weeks. Container-grown trees from our nursery handle dry-season transplanting better than bare-root trees. Contact us and we'll advise on the right approach for your specific situation.</p>`
+  },
+  {
+    cat:'Education', title:'Understanding Ugandan Soils: What Your Trees Need to Thrive',
+    meta:'March 2025 · By Kakuye H. Musajja · 6 min read',
+    content:`<p>Healthy trees begin with healthy soil. Uganda's varied geology produces a remarkable diversity of soil types — from the rich red loam of Buganda to the sandy soils of the north. Knowing your soil is the first step to tree success.</p>
+    <h2>Common Soil Types in Uganda</h2>
+    <ul><li><strong>Red Ferralsols (Central/South Uganda)</strong> — Deep, well-drained, slightly acidic. Excellent for most fruit trees, hardwoods and ornamentals with the addition of organic matter.</li><li><strong>Clay Vertisols (Lake Victoria Basin)</strong> — Fertile but prone to waterlogging. Requires raised planting mounds and drainage channels.</li><li><strong>Sandy Soils (Northern Uganda)</strong> — Fast-draining, low fertility. Needs heavy organic amendment and mulching to retain moisture.</li><li><strong>Volcanic Soils (Mt. Elgon Region)</strong> — Extremely fertile, high in minerals. Near-ideal for almost every tree species.</li></ul>
+    <h2>Simple Soil Tests You Can Do at Home</h2>
+    <p>You don't need a laboratory to understand your soil. Here are three tests any farmer can do:</p>
+    <ul><li><strong>Squeeze Test</strong> — Grab a handful of moist soil and squeeze. If it holds its shape but crumbles when poked, it's ideal loam. If it stays stuck together, it's heavy clay. If it won't form a ball, it's too sandy.</li><li><strong>Drainage Test</strong> — Dig a hole 30cm deep and fill with water. If it drains in under 30 minutes, drainage is excellent. If it's still full after 4 hours, you have a drainage problem.</li><li><strong>pH Test</strong> — Buy a simple pH testing kit from an agricultural shop. Most trees prefer a pH of 5.5–7.0.</li></ul>
+    <div class="tip"><p>💡 Adding a thick layer of organic mulch (grass, leaves, or wood chips) around your newly planted trees will transform almost any soil type over time. It's the single most impactful thing you can do for long-term tree health.</p></div>`
+  },
+  {
+    cat:'Species Guide', title:'Jacaranda Trees in Uganda: Beauty, Care & Planting Tips',
+    meta:'April 2025 · By Elite Tree Solutions · 4 min read',
+    content:`<p>Few sights in Uganda are more breathtaking than a Jacaranda tree in full bloom — an explosion of purple-blue flowers that seems to defy belief. Originally from South America, Jacaranda mimosifolia has made itself completely at home in Uganda's highland climate, where it thrives at altitudes between 1,000 and 2,000 metres.</p>
+    <h2>Where Does Jacaranda Grow Best in Uganda?</h2>
+    <p>Jacaranda performs best in the Kampala region, Kabale, Mbarara, and highland areas around Mt. Elgon. It prefers well-drained soils and full sun. In hotter, drier lowland areas, growth is slower and flowering less spectacular.</p>
+    <h2>When Does It Flower?</h2>
+    <p>In Uganda, Jacaranda typically flowers twice a year — most dramatically in December-January (the dry season) and again briefly in July-August. The flowers appear on bare branches before the new leaf flush, creating that iconic purple cloud effect.</p>
+    <h2>Planting & Care</h2>
+    <ul><li>Plant in full sun — Jacaranda in shade rarely flowers well</li><li>Water regularly for the first year; once established it's drought-tolerant</li><li>Avoid heavy pruning — let the natural spreading form develop</li><li>Apply a phosphorus-rich fertiliser annually to encourage flowering</li><li>Be patient — first significant flowering usually occurs in year 4-5</li></ul>
+    <div class="tip"><p>💡 Jacaranda is an excellent street tree and avenue planting. The fallen flowers create a magical purple carpet — it's not a mess, it's a feature!</p></div>`
+  },
+  {
+    cat:'Community', title:'Why Reforestation Matters for Uganda\'s Future',
+    meta:'May 2025 · By Kakuye H. Musajja · 5 min read',
+    content:`<p>Uganda once had one of the richest forest canopies in East Africa. Today, that cover has been dramatically reduced by charcoal production, agricultural clearing, and urban expansion. The consequences — increased flooding, soil erosion, declining rainfall patterns, and loss of biodiversity — are already being felt across the country.</p>
+    <h2>The Scale of the Challenge</h2>
+    <p>Uganda loses an estimated 90,000-100,000 hectares of forest annually. At this rate, Uganda's forests could be virtually gone within a generation. This is not a distant threat — it is happening now, and its effects are visible in every part of the country.</p>
+    <h2>What Can Individuals Do?</h2>
+    <ul><li><strong>Plant one tree on your land</strong> — It sounds small, but if every Ugandan family planted just one tree, millions of trees would be added annually.</li><li><strong>Choose native species</strong> — Native trees support local wildlife, establish faster, and require less maintenance than exotic varieties.</li><li><strong>Protect existing trees</strong> — The most valuable tree is the one already growing. Learn to identify and protect mature trees on your property.</li><li><strong>Spread awareness</strong> — Talk to your neighbours, schools, and local leaders about the importance of trees.</li></ul>
+    <h2>Elite Tree Solutions' Commitment</h2>
+    <p>We donate 2% of every sale to community reforestation initiatives across Uganda. We also partner with local schools to deliver tree-planting education programmes. Because we believe that a business built on trees must give back to the forests that make everything possible.</p>
+    <div class="tip"><p>💡 Contact us about our community bulk-planting discounts — we offer special pricing for schools, churches, local governments, and community groups committed to reforestation.</p></div>`
+  },
+  {
+    cat:'Business', title:'Avocado Farming in Uganda: A Profitable Guide for Smallholders',
+    meta:'June 2025 · By Elite Tree Solutions · 7 min read',
+    content:`<p>Uganda's avocado industry is booming. Local demand is rising rapidly as health-consciousness grows, and export markets — particularly to the Middle East and Europe — are hungry for Ugandan produce. For smallholder farmers, avocado trees represent one of the most attractive long-term investments available.</p>
+    <h2>Why Avocado?</h2>
+    <ul><li>A mature avocado tree can produce 200-400 fruits per season</li><li>Once established (year 4-5), trees require minimal inputs</li><li>Trees are productive for 50+ years with good management</li><li>Uganda's climate is near-perfect for Hass and Fuerte varieties</li><li>Growing export demand means prices have risen 300% in the last decade</li></ul>
+    <h2>Best Varieties for Uganda</h2>
+    <p><strong>Hass</strong> is the global gold standard — dark, pebbly skin, rich buttery flesh, long shelf life ideal for export. It performs best above 1,500m altitude. <strong>Fuerte</strong> is the workhorse for mid-altitude areas (800-1,500m) — reliable yields, good local market prices. <strong>Puebla</strong> suits hotter lowland areas and is extremely productive for local markets.</p>
+    <h2>Investment & Returns</h2>
+    <p>A grafted avocado seedling from Elite Tree Solutions costs between UGX 5,000-15,000 depending on variety and size. A well-managed tree in year 6 can generate UGX 150,000-400,000 in annual fruit sales. Plant 50 trees and you have a substantial secondary income stream for decades.</p>
+    <div class="tip"><p>💡 <strong>Kakuye's Advice:</strong> Always buy grafted trees, never seedlings grown from seed. Grafted trees fruit earlier (year 3-4 vs year 8-10), produce more uniformly, and are true to variety. It's worth every shilling of the premium.</p></div>
+    <h2>Getting Started</h2>
+    <p>Contact us at Elite Tree Solutions for a free consultation on avocado variety selection, spacing plans, and soil preparation for your specific land. We supply quality grafted stock and can advise on everything from planting to your first harvest.</p>`
+  }
+];
+
+function openArticle(i) {
+  const a = articles[i];
+  document.getElementById('articleCat').textContent = a.cat;
+  document.getElementById('articleTitle').textContent = a.title;
+  document.getElementById('articleMeta').textContent = a.meta;
+  document.getElementById('articleContent').innerHTML = a.content;
+  document.getElementById('articleModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeArticle() {
+  document.getElementById('articleModal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', e => { if(e.key==='Escape') closeArticle(); });
+
+function subNewsletter(e) {
+  e.preventDefault();
+  document.getElementById('nlBtn').textContent = '✓ Subscribed!';
+  document.getElementById('nlBtn').style.background = 'var(--gold)';
+  document.getElementById('nlEmail').value = '';
+}
+
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
