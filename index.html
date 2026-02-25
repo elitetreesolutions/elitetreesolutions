@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Elite Tree Solutions — Uganda's Premier Tree Nursery</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --forest: #0d2818;
+    --moss: #1a4a2e;
+    --sage: #4a7c59;
+    --leaf: #7ab648;
+    --gold: #c8a96e;
+    --cream: #f5f0e8;
+    --bark: #5c3d1e;
+    --mist: #e8f0e4;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--forest);
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* Custom cursor */
+  .cursor {
+    width: 12px; height: 12px;
+    background: var(--leaf);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    transition: transform 0.15s ease, background 0.3s;
+    transform: translate(-50%, -50%);
+  }
+  .cursor-ring {
+    width: 36px; height: 36px;
+    border: 1.5px solid var(--leaf);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9998;
+    transform: translate(-50%, -50%);
+    transition: all 0.35s ease;
+    opacity: 0.6;
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.4rem 4rem;
+    backdrop-filter: blur(20px);
+    background: rgba(13,40,24,0.85);
+    border-bottom: 1px solid rgba(122,182,72,0.15);
+  }
+  .nav-logo {
+    display: flex; align-items: center; gap: 0.8rem;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem; font-weight: 700;
+    color: var(--cream); letter-spacing: 0.04em;
+  }
+  .nav-links { display: flex; gap: 2.5rem; }
+  .nav-links a {
+    color: rgba(245,240,232,0.7); text-decoration: none;
+    font-size: 0.85rem; letter-spacing: 0.08em; text-transform: uppercase;
+    transition: color 0.3s;
+  }
+  .nav-links a:hover { color: var(--leaf); }
+  .nav-cta {
+    background: var(--leaf); color: var(--forest) !important;
+    padding: 0.5rem 1.4rem; border-radius: 2rem;
+    font-weight: 500; font-size: 0.82rem !important;
+  }
+  .nav-cta:hover { background: var(--gold) !important; color: var(--forest) !important; }
+
+  /* ─── HERO ─── */
+  .hero {
+    min-height: 100vh;
+    background: var(--forest);
+    position: relative; overflow: hidden;
+    display: flex; align-items: center;
+  }
+
+  /* Animated background gradient */
+  .hero-bg {
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 60% 50%, #1a4a2e 0%, #0d2818 60%);
+    animation: breathe 8s ease-in-out infinite alternate;
+  }
+  @keyframes breathe {
+    from { transform: scale(1); }
+    to { transform: scale(1.05); }
+  }
+
+  /* Floating particles */
+  .particles { position: absolute; inset: 0; }
+  .particle {
+    position: absolute;
+    width: 2px; height: 2px;
+    background: var(--leaf);
+    border-radius: 50%;
+    animation: float linear infinite;
+    opacity: 0;
+  }
+  @keyframes float {
+    0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+    10% { opacity: 0.6; }
+    90% { opacity: 0.3; }
+    100% { transform: translateY(-10vh) rotate(720deg); opacity: 0; }
+  }
+
+  .hero-content {
+    position: relative; z-index: 2;
+    padding: 8rem 4rem 4rem;
+    max-width: 800px;
+  }
+
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: rgba(122,182,72,0.15); border: 1px solid rgba(122,182,72,0.3);
+    color: var(--leaf); padding: 0.4rem 1rem; border-radius: 2rem;
+    font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase;
+    margin-bottom: 2rem;
+    animation: fadeUp 0.8s ease both;
+  }
+  .hero-badge::before {
+    content: ''; width: 6px; height: 6px; background: var(--leaf);
+    border-radius: 50%; animation: pulse 2s ease infinite;
+  }
+  @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.3;} }
+
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 7vw, 6.5rem);
+    line-height: 1.0; color: var(--cream);
+    font-weight: 900; margin-bottom: 1.5rem;
+    animation: fadeUp 0.8s 0.2s ease both;
+  }
+  .hero h1 em {
+    font-style: italic; color: var(--leaf);
+    display: block;
+  }
+
+  .hero p {
+    font-size: 1.1rem; color: rgba(245,240,232,0.65);
+    line-height: 1.8; max-width: 520px; margin-bottom: 2.5rem;
+    font-weight: 300;
+    animation: fadeUp 0.8s 0.4s ease both;
+  }
+
+  .hero-btns {
+    display: flex; gap: 1rem; flex-wrap: wrap;
+    animation: fadeUp 0.8s 0.6s ease both;
+  }
+  .btn-primary {
+    background: var(--leaf); color: var(--forest);
+    padding: 0.9rem 2.2rem; border-radius: 3rem;
+    font-weight: 500; text-decoration: none; font-size: 0.95rem;
+    transition: all 0.3s; letter-spacing: 0.02em;
+    box-shadow: 0 0 40px rgba(122,182,72,0.3);
+  }
+  .btn-primary:hover {
+    background: var(--gold); transform: translateY(-2px);
+    box-shadow: 0 0 60px rgba(200,169,110,0.4);
+  }
+  .btn-outline {
+    border: 1.5px solid rgba(245,240,232,0.3); color: var(--cream);
+    padding: 0.9rem 2.2rem; border-radius: 3rem;
+    font-weight: 400; text-decoration: none; font-size: 0.95rem;
+    transition: all 0.3s;
+  }
+  .btn-outline:hover { border-color: var(--leaf); color: var(--leaf); }
+
+  /* Big SVG tree right side */
+  .hero-tree {
+    position: absolute; right: -2%; bottom: 0;
+    width: 50vw; max-width: 700px;
+    opacity: 0.18;
+    animation: sway 12s ease-in-out infinite;
+    transform-origin: bottom center;
+  }
+  @keyframes sway {
+    0%,100% { transform: rotate(-1deg); }
+    50% { transform: rotate(1.5deg); }
+  }
+
+  .hero-stats {
+    position: absolute; bottom: 3rem; right: 4rem; z-index: 2;
+    display: flex; gap: 3rem;
+    animation: fadeUp 0.8s 0.8s ease both;
+  }
+  .stat { text-align: right; }
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem; font-weight: 700; color: var(--leaf);
+    line-height: 1;
+  }
+  .stat-label {
+    font-size: 0.72rem; color: rgba(245,240,232,0.45);
+    text-transform: uppercase; letter-spacing: 0.1em; margin-top: 0.3rem;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ─── MARQUEE STRIP ─── */
+  .strip {
+    background: var(--leaf); overflow: hidden; padding: 0.75rem 0;
+  }
+  .marquee {
+    display: flex; gap: 4rem; width: max-content;
+    animation: scroll 30s linear infinite;
+  }
+  @keyframes scroll { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+  .marquee span {
+    white-space: nowrap; font-size: 0.8rem; font-weight: 500;
+    text-transform: uppercase; letter-spacing: 0.1em; color: var(--forest);
+    display: flex; align-items: center; gap: 0.6rem;
+  }
+  .marquee span::after { content: '✦'; opacity: 0.5; }
+
+  /* ─── SECTION BASE ─── */
+  section { padding: 7rem 4rem; }
+  .section-label {
+    font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--sage); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.8rem;
+  }
+  .section-label::before {
+    content: ''; display: block; width: 30px; height: 1px; background: var(--leaf);
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.2rem, 4vw, 3.5rem);
+    line-height: 1.1; font-weight: 900; margin-bottom: 1.5rem;
+  }
+
+  /* ─── ABOUT ─── */
+  .about {
+    background: var(--cream);
+    display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center;
+  }
+  .about-visual {
+    position: relative;
+  }
+  .about-card {
+    background: var(--forest); border-radius: 2rem;
+    padding: 3rem; position: relative; overflow: hidden;
+  }
+  .about-card::before {
+    content: ''; position: absolute; top: -40%; right: -20%;
+    width: 280px; height: 280px;
+    background: radial-gradient(circle, rgba(122,182,72,0.15) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .about-badge-float {
+    position: absolute; top: -1.5rem; right: 2rem;
+    background: var(--gold); color: var(--forest);
+    padding: 0.8rem 1.4rem; border-radius: 1rem;
+    font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700;
+    box-shadow: 0 8px 30px rgba(200,169,110,0.4);
+  }
+  .about p {
+    font-size: 1.05rem; line-height: 1.85; color: #3a5040;
+    margin-bottom: 1.5rem; font-weight: 300;
+  }
+  .about-icons { display: flex; gap: 2rem; margin-top: 2rem; }
+  .about-icon { display: flex; align-items: center; gap: 0.6rem; font-size: 0.85rem; color: var(--sage); }
+
+  /* ─── SERVICES ─── */
+  .services { background: var(--forest); }
+  .services .section-title { color: var(--cream); }
+  .services .section-label { color: var(--leaf); }
+  .services-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 3rem;
+  }
+  .service-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(122,182,72,0.15);
+    border-radius: 1.5rem; padding: 2.2rem;
+    transition: all 0.4s; position: relative; overflow: hidden;
+    cursor: pointer;
+  }
+  .service-card::before {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(122,182,72,0.08) 0%, transparent 60%);
+    opacity: 0; transition: opacity 0.4s;
+  }
+  .service-card:hover { border-color: rgba(122,182,72,0.4); transform: translateY(-6px); }
+  .service-card:hover::before { opacity: 1; }
+  .service-icon { margin-bottom: 1.5rem; }
+  .service-card h3 {
+    font-family: 'Playfair Display', serif; font-size: 1.35rem;
+    color: var(--cream); margin-bottom: 0.8rem;
+  }
+  .service-card p { font-size: 0.9rem; color: rgba(245,240,232,0.5); line-height: 1.7; font-weight: 300; }
+  .service-num {
+    position: absolute; top: 1.5rem; right: 1.8rem;
+    font-family: 'Playfair Display', serif; font-size: 3rem;
+    color: rgba(122,182,72,0.08); font-weight: 900; line-height: 1;
+  }
+
+  /* ─── FEATURED TREES ─── */
+  .trees { background: var(--mist); }
+  .trees-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.2rem; margin-top: 3rem;
+  }
+  .tree-card {
+    background: white; border-radius: 1.5rem; overflow: hidden;
+    transition: all 0.4s; box-shadow: 0 4px 20px rgba(13,40,24,0.06);
+  }
+  .tree-card:hover { transform: translateY(-8px); box-shadow: 0 20px 50px rgba(13,40,24,0.15); }
+  .tree-card:first-child { grid-row: span 2; }
+  .tree-visual {
+    background: linear-gradient(160deg, #c8e6c9 0%, #81c784 100%);
+    display: flex; align-items: center; justify-content: center;
+    position: relative; overflow: hidden;
+    padding: 2rem; min-height: 180px;
+  }
+  .tree-card:first-child .tree-visual { min-height: 360px; }
+  .tree-info { padding: 1.3rem 1.5rem; }
+  .tree-info h4 {
+    font-family: 'Playfair Display', serif; font-size: 1.05rem;
+    color: var(--forest); margin-bottom: 0.3rem;
+  }
+  .tree-info p { font-size: 0.78rem; color: var(--sage); margin-bottom: 0.8rem; }
+  .tree-tag {
+    display: inline-block; background: var(--mist);
+    color: var(--sage); font-size: 0.7rem;
+    padding: 0.2rem 0.7rem; border-radius: 1rem;
+    letter-spacing: 0.05em;
+  }
+
+  /* ─── PROCESS ─── */
+  .process { background: var(--cream); }
+  .process-steps {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 0; margin-top: 4rem; position: relative;
+  }
+  .process-steps::before {
+    content: ''; position: absolute;
+    top: 2rem; left: 12.5%; right: 12.5%;
+    height: 1px; background: linear-gradient(90deg, transparent, var(--leaf), var(--leaf), transparent);
+    opacity: 0.3;
+  }
+  .step { text-align: center; padding: 0 1.5rem; }
+  .step-num {
+    width: 4rem; height: 4rem; border-radius: 50%;
+    background: var(--forest); color: var(--leaf);
+    font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 1.5rem;
+    box-shadow: 0 0 0 8px rgba(13,40,24,0.08);
+  }
+  .step h4 {
+    font-family: 'Playfair Display', serif; font-size: 1.1rem;
+    color: var(--forest); margin-bottom: 0.6rem;
+  }
+  .step p { font-size: 0.85rem; color: var(--sage); line-height: 1.6; font-weight: 300; }
+
+  /* ─── TESTIMONIAL ─── */
+  .testimonial {
+    background: var(--moss); text-align: center; padding: 6rem 4rem;
+    position: relative; overflow: hidden;
+  }
+  .testimonial::before {
+    content: '"'; position: absolute; top: -2rem; left: 50%; transform: translateX(-50%);
+    font-family: 'Playfair Display', serif; font-size: 20rem; font-weight: 900;
+    color: rgba(122,182,72,0.06); line-height: 1; pointer-events: none;
+  }
+  .testimonial blockquote {
+    font-family: 'Playfair Display', serif; font-size: clamp(1.4rem, 3vw, 2.2rem);
+    color: var(--cream); font-style: italic; font-weight: 400;
+    max-width: 750px; margin: 0 auto 2rem; line-height: 1.5; position: relative; z-index: 1;
+  }
+  .testimonial cite {
+    font-size: 0.85rem; color: var(--leaf); letter-spacing: 0.08em;
+    text-transform: uppercase; font-style: normal;
+  }
+
+  /* ─── CONTACT ─── */
+  .contact {
+    background: var(--forest);
+    display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: start;
+  }
+  .contact .section-title { color: var(--cream); }
+  .contact .section-label { color: var(--leaf); }
+  .contact p { color: rgba(245,240,232,0.55); line-height: 1.8; font-weight: 300; margin-bottom: 2rem; }
+
+  .contact-items { display: flex; flex-direction: column; gap: 1.2rem; }
+  .contact-item { display: flex; align-items: center; gap: 1rem; }
+  .contact-item-icon {
+    width: 2.5rem; height: 2.5rem; background: rgba(122,182,72,0.12);
+    border-radius: 0.6rem; display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .contact-item span { color: rgba(245,240,232,0.7); font-size: 0.9rem; }
+
+  .contact-form { display: flex; flex-direction: column; gap: 1rem; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .contact-form input, .contact-form textarea, .contact-form select {
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(122,182,72,0.2);
+    color: var(--cream); padding: 0.9rem 1.2rem; border-radius: 0.75rem;
+    font-family: 'DM Sans', sans-serif; font-size: 0.9rem;
+    transition: border-color 0.3s; outline: none; width: 100%;
+  }
+  .contact-form input::placeholder, .contact-form textarea::placeholder {
+    color: rgba(245,240,232,0.3);
+  }
+  .contact-form input:focus, .contact-form textarea:focus {
+    border-color: var(--leaf);
+  }
+  .contact-form textarea { resize: none; height: 130px; }
+  .contact-form button {
+    background: var(--leaf); color: var(--forest);
+    padding: 1rem; border: none; border-radius: 0.75rem;
+    font-family: 'DM Sans', sans-serif; font-size: 0.95rem; font-weight: 500;
+    cursor: pointer; transition: all 0.3s; letter-spacing: 0.03em;
+  }
+  .contact-form button:hover {
+    background: var(--gold); transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(200,169,110,0.3);
+  }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: #070f0a; padding: 2rem 4rem;
+    display: flex; align-items: center; justify-content: space-between;
+    border-top: 1px solid rgba(122,182,72,0.1);
+  }
+  footer p { font-size: 0.8rem; color: rgba(245,240,232,0.3); }
+  .footer-logo {
+    font-family: 'Playfair Display', serif; font-size: 1rem;
+    color: rgba(245,240,232,0.4);
+  }
+
+  /* ─── SCROLL REVEAL ─── */
+  .reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ─── MOBILE ─── */
+  @media (max-width: 768px) {
+    nav { padding: 1.2rem 1.5rem; }
+    .nav-links { display: none; }
+    .hero-content { padding: 7rem 1.5rem 3rem; }
+    .hero-tree { width: 90vw; opacity: 0.1; right: -15%; }
+    .hero-stats { right: 1.5rem; bottom: 2rem; gap: 1.5rem; }
+    .stat-num { font-size: 1.5rem; }
+    section { padding: 4rem 1.5rem; }
+    .about, .contact { grid-template-columns: 1fr; gap: 3rem; }
+    .services-grid { grid-template-columns: 1fr; }
+    .trees-grid { grid-template-columns: 1fr 1fr; }
+    .tree-card:first-child { grid-row: auto; }
+    .process-steps { grid-template-columns: 1fr 1fr; gap: 2rem; }
+    .process-steps::before { display: none; }
+    .form-row { grid-template-columns: 1fr; }
+    footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Custom cursor -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+      <path d="M14 2 C14 2 7 8 7 15 C7 19.4 10.1 23 14 23 C17.9 23 21 19.4 21 15 C21 8 14 2 14 2Z" fill="#7ab648" opacity="0.9"/>
+      <path d="M14 8 C14 8 9 13 9 17.5 C9 20 11.2 22 14 22 C16.8 22 19 20 19 17.5 C19 13 14 8 14 8Z" fill="#4a7c59"/>
+      <line x1="14" y1="22" x2="14" y2="26" stroke="#5c3d1e" stroke-width="2" stroke-linecap="round"/>
+    </svg>
+    Elite Tree Solutions
+  </div>
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#services">Services</a>
+    <a href="#trees">Our Trees</a>
+    <a href="#process">Process</a>
+    <a href="#contact" class="nav-cta">Get a Quote</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="particles" id="particles"></div>
+
+  <div class="hero-content">
+    <div class="hero-badge">Premium Tree Nursery</div>
+    <h1>Where Nature <em>Meets Excellence</em></h1>
+    <p>Cultivating extraordinary trees with decades of horticultural mastery. From rare specimens to native wonders — Elite Tree Solutions brings Uganda's finest trees to your landscape.</p>
+    <div class="hero-btns">
+      <a href="#trees" class="btn-primary">Explore Our Collection</a>
+      <a href="#contact" class="btn-outline">Request Consultation</a>
+    </div>
+  </div>
+
+  <!-- Big decorative SVG tree -->
+  <svg class="hero-tree" viewBox="0 0 400 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- Trunk -->
+    <path d="M185 580 C180 520 175 480 178 440 C181 400 190 380 200 360 C210 380 219 400 222 440 C225 480 220 520 215 580Z" fill="#5c3d1e"/>
+    <!-- Roots -->
+    <path d="M178 570 C160 580 130 590 110 585" stroke="#5c3d1e" stroke-width="8" stroke-linecap="round" fill="none"/>
+    <path d="M215 572 C235 582 265 590 285 582" stroke="#5c3d1e" stroke-width="8" stroke-linecap="round" fill="none"/>
+    <path d="M196 580 C194 595 190 610 184 618" stroke="#5c3d1e" stroke-width="6" stroke-linecap="round" fill="none"/>
+    <!-- Canopy layers -->
+    <ellipse cx="200" cy="300" rx="140" ry="110" fill="#4a7c59"/>
+    <ellipse cx="200" cy="260" rx="120" ry="100" fill="#1a4a2e"/>
+    <ellipse cx="165" cy="280" rx="85" ry="75" fill="#4a7c59" opacity="0.8"/>
+    <ellipse cx="235" cy="270" rx="80" ry="70" fill="#7ab648" opacity="0.4"/>
+    <ellipse cx="200" cy="210" rx="100" ry="85" fill="#1a4a2e"/>
+    <ellipse cx="200" cy="175" rx="80" ry="70" fill="#4a7c59"/>
+    <ellipse cx="200" cy="140" rx="60" ry="55" fill="#1a4a2e"/>
+    <ellipse cx="200" cy="110" rx="45" ry="42" fill="#7ab648" opacity="0.7"/>
+    <ellipse cx="200" cy="85" rx="30" ry="30" fill="#4a7c59"/>
+    <!-- Light highlights -->
+    <ellipse cx="175" cy="175" rx="25" ry="20" fill="#7ab648" opacity="0.3"/>
+    <ellipse cx="220" cy="235" rx="20" ry="16" fill="#7ab648" opacity="0.2"/>
+    <circle cx="200" cy="65" r="16" fill="#7ab648" opacity="0.5"/>
+    <!-- Hanging elements -->
+    <circle cx="145" cy="325" r="5" fill="#c8a96e" opacity="0.6"/>
+    <circle cx="255" cy="310" r="4" fill="#c8a96e" opacity="0.5"/>
+    <circle cx="200" cy="340" r="6" fill="#c8a96e" opacity="0.7"/>
+    <circle cx="170" cy="350" r="3" fill="#c8a96e" opacity="0.4"/>
+    <circle cx="230" cy="345" r="4" fill="#c8a96e" opacity="0.5"/>
+  </svg>
+
+  <div class="hero-stats">
+    <div class="stat">
+      <div class="stat-num">500+</div>
+      <div class="stat-label">Tree Species</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">20yr</div>
+      <div class="stat-label">Experience</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">98%</div>
+      <div class="stat-label">Survival Rate</div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE STRIP -->
+<div class="strip">
+  <div class="marquee">
+    <span>Premium Nursery Stock</span>
+    <span>Native Specimens</span>
+    <span>Rare Cultivars</span>
+    <span>Expert Consultation</span>
+    <span>Delivery & Planting</span>
+    <span>Aftercare Support</span>
+    <span>Sustainable Growing</span>
+    <span>Premium Nursery Stock</span>
+    <span>Native Specimens</span>
+    <span>Rare Cultivars</span>
+    <span>Expert Consultation</span>
+    <span>Delivery & Planting</span>
+    <span>Aftercare Support</span>
+    <span>Sustainable Growing</span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section class="about reveal" id="about">
+  <div class="about-visual">
+    <div class="about-card">
+      <div class="about-badge-float">Est. 2004</div>
+      <!-- Decorative SVG inside about card -->
+      <svg viewBox="0 0 300 220" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%; border-radius:1rem;">
+        <!-- Sky/ground -->
+        <rect width="300" height="220" rx="12" fill="#0d2818"/>
+        <ellipse cx="150" cy="195" rx="120" ry="20" fill="#1a3020" opacity="0.6"/>
+        <!-- Moon -->
+        <circle cx="260" cy="35" r="22" fill="#c8a96e" opacity="0.3"/>
+        <circle cx="270" cy="28" r="18" fill="#0d2818"/>
+        <!-- Stars -->
+        <circle cx="40" cy="20" r="1.5" fill="#c8a96e" opacity="0.7"/>
+        <circle cx="80" cy="15" r="1" fill="#c8a96e" opacity="0.5"/>
+        <circle cx="130" cy="25" r="1.5" fill="#c8a96e" opacity="0.6"/>
+        <circle cx="180" cy="10" r="1" fill="#c8a96e" opacity="0.8"/>
+        <circle cx="60" cy="40" r="1" fill="#c8a96e" opacity="0.4"/>
+        <!-- Big tree center -->
+        <path d="M145 185 C142 155 140 135 142 120 C145 105 150 95 150 95 C150 95 155 105 158 120 C160 135 158 155 155 185Z" fill="#5c3d1e"/>
+        <ellipse cx="150" cy="130" rx="55" ry="45" fill="#1a4a2e"/>
+        <ellipse cx="150" cy="105" rx="45" ry="38" fill="#4a7c59"/>
+        <ellipse cx="150" cy="82" rx="33" ry="30" fill="#1a4a2e"/>
+        <ellipse cx="150" cy="62" rx="22" ry="22" fill="#7ab648" opacity="0.8"/>
+        <!-- Small trees -->
+        <path d="M48 185 C46 165 44 152 46 142 C47 135 50 128 50 128 C50 128 53 135 54 142 C56 152 54 165 52 185Z" fill="#5c3d1e"/>
+        <ellipse cx="50" cy="148" rx="24" ry="20" fill="#1a4a2e"/>
+        <ellipse cx="50" cy="132" rx="18" ry="16" fill="#4a7c59"/>
+        <ellipse cx="50" cy="118" rx="12" ry="12" fill="#7ab648" opacity="0.7"/>
+        <path d="M245 185 C243 168 241 155 243 145 C244 138 247 132 247 132 C247 132 250 138 251 145 C253 155 251 168 249 185Z" fill="#5c3d1e"/>
+        <ellipse cx="247" cy="152" rx="22" ry="18" fill="#1a4a2e"/>
+        <ellipse cx="247" cy="138" rx="16" ry="15" fill="#4a7c59"/>
+        <ellipse cx="247" cy="125" rx="11" ry="11" fill="#7ab648" opacity="0.7"/>
+        <!-- Gold fruits/accents -->
+        <circle cx="138" cy="115" r="4" fill="#c8a96e" opacity="0.7"/>
+        <circle cx="162" cy="122" r="3" fill="#c8a96e" opacity="0.6"/>
+        <circle cx="150" cy="140" r="5" fill="#c8a96e" opacity="0.8"/>
+        <!-- Ground details -->
+        <ellipse cx="90" cy="192" rx="15" ry="5" fill="#4a7c59" opacity="0.3"/>
+        <ellipse cx="210" cy="190" rx="18" ry="6" fill="#4a7c59" opacity="0.25"/>
+      </svg>
+    </div>
+  </div>
+  <div class="about-text">
+    <div class="section-label">Our Story</div>
+    <h2 class="section-title">Two Decades of Arboricultural Excellence</h2>
+    <p>Founded in 2004, Elite Tree Solutions has grown from a modest family nursery into one of the region's most respected tree specialists. Every tree we grow is a testament to our commitment to quality, biodiversity, and the long-term health of our landscapes.</p>
+    <p>We don't just sell trees — we cultivate living legacies. Our team of certified arborists and horticulturalists handpick every specimen, ensuring that what reaches your landscape is nothing short of exceptional.</p>
+    <div class="about-icons">
+      <div class="about-icon">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+          <path d="M10 2C10 2 4 6.5 4 12C4 15.3 6.7 18 10 18C13.3 18 16 15.3 16 12C16 6.5 10 2 10 2Z" fill="#7ab648" opacity="0.8"/>
+        </svg>
+        Certified Arborists
+      </div>
+      <div class="about-icon">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+          <circle cx="10" cy="10" r="7" stroke="#7ab648" stroke-width="1.5" fill="none"/>
+          <path d="M10 6V10L13 13" stroke="#7ab648" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+        20+ Years Experience
+      </div>
+      <div class="about-icon">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+          <path d="M5 10L8.5 13.5L15 7" stroke="#7ab648" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Guaranteed Quality
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services reveal" id="services">
+  <div class="section-label">What We Offer</div>
+  <h2 class="section-title" style="color:var(--cream)">Complete Tree Solutions,<br>From Seed to Canopy</h2>
+  <div class="services-grid">
+    <!-- Service 1 -->
+    <div class="service-card">
+      <div class="service-num">01</div>
+      <div class="service-icon">
+        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+          <circle cx="24" cy="24" r="22" fill="rgba(122,182,72,0.1)" stroke="rgba(122,182,72,0.3)" stroke-width="1"/>
+          <path d="M24 8C24 8 15 14 15 22C15 27.5 19 32 24 32C29 32 33 27.5 33 22C33 14 24 8 24 8Z" fill="#7ab648" opacity="0.8"/>
+          <path d="M24 18C24 18 19 22 19 25.5C19 27.5 21.2 29 24 29C26.8 29 29 27.5 29 25.5C29 22 24 18 24 18Z" fill="#4a7c59"/>
+          <line x1="24" y1="31" x2="24" y2="38" stroke="#5c3d1e" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <h3>Nursery Sales</h3>
+      <p>Browse our extensive collection of container-grown and balled-and-burlapped trees. Every specimen is individually inspected for health, form, and vitality before leaving our grounds.</p>
+    </div>
+    <!-- Service 2 -->
+    <div class="service-card">
+      <div class="service-num">02</div>
+      <div class="service-icon">
+        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+          <circle cx="24" cy="24" r="22" fill="rgba(122,182,72,0.1)" stroke="rgba(122,182,72,0.3)" stroke-width="1"/>
+          <path d="M12 34 C16 28 20 26 24 24 C28 22 34 18 36 12" stroke="#7ab648" stroke-width="2" stroke-linecap="round" fill="none"/>
+          <circle cx="36" cy="12" r="4" fill="#7ab648" opacity="0.7"/>
+          <circle cx="24" cy="24" r="3" fill="#7ab648" opacity="0.5"/>
+          <path d="M14 36 L22 30" stroke="#5c3d1e" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <h3>Landscape Design</h3>
+      <p>Our expert designers craft bespoke planting schemes that bring seasonal interest, privacy, and ecological value to residential and commercial landscapes alike.</p>
+    </div>
+    <!-- Service 3 -->
+    <div class="service-card">
+      <div class="service-num">03</div>
+      <div class="service-icon">
+        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+          <circle cx="24" cy="24" r="22" fill="rgba(122,182,72,0.1)" stroke="rgba(122,182,72,0.3)" stroke-width="1"/>
+          <rect x="18" y="28" width="12" height="8" rx="2" fill="#5c3d1e" opacity="0.8"/>
+          <path d="M20 28 L20 20 C20 16 22 14 24 14 C26 14 28 16 28 20 L28 28" stroke="#4a7c59" stroke-width="2" stroke-linecap="round" fill="none"/>
+          <path d="M16 22 L20 24" stroke="#7ab648" stroke-width="1.5" stroke-linecap="round"/>
+          <path d="M32 22 L28 24" stroke="#7ab648" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <h3>Delivery & Planting</h3>
+      <p>We handle everything from crane-assisted delivery to precision planting and post-installation care — ensuring each tree gets the perfect start in its new home.</p>
+    </div>
+    <!-- Service 4 -->
+    <div class="service-card">
+      <div class="service-num">04</div>
+      <div class="service-icon">
+        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+          <circle cx="24" cy="24" r="22" fill="rgba(122,182,72,0.1)" stroke="rgba(122,182,72,0.3)" stroke-width="1"/>
+          <path d="M24 14 L26 20 L32 20 L27.5 24 L29 30 L24 26.5 L19 30 L20.5 24 L16 20 L22 20Z" fill="#c8a96e" opacity="0.8"/>
+        </svg>
+      </div>
+      <h3>Rare Specimens</h3>
+      <p>For the discerning collector and landscaper. We source extraordinary specimens from around the world — ancient-form bonsai, rare cultivars, and heritage varieties unavailable elsewhere.</p>
+    </div>
+    <!-- Service 5 -->
+    <div class="service-card">
+      <div class="service-num">05</div>
+      <div class="service-icon">
+        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+          <circle cx="24" cy="24" r="22" fill="rgba(122,182,72,0.1)" stroke="rgba(122,182,72,0.3)" stroke-width="1"/>
+          <path d="M20 36 L24 12 L28 36" stroke="#7ab648" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          <path d="M18 24 L24 20 L30 24" stroke="#7ab648" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          <path d="M16 30 L24 26 L32 30" stroke="#4a7c59" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        </svg>
+      </div>
+      <h3>Arborist Consultancy</h3>
+      <p>From soil analysis to pruning schedules and disease diagnosis — our certified arborists provide comprehensive tree health assessments and management plans.</p>
+    </div>
+    <!-- Service 6 -->
+    <div class="service-card">
+      <div class="service-num">06</div>
+      <div class="service-icon">
+        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+          <circle cx="24" cy="24" r="22" fill="rgba(122,182,72,0.1)" stroke="rgba(122,182,72,0.3)" stroke-width="1"/>
+          <path d="M14 34 C16 24 20 18 24 14 C24 14 26 20 24 26 C22 32 18 36 14 34Z" fill="#7ab648" opacity="0.7"/>
+          <path d="M34 34 C32 24 28 18 24 14 C24 14 22 20 24 26 C26 32 30 36 34 34Z" fill="#4a7c59" opacity="0.7"/>
+          <circle cx="24" cy="32" r="3" fill="#c8a96e" opacity="0.8"/>
+        </svg>
+      </div>
+      <h3>Aftercare Programmes</h3>
+      <p>Our relationship doesn't end at planting. Ongoing fertilisation, irrigation setup, seasonal treatments, and emergency callouts keep your trees thriving for decades.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURED TREES -->
+<section class="trees reveal" id="trees">
+  <div class="section-label">Our Collection</div>
+  <h2 class="section-title">Living Masterpieces</h2>
+  <div class="trees-grid">
+    <!-- Card 1 - large -->
+    <div class="tree-card">
+      <div class="tree-visual" style="background:linear-gradient(160deg,#2d5a1b 0%,#4a7c59 100%); min-height:360px;">
+        <svg viewBox="0 0 180 280" fill="none" width="160">
+          <path d="M86 270 C84 240 82 215 84 195 C86 175 90 162 90 162 C90 162 94 175 96 195 C98 215 96 240 94 270Z" fill="#4a3010"/>
+          <ellipse cx="90" cy="200" rx="65" ry="55" fill="#1a3a12"/>
+          <ellipse cx="90" cy="165" rx="55" ry="48" fill="#2d5a1b"/>
+          <ellipse cx="90" cy="133" rx="42" ry="38" fill="#1a3a12"/>
+          <ellipse cx="90" cy="105" rx="32" ry="30" fill="#3d7a24"/>
+          <ellipse cx="90" cy="80" rx="22" ry="22" fill="#1a3a12"/>
+          <ellipse cx="90" cy="58" rx="15" ry="15" fill="#4a8a2a" opacity="0.9"/>
+          <ellipse cx="90" cy="40" rx="10" ry="10" fill="#3d7a24"/>
+          <circle cx="78" cy="145" r="5" fill="#c8a96e" opacity="0.8"/>
+          <circle cx="104" cy="158" r="4" fill="#c8a96e" opacity="0.7"/>
+          <circle cx="90" cy="175" r="6" fill="#c8a96e" opacity="0.9"/>
+          <circle cx="70" cy="170" r="3.5" fill="#c8a96e" opacity="0.6"/>
+        </svg>
+      </div>
+      <div class="tree-info">
+        <h4>Quercus robur — English Oak</h4>
+        <p>The King of the Forest. Majestic presence, extraordinary longevity.</p>
+        <span class="tree-tag">Heritage Specimen</span>
+      </div>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="tree-card">
+      <div class="tree-visual" style="background:linear-gradient(160deg,#fce4c0 0%,#f5c870 100%);">
+        <svg viewBox="0 0 120 160" fill="none" width="100">
+          <path d="M57 150 C55 125 53 108 55 95 C57 82 60 76 60 76 C60 76 63 82 65 95 C67 108 65 125 63 150Z" fill="#6b3a1f"/>
+          <ellipse cx="60" cy="100" rx="42" ry="35" fill="#ffb347" opacity="0.7"/>
+          <ellipse cx="60" cy="78" rx="33" ry="28" fill="#ff8c00" opacity="0.6"/>
+          <ellipse cx="60" cy="58" rx="24" ry="22" fill="#e67e22" opacity="0.7"/>
+          <ellipse cx="60" cy="40" rx="16" ry="15" fill="#d35400" opacity="0.6"/>
+          <ellipse cx="60" cy="26" rx="10" ry="10" fill="#c0392b" opacity="0.5"/>
+        </svg>
+      </div>
+      <div class="tree-info">
+        <h4>Acer palmatum — Japanese Maple</h4>
+        <p>Fiery autumn drama with year-round elegance.</p>
+        <span class="tree-tag">Ornamental</span>
+      </div>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="tree-card">
+      <div class="tree-visual" style="background:linear-gradient(160deg,#e8f5e9 0%,#a5d6a7 100%);">
+        <svg viewBox="0 0 120 160" fill="none" width="90">
+          <path d="M57 148 C55 128 54 112 55 100 C56 88 60 82 60 82 C60 82 64 88 65 100 C66 112 65 128 63 148Z" fill="#5d4037"/>
+          <path d="M60 82 C45 65 30 55 20 50 C30 55 42 68 50 82Z" fill="#388e3c" opacity="0.7"/>
+          <path d="M60 82 C75 65 90 55 100 50 C90 55 78 68 70 82Z" fill="#2e7d32" opacity="0.7"/>
+          <path d="M60 62 C48 48 36 40 28 36 C36 40 48 52 55 64Z" fill="#43a047" opacity="0.6"/>
+          <path d="M60 62 C72 48 84 40 92 36 C84 40 72 52 65 64Z" fill="#388e3c" opacity="0.6"/>
+          <path d="M60 44 C52 32 44 26 38 22 C44 26 52 36 58 46Z" fill="#4caf50" opacity="0.7"/>
+          <path d="M60 44 C68 32 76 26 82 22 C76 26 68 36 62 46Z" fill="#388e3c" opacity="0.7"/>
+        </svg>
+      </div>
+      <div class="tree-info">
+        <h4>Betula pendula — Silver Birch</h4>
+        <p>Graceful weeping form with luminous silver bark.</p>
+        <span class="tree-tag">Native Species</span>
+      </div>
+    </div>
+
+    <!-- Card 4 -->
+    <div class="tree-card">
+      <div class="tree-visual" style="background:linear-gradient(160deg,#e8eaf6 0%,#9fa8da 100%);">
+        <svg viewBox="0 0 120 160" fill="none" width="90">
+          <!-- Cherry blossom -->
+          <path d="M57 148 C56 130 55 118 56 108 C57 98 60 92 60 92 C60 92 63 98 64 108 C65 118 64 130 63 148Z" fill="#795548"/>
+          <circle cx="60" cy="80" r="35" fill="#fce4ec" opacity="0.8"/>
+          <circle cx="40" cy="70" r="22" fill="#f8bbd9" opacity="0.7"/>
+          <circle cx="78" cy="72" r="20" fill="#fce4ec" opacity="0.7"/>
+          <circle cx="60" cy="55" r="24" fill="#f48fb1" opacity="0.6"/>
+          <circle cx="60" cy="42" r="16" fill="#fce4ec" opacity="0.8"/>
+          <!-- Flowers -->
+          <circle cx="45" cy="75" r="5" fill="#e91e63" opacity="0.5"/>
+          <circle cx="72" cy="68" r="4" fill="#e91e63" opacity="0.4"/>
+          <circle cx="60" cy="60" r="5" fill="#e91e63" opacity="0.5"/>
+          <circle cx="50" cy="58" r="3" fill="#e91e63" opacity="0.3"/>
+          <circle cx="68" cy="80" r="4" fill="#e91e63" opacity="0.4"/>
+        </svg>
+      </div>
+      <div class="tree-info">
+        <h4>Prunus serrulata — Cherry Blossom</h4>
+        <p>Spectacular spring flowering — a moment of pure magic.</p>
+        <span class="tree-tag">Flowering Tree</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="process reveal" id="process">
+  <div class="section-label">How It Works</div>
+  <h2 class="section-title">Your Journey to a<br>Perfect Landscape</h2>
+  <div class="process-steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <h4>Consultation</h4>
+      <p>We listen to your vision, assess your site conditions, soil type, and climate — then recommend the perfect trees for your unique landscape.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <h4>Selection</h4>
+      <p>Walk our nursery or browse online. Our arborists guide you through the finest specimens, hand-tagging each tree chosen for you.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <h4>Planting Day</h4>
+      <p>Our crew arrives with all equipment. We plant precisely to specification — proper depth, drainage, and staking — for a flawless installation.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <h4>Aftercare</h4>
+      <p>A dedicated care schedule is provided. We check in at 30, 90, and 180 days to ensure your trees are thriving in their new environment.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIAL -->
+<div class="testimonial reveal">
+  <blockquote>
+    "Elite Tree Solutions transformed our estate. Every tree they planted has flourished beyond expectation — their expertise and passion is unlike anything we've encountered in twenty years of landscaping."
+  </blockquote>
+  <cite>— Lord & Lady Hartwell, Hartwell Estate, Buckinghamshire</cite>
+</div>
+
+<!-- CONTACT -->
+<section class="contact reveal" id="contact">
+  <div>
+    <div class="section-label">Get In Touch</div>
+    <h2 class="section-title" style="color:var(--cream)">Let's Grow Something Beautiful Together</h2>
+    <p>Whether you're a homeowner dreaming of a single signature tree or a developer planning an entire green corridor — we're ready to bring your vision to life.</p>
+    <div class="contact-items">
+      <div class="contact-item">
+        <div class="contact-item-icon">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+            <path d="M9 2C6.24 2 4 4.24 4 7C4 11 9 16 9 16C9 16 14 11 14 7C14 4.24 11.76 2 9 2ZM9 8.5C8.17 8.5 7.5 7.83 7.5 7C7.5 6.17 8.17 5.5 9 5.5C9.83 5.5 10.5 6.17 10.5 7C10.5 7.83 9.83 8.5 9 8.5Z" fill="#7ab648"/>
+          </svg>
+        </div>
+        <span>Kabimbiri, along Kayunga Road, 500m from the Roundabout, Uganda</span>
+      </div>
+      <div class="contact-item">
+        <div class="contact-item-icon">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+            <path d="M3 3H15C15.83 3 16.5 3.67 16.5 4.5V13.5C16.5 14.33 15.83 15 15 15H3C2.17 15 1.5 14.33 1.5 13.5V4.5C1.5 3.67 2.17 3 3 3Z" stroke="#7ab648" stroke-width="1.2" fill="none"/>
+            <path d="M1.5 4.5L9 9.75L16.5 4.5" stroke="#7ab648" stroke-width="1.2" fill="none"/>
+          </svg>
+        </div>
+        <span><a href="mailto:elitetreesolutions26@gmail.com" style="color:inherit; text-decoration:none;">elitetreesolutions26@gmail.com</a></span>
+      </div>
+      <div class="contact-item">
+        <div class="contact-item-icon">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+            <path d="M3.5 3H6.5L8 6.5L6.25 7.5C7 9.5 8.5 11 10.5 11.75L11.5 10L15 11.5V14.5C15 15.05 14.55 15.5 14 15.5C7.83 15.5 2.5 10.17 2.5 4C2.5 3.45 2.95 3 3.5 3Z" fill="#7ab648" opacity="0.8"/>
+          </svg>
+        </div>
+        <span><a href="tel:+256706191725" style="color:inherit; text-decoration:none;">+256 706 191 725</a></span>
+      </div>
+      <div class="contact-item">
+        <div class="contact-item-icon">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+            <circle cx="9" cy="9" r="6.5" stroke="#7ab648" stroke-width="1.2" fill="none"/>
+            <path d="M9 5V9L11.5 11.5" stroke="#7ab648" stroke-width="1.2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <span>Mon – Sat: 8:00am – 6:00pm</span>
+      </div>
+    </div>
+  </div>
+
+  <form class="contact-form" onsubmit="handleSubmit(event)">
+    <div class="form-row">
+      <input type="text" placeholder="Your Name" required>
+      <input type="email" placeholder="Email Address" required>
+    </div>
+    <input type="tel" placeholder="Phone Number">
+    <select style="color:rgba(245,240,232,0.5);">
+      <option value="" disabled selected>Service of Interest</option>
+      <option value="nursery">Nursery Purchase</option>
+      <option value="design">Landscape Design</option>
+      <option value="planting">Delivery & Planting</option>
+      <option value="rare">Rare Specimens</option>
+      <option value="arborist">Arborist Consultation</option>
+      <option value="aftercare">Aftercare Programme</option>
+    </select>
+    <textarea placeholder="Tell us about your project — site, scale, and vision..."></textarea>
+    <button type="submit">Send Enquiry →</button>
+  </form>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="footer-logo">Elite Tree Solutions</div>
+    <p style="font-size:0.75rem; color:rgba(245,240,232,0.3); margin-top:0.3rem;">Owned by Kakuye Hitler Musajja &middot; Kabimbiri, Uganda</p>
+  </div>
+  <p>&#169; 2025 Elite Tree Solutions. All rights reserved.</p>
+  <p style="font-size:0.75rem; color:rgba(245,240,232,0.2);">Planted with passion. Grown with purpose. &#127482;&#127468;</p>
+</footer>
+
+<!-- WhatsApp Floating Button -->
+<a href="https://wa.me/256706191725?text=Hello%20Elite%20Tree%20Solutions%2C%20I%27d%20like%20to%20enquire%20about%20your%20trees%20and%20services."
+   target="_blank"
+   id="waBtn"
+   title="Chat on WhatsApp">
+  <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+    <path d="M14 2C7.37 2 2 7.37 2 14C2 16.39 2.68 18.62 3.85 20.5L2.1 25.9L7.65 24.18C9.47 25.24 11.67 25.86 14 25.86C20.63 25.86 26 20.49 26 13.86C26 7.37 20.63 2 14 2Z" fill="white" opacity="0.95"/>
+    <path d="M20.5 17.5C20.2 18.3 18.9 19 18 19.1C17.2 19.2 16.2 19.2 15.1 18.9C14.4 18.6 13.5 18.3 12.4 17.8C9.9 16.6 8.3 14.1 8.1 13.9C7.9 13.6 6.5 11.7 6.5 9.8C6.5 7.8 7.5 6.9 7.9 6.4C8.3 5.9 8.8 5.8 9.1 5.8C9.3 5.8 9.6 5.8 9.8 5.8C10.1 5.8 10.4 5.7 10.8 6.6C11.1 7.4 11.9 9.3 12 9.5C12.1 9.7 12.1 9.9 12 10.1C11.9 10.3 11.8 10.5 11.6 10.7C11.4 10.9 11.2 11.2 11 11.4C10.8 11.6 10.6 11.8 10.8 12.1C11 12.5 11.8 13.7 12.9 14.7C14.3 15.9 15.5 16.3 15.9 16.5C16.2 16.6 16.5 16.6 16.7 16.3C16.9 16 17.7 15.1 18 14.8C18.2 14.5 18.5 14.5 18.8 14.6C19.1 14.7 21 15.6 21.3 15.8C21.6 16 21.8 16.1 21.9 16.2C22 16.7 22 17.5 20.5 17.5Z" fill="#25D366"/>
+  </svg>
+</a>
+
+<style>
+#waBtn {
+  position:fixed; bottom:2rem; right:2rem; z-index:9999;
+  background:#25D366; color:white;
+  width:58px; height:58px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  box-shadow: 0 4px 20px rgba(37,211,102,0.5);
+  text-decoration:none;
+  animation: waPulse 2.5s ease-in-out infinite;
+}
+@keyframes waPulse {
+  0%,100% { box-shadow: 0 4px 20px rgba(37,211,102,0.5); transform: scale(1); }
+  50% { box-shadow: 0 4px 40px rgba(37,211,102,0.8); transform: scale(1.08); }
+}
+</style>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  // Custom cursor
+  const cursor = document.getElementById('cursor');
+  const cursorRing = document.getElementById('cursorRing');
+  document.addEventListener('mousemove', e => {
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top = e.clientY + 'px';
+    setTimeout(() => {
+      cursorRing.style.left = e.clientX + 'px';
+      cursorRing.style.top = e.clientY + 'px';
+    }, 80);
+  });
+  document.querySelectorAll('a, button, .service-card, .tree-card').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      cursor.style.transform = 'translate(-50%,-50%) scale(2.5)';
+      cursorRing.style.opacity = '0';
+    });
+    el.addEventListener('mouseleave', () => {
+      cursor.style.transform = 'translate(-50%,-50%) scale(1)';
+      cursorRing.style.opacity = '0.6';
+    });
+  });
+
+  // Particles
+  const container = document.getElementById('particles');
+  for (let i = 0; i < 25; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    p.style.left = Math.random() * 100 + 'vw';
+    p.style.animationDuration = (8 + Math.random() * 12) + 's';
+    p.style.animationDelay = (Math.random() * 12) + 's';
+    p.style.width = p.style.height = (1.5 + Math.random() * 2.5) + 'px';
+    container.appendChild(p);
+  }
+
+  // Scroll reveal
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Form
+  function handleSubmit(e) {
+ 
