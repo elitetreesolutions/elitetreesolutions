@@ -222,366 +222,100 @@
 </div>
 
 <!-- GALLERY -->
+<!-- HOW TO ADD YOUR OWN PHOTOS:
+     1. Upload your photo to your GitHub repo (e.g. images/mango.jpg)
+<!-- ══════════════════════════════════════════════
+     HOW TO ADD YOUR REAL PHOTOS:
+     1. Upload your photo file to the same folder as gallery.html
+        e.g.  images/mango.jpg
+     2. Find the placeholder for that photo below (look for the filename hint)
+     3. Replace the whole <div class="img-placeholder ..."> ... </div>
+        with just:  <img src="images/mango.jpg" alt="Mango" style="width:100%;display:block;">
+     4. Save and upload. Done! The caption overlay stays automatically.
+═══════════════════════════════════════════════ -->
+
 <div class="gallery-section">
   <div class="gallery-grid" id="galleryGrid">
 
-    <!-- Item 1 - Tall Mango -->
+    <!-- 1 · MANGO -->
     <div class="gallery-item reveal" data-category="fruit" onclick="openLightbox(0)">
-      <svg viewBox="0 0 300 380" fill="none">
-        <rect width="300" height="380" fill="#1a3a12"/>
-        <ellipse cx="150" cy="360" rx="100" ry="18" fill="#0d2818"/>
-        <!-- Trunk -->
-        <path d="M138 370 C135 320 132 280 135 240 C138 200 148 175 150 175 C152 175 162 200 165 240 C168 280 165 320 162 370Z" fill="#5c3d1e"/>
-        <!-- Canopy -->
-        <ellipse cx="150" cy="230" rx="90" ry="75" fill="#1a5c12"/>
-        <ellipse cx="150" cy="190" rx="75" ry="65" fill="#2d7a1e"/>
-        <ellipse cx="110" cy="210" rx="55" ry="48" fill="#1a5c12"/>
-        <ellipse cx="190" cy="200" rx="52" ry="45" fill="#3a8a24"/>
-        <ellipse cx="150" cy="155" rx="60" ry="52" fill="#2d7a1e"/>
-        <ellipse cx="150" cy="120" rx="45" ry="40" fill="#1a5c12"/>
-        <ellipse cx="150" cy="90" rx="32" ry="30" fill="#3a8a24"/>
-        <!-- Mangoes -->
-        <ellipse cx="120" cy="230" rx="9" ry="12" fill="#f4a128" opacity="0.9"/>
-        <ellipse cx="175" cy="218" rx="8" ry="11" fill="#e8902a" opacity="0.9"/>
-        <ellipse cx="148" cy="242" rx="10" ry="13" fill="#f4a128" opacity="0.8"/>
-        <ellipse cx="100" cy="215" rx="7" ry="10" fill="#ffb347" opacity="0.8"/>
-        <ellipse cx="200" cy="235" rx="8" ry="11" fill="#e8902a" opacity="0.7"/>
-        <!-- Light dapple -->
-        <ellipse cx="120" cy="165" rx="20" ry="15" fill="#7ab648" opacity="0.15"/>
-        <ellipse cx="185" cy="180" rx="18" ry="14" fill="#7ab648" opacity="0.1"/>
-      </svg>
-      <div class="gallery-overlay">
-        <div class="gallery-info">
-          <h4>African Mango — Mangifera indica</h4>
-          <p>Fruit Tree · Kabimbiri Estate</p>
-        </div>
-      </div>
+       <img src="images/1.jpg" alt="Mango" style="width:100%;display:block;">
+      <div class="gallery-overlay"><div class="gallery-info">
+        <h4>African Mango — Mangifera indica</h4>
+        <p>Fruit Tree · Kabimbiri Estate</p>
+      </div></div>
     </div>
 
-    <!-- Item 2 - Landscape -->
+    <!-- 2 · AVENUE PLANTING -->
     <div class="gallery-item reveal" data-category="landscape" onclick="openLightbox(1)">
-      <svg viewBox="0 0 300 240" fill="none">
-        <rect width="300" height="240" fill="#1a4a2e"/>
-        <!-- Sky gradient -->
-        <rect width="300" height="160" fill="#0d2818"/>
-        <rect y="160" width="300" height="80" fill="#1a3a12"/>
-        <!-- Sun glow -->
-        <ellipse cx="250" cy="60" rx="35" ry="35" fill="#c8a96e" opacity="0.15"/>
-        <ellipse cx="250" cy="60" rx="20" ry="20" fill="#c8a96e" opacity="0.25"/>
-        <circle cx="250" cy="60" r="10" fill="#c8a96e" opacity="0.6"/>
-        <!-- Row of trees -->
-        <path d="M28 220 C26 200 25 185 26 173 C27 162 30 156 30 156 C30 156 33 162 34 173 C35 185 34 200 32 220Z" fill="#4a3010"/>
-        <ellipse cx="30" cy="172" rx="22" ry="18" fill="#1a4a2e"/>
-        <ellipse cx="30" cy="158" rx="17" ry="15" fill="#2d6a20"/>
-        <ellipse cx="30" cy="146" rx="12" ry="12" fill="#3a7a28"/>
-
-        <path d="M78 220 C76 196 74 178 76 164 C77 150 80 143 80 143 C80 143 83 150 84 164 C86 178 84 196 82 220Z" fill="#4a3010"/>
-        <ellipse cx="80" cy="160" rx="26" ry="22" fill="#1a4a2e"/>
-        <ellipse cx="80" cy="144" rx="20" ry="18" fill="#2d6a20"/>
-        <ellipse cx="80" cy="130" rx="14" ry="13" fill="#3a7a28"/>
-        <ellipse cx="80" cy="118" rx="9" ry="9" fill="#4a8a34"/>
-
-        <path d="M135 220 C132 188 130 165 132 148 C134 131 138 122 138 122 C138 122 142 131 144 148 C146 165 144 188 141 220Z" fill="#4a3010"/>
-        <ellipse cx="138" cy="144" rx="32" ry="27" fill="#1a4a2e"/>
-        <ellipse cx="138" cy="123" rx="25" ry="22" fill="#2d6a20"/>
-        <ellipse cx="138" cy="106" rx="18" ry="17" fill="#3a7a28"/>
-        <ellipse cx="138" cy="92" rx="12" ry="12" fill="#4a8a34"/>
-
-        <path d="M195 220 C193 200 191 184 193 170 C194 158 197 151 197 151 C197 151 200 158 201 170 C203 184 201 200 199 220Z" fill="#4a3010"/>
-        <ellipse cx="197" cy="167" rx="24" ry="20" fill="#1a4a2e"/>
-        <ellipse cx="197" cy="152" rx="18" ry="16" fill="#2d6a20"/>
-        <ellipse cx="197" cy="139" rx="13" ry="12" fill="#3a7a28"/>
-
-        <path d="M248 220 C246 204 244 190 246 178 C247 167 250 161 250 161 C250 161 253 167 254 178 C256 190 254 204 252 220Z" fill="#4a3010"/>
-        <ellipse cx="250" cy="175" rx="22" ry="19" fill="#1a4a2e"/>
-        <ellipse cx="250" cy="161" rx="17" ry="15" fill="#2d6a20"/>
-        <ellipse cx="250" cy="148" rx="12" ry="11" fill="#3a7a28"/>
-
-        <!-- Ground texture -->
-        <ellipse cx="150" cy="225" rx="140" ry="12" fill="#0f2810" opacity="0.5"/>
-        <!-- Gold label -->
-        <rect x="10" y="10" width="130" height="28" rx="14" fill="rgba(200,169,110,0.15)" stroke="rgba(200,169,110,0.4)" stroke-width="1"/>
-        <text x="24" y="29" font-family="serif" font-size="12" fill="#c8a96e">Avenue Planting · 2023</text>
-      </svg>
-      <div class="gallery-overlay">
-        <div class="gallery-info">
-          <h4>Avenue Tree Planting</h4>
-          <p>Landscape · Kayunga Road Project</p>
-        </div>
-      </div>
+       <img src="images/mango.jpg" alt="Mango" style="width:100%;display:block;">
+      <div class="gallery-overlay"><div class="gallery-info">
+        <h4>Avenue Tree Planting</h4>
+        <p>Landscape · Kayunga Road Project</p>
+      </div></div>
     </div>
 
-    <!-- Item 3 - Jacaranda -->
+    <!-- 3 · JACARANDA -->
     <div class="gallery-item reveal" data-category="ornamental" onclick="openLightbox(2)">
-      <svg viewBox="0 0 300 320" fill="none">
-        <rect width="300" height="320" fill="#1a1a3e"/>
-        <path d="M143 315 C140 270 138 235 140 205 C142 175 150 158 150 158 C150 158 158 175 160 205 C162 235 160 270 157 315Z" fill="#5c3d1e"/>
-        <!-- Purple cloud canopy -->
-        <ellipse cx="150" cy="215" rx="85" ry="70" fill="#4a1a7a" opacity="0.8"/>
-        <ellipse cx="110" cy="200" rx="60" ry="52" fill="#5a2090" opacity="0.7"/>
-        <ellipse cx="190" cy="195" rx="58" ry="50" fill="#6a28a8" opacity="0.6"/>
-        <ellipse cx="150" cy="172" rx="70" ry="60" fill="#4a1a7a" opacity="0.8"/>
-        <ellipse cx="150" cy="140" rx="55" ry="48" fill="#5a2090" opacity="0.9"/>
-        <ellipse cx="130" cy="160" rx="40" ry="36" fill="#7a34c0" opacity="0.6"/>
-        <ellipse cx="170" cy="155" rx="38" ry="34" fill="#6a28a8" opacity="0.7"/>
-        <ellipse cx="150" cy="112" rx="42" ry="38" fill="#4a1a7a" opacity="0.9"/>
-        <ellipse cx="150" cy="85" rx="30" ry="28" fill="#5a2090" opacity="0.8"/>
-        <!-- Flower clusters -->
-        <circle cx="130" cy="185" r="8" fill="#9b59d0" opacity="0.8"/>
-        <circle cx="165" cy="178" r="7" fill="#8a4ac0" opacity="0.9"/>
-        <circle cx="148" cy="195" r="9" fill="#b06ae0" opacity="0.7"/>
-        <circle cx="115" cy="195" r="6" fill="#9b59d0" opacity="0.8"/>
-        <circle cx="185" cy="188" r="7" fill="#8a4ac0" opacity="0.7"/>
-        <circle cx="150" cy="155" r="8" fill="#c880f0" opacity="0.6"/>
-        <circle cx="128" cy="145" r="6" fill="#9b59d0" opacity="0.7"/>
-        <circle cx="175" cy="148" r="7" fill="#b06ae0" opacity="0.6"/>
-        <!-- Fallen petals -->
-        <ellipse cx="90" cy="308" rx="6" ry="3" fill="#9b59d0" opacity="0.4" transform="rotate(-20 90 308)"/>
-        <ellipse cx="200" cy="312" rx="5" ry="2.5" fill="#8a4ac0" opacity="0.3" transform="rotate(15 200 312)"/>
-        <ellipse cx="145" cy="310" rx="7" ry="3" fill="#c880f0" opacity="0.3" transform="rotate(-10 145 310)"/>
-        <!-- Stars -->
-        <circle cx="40" cy="30" r="1.5" fill="white" opacity="0.6"/>
-        <circle cx="80" cy="15" r="1" fill="white" opacity="0.4"/>
-        <circle cx="260" cy="25" r="1.5" fill="white" opacity="0.5"/>
-        <circle cx="30" cy="60" r="1" fill="white" opacity="0.3"/>
-      </svg>
-      <div class="gallery-overlay">
-        <div class="gallery-info">
-          <h4>Jacaranda mimosifolia</h4>
-          <p>Ornamental · Signature Specimen</p>
-        </div>
-      </div>
+       <img src="images/mango.jpg" alt="Mango" style="width:100%;display:block;">
+      <div class="gallery-overlay"><div class="gallery-info">
+        <h4>Jacaranda mimosifolia</h4>
+        <p>Ornamental · Signature Specimen</p>
+      </div></div>
     </div>
 
-    <!-- Item 4 - Shade Tree -->
+    <!-- 4 · NATAL FIG -->
     <div class="gallery-item reveal" data-category="shade" onclick="openLightbox(3)">
-      <svg viewBox="0 0 300 280" fill="none">
-        <rect width="300" height="280" fill="#0d2818"/>
-        <rect y="230" width="300" height="50" fill="#1a3a12"/>
-        <!-- Big spreading shade tree -->
-        <path d="M143 275 C140 240 137 210 140 185 C143 160 150 148 150 148 C150 148 157 160 160 185 C163 210 160 240 157 275Z" fill="#6b4423"/>
-        <!-- Wide spreading canopy -->
-        <ellipse cx="150" cy="195" rx="120" ry="65" fill="#1a4a2e"/>
-        <ellipse cx="80" cy="185" rx="75" ry="55" fill="#2d6a20"/>
-        <ellipse cx="220" cy="180" rx="72" ry="52" fill="#1a4a2e"/>
-        <ellipse cx="150" cy="160" rx="100" ry="60" fill="#2d6a20"/>
-        <ellipse cx="150" cy="135" rx="80" ry="52" fill="#1a5c1a"/>
-        <ellipse cx="120" cy="148" rx="55" ry="44" fill="#3a7a28"/>
-        <ellipse cx="182" cy="142" rx="52" ry="42" fill="#2d6a20"/>
-        <ellipse cx="150" cy="112" rx="62" ry="48" fill="#1a4a2e"/>
-        <ellipse cx="150" cy="88" rx="44" ry="38" fill="#2d6a20"/>
-        <!-- People silhouette sitting under tree -->
-        <ellipse cx="110" cy="268" rx="12" ry="6" fill="#0a1f0e"/>
-        <circle cx="110" cy="255" r="6" fill="#1a3020"/>
-        <path d="M104 261 C100 268 98 272 100 276" stroke="#1a3020" stroke-width="3" stroke-linecap="round"/>
-        <path d="M116 261 C120 267 122 271 120 275" stroke="#1a3020" stroke-width="3" stroke-linecap="round"/>
-        <!-- Dappled light -->
-        <ellipse cx="95" cy="240" rx="12" ry="8" fill="#7ab648" opacity="0.08"/>
-        <ellipse cx="200" cy="235" rx="15" ry="10" fill="#7ab648" opacity="0.07"/>
-        <ellipse cx="155" cy="250" rx="10" ry="7" fill="#7ab648" opacity="0.09"/>
-        <!-- Birds -->
-        <path d="M60 70 C62 68 65 68 67 70" stroke="white" stroke-width="1.2" fill="none" stroke-linecap="round"/>
-        <path d="M80 55 C82 53 85 53 87 55" stroke="white" stroke-width="1.2" fill="none" stroke-linecap="round"/>
-      </svg>
-      <div class="gallery-overlay">
-        <div class="gallery-info">
-          <h4>Ficus natalensis — Natal Fig</h4>
-          <p>Shade Tree · Community Project</p>
-        </div>
-      </div>
+       <img src="images/mango.jpg" alt="Mango" style="width:100%;display:block;">
+      <div class="gallery-overlay"><div class="gallery-info">
+        <h4>Ficus natalensis — Natal Fig</h4>
+        <p>Shade Tree · Community Planting</p>
+      </div></div>
     </div>
 
-    <!-- Item 5 - Palm -->
+    <!-- 5 · COCONUT PALM -->
     <div class="gallery-item reveal" data-category="specimen" onclick="openLightbox(4)">
-      <svg viewBox="0 0 300 400" fill="none">
-        <rect width="300" height="400" fill="#0a2535"/>
-        <!-- Sunset sky -->
-        <rect width="300" height="280" fill="#0a1a2e"/>
-        <ellipse cx="150" cy="180" rx="200" ry="100" fill="#c8572a" opacity="0.2"/>
-        <ellipse cx="150" cy="200" rx="200" ry="80" fill="#e8803a" opacity="0.1"/>
-        <rect y="280" width="300" height="120" fill="#0a2010"/>
-        <!-- Palm trunk -->
-        <path d="M144 395 C142 350 140 310 142 270 C143 250 145 230 147 210 C148 195 150 185 150 185 C150 185 152 195 153 210 C155 230 157 250 158 270 C160 310 158 350 156 395Z" fill="#8b6914"/>
-        <!-- Trunk texture -->
-        <path d="M145 395 C143 370 141 345 143 320" stroke="#6b4a10" stroke-width="2" opacity="0.5"/>
-        <path d="M155 395 C157 370 159 345 157 320" stroke="#6b4a10" stroke-width="2" opacity="0.5"/>
-        <!-- Palm fronds -->
-        <path d="M150 185 C130 155 100 138 70 132 C100 140 128 158 148 188Z" fill="#2d7a20" opacity="0.9"/>
-        <path d="M150 185 C170 155 200 138 230 132 C200 140 172 158 152 188Z" fill="#1a6a14" opacity="0.9"/>
-        <path d="M150 185 C138 148 128 118 118 92 C128 120 140 150 150 188Z" fill="#2d7a20" opacity="0.8"/>
-        <path d="M150 185 C162 148 172 118 182 92 C172 120 160 150 150 188Z" fill="#1a6a14" opacity="0.8"/>
-        <path d="M150 185 C118 162 88 158 60 162 C88 158 120 165 150 188Z" fill="#3a8a28" opacity="0.7"/>
-        <path d="M150 185 C182 162 212 158 240 162 C212 158 180 165 150 188Z" fill="#2d7a20" opacity="0.7"/>
-        <path d="M150 185 C125 172 98 178 72 190 C98 178 126 175 150 188Z" fill="#1a6a14" opacity="0.8"/>
-        <path d="M150 185 C175 172 202 178 228 190 C202 178 174 175 150 188Z" fill="#3a8a28" opacity="0.8"/>
-        <!-- Coconuts -->
-        <circle cx="148" cy="200" r="8" fill="#8b5e20"/>
-        <circle cx="158" cy="205" r="7" fill="#7a5218"/>
-        <circle cx="142" cy="207" r="6" fill="#8b5e20"/>
-        <!-- Moon -->
-        <circle cx="240" cy="60" r="28" fill="#c8a96e" opacity="0.3"/>
-        <circle cx="250" cy="52" r="22" fill="#0a1a2e"/>
-        <!-- Stars -->
-        <circle cx="50" cy="40" r="1.5" fill="white" opacity="0.7"/>
-        <circle cx="90" cy="25" r="1" fill="white" opacity="0.5"/>
-        <circle cx="30" cy="80" r="1.5" fill="white" opacity="0.4"/>
-        <circle cx="120" cy="50" r="1" fill="white" opacity="0.6"/>
-      </svg>
-      <div class="gallery-overlay">
-        <div class="gallery-info">
-          <h4>Cocos nucifera — Coconut Palm</h4>
-          <p>Specimen · Tropical Collection</p>
-        </div>
-      </div>
+       <img src="images/mango.jpg" alt="Mango" style="width:100%;display:block;">
+      <div class="gallery-overlay"><div class="gallery-info">
+        <h4>Cocos nucifera — Coconut Palm</h4>
+        <p>Specimen · Rare & Mature</p>
+      </div></div>
     </div>
 
-    <!-- Item 6 - Garden Design -->
+    <!-- 6 · GARDEN DESIGN -->
     <div class="gallery-item reveal" data-category="landscape" onclick="openLightbox(5)">
-      <svg viewBox="0 0 300 250" fill="none">
-        <rect width="300" height="250" fill="#c8e6c9"/>
-        <!-- Sky -->
-        <rect width="300" height="140" fill="#e3f2fd"/>
-        <!-- Clouds -->
-        <ellipse cx="80" cy="40" rx="35" ry="18" fill="white" opacity="0.8"/>
-        <ellipse cx="100" cy="35" rx="28" ry="15" fill="white" opacity="0.9"/>
-        <ellipse cx="220" cy="55" rx="30" ry="16" fill="white" opacity="0.7"/>
-        <!-- Ground -->
-        <rect y="140" width="300" height="110" fill="#4caf50" opacity="0.4"/>
-        <rect y="170" width="300" height="80" fill="#388e3c" opacity="0.3"/>
-        <!-- Path -->
-        <path d="M150 250 L130 180 L150 160 L170 180 Z" fill="#c8a96e" opacity="0.6"/>
-        <!-- Trees left -->
-        <path d="M52 245 C50 220 49 202 50 188 C51 176 54 170 54 170 C54 170 57 176 58 188 C59 202 58 220 56 245Z" fill="#5c3d1e"/>
-        <ellipse cx="54" cy="185" rx="28" ry="24" fill="#2e7d32"/>
-        <ellipse cx="54" cy="166" rx="22" ry="19" fill="#388e3c"/>
-        <ellipse cx="54" cy="150" rx="16" ry="15" fill="#43a047"/>
-        <!-- Trees right -->
-        <path d="M248 245 C246 220 245 202 246 188 C247 176 250 170 250 170 C250 170 253 176 254 188 C255 202 254 220 252 245Z" fill="#5c3d1e"/>
-        <ellipse cx="250" cy="185" rx="28" ry="24" fill="#2e7d32"/>
-        <ellipse cx="250" cy="166" rx="22" ry="19" fill="#388e3c"/>
-        <ellipse cx="250" cy="150" rx="16" ry="15" fill="#43a047"/>
-        <!-- Center feature tree -->
-        <path d="M143 245 C141 210 139 182 141 162 C143 142 150 130 150 130 C150 130 157 142 159 162 C161 182 159 210 157 245Z" fill="#6b4423"/>
-        <ellipse cx="150" cy="160" rx="48" ry="40" fill="#1b5e20"/>
-        <ellipse cx="150" cy="134" rx="38" ry="33" fill="#2e7d32"/>
-        <ellipse cx="150" cy="112" rx="28" ry="26" fill="#388e3c"/>
-        <ellipse cx="150" cy="93" rx="20" ry="19" fill="#43a047"/>
-        <!-- Flowers in garden -->
-        <circle cx="100" cy="210" r="5" fill="#e91e63" opacity="0.8"/>
-        <circle cx="115" cy="220" r="4" fill="#ff5722" opacity="0.8"/>
-        <circle cx="90" cy="225" r="4" fill="#ffeb3b" opacity="0.9"/>
-        <circle cx="200" cy="208" r="5" fill="#e91e63" opacity="0.8"/>
-        <circle cx="215" cy="218" r="4" fill="#ff9800" opacity="0.8"/>
-        <circle cx="190" cy="225" r="4" fill="#ffeb3b" opacity="0.9"/>
-      </svg>
-      <div class="gallery-overlay">
-        <div class="gallery-info">
-          <h4>Garden Design & Installation</h4>
-          <p>Landscape · Residential Project</p>
-        </div>
-      </div>
+      <img src="images/mango.jpg" alt="Mango" style="width:100%;display:block;">
+      <div class="gallery-overlay"><div class="gallery-info">
+        <h4>Garden Design & Installation</h4>
+        <p>Landscape · Residential Project</p>
+      </div></div>
     </div>
 
-    <!-- Item 7 - Eucalyptus -->
+    <!-- 7 · EUCALYPTUS -->
     <div class="gallery-item reveal" data-category="specimen" onclick="openLightbox(6)">
-      <svg viewBox="0 0 300 420" fill="none">
-        <rect width="300" height="420" fill="#1a2e1a"/>
-        <path d="M146 415 C144 370 142 330 144 295 C146 260 150 238 150 238 C150 238 154 260 156 295 C158 330 156 370 154 415Z" fill="#7a5a2a"/>
-        <!-- Slender eucalyptus shape -->
-        <path d="M150 238 C140 200 128 168 125 140 C122 112 128 90 150 70 C172 90 178 112 175 140 C172 168 160 200 150 238Z" fill="#2d5a20"/>
-        <path d="M150 200 C135 175 118 155 110 130 C130 148 145 170 150 200Z" fill="#3d7a28" opacity="0.8"/>
-        <path d="M150 200 C165 175 182 155 190 130 C170 148 155 170 150 200Z" fill="#2d6a20" opacity="0.8"/>
-        <path d="M150 175 C132 155 115 140 105 118 C125 135 142 155 150 178Z" fill="#4a8a30" opacity="0.7"/>
-        <path d="M150 175 C168 155 185 140 195 118 C175 135 158 155 150 178Z" fill="#3a7a28" opacity="0.7"/>
-        <path d="M150 145 C138 128 124 115 112 98 C128 112 142 130 150 148Z" fill="#4a8a30" opacity="0.8"/>
-        <path d="M150 145 C162 128 176 115 188 98 C172 112 158 130 150 148Z" fill="#3a7a28" opacity="0.8"/>
-        <!-- Silver-blue leaf shimmer -->
-        <ellipse cx="128" cy="170" rx="15" ry="8" fill="#90b8a8" opacity="0.2" transform="rotate(-30 128 170)"/>
-        <ellipse cx="172" cy="160" rx="14" ry="7" fill="#90b8a8" opacity="0.15" transform="rotate(25 172 160)"/>
-        <ellipse cx="138" cy="130" rx="12" ry="6" fill="#90b8a8" opacity="0.2" transform="rotate(-15 138 130)"/>
-      </svg>
-      <div class="gallery-overlay">
-        <div class="gallery-info">
-          <h4>Eucalyptus grandis — Saligna Gum</h4>
-          <p>Specimen · Fast Growing Collection</p>
-        </div>
-      </div>
+       <img src="images/mango.jpg" alt="Mango" style="width:100%;display:block;">
+      <div class="gallery-overlay"><div class="gallery-info">
+        <h4>Eucalyptus grandis</h4>
+        <p>Specimen · Timber & Windbreak</p>
+      </div></div>
     </div>
 
-    <!-- Item 8 - Avocado -->
+    <!-- 8 · AVOCADO -->
     <div class="gallery-item reveal" data-category="fruit" onclick="openLightbox(7)">
-      <svg viewBox="0 0 300 300" fill="none">
-        <rect width="300" height="300" fill="#1a3a1a"/>
-        <path d="M143 295 C141 258 139 228 141 205 C143 182 150 168 150 168 C150 168 157 182 159 205 C161 228 159 258 157 295Z" fill="#5c4020"/>
-        <ellipse cx="150" cy="215" rx="80" ry="65" fill="#1a5a12"/>
-        <ellipse cx="118" cy="200" rx="55" ry="48" fill="#2a6a18"/>
-        <ellipse cx="182" cy="195" rx="52" ry="45" fill="#1a5a12"/>
-        <ellipse cx="150" cy="178" rx="65" ry="55" fill="#2a6a18"/>
-        <ellipse cx="150" cy="150" rx="52" ry="45" fill="#1a5a12"/>
-        <ellipse cx="150" cy="125" rx="38" ry="34" fill="#2a6a18"/>
-        <ellipse cx="150" cy="103" rx="27" ry="25" fill="#3a7a24"/>
-        <!-- Avocados hanging -->
-        <ellipse cx="118" cy="225" rx="11" ry="15" fill="#2d4a1a" opacity="0.95"/>
-        <circle cx="118" cy="218" r="4" fill="#1a3010" opacity="0.8"/>
-        <ellipse cx="180" cy="215" rx="10" ry="14" fill="#3a5a20" opacity="0.95"/>
-        <circle cx="180" cy="208" r="3.5" fill="#1a3010" opacity="0.8"/>
-        <ellipse cx="145" cy="235" rx="12" ry="16" fill="#2d4a1a" opacity="0.9"/>
-        <circle cx="145" cy="227" r="4" fill="#1a3010" opacity="0.8"/>
-        <ellipse cx="160" cy="205" rx="9" ry="13" fill="#3a5a20" opacity="0.9"/>
-      </svg>
-      <div class="gallery-overlay">
-        <div class="gallery-info">
-          <h4>Persea americana — Avocado</h4>
-          <p>Fruit Tree · Kabimbiri Nursery</p>
-        </div>
-      </div>
+     <img src="images/mango.jpg" alt="Mango" style="width:100%;display:block;">
+      <div class="gallery-overlay"><div class="gallery-info">
+        <h4>Persea americana — Avocado</h4>
+        <p>Fruit Tree · Grafted Variety</p>
+      </div></div>
     </div>
 
-    <!-- Item 9 - Reforestation -->
+    <!-- 9 · REFORESTATION -->
     <div class="gallery-item reveal" data-category="landscape" onclick="openLightbox(8)">
-      <svg viewBox="0 0 300 200" fill="none">
-        <rect width="300" height="200" fill="#0d1f0d"/>
-        <!-- Misty mountain forest -->
-        <rect width="300" height="120" fill="#0a1a0a"/>
-        <!-- Mist layers -->
-        <ellipse cx="150" cy="115" rx="200" ry="30" fill="#e8f0e4" opacity="0.06"/>
-        <ellipse cx="80" cy="125" rx="120" ry="20" fill="#e8f0e4" opacity="0.04"/>
-        <!-- Many small trees in rows -->
-        <rect y="120" width="300" height="80" fill="#1a3a12"/>
-        <!-- Row 1 - back -->
-        <path d="M20 155 L25 130 L30 155Z" fill="#1a4a12" opacity="0.6"/>
-        <path d="M40 158 L46 128 L52 158Z" fill="#2a5a18" opacity="0.6"/>
-        <path d="M62 154 L68 125 L74 154Z" fill="#1a4a12" opacity="0.7"/>
-        <path d="M84 156 L90 126 L96 156Z" fill="#2a5a18" opacity="0.6"/>
-        <path d="M106 153 L112 124 L118 153Z" fill="#1a4a12" opacity="0.7"/>
-        <path d="M128 157 L134 127 L140 157Z" fill="#2a5a18" opacity="0.6"/>
-        <path d="M150 154 L156 124 L162 154Z" fill="#1a4a12" opacity="0.7"/>
-        <path d="M172 156 L178 126 L184 156Z" fill="#2a5a18" opacity="0.6"/>
-        <path d="M194 153 L200 124 L206 153Z" fill="#1a4a12" opacity="0.7"/>
-        <path d="M216 157 L222 127 L228 157Z" fill="#2a5a18" opacity="0.6"/>
-        <path d="M238 154 L244 124 L250 154Z" fill="#1a4a12" opacity="0.7"/>
-        <path d="M260 156 L266 126 L272 156Z" fill="#2a5a18" opacity="0.6"/>
-        <!-- Row 2 - front -->
-        <path d="M10 185 L18 155 L26 185Z" fill="#2d6a1e"/>
-        <path d="M35 188 L44 154 L53 188Z" fill="#3a7a24"/>
-        <path d="M60 184 L70 150 L80 184Z" fill="#2d6a1e"/>
-        <path d="M88 187 L98 153 L108 187Z" fill="#3a7a24"/>
-        <path d="M116 183 L126 150 L136 183Z" fill="#2d6a1e"/>
-        <path d="M143 186 L153 152 L163 186Z" fill="#3a7a24"/>
-        <path d="M170 184 L180 150 L190 184Z" fill="#2d6a1e"/>
-        <path d="M197 187 L207 153 L217 187Z" fill="#3a7a24"/>
-        <path d="M224 183 L234 150 L244 183Z" fill="#2d6a1e"/>
-        <path d="M250 185 L260 152 L270 185Z" fill="#3a7a24"/>
-        <!-- Text overlay -->
-        <rect x="8" y="8" width="160" height="26" rx="13" fill="rgba(122,182,72,0.12)" stroke="rgba(122,182,72,0.3)" stroke-width="1"/>
-        <text x="18" y="26" font-family="sans-serif" font-size="11" fill="#7ab648">Reforestation Initiative 2024</text>
-      </svg>
-      <div class="gallery-overlay">
-        <div class="gallery-info">
-          <h4>Uganda Reforestation Initiative</h4>
-          <p>Landscape · 500 Trees Planted</p>
-        </div>
-      </div>
+      <img src="images/1.jpg" alt="Mango" style="width:100%;display:block;">
+      <div class="gallery-overlay"><div class="gallery-info">
+        <h4>Uganda Reforestation Initiative</h4>
+        <p>Landscape · 500 Trees Planted</p>
+      </div></div>
     </div>
 
   </div>
@@ -589,21 +323,24 @@
 
 <!-- STATS BAR -->
 <div class="stats-bar reveal">
-  <div>
-    <div class="sbar-num">500+</div>
-    <div class="sbar-label">Species Available</div>
-  </div>
-  <div>
-    <div class="sbar-num">1,200+</div>
-    <div class="sbar-label">Trees Planted</div>
-  </div>
-  <div>
-    <div class="sbar-num">98%</div>
-    <div class="sbar-label">Survival Rate</div>
-  </div>
-  <div>
-    <div class="sbar-num">20yr</div>
-    <div class="sbar-label">Experience</div>
+  <div><div class="sbar-num">42+</div><div class="sbar-label">Species Available</div></div>
+  <div><div class="sbar-num">1,200+</div><div class="sbar-label">Trees Planted</div></div>
+  <div><div class="sbar-num">98%</div><div class="sbar-label">Survival Rate</div></div>
+  <div><div class="sbar-num">20yr</div><div class="sbar-label">Experience</div></div>
+</div>
+
+<!-- PHOTO GUIDE BANNER -->
+<div style="background:var(--forest);border-top:1px solid rgba(122,182,72,0.12);padding:2.5rem 4rem;text-align:center;">
+  <div style="max-width:640px;margin:0 auto;">
+    <div style="font-size:1.8rem;margin-bottom:0.6rem;">📷</div>
+    <div style="font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--cream);margin-bottom:0.6rem;">Photos Coming Soon</div>
+    <p style="font-size:0.82rem;color:rgba(245,240,232,0.45);line-height:1.8;margin-bottom:1.2rem;">
+      Each gallery card is ready for a real photo. To add yours:<br>
+      Upload your image to the <code style="background:rgba(122,182,72,0.1);padding:0.1rem 0.4rem;border-radius:0.3rem;color:var(--leaf);">images/</code> folder in your GitHub repo, then replace the placeholder div with a single <code style="background:rgba(122,182,72,0.1);padding:0.1rem 0.4rem;border-radius:0.3rem;color:var(--leaf);">&lt;img&gt;</code> tag. The captions and filters stay automatically.
+    </p>
+    <a href="https://wa.me/256706191725" target="_blank" style="display:inline-flex;align-items:center;gap:0.5rem;background:rgba(122,182,72,0.12);border:1px solid rgba(122,182,72,0.2);color:var(--leaf);padding:0.6rem 1.4rem;border-radius:2rem;font-size:0.82rem;text-decoration:none;transition:all 0.3s;">
+      📸 WhatsApp us your photos → we'll add them for you
+    </a>
   </div>
 </div>
 
@@ -620,13 +357,13 @@
 <footer>
   <div>
     <div class="footer-logo">Elite Tree Solutions</div>
-    <p style="margin-top:0.3rem;">Owned by Kakuye Hitler Musajja &middot; Kabimbiri, Uganda</p>
+    <p style="margin-top:0.3rem;">Owned by Kakuye Hitler Musajja &middot; Kabimbiri, Uganda 🇺🇬</p>
   </div>
-  <p>&#169; 2025 Elite Tree Solutions. All rights reserved.</p>
+  <p>© 2025 Elite Tree Solutions. All rights reserved.</p>
   <div style="display:flex;gap:1.5rem;">
     <a href="index.html" style="color:rgba(245,240,232,0.4);font-size:0.8rem;text-decoration:none;">Home</a>
     <a href="about.html" style="color:rgba(245,240,232,0.4);font-size:0.8rem;text-decoration:none;">About</a>
-    <a href="index.html#contact" style="color:var(--leaf);font-size:0.8rem;text-decoration:none;">Contact</a>
+    <a href="shop.html" style="color:rgba(245,240,232,0.4);font-size:0.8rem;text-decoration:none;">Shop</a>
   </div>
 </footer>
 
@@ -639,38 +376,81 @@
 
 <script>
   const galleryData = [
-    { title:'African Mango — Mangifera indica', desc:'A prized fruit tree known for its generous yields and deep shade canopy. A staple of Ugandan landscapes.' },
-    { title:'Avenue Tree Planting', desc:'A stunning roadside planting project along Kayunga Road — transforming a bare corridor into a green boulevard.' },
-    { title:'Jacaranda mimosifolia', desc:'One of Uganda\'s most breathtaking ornamental trees. The purple flowering spectacle lasts weeks and draws admiration from all.' },
-    { title:'Ficus natalensis — Natal Fig', desc:'Uganda\'s beloved shade tree. Planted in community spaces to provide shelter, cool air and a gathering place for generations.' },
-    { title:'Cocos nucifera — Coconut Palm', desc:'A tropical icon. Our coconut palms are grown from the finest Ugandan stock for maximum fruit production and dramatic height.' },
+    { title:'African Mango — Mangifera indica', desc:'A prized fruit tree known for generous yields and deep shade. A staple of Ugandan landscapes and one of our most popular grafted varieties.' },
+    { title:'Avenue Tree Planting', desc:'A stunning roadside planting project along Kayunga Road — transforming a bare corridor into a lush green boulevard.' },
+    { title:'Jacaranda mimosifolia', desc:"One of Uganda's most breathtaking ornamental trees. The purple flowering spectacle lasts weeks and draws admiration from miles around." },
+    { title:'Ficus natalensis — Natal Fig', desc:"Uganda's beloved shade tree. Planted in community spaces to provide shelter, cool air and a gathering place for generations to come." },
+    { title:'Cocos nucifera — Coconut Palm', desc:'A tropical icon. Our coconut palms are grown from the finest stock for maximum fruit production and dramatic, elegant height.' },
     { title:'Garden Design & Installation', desc:'A complete residential garden transformation — from bare soil to a structured, flowering landscape in just one season.' },
     { title:'Eucalyptus grandis — Saligna Gum', desc:'Fast-growing, tall and aromatic. Perfect for timber, windbreaks and reforestation programmes across Uganda.' },
-    { title:'Persea americana — Avocado', desc:'One of Uganda\'s most commercially valuable fruit trees. We grow several varieties suited to different altitudes and climates.' },
-    { title:'Uganda Reforestation Initiative', desc:'Part of our commitment to Uganda\'s green future. Over 500 trees planted in a single community reforestation drive in 2024.' }
+    { title:'Persea americana — Avocado', desc:"One of Uganda's most commercially valuable fruit trees. We grow several varieties suited to different altitudes and climates." },
+    { title:'Uganda Reforestation Initiative', desc:"Part of our commitment to Uganda's green future. Over 500 trees planted in a single community reforestation drive in 2024." }
   ];
 
+  // Auto-render placeholders from data attributes
+  document.querySelectorAll('.img-placeholder').forEach(el => {
+    const label = el.dataset.label || 'Photo';
+    const file  = el.dataset.file  || 'image.jpg';
+    const colors= (el.dataset.color||'#1a4a12,#0d2818').split(',');
+    const accent= el.dataset.accent || '#7ab648';
+    el.style.background = `linear-gradient(145deg,${colors[0]},${colors[1]})`;
+    el.style.display = 'flex';
+    el.style.flexDirection = 'column';
+    el.style.alignItems = 'center';
+    el.style.justifyContent = 'center';
+    el.style.gap = '0.8rem';
+    el.style.position = 'relative';
+    el.style.overflow = 'hidden';
+    el.innerHTML = `
+      <svg width="52" height="52" viewBox="0 0 52 52" fill="none" style="opacity:0.28;">
+        <rect x="3" y="9" width="46" height="36" rx="4" stroke="${accent}" stroke-width="1.8" fill="none"/>
+        <circle cx="18" cy="22" r="5" stroke="${accent}" stroke-width="1.5" fill="none"/>
+        <path d="M3 35 L15 23 L25 31 L34 20 L49 35" stroke="${accent}" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <path d="M20 9 L26 3 L32 9" stroke="${accent}" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+      </svg>
+      <div style="text-align:center;padding:0 1rem;">
+        <div style="font-size:0.75rem;color:${accent};opacity:0.75;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;margin-bottom:0.3rem;">📷 Photo Coming Soon</div>
+        <div style="font-size:0.68rem;color:rgba(245,240,232,0.35);">${label}</div>
+      </div>
+      <div style="position:absolute;bottom:0.6rem;right:0.7rem;font-size:0.55rem;color:rgba(245,240,232,0.15);font-family:monospace;letter-spacing:0.03em;">${file}</div>
+    `;
+  });
+
+  // Lightbox — shows placeholder text if no real image yet
   const items = document.querySelectorAll('.gallery-item');
-  const svgs = Array.from(items).map(i => i.querySelector('svg').outerHTML);
 
   function openLightbox(index) {
-    document.getElementById('lightboxImg').innerHTML = svgs[index];
+    const item = items[index];
+    const img  = item.querySelector('img');
+    const ph   = item.querySelector('.img-placeholder');
+    if (img) {
+      document.getElementById('lightboxImg').innerHTML =
+        `<img src="${img.src}" alt="${img.alt}" style="max-width:100%;max-height:65vh;border-radius:0.8rem;display:block;margin:0 auto;">`;
+    } else {
+      document.getElementById('lightboxImg').innerHTML =
+        `<div style="height:200px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.8rem;opacity:0.5;">
+          <svg width="48" height="48" viewBox="0 0 52 52" fill="none"><rect x="3" y="9" width="46" height="36" rx="4" stroke="#7ab648" stroke-width="1.8" fill="none"/><circle cx="18" cy="22" r="5" stroke="#7ab648" stroke-width="1.5" fill="none"/><path d="M3 35 L15 23 L25 31 L34 20 L49 35" stroke="#7ab648" stroke-width="1.5" stroke-linecap="round" fill="none"/></svg>
+          <div style="font-size:0.8rem;color:rgba(245,240,232,0.5);">Photo coming soon</div>
+        </div>`;
+    }
     document.getElementById('lightboxTitle').textContent = galleryData[index].title;
-    document.getElementById('lightboxDesc').textContent = galleryData[index].desc;
+    document.getElementById('lightboxDesc').textContent  = galleryData[index].desc;
     document.getElementById('lightbox').classList.add('open');
     document.body.style.overflow = 'hidden';
   }
+
   function closeLightbox() {
     document.getElementById('lightbox').classList.remove('open');
     document.body.style.overflow = '';
   }
+
   document.addEventListener('keydown', e => { if(e.key==='Escape') closeLightbox(); });
 
   function filterGallery(cat, btn) {
     document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
     items.forEach(item => {
-      if(cat === 'all' || item.dataset.category === cat) {
+      if (cat === 'all' || item.dataset.category === cat) {
         item.style.display = '';
         setTimeout(() => item.style.opacity = '1', 10);
       } else {

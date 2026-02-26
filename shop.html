@@ -652,12 +652,11 @@ footer p{font-size:0.8rem;color:rgba(245,240,232,0.3);}
     <div class="cart-subtotal"><span>Delivery (quoted on order)</span><span>TBC</span></div>
     <div class="cart-total"><span>Total</span><span id="cartTotal">UGX 0</span></div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.6rem;margin-bottom:0.6rem;">
-      <button onclick="openCheckout('mtn')" style="padding:0.7rem;background:#ffcb05;color:#0d2818;border:none;border-radius:0.6rem;font-weight:600;cursor:pointer;font-size:0.8rem;">📱 MTN MoMo</button>
-      <button onclick="openCheckout('airtel')" style="padding:0.7rem;background:#e91e63;color:white;border:none;border-radius:0.6rem;font-weight:600;cursor:pointer;font-size:0.8rem;">📲 Airtel Money</button>
-      <button onclick="openCheckout('flutterwave')" style="padding:0.7rem;background:#2196f3;color:white;border:none;border-radius:0.6rem;font-weight:600;cursor:pointer;font-size:0.8rem;">💳 Card / Flutterwave</button>
-      <button onclick="openCheckout('pesapal')" style="padding:0.7rem;background:#9c27b0;color:white;border:none;border-radius:0.6rem;font-weight:600;cursor:pointer;font-size:0.8rem;">🌍 Pesapal</button>
+      <button onclick="openCheckout('mtn')" style="padding:0.75rem;background:#ffcb05;color:#0d2818;border:none;border-radius:0.6rem;font-weight:700;cursor:pointer;font-size:0.82rem;display:flex;align-items:center;justify-content:center;gap:0.4rem;">📱 MTN MoMo</button>
+      <button onclick="openCheckout('airtel')" style="padding:0.75rem;background:#e91e63;color:white;border:none;border-radius:0.6rem;font-weight:700;cursor:pointer;font-size:0.82rem;display:flex;align-items:center;justify-content:center;gap:0.4rem;">📲 Airtel Money</button>
     </div>
-    <button class="wa-checkout" onclick="openCheckout('whatsapp')">
+    <button onclick="openCheckout('intl')" style="width:100%;padding:0.75rem;background:#1a4a7a;color:white;border:none;border-radius:0.6rem;font-weight:600;cursor:pointer;font-size:0.82rem;margin-bottom:0.6rem;display:flex;align-items:center;justify-content:center;gap:0.5rem;">🌍 International Bank / Wire Transfer</button>
+    <button class="wa-checkout" onclick="openCheckout('whatsapp')" style="border:none;cursor:pointer;width:100%;padding:0.85rem;">
       <svg width="18" height="18" viewBox="0 0 28 28" fill="none"><path d="M14 2C7.37 2 2 7.37 2 14C2 16.39 2.68 18.62 3.85 20.5L2.1 25.9L7.65 24.18C9.47 25.24 11.67 25.86 14 25.86C20.63 25.86 26 20.49 26 13.86C26 7.37 20.63 2 14 2Z" fill="white" opacity="0.9"/><path d="M20.5 17.5C20.2 18.3 18.9 19 18 19.1C17.2 19.2 16.2 19.2 15.1 18.9C14.4 18.6 13.5 18.3 12.4 17.8C9.9 16.6 8.3 14.1 8.1 13.9C7.9 13.6 6.5 11.7 6.5 9.8C6.5 7.8 7.5 6.9 7.9 6.4C8.3 5.9 8.8 5.8 9.1 5.8C9.3 5.8 9.6 5.8 9.8 5.8C10.1 5.8 10.4 5.7 10.8 6.6C11.1 7.4 11.9 9.3 12 9.5C12.1 9.7 12.1 9.9 12 10.1C11.9 10.3 11.8 10.5 11.6 10.7C11.4 10.9 11.2 11.2 11 11.4C10.8 11.6 10.6 11.8 10.8 12.1C11 12.5 11.8 13.7 12.9 14.7C14.3 15.9 15.5 16.3 15.9 16.5C16.2 16.6 16.5 16.6 16.7 16.3C16.9 16 17.7 15.1 18 14.8C18.2 14.5 18.5 14.5 18.8 14.6C19.1 14.7 21 15.6 21.3 15.8C21.6 16 21.8 16.1 21.9 16.2C22 16.7 22 17.5 20.5 17.5Z" fill="#25D366"/></svg>
       Order via WhatsApp
     </button>
@@ -752,28 +751,46 @@ function formatUGX(n){
   return 'UGX '+n.toLocaleString('en-UG');
 }
 
-// ═══ GENERATE TREE SVG ═══
+// ═══ GENERATE TREE THUMBNAIL (image if available, SVG placeholder otherwise) ═══
 function treeSVG(t, size=200){
-  const h = size === 200 ? 200 : 140;
-  const w = size;
-  const cx = w/2, trunk = h-10;
+  // If tree has a real photo, use it
+  if(t.img){
+    return `<img src="${t.img}" alt="${t.name}" style="width:100%;height:${size===200?'180px':'100%'};object-fit:cover;display:block;">`;
+  }
+  const h = size === 200 ? 180 : size;
+  const w = size === 200 ? '100%' : size;
+  const cx = size===200 ? 110 : size/2;
+  const ch = size===200 ? 180 : size;
   const c1 = t.color1 || '#1a4a12';
   const c2 = t.color2 || '#2d6a20';
   const fruit = t.fruit || '';
-  return `<svg viewBox="0 0 ${w} ${h}" fill="none">
-    <rect width="${w}" height="${h}" fill="${c1}"/>
-    <ellipse cx="${cx}" cy="${h*0.9}" rx="${w*0.38}" ry="${h*0.12}" fill="rgba(0,0,0,0.2)"/>
-    <path d="M${cx-6} ${trunk} C${cx-8} ${h*0.72} ${cx-9} ${h*0.58} ${cx-7} ${h*0.46} C${cx-5} ${h*0.36} ${cx} ${h*0.3} ${cx} ${h*0.3} C${cx} ${h*0.3} ${cx+5} ${h*0.36} ${cx+7} ${h*0.46} C${cx+9} ${h*0.58} ${cx+8} ${h*0.72} ${cx+6} ${trunk}Z" fill="#5c3a14"/>
-    <ellipse cx="${cx}" cy="${h*0.52}" rx="${w*0.38}" ry="${h*0.28}" fill="${c1}"/>
-    <ellipse cx="${cx*0.72}" cy="${h*0.48}" rx="${w*0.26}" ry="${h*0.22}" fill="${c2}"/>
-    <ellipse cx="${cx*1.28}" cy="${h*0.46}" rx="${w*0.25}" ry="${h*0.21}" fill="${c1}"/>
-    <ellipse cx="${cx}" cy="${h*0.38}" rx="${w*0.3}" ry="${h*0.24}" fill="${c2}"/>
-    <ellipse cx="${cx}" cy="${h*0.26}" rx="${w*0.22}" ry="${h*0.19}" fill="${c1}"/>
-    <ellipse cx="${cx}" cy="${h*0.17}" rx="${w*0.15}" ry="${h*0.14}" fill="${c2}"/>
-    ${fruit ? `<ellipse cx="${cx*0.78}" cy="${h*0.55}" rx="7" ry="9" fill="${fruit}" opacity="0.9"/>
-    <ellipse cx="${cx*1.22}" cy="${h*0.52}" rx="6" ry="8" fill="${fruit}" opacity="0.9"/>
-    <ellipse cx="${cx}" cy="${h*0.6}" rx="8" ry="10" fill="${fruit}"/>` : ''}
-  </svg>`;
+  // Photo placeholder overlay with camera icon
+  const placeholder = `
+    <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.4rem;background:rgba(13,40,24,0.45);opacity:0;transition:opacity 0.3s;" class="img-overlay">
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><rect x="2" y="7" width="24" height="17" rx="3" stroke="rgba(245,240,232,0.8)" stroke-width="1.5" fill="none"/><circle cx="14" cy="15" r="5" stroke="rgba(245,240,232,0.8)" stroke-width="1.5" fill="none"/><path d="M9 7 L10.5 4 L17.5 4 L19 7" stroke="rgba(245,240,232,0.8)" stroke-width="1.5" stroke-linecap="round" fill="none"/></svg>
+      <span style="font-size:0.65rem;color:rgba(245,240,232,0.7);font-weight:500;">Add Photo</span>
+    </div>`;
+  return `
+    <div style="position:relative;overflow:hidden;" onmouseenter="this.querySelector('.img-overlay').style.opacity=1" onmouseleave="this.querySelector('.img-overlay').style.opacity=0">
+      <svg viewBox="0 0 220 ${ch}" fill="none" style="width:100%;height:${h}px;display:block;">
+        <rect width="220" height="${ch}" fill="${c1}"/>
+        <ellipse cx="${cx}" cy="${ch*0.88}" rx="80" ry="${ch*0.1}" fill="rgba(0,0,0,0.2)"/>
+        <path d="M${cx-7} ${ch-8} C${cx-9} ${ch*0.7} ${cx-10} ${ch*0.55} ${cx-8} ${ch*0.44} C${cx-5} ${ch*0.35} ${cx} ${ch*0.28} ${cx} ${ch*0.28} C${cx} ${ch*0.28} ${cx+5} ${ch*0.35} ${cx+8} ${ch*0.44} C${cx+10} ${ch*0.55} ${cx+9} ${ch*0.7} ${cx+7} ${ch-8}Z" fill="#5c3a14"/>
+        <ellipse cx="${cx}" cy="${ch*0.5}" rx="80" ry="${ch*0.27}" fill="${c1}"/>
+        <ellipse cx="${cx*0.72}" cy="${ch*0.46}" rx="58" ry="${ch*0.22}" fill="${c2}"/>
+        <ellipse cx="${cx*1.28}" cy="${ch*0.44}" rx="55" ry="${ch*0.21}" fill="${c1}"/>
+        <ellipse cx="${cx}" cy="${ch*0.37}" rx="65" ry="${ch*0.24}" fill="${c2}"/>
+        <ellipse cx="${cx}" cy="${ch*0.25}" rx="50" ry="${ch*0.19}" fill="${c1}"/>
+        <ellipse cx="${cx}" cy="${ch*0.15}" rx="34" ry="${ch*0.14}" fill="${c2}"/>
+        ${fruit ? `<ellipse cx="${cx*0.76}" cy="${ch*0.53}" rx="9" ry="11" fill="${fruit}" opacity="0.9"/>
+        <ellipse cx="${cx*1.24}" cy="${ch*0.5}" rx="8" ry="10" fill="${fruit}" opacity="0.9"/>
+        <ellipse cx="${cx}" cy="${ch*0.62}" rx="10" ry="12" fill="${fruit}"/>` : ''}
+        <!-- Photo placeholder hint -->
+        <rect x="4" y="4" width="212" height="${ch-8}" rx="2" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="1" stroke-dasharray="5,4"/>
+        <text x="${cx}" y="${ch-14}" text-anchor="middle" font-family="sans-serif" font-size="9" fill="rgba(255,255,255,0.25)">📷 tap to add photo</text>
+      </svg>
+      ${placeholder}
+    </div>`;
 }
 
 // ═══ RENDER TREES ═══
@@ -927,10 +944,8 @@ function closeCart(){
 }
 
 // ═══ CHECKOUT ═══
-const BUSINESS_MTN   = '0706191725';   // MTN number
-const BUSINESS_AIRTEL= '0706191725';   // Airtel number (update if different)
-const FLUTTERWAVE_KEY= 'YOUR_FLW_PUBLIC_KEY'; // Replace after Flutterwave signup
-const PESAPAL_PORTAL = 'https://pay.pesapal.com/iframe/PesapalIframe3/Index?OrderTrackingId='; // Replace with your Pesapal link
+const BUSINESS_MTN    = '0706191725';
+const BUSINESS_AIRTEL = '0706191725';
 
 let selectedPayMethod = 'mtn';
 
@@ -938,64 +953,52 @@ function openCheckout(method){
   closeCart();
   if(method==='whatsapp'){
     const total = cart.reduce((s,i)=>s+i.price*i.qty,0);
-    const orderList = cart.map(i=>`${i.qty}× ${i.name}`).join('\n');
-    const msg = encodeURIComponent(`Hello Elite Tree Solutions! 🌳\n\nI would like to place an order:\n\n${orderList}\n\nOrder Total: ${formatUGX(total)}\n\nPlease confirm availability and delivery. Thank you!`);
-    window.open(`https://wa.me/256${BUSINESS_MTN.replace(/^0/,'')}?text=${msg}`,'_blank');
+    const lines = cart.map(i=>`${i.qty}× ${i.name}`).join('\n');
+    const msg = encodeURIComponent(`Hello Elite Tree Solutions! 🌳\n\nI would like to place an order:\n\n${lines}\n\nTotal: UGX ${total.toLocaleString()}\n\nPlease confirm availability and delivery. Thank you!`);
+    window.open(`https://wa.me/256706191725?text=${msg}`,'_blank');
     return;
   }
   const total = cart.reduce((s,i)=>s+i.price*i.qty,0);
   const orderList = cart.map(i=>`${i.qty}× ${i.name}`).join(', ');
+  selectedPayMethod = method || 'mtn';
   const modal = document.getElementById('checkoutModal');
-  const content = document.getElementById('checkoutContent');
-  selectedPayMethod = 'mtn';
-
-  content.innerHTML = `
-    <h3>Choose Payment Method</h3>
-    <p style="font-size:0.82rem;color:var(--sage);margin-bottom:1.2rem;">Select how you'd like to pay. All methods are secure.</p>
-
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.7rem;margin-bottom:1.4rem;">
-      <div class="pay-method selected" id="pm-mtn" onclick="selectPay('mtn')">
-        <div style="font-size:1.6rem;margin-bottom:0.2rem;">📱</div>
-        <div style="font-weight:600;font-size:0.82rem;color:var(--forest);">MTN MoMo</div>
-        <div style="font-size:0.68rem;color:var(--sage);">Instant USSD</div>
+  document.getElementById('checkoutContent').innerHTML = `
+    <h3>Choose Payment</h3>
+    <p style="font-size:0.82rem;color:var(--sage);margin-bottom:1.2rem;">Select your preferred payment method below.</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.7rem;margin-bottom:1.4rem;">
+      <div class="pay-method ${method==='mtn'?'selected':''}" id="pm-mtn" onclick="selectPay('mtn')">
+        <div style="font-size:1.5rem;margin-bottom:0.2rem;">📱</div>
+        <div style="font-weight:600;font-size:0.78rem;color:var(--forest);">MTN MoMo</div>
+        <div style="font-size:0.65rem;color:var(--sage);">Instant USSD</div>
       </div>
-      <div class="pay-method" id="pm-airtel" onclick="selectPay('airtel')">
-        <div style="font-size:1.6rem;margin-bottom:0.2rem;">📲</div>
-        <div style="font-weight:600;font-size:0.82rem;color:var(--forest);">Airtel Money</div>
-        <div style="font-size:0.68rem;color:var(--sage);">Instant USSD</div>
+      <div class="pay-method ${method==='airtel'?'selected':''}" id="pm-airtel" onclick="selectPay('airtel')">
+        <div style="font-size:1.5rem;margin-bottom:0.2rem;">📲</div>
+        <div style="font-weight:600;font-size:0.78rem;color:var(--forest);">Airtel Money</div>
+        <div style="font-size:0.65rem;color:var(--sage);">Instant USSD</div>
       </div>
-      <div class="pay-method" id="pm-flutterwave" onclick="selectPay('flutterwave')">
-        <div style="font-size:1.6rem;margin-bottom:0.2rem;">💳</div>
-        <div style="font-weight:600;font-size:0.82rem;color:var(--forest);">Card / Flutterwave</div>
-        <div style="font-size:0.68rem;color:var(--sage);">Visa · Mastercard · Amex</div>
-      </div>
-      <div class="pay-method" id="pm-pesapal" onclick="selectPay('pesapal')">
-        <div style="font-size:1.6rem;margin-bottom:0.2rem;">🌍</div>
-        <div style="font-weight:600;font-size:0.82rem;color:var(--forest);">Pesapal</div>
-        <div style="font-size:0.68rem;color:var(--sage);">Cards + Mobile Money</div>
+      <div class="pay-method ${method==='intl'?'selected':''}" id="pm-intl" onclick="selectPay('intl')">
+        <div style="font-size:1.5rem;margin-bottom:0.2rem;">🌍</div>
+        <div style="font-weight:600;font-size:0.78rem;color:var(--forest);">International</div>
+        <div style="font-size:0.65rem;color:var(--sage);">Bank / Wire</div>
       </div>
     </div>
-
-    <!-- Order summary -->
     <div style="background:var(--mist);border-radius:0.7rem;padding:0.9rem 1rem;font-size:0.82rem;margin-bottom:1.2rem;">
-      <div style="font-weight:600;color:var(--forest);margin-bottom:0.4rem;">🛒 Order Summary</div>
+      <div style="font-weight:600;color:var(--forest);margin-bottom:0.3rem;">🛒 Order Summary</div>
       <div style="color:var(--sage);line-height:1.7;">${orderList}</div>
-      <div style="font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:var(--forest);margin-top:0.5rem;">Total: ${formatUGX(total)}</div>
-      <div style="font-size:0.72rem;color:var(--sage);">+ delivery fee (quoted on confirmation)</div>
+      <div style="font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:var(--forest);margin-top:0.4rem;">Total: UGX ${total.toLocaleString()}</div>
+      <div style="font-size:0.7rem;color:var(--sage);">+ delivery fee quoted on confirmation</div>
     </div>
-
-    <!-- Dynamic payment form -->
     <div id="pay-form-wrap"></div>
   `;
-
   modal.classList.add('open');
-  renderPayForm('mtn', total, orderList);
+  renderPayForm(method || 'mtn', total, orderList);
 }
 
 function selectPay(method){
   selectedPayMethod = method;
   document.querySelectorAll('.pay-method').forEach(m=>m.classList.remove('selected'));
-  document.getElementById('pm-'+method).classList.add('selected');
+  const el = document.getElementById('pm-'+method);
+  if(el) el.classList.add('selected');
   const total = cart.reduce((s,i)=>s+i.price*i.qty,0);
   const orderList = cart.map(i=>`${i.qty}× ${i.name}`).join(', ');
   renderPayForm(method, total, orderList);
@@ -1005,201 +1008,167 @@ function renderPayForm(method, total, orderList){
   const wrap = document.getElementById('pay-form-wrap');
   if(!wrap) return;
 
-  if(method === 'mtn'){
+  if(method==='mtn'){
     wrap.innerHTML = `
-      <div style="background:#fff3cd;border:1px solid #f0c040;border-radius:0.7rem;padding:1rem;margin-bottom:1rem;font-size:0.82rem;">
-        <div style="font-weight:600;color:#856404;margin-bottom:0.3rem;">📱 How MTN MoMo works:</div>
-        <div style="color:#856404;line-height:1.7;">
-          1. Click <strong>"Open MTN Dialer"</strong> below<br>
-          2. Your phone dialer opens with the USSD code ready<br>
-          3. Press Call — follow the prompts<br>
-          4. Enter your MoMo PIN to confirm payment<br>
-          5. Send us your transaction ID via WhatsApp
+      <div style="background:#fffbea;border:1px solid #f0c040;border-radius:0.7rem;padding:0.9rem 1rem;margin-bottom:1rem;font-size:0.82rem;">
+        <div style="font-weight:600;color:#856404;margin-bottom:0.3rem;">📱 How MTN MoMo works</div>
+        <div style="color:#856404;line-height:1.8;">
+          1️⃣ Enter your name & phone below<br>
+          2️⃣ Click <strong>"Open MTN Dialer"</strong> — your phone opens with the USSD code ready<br>
+          3️⃣ Press Call → follow the prompts → enter your <strong>MoMo PIN</strong><br>
+          4️⃣ Click "I've Paid" to send us your order confirmation via WhatsApp
         </div>
       </div>
-      <div style="background:var(--mist);border-radius:0.7rem;padding:0.8rem 1rem;margin-bottom:1rem;font-size:0.82rem;text-align:center;">
-        <div style="color:var(--sage);margin-bottom:0.2rem;">Paying to:</div>
-        <div style="font-weight:700;color:var(--forest);font-size:1rem;">Elite Tree Solutions</div>
+      <div style="background:var(--mist);border-radius:0.7rem;padding:0.8rem 1rem;margin-bottom:1rem;text-align:center;font-size:0.82rem;">
+        <div style="color:var(--sage);">Sending to:</div>
+        <div style="font-weight:700;color:var(--forest);">Elite Tree Solutions</div>
         <div style="color:var(--sage);">MTN: <strong style="color:var(--forest);">${BUSINESS_MTN}</strong></div>
-        <div style="font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--leaf);margin-top:0.4rem;">${formatUGX(total)}</div>
+        <div style="font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--leaf);margin-top:0.3rem;">UGX ${total.toLocaleString()}</div>
       </div>
       <div class="checkout-form" style="gap:0.7rem;">
         <div class="checkout-form-row">
-          <input type="text" id="co-fname" placeholder="Your First Name" required>
+          <input type="text" id="co-fname" placeholder="Your Name" required>
           <input type="tel" id="co-phone" placeholder="Your Phone Number" required>
         </div>
         <input type="text" id="co-location" placeholder="Delivery Location / District">
         <a href="tel:*165*3*${total}*${BUSINESS_MTN}%23"
-           class="checkout-btn"
-           style="display:flex;align-items:center;justify-content:center;gap:0.6rem;text-decoration:none;margin-top:0;"
-           onclick="confirmMoMoOrder('MTN')">
-          📱 Open MTN Dialer — Pay ${formatUGX(total)}
+           style="display:flex;align-items:center;justify-content:center;gap:0.6rem;background:#ffcb05;color:#0d2818;padding:0.9rem;border-radius:0.7rem;font-weight:700;text-decoration:none;font-size:0.9rem;margin-top:0.3rem;"
+           onclick="setTimeout(()=>confirmMoMoOrder('MTN'),1500)">
+          📱 Open MTN Dialer — Pay UGX ${total.toLocaleString()}
         </a>
-        <div style="font-size:0.72rem;color:var(--sage);text-align:center;">USSD: *165*3*${total}*${BUSINESS_MTN}#</div>
-        <button class="wa-checkout" onclick="confirmMoMoOrder('MTN')">
-          ✅ I've Paid — Confirm My Order via WhatsApp
+        <div style="font-size:0.7rem;color:var(--sage);text-align:center;margin-top:-0.3rem;">USSD code: *165*3*${total}*${BUSINESS_MTN}#</div>
+        <button class="wa-checkout" onclick="confirmMoMoOrder('MTN')" style="border:none;cursor:pointer;width:100%;">
+          ✅ I've Paid — Confirm via WhatsApp
         </button>
-      </div>
-    `;
+      </div>`;
   }
 
-  else if(method === 'airtel'){
+  else if(method==='airtel'){
     wrap.innerHTML = `
-      <div style="background:#fce4ec;border:1px solid #e91e63;border-radius:0.7rem;padding:1rem;margin-bottom:1rem;font-size:0.82rem;">
-        <div style="font-weight:600;color:#880e4f;margin-bottom:0.3rem;">📲 How Airtel Money works:</div>
-        <div style="color:#880e4f;line-height:1.7;">
-          1. Click <strong>"Open Airtel Dialer"</strong> below<br>
-          2. Your phone dialer opens with the USSD code<br>
-          3. Press Call — select "Send Money"<br>
-          4. Enter your Airtel Money PIN to confirm<br>
-          5. Send us your transaction ID via WhatsApp
+      <div style="background:#fce4ec;border:1px solid #e91e63;border-radius:0.7rem;padding:0.9rem 1rem;margin-bottom:1rem;font-size:0.82rem;">
+        <div style="font-weight:600;color:#880e4f;margin-bottom:0.3rem;">📲 How Airtel Money works</div>
+        <div style="color:#880e4f;line-height:1.8;">
+          1️⃣ Enter your name & phone below<br>
+          2️⃣ Click <strong>"Open Airtel Dialer"</strong> — your phone opens with the USSD code<br>
+          3️⃣ Press Call → select "Send Money" → enter your <strong>Airtel PIN</strong><br>
+          4️⃣ Click "I've Paid" to confirm your order via WhatsApp
         </div>
       </div>
-      <div style="background:var(--mist);border-radius:0.7rem;padding:0.8rem 1rem;margin-bottom:1rem;font-size:0.82rem;text-align:center;">
-        <div style="color:var(--sage);margin-bottom:0.2rem;">Paying to:</div>
-        <div style="font-weight:700;color:var(--forest);font-size:1rem;">Elite Tree Solutions</div>
+      <div style="background:var(--mist);border-radius:0.7rem;padding:0.8rem 1rem;margin-bottom:1rem;text-align:center;font-size:0.82rem;">
+        <div style="color:var(--sage);">Sending to:</div>
+        <div style="font-weight:700;color:var(--forest);">Elite Tree Solutions</div>
         <div style="color:var(--sage);">Airtel: <strong style="color:var(--forest);">${BUSINESS_AIRTEL}</strong></div>
-        <div style="font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--leaf);margin-top:0.4rem;">${formatUGX(total)}</div>
+        <div style="font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--leaf);margin-top:0.3rem;">UGX ${total.toLocaleString()}</div>
       </div>
       <div class="checkout-form" style="gap:0.7rem;">
         <div class="checkout-form-row">
-          <input type="text" id="co-fname" placeholder="Your First Name" required>
+          <input type="text" id="co-fname" placeholder="Your Name" required>
           <input type="tel" id="co-phone" placeholder="Your Phone Number" required>
         </div>
         <input type="text" id="co-location" placeholder="Delivery Location / District">
         <a href="tel:*185*9*1*${BUSINESS_AIRTEL}*${total}%23"
-           class="checkout-btn"
-           style="display:flex;align-items:center;justify-content:center;gap:0.6rem;text-decoration:none;background:#e91e63;margin-top:0;"
-           onclick="confirmMoMoOrder('Airtel')">
-          📲 Open Airtel Dialer — Pay ${formatUGX(total)}
+           style="display:flex;align-items:center;justify-content:center;gap:0.6rem;background:#e91e63;color:white;padding:0.9rem;border-radius:0.7rem;font-weight:700;text-decoration:none;font-size:0.9rem;margin-top:0.3rem;"
+           onclick="setTimeout(()=>confirmMoMoOrder('Airtel'),1500)">
+          📲 Open Airtel Dialer — Pay UGX ${total.toLocaleString()}
         </a>
-        <div style="font-size:0.72rem;color:var(--sage);text-align:center;">USSD: *185*9*1*${BUSINESS_AIRTEL}*${total}#</div>
-        <button class="wa-checkout" onclick="confirmMoMoOrder('Airtel')">
-          ✅ I've Paid — Confirm My Order via WhatsApp
+        <div style="font-size:0.7rem;color:var(--sage);text-align:center;margin-top:-0.3rem;">USSD code: *185*9*1*${BUSINESS_AIRTEL}*${total}#</div>
+        <button class="wa-checkout" onclick="confirmMoMoOrder('Airtel')" style="border:none;cursor:pointer;width:100%;">
+          ✅ I've Paid — Confirm via WhatsApp
         </button>
-      </div>
-    `;
+      </div>`;
   }
 
-  else if(method === 'flutterwave'){
+  else if(method==='intl'){
+    const usdApprox = (total/3750).toFixed(0);
+    const gbpApprox = (total/4800).toFixed(0);
+    const eurApprox = (total/4100).toFixed(0);
     wrap.innerHTML = `
-      <div style="background:#e8f4ff;border:1px solid #2196f3;border-radius:0.7rem;padding:1rem;margin-bottom:1rem;font-size:0.82rem;">
-        <div style="font-weight:600;color:#0d47a1;margin-bottom:0.3rem;">💳 Pay with Card via Flutterwave</div>
-        <div style="color:#0d47a1;line-height:1.7;">Supports Visa, Mastercard, American Express and more. Secure payment powered by Flutterwave — Africa's leading payment gateway.</div>
+      <div style="background:#e8f4ff;border:1px solid #2196f3;border-radius:0.7rem;padding:0.9rem 1rem;margin-bottom:1rem;font-size:0.82rem;">
+        <div style="font-weight:600;color:#0d47a1;margin-bottom:0.3rem;">🌍 International Transfer Guide</div>
+        <div style="color:#0d47a1;line-height:1.8;">
+          Paying from outside Uganda? You have 3 easy options:<br>
+          <strong>Option A — Western Union / MoneyGram:</strong> Send to the name & number below, then WhatsApp us the confirmation code.<br>
+          <strong>Option B — WorldRemit / Wise:</strong> Send directly to the Uganda Mobile Money number below.<br>
+          <strong>Option C — Bank Wire:</strong> Contact us for full bank details via WhatsApp.
+        </div>
+      </div>
+      <!-- Approx amounts -->
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.6rem;margin-bottom:1rem;">
+        <div style="background:var(--mist);border-radius:0.6rem;padding:0.7rem;text-align:center;">
+          <div style="font-size:0.68rem;color:var(--sage);">USD approx.</div>
+          <div style="font-weight:700;color:var(--forest);">$${usdApprox}</div>
+        </div>
+        <div style="background:var(--mist);border-radius:0.6rem;padding:0.7rem;text-align:center;">
+          <div style="font-size:0.68rem;color:var(--sage);">GBP approx.</div>
+          <div style="font-weight:700;color:var(--forest);">£${gbpApprox}</div>
+        </div>
+        <div style="background:var(--mist);border-radius:0.6rem;padding:0.7rem;text-align:center;">
+          <div style="font-size:0.68rem;color:var(--sage);">EUR approx.</div>
+          <div style="font-weight:700;color:var(--forest);">€${eurApprox}</div>
+        </div>
+      </div>
+      <div style="font-size:0.68rem;color:var(--sage);text-align:center;margin-bottom:1rem;">* Exchange rates are approximate. Final rate confirmed on payment day.</div>
+      <!-- Transfer details box -->
+      <div style="background:var(--forest);border-radius:0.8rem;padding:1.2rem;margin-bottom:1rem;">
+        <div style="font-size:0.7rem;color:var(--leaf);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.8rem;">Transfer Details</div>
+        <div style="font-size:0.82rem;color:rgba(245,240,232,0.8);line-height:2;">
+          <span style="color:rgba(245,240,232,0.4);">Name:</span> <strong style="color:var(--cream);">Kakuye Hitler Musajja</strong><br>
+          <span style="color:rgba(245,240,232,0.4);">Mobile Money:</span> <strong style="color:var(--cream);">+256 706 191 725</strong><br>
+          <span style="color:rgba(245,240,232,0.4);">Network:</span> <strong style="color:var(--cream);">MTN Uganda</strong><br>
+          <span style="color:rgba(245,240,232,0.4);">Country:</span> <strong style="color:var(--cream);">Uganda</strong><br>
+          <span style="color:rgba(245,240,232,0.4);">Reference:</span> <strong style="color:var(--leaf);">Your name + "Tree Order"</strong>
+        </div>
       </div>
       <div class="checkout-form" style="gap:0.7rem;">
         <div class="checkout-form-row">
-          <input type="text" id="co-fname" placeholder="First Name" required>
-          <input type="text" id="co-lname" placeholder="Last Name" required>
+          <input type="text" id="co-fname" placeholder="Your Full Name" required>
+          <input type="text" id="co-country" placeholder="Your Country">
         </div>
-        <input type="email" id="co-email" placeholder="Email Address" required>
-        <input type="tel" id="co-phone" placeholder="Phone Number" required>
-        <input type="text" id="co-location" placeholder="Delivery Location / District">
-        <button class="checkout-btn" onclick="payFlutterwave(${total})" style="margin-top:0;background:#2196f3;">
-          💳 Pay ${formatUGX(total)} with Card
+        <input type="tel" id="co-phone" placeholder="Your Phone / WhatsApp Number" required>
+        <button class="wa-checkout" onclick="confirmIntlOrder()" style="border:none;cursor:pointer;width:100%;padding:0.9rem;">
+          🌍 Contact Us to Arrange Transfer
         </button>
-        <div style="font-size:0.7rem;color:var(--sage);text-align:center;">🔒 Secured by Flutterwave · PCI DSS Compliant</div>
-      </div>
-    `;
-  }
-
-  else if(method === 'pesapal'){
-    wrap.innerHTML = `
-      <div style="background:#f3e5f5;border:1px solid #9c27b0;border-radius:0.7rem;padding:1rem;margin-bottom:1rem;font-size:0.82rem;">
-        <div style="font-weight:600;color:#4a148c;margin-bottom:0.3rem;">🌍 Pay with Pesapal</div>
-        <div style="color:#4a148c;line-height:1.7;">Uganda's most popular payment gateway. Supports Visa, Mastercard, MTN MoMo, Airtel Money and more in one checkout.</div>
-      </div>
-      <div class="checkout-form" style="gap:0.7rem;">
-        <div class="checkout-form-row">
-          <input type="text" id="co-fname" placeholder="First Name" required>
-          <input type="text" id="co-lname" placeholder="Last Name" required>
-        </div>
-        <input type="email" id="co-email" placeholder="Email Address" required>
-        <input type="tel" id="co-phone" placeholder="Phone Number" required>
-        <input type="text" id="co-location" placeholder="Delivery Location / District">
-        <button class="checkout-btn" onclick="payPesapal(${total})" style="margin-top:0;background:#9c27b0;">
-          🌍 Pay ${formatUGX(total)} with Pesapal
-        </button>
-        <div style="font-size:0.7rem;color:var(--sage);text-align:center;">🔒 Secured by Pesapal · Trusted across East Africa</div>
-      </div>
-    `;
+        <div style="font-size:0.72rem;color:var(--sage);text-align:center;">We will reply within 24 hours to confirm and finalise your order.</div>
+      </div>`;
   }
 }
 
 function confirmMoMoOrder(network){
-  const name = document.getElementById('co-fname')?.value || '';
-  const phone = document.getElementById('co-phone')?.value || '';
-  const location = document.getElementById('co-location')?.value || '';
+  const name = document.getElementById('co-fname')?.value||'';
+  const phone = document.getElementById('co-phone')?.value||'';
+  const location = document.getElementById('co-location')?.value||'TBC';
   const total = cart.reduce((s,i)=>s+i.price*i.qty,0);
-  const orderList = cart.map(i=>`${i.qty}× ${i.name}`).join('\n');
-  if(!name||!phone){ alert('Please fill in your name and phone number first.'); return; }
+  const lines = cart.map(i=>`${i.qty}× ${i.name}`).join('\n');
+  if(!name||!phone){alert('Please enter your name and phone number first.');return;}
   const msg = encodeURIComponent(
     `Hello Elite Tree Solutions! 🌳\n\n` +
-    `I have just paid via ${network} Mobile Money.\n\n` +
-    `👤 Name: ${name}\n📞 Phone: ${phone}\n📍 Location: ${location||'TBC'}\n\n` +
-    `🛒 Order:\n${orderList}\n\n` +
-    `💰 Amount Paid: ${formatUGX(total)}\n\n` +
+    `✅ I have just paid via ${network} Mobile Money.\n\n` +
+    `👤 Name: ${name}\n📞 My Phone: ${phone}\n📍 Delivery: ${location}\n\n` +
+    `🛒 My Order:\n${lines}\n\n` +
+    `💰 Amount Paid: UGX ${total.toLocaleString()}\n\n` +
     `Please confirm receipt and arrange delivery. Thank you!`
   );
   window.open(`https://wa.me/256706191725?text=${msg}`,'_blank');
-  showOrderSuccess(name, phone, network);
+  showOrderSuccess(name, phone, network+' Mobile Money');
 }
 
-function payFlutterwave(total){
-  const fname = document.getElementById('co-fname')?.value||'';
-  const lname = document.getElementById('co-lname')?.value||'';
-  const email = document.getElementById('co-email')?.value||'';
+function confirmIntlOrder(){
+  const name = document.getElementById('co-fname')?.value||'';
   const phone = document.getElementById('co-phone')?.value||'';
-  if(!fname||!email||!phone){ alert('Please fill in all fields.'); return; }
-  // When you have your Flutterwave public key, this will launch their popup
-  if(FLUTTERWAVE_KEY === 'YOUR_FLW_PUBLIC_KEY'){
-    document.getElementById('checkoutContent').innerHTML = `
-      <div class="order-success">
-        <div style="font-size:2rem;margin-bottom:1rem;">🔑</div>
-        <h3>Almost There!</h3>
-        <p style="font-size:0.85rem;color:var(--sage);">
-          To activate card payments, the owner needs to:<br><br>
-          1. Sign up free at <a href="https://flutterwave.com" target="_blank" style="color:var(--leaf);">flutterwave.com</a><br>
-          2. Complete business verification<br>
-          3. Copy your Public Key from the dashboard<br>
-          4. Replace <code>YOUR_FLW_PUBLIC_KEY</code> in shop.html<br><br>
-          For now, please use <strong>MTN MoMo, Airtel Money or WhatsApp</strong> to complete your order.
-        </p>
-        <button class="wa-checkout" style="margin-top:1.5rem;border:none;cursor:pointer;width:100%;padding:0.9rem;" onclick="openCheckout('whatsapp')">Order via WhatsApp Instead</button>
-      </div>
-    `;
-    return;
-  }
-  // Real Flutterwave integration (active when key is set)
-  FlutterwaveCheckout({
-    public_key: FLUTTERWAVE_KEY,
-    tx_ref: 'ETS-'+Date.now(),
-    amount: total,
-    currency: 'UGX',
-    payment_options: 'card,mobilemoney,ussd',
-    customer:{ email, phone_number:phone, name:`${fname} ${lname}` },
-    customizations:{ title:'Elite Tree Solutions', description:'Tree Order', logo:''},
-    callback: (response) => { showOrderSuccess(fname, phone, 'Flutterwave'); },
-    onclose: () => {}
-  });
-}
-
-function payPesapal(total){
-  const fname = document.getElementById('co-fname')?.value||'';
-  const email = document.getElementById('co-email')?.value||'';
-  const phone = document.getElementById('co-phone')?.value||'';
-  if(!fname||!email||!phone){ alert('Please fill in all fields.'); return; }
-  document.getElementById('checkoutContent').innerHTML = `
-    <div class="order-success">
-      <div style="font-size:2rem;margin-bottom:1rem;">🌍</div>
-      <h3>Redirecting to Pesapal...</h3>
-      <p style="font-size:0.85rem;color:var(--sage);">
-        To activate Pesapal, the owner needs to register at <a href="https://pesapal.com" target="_blank" style="color:var(--leaf);">pesapal.com</a> and add their merchant link here.<br><br>
-        For now, please use <strong>MTN MoMo, Airtel Money or WhatsApp</strong> to complete your order.
-      </p>
-      <button class="wa-checkout" style="margin-top:1.5rem;border:none;cursor:pointer;width:100%;padding:0.9rem;" onclick="openCheckout('whatsapp')">Order via WhatsApp Instead</button>
-    </div>
-  `;
+  const country = document.getElementById('co-country')?.value||'';
+  const total = cart.reduce((s,i)=>s+i.price*i.qty,0);
+  const lines = cart.map(i=>`${i.qty}× ${i.name}`).join('\n');
+  if(!name||!phone){alert('Please enter your name and phone number first.');return;}
+  const msg = encodeURIComponent(
+    `Hello Elite Tree Solutions! 🌳\n\n` +
+    `🌍 I am an international customer interested in placing an order.\n\n` +
+    `👤 Name: ${name}\n🌐 Country: ${country||'Not specified'}\n📞 Contact: ${phone}\n\n` +
+    `🛒 My Order:\n${lines}\n\n` +
+    `💰 Order Total: UGX ${total.toLocaleString()}\n\n` +
+    `Please send me the payment details and confirm how to proceed. Thank you!`
+  );
+  window.open(`https://wa.me/256706191725?text=${msg}`,'_blank');
+  showOrderSuccess(name, phone, 'International Transfer');
 }
 
 function showOrderSuccess(name, phone, method){
@@ -1210,18 +1179,18 @@ function showOrderSuccess(name, phone, method){
         <path d="M20 32 L28 40 L44 24" stroke="#7ab648" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
       <h3>Order Confirmed! 🌳</h3>
-      <p>Thank you, <strong>${name}</strong>! Your order has been placed.<br><br>
-      Kakuye will contact you on <strong>${phone}</strong> shortly to confirm receipt${method?` of your ${method} payment`:''} and arrange delivery.<br><br>
-      Questions? WhatsApp us on <a href="https://wa.me/256706191725" style="color:var(--leaf);">+256 706 191 725</a></p>
+      <p>Thank you, <strong>${name}</strong>!<br><br>
+      Kakuye will contact you on <strong>${phone}</strong> to confirm your ${method} payment and arrange delivery.<br><br>
+      Questions? WhatsApp us: <a href="https://wa.me/256706191725" style="color:var(--leaf);">+256 706 191 725</a></p>
     </div>
   `;
-  cart = [];
-  updateCart();
+  cart=[];updateCart();
 }
 
 function closeCheckout(){
   document.getElementById('checkoutModal').classList.remove('open');
 }
+
 
 // ═══ MOBILE MENU ═══
 function toggleMobileMenu(){
