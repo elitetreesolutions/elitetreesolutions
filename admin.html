@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin — Elite Tree Solutions</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --forest:#0d2818;--moss:#1a4a2e;--sage:#4a7c59;
+  --leaf:#7ab648;--gold:#c8a96e;--cream:#f5f0e8;--mist:#e8f0e4;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:#f0f4f0;color:var(--forest);min-height:100vh;}
+
+/* ── LOGIN ── */
+#loginScreen{
+  position:fixed;inset:0;background:var(--forest);
+  display:flex;align-items:center;justify-content:center;z-index:1000;
+  background:radial-gradient(ellipse 70% 70% at 50% 50%,#1a4a2e,#0d2818);
+}
+.login-box{
+  background:rgba(255,255,255,0.05);border:1px solid rgba(122,182,72,0.2);
+  border-radius:1.5rem;padding:3rem;width:100%;max-width:380px;text-align:center;
+  backdrop-filter:blur(20px);
+}
+.login-logo{font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--cream);margin-bottom:0.3rem;}
+.login-sub{font-size:0.78rem;color:var(--sage);margin-bottom:2rem;text-transform:uppercase;letter-spacing:0.1em;}
+.login-box input{
+  width:100%;padding:0.9rem 1rem;border:1.5px solid rgba(122,182,72,0.2);
+  border-radius:0.7rem;background:rgba(255,255,255,0.05);
+  color:var(--cream);font-family:'DM Sans',sans-serif;font-size:0.9rem;
+  outline:none;margin-bottom:1rem;transition:border-color 0.3s;
+}
+.login-box input::placeholder{color:rgba(245,240,232,0.3);}
+.login-box input:focus{border-color:var(--leaf);}
+.login-btn{
+  width:100%;padding:0.9rem;background:var(--leaf);color:var(--forest);
+  border:none;border-radius:0.7rem;font-family:'DM Sans',sans-serif;
+  font-size:0.95rem;font-weight:600;cursor:pointer;transition:all 0.3s;
+}
+.login-btn:hover{background:var(--gold);}
+.login-error{color:#e57373;font-size:0.8rem;margin-top:0.5rem;display:none;}
+.login-hint{font-size:0.72rem;color:rgba(245,240,232,0.25);margin-top:1.5rem;}
+
+/* ── ADMIN LAYOUT ── */
+#adminScreen{display:none;}
+.admin-nav{
+  background:var(--forest);padding:1rem 2rem;
+  display:flex;align-items:center;justify-content:space-between;
+  position:sticky;top:0;z-index:100;border-bottom:1px solid rgba(122,182,72,0.15);
+}
+.admin-nav-logo{font-family:'Playfair Display',serif;color:var(--cream);font-size:1rem;}
+.admin-nav-logo span{color:var(--leaf);}
+.admin-tabs{display:flex;gap:0.5rem;}
+.admin-tab{padding:0.45rem 1rem;border-radius:1rem;border:1px solid rgba(122,182,72,0.2);background:transparent;color:rgba(245,240,232,0.6);font-family:'DM Sans',sans-serif;font-size:0.8rem;cursor:pointer;transition:all 0.2s;}
+.admin-tab.active,.admin-tab:hover{background:var(--leaf);color:var(--forest);border-color:var(--leaf);}
+.logout-btn{padding:0.4rem 1rem;background:rgba(229,115,115,0.15);border:1px solid rgba(229,115,115,0.3);color:#e57373;border-radius:1rem;font-size:0.78rem;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.2s;}
+.logout-btn:hover{background:rgba(229,115,115,0.25);}
+
+.admin-body{padding:2rem;max-width:1200px;margin:0 auto;}
+
+/* ── STATS ── */
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:2rem;}
+.stat-card{background:white;border-radius:1rem;padding:1.4rem;border:1px solid rgba(13,40,24,0.07);}
+.stat-val{font-family:'Playfair Display',serif;font-size:2rem;font-weight:900;color:var(--forest);line-height:1;}
+.stat-label{font-size:0.75rem;color:var(--sage);margin-top:0.3rem;text-transform:uppercase;letter-spacing:0.06em;}
+.stat-change{font-size:0.72rem;color:var(--leaf);margin-top:0.4rem;}
+
+/* ── PANEL SECTIONS ── */
+.panel{display:none;}
+.panel.active{display:block;}
+.panel-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;flex-wrap:wrap;gap:1rem;}
+.panel-title{font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--forest);}
+.btn-primary{padding:0.65rem 1.4rem;background:var(--leaf);color:var(--forest);border:none;border-radius:0.6rem;font-family:'DM Sans',sans-serif;font-size:0.85rem;font-weight:500;cursor:pointer;transition:all 0.3s;}
+.btn-primary:hover{background:var(--forest);color:var(--leaf);}
+.btn-danger{padding:0.55rem 1rem;background:rgba(229,57,53,0.1);color:#e53935;border:1px solid rgba(229,57,53,0.2);border-radius:0.5rem;font-family:'DM Sans',sans-serif;font-size:0.8rem;cursor:pointer;transition:all 0.2s;}
+.btn-danger:hover{background:rgba(229,57,53,0.2);}
+.btn-edit{padding:0.55rem 1rem;background:rgba(122,182,72,0.1);color:var(--sage);border:1px solid rgba(122,182,72,0.2);border-radius:0.5rem;font-family:'DM Sans',sans-serif;font-size:0.8rem;cursor:pointer;transition:all 0.2s;}
+.btn-edit:hover{background:var(--mist);}
+
+/* ── TREE TABLE ── */
+.tree-table{width:100%;border-collapse:collapse;background:white;border-radius:1rem;overflow:hidden;box-shadow:0 2px 12px rgba(13,40,24,0.06);}
+.tree-table th{background:var(--forest);color:rgba(245,240,232,0.7);padding:0.9rem 1rem;text-align:left;font-size:0.72rem;text-transform:uppercase;letter-spacing:0.08em;font-weight:500;}
+.tree-table td{padding:0.9rem 1rem;border-bottom:1px solid rgba(13,40,24,0.05);font-size:0.85rem;color:var(--forest);vertical-align:middle;}
+.tree-table tr:last-child td{border-bottom:none;}
+.tree-table tr:hover td{background:rgba(232,240,228,0.3);}
+.tree-thumb-mini{width:40px;height:40px;border-radius:0.5rem;overflow:hidden;flex-shrink:0;}
+.tree-thumb-mini img{width:100%;height:100%;object-fit:cover;}
+.tree-thumb-mini svg{width:100%;height:100%;}
+.cat-badge{display:inline-block;padding:0.2rem 0.6rem;border-radius:1rem;font-size:0.68rem;font-weight:500;text-transform:capitalize;}
+.cat-fruit{background:#fff3e0;color:#e65100;}
+.cat-shade{background:#e8f5e9;color:#2e7d32;}
+.cat-ornamental{background:#f3e5f5;color:#6a1b9a;}
+.cat-native{background:#e3f2fd;color:#1565c0;}
+.cat-palm{background:#fce4ec;color:#880e4f;}
+.price-cell{font-family:'Playfair Display',serif;font-weight:700;}
+.action-btns{display:flex;gap:0.5rem;}
+
+/* ── SEARCH BAR ── */
+.table-toolbar{display:flex;gap:1rem;margin-bottom:1rem;align-items:center;flex-wrap:wrap;}
+.search-bar{position:relative;flex:1;min-width:200px;}
+.search-bar input{width:100%;padding:0.65rem 0.9rem 0.65rem 2.4rem;border:1.5px solid rgba(13,40,24,0.1);border-radius:0.6rem;font-family:'DM Sans',sans-serif;font-size:0.85rem;outline:none;color:var(--forest);transition:border-color 0.3s;}
+.search-bar input:focus{border-color:var(--leaf);}
+.search-bar svg{position:absolute;left:0.7rem;top:50%;transform:translateY(-50%);}
+.filter-select{padding:0.65rem 0.9rem;border:1.5px solid rgba(13,40,24,0.1);border-radius:0.6rem;font-family:'DM Sans',sans-serif;font-size:0.85rem;color:var(--forest);outline:none;background:white;}
+
+/* ── ADD / EDIT MODAL ── */
+.modal-backdrop{position:fixed;inset:0;background:rgba(7,15,10,0.7);z-index:500;display:none;align-items:center;justify-content:center;padding:1rem;}
+.modal-backdrop.open{display:flex;}
+.modal-box{background:white;border-radius:1.5rem;padding:2.5rem;width:100%;max-width:580px;max-height:90vh;overflow-y:auto;position:relative;}
+.modal-box h3{font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--forest);margin-bottom:1.5rem;}
+.modal-close{position:absolute;top:1.2rem;right:1.2rem;background:var(--mist);border:none;width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+.form-group{display:flex;flex-direction:column;gap:0.4rem;margin-bottom:0.2rem;}
+.form-group.full{grid-column:1/-1;}
+.form-group label{font-size:0.72rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--sage);}
+.form-group input,.form-group select,.form-group textarea{
+  padding:0.75rem 0.9rem;border:1.5px solid rgba(13,40,24,0.12);
+  border-radius:0.6rem;font-family:'DM Sans',sans-serif;font-size:0.88rem;
+  color:var(--forest);outline:none;transition:border-color 0.3s;
+}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--leaf);}
+.form-group textarea{resize:vertical;min-height:80px;}
+.color-row{display:flex;gap:0.8rem;align-items:center;}
+.color-row input[type=color]{width:48px;height:38px;border:1.5px solid rgba(13,40,24,0.12);border-radius:0.5rem;cursor:pointer;padding:2px;}
+.color-label{font-size:0.8rem;color:var(--sage);}
+.tree-preview{border:2px dashed rgba(13,40,24,0.12);border-radius:0.8rem;padding:1rem;text-align:center;margin-bottom:1rem;background:var(--mist);}
+.tree-preview p{font-size:0.75rem;color:var(--sage);margin-top:0.5rem;}
+.img-upload-area{border:2px dashed rgba(13,40,24,0.15);border-radius:0.8rem;padding:1.5rem;text-align:center;cursor:pointer;transition:all 0.3s;background:white;}
+.img-upload-area:hover{border-color:var(--leaf);background:var(--mist);}
+.img-upload-area p{font-size:0.8rem;color:var(--sage);margin-top:0.5rem;}
+.img-upload-area input{display:none;}
+.img-preview{max-width:100%;max-height:140px;border-radius:0.5rem;margin-top:0.5rem;display:none;}
+
+/* ── SETTINGS ── */
+.settings-card{background:white;border-radius:1rem;padding:1.8rem;margin-bottom:1.2rem;border:1px solid rgba(13,40,24,0.07);}
+.settings-card h4{font-family:'Playfair Display',serif;font-size:1rem;color:var(--forest);margin-bottom:0.3rem;}
+.settings-card p{font-size:0.82rem;color:var(--sage);margin-bottom:1.2rem;line-height:1.6;}
+.settings-row{display:flex;gap:1rem;align-items:center;margin-bottom:0.8rem;flex-wrap:wrap;}
+.settings-row input{flex:1;min-width:200px;padding:0.7rem 0.9rem;border:1.5px solid rgba(13,40,24,0.12);border-radius:0.6rem;font-family:'DM Sans',sans-serif;font-size:0.85rem;outline:none;color:var(--forest);}
+.settings-row input:focus{border-color:var(--leaf);}
+.save-btn{padding:0.7rem 1.4rem;background:var(--leaf);color:var(--forest);border:none;border-radius:0.6rem;font-family:'DM Sans',sans-serif;font-weight:500;cursor:pointer;white-space:nowrap;transition:all 0.3s;}
+.save-btn:hover{background:var(--forest);color:var(--leaf);}
+.code-block{background:#0d2818;color:#7ab648;padding:1rem;border-radius:0.6rem;font-family:monospace;font-size:0.78rem;line-height:1.7;overflow-x:auto;margin-top:0.8rem;}
+
+/* ── ORDERS ── */
+.orders-list{display:flex;flex-direction:column;gap:1rem;}
+.order-card{background:white;border-radius:1rem;padding:1.4rem;border:1px solid rgba(13,40,24,0.07);border-left:4px solid var(--leaf);}
+.order-card.pending{border-left-color:var(--gold);}
+.order-card.completed{border-left-color:var(--leaf);}
+.order-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:0.8rem;flex-wrap:wrap;gap:0.5rem;}
+.order-id{font-family:'Playfair Display',serif;font-size:0.9rem;font-weight:700;color:var(--forest);}
+.order-status{font-size:0.72rem;padding:0.2rem 0.7rem;border-radius:1rem;font-weight:500;}
+.status-pending{background:#fff3cd;color:#856404;}
+.status-completed{background:#d4edda;color:#155724;}
+.order-details{font-size:0.82rem;color:var(--sage);line-height:1.7;}
+.order-total{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:var(--forest);margin-top:0.5rem;}
+
+/* ── TOAST ── */
+.toast{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%) translateY(80px);background:var(--forest);color:var(--leaf);padding:0.8rem 1.8rem;border-radius:2rem;font-size:0.85rem;font-weight:500;z-index:9999;transition:transform 0.4s ease;border:1px solid rgba(122,182,72,0.3);}
+.toast.show{transform:translateX(-50%) translateY(0);}
+
+@media(max-width:768px){
+  .stats-row{grid-template-columns:1fr 1fr;}
+  .form-grid{grid-template-columns:1fr;}
+  .admin-tabs{display:none;}
+}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="loginScreen">
+  <div class="login-box">
+    <div style="font-size:2.5rem;margin-bottom:1rem;">🌳</div>
+    <div class="login-logo">Elite Tree Solutions</div>
+    <div class="login-sub">Admin Panel · Owner Access Only</div>
+    <input type="password" id="loginPass" placeholder="Enter your password" onkeydown="if(event.key==='Enter')doLogin()">
+    <button class="login-btn" onclick="doLogin()">Sign In →</button>
+    <div class="login-error" id="loginError">❌ Incorrect password. Try again.</div>
+    <div class="login-hint">Owned by Kakuye Hitler Musajja<br>Contact support if you're locked out.</div>
+  </div>
+</div>
+
+<!-- ADMIN -->
+<div id="adminScreen">
+  <nav class="admin-nav">
+    <div class="admin-nav-logo">🌳 <span>Elite Tree</span> Admin</div>
+    <div class="admin-tabs">
+      <button class="admin-tab active" onclick="showPanel('dashboard',this)">📊 Dashboard</button>
+      <button class="admin-tab" onclick="showPanel('trees',this)">🌳 Trees</button>
+      <button class="admin-tab" onclick="showPanel('orders',this)">🛒 Orders</button>
+      <button class="admin-tab" onclick="showPanel('settings',this)">⚙️ Settings</button>
+    </div>
+    <button class="logout-btn" onclick="logout()">Log Out</button>
+  </nav>
+
+  <div class="admin-body">
+
+    <!-- ── DASHBOARD ── -->
+    <div class="panel active" id="panel-dashboard">
+      <div class="stats-row">
+        <div class="stat-card">
+          <div class="stat-val" id="stat-trees">42</div>
+          <div class="stat-label">Tree Species</div>
+          <div class="stat-change">↑ Add more below</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-val" id="stat-orders">0</div>
+          <div class="stat-label">Orders Received</div>
+          <div class="stat-change">Via shop & WhatsApp</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-val">4</div>
+          <div class="stat-label">Payment Methods</div>
+          <div class="stat-change">MTN · Airtel · FLW · Pesapal</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-val">7</div>
+          <div class="stat-label">Site Pages Live</div>
+          <div class="stat-change">Home · Shop · Portfolio ···</div>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;">
+        <div style="background:white;border-radius:1rem;padding:1.5rem;border:1px solid rgba(13,40,24,0.07);">
+          <div style="font-family:'Playfair Display',serif;font-size:1rem;margin-bottom:1rem;color:var(--forest);">Quick Actions</div>
+          <div style="display:flex;flex-direction:column;gap:0.7rem;">
+            <button class="btn-primary" onclick="showPanel('trees',document.querySelector('.admin-tab:nth-child(2))'));openAddModal()">+ Add New Tree Species</button>
+            <button class="btn-primary" style="background:var(--gold);" onclick="showPanel('settings',document.querySelectorAll('.admin-tab')[3])">⚙️ Update Payment Keys</button>
+            <a href="shop.html" target="_blank" class="btn-primary" style="display:block;text-align:center;text-decoration:none;background:var(--moss);">🛒 Preview Live Shop</a>
+            <a href="index.html" target="_blank" class="btn-primary" style="display:block;text-align:center;text-decoration:none;background:var(--moss);">🏠 View Live Website</a>
+          </div>
+        </div>
+        <div style="background:white;border-radius:1rem;padding:1.5rem;border:1px solid rgba(13,40,24,0.07);">
+          <div style="font-family:'Playfair Display',serif;font-size:1rem;margin-bottom:1rem;color:var(--forest);">Payment Status</div>
+          <div style="display:flex;flex-direction:column;gap:0.8rem;font-size:0.85rem;">
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:0.6rem 0;border-bottom:1px solid rgba(13,40,24,0.06);">
+              <span>📱 MTN MoMo USSD</span><span style="color:var(--leaf);font-weight:600;">✅ Active</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:0.6rem 0;border-bottom:1px solid rgba(13,40,24,0.06);">
+              <span>📲 Airtel Money USSD</span><span style="color:var(--leaf);font-weight:600;">✅ Active</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:0.6rem 0;border-bottom:1px solid rgba(13,40,24,0.06);">
+              <span>💳 Flutterwave Cards</span><span style="color:var(--gold);font-weight:600;">⚠️ Key Needed</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:0.6rem 0;">
+              <span>🌍 Pesapal</span><span style="color:var(--gold);font-weight:600;">⚠️ Key Needed</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── TREES PANEL ── -->
+    <div class="panel" id="panel-trees">
+      <div class="panel-header">
+        <div class="panel-title">🌳 Tree Catalogue</div>
+        <button class="btn-primary" onclick="openAddModal()">+ Add New Tree</button>
+      </div>
+
+      <div class="table-toolbar">
+        <div class="search-bar">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" style="top:52%">
+            <circle cx="6.5" cy="6.5" r="4.5" stroke="#4a7c59" stroke-width="1.5"/>
+            <path d="M10 10L14 14" stroke="#4a7c59" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+          <input type="text" placeholder="Search trees..." oninput="filterAdminTable(this.value)">
+        </div>
+        <select class="filter-select" onchange="filterAdminCat(this.value)">
+          <option value="">All Categories</option>
+          <option value="fruit">Fruit</option>
+          <option value="shade">Shade</option>
+          <option value="ornamental">Ornamental</option>
+          <option value="native">Native</option>
+          <option value="palm">Palm</option>
+        </select>
+        <span id="tableCount" style="font-size:0.82rem;color:var(--sage);"></span>
+      </div>
+
+      <div style="overflow-x:auto;">
+        <table class="tree-table" id="adminTable">
+          <thead>
+            <tr>
+              <th>Preview</th>
+              <th>Name</th>
+              <th>Latin Name</th>
+              <th>Category</th>
+              <th>Type</th>
+              <th>Price (UGX)</th>
+              <th>Badge</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="adminTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ── ORDERS PANEL ── -->
+    <div class="panel" id="panel-orders">
+      <div class="panel-header">
+        <div class="panel-title">🛒 Orders</div>
+        <div style="font-size:0.82rem;color:var(--sage);">Orders placed via WhatsApp and Mobile Money appear here when you add them manually.</div>
+      </div>
+      <div class="orders-list" id="ordersList">
+        <div style="background:white;border-radius:1rem;padding:2rem;text-align:center;color:var(--sage);">
+          <div style="font-size:2rem;margin-bottom:0.5rem;">📭</div>
+          <p>No orders recorded yet. When customers order via WhatsApp or Mobile Money, you can add them here to track them.</p>
+          <button class="btn-primary" style="margin-top:1rem;" onclick="addDemoOrder()">+ Record a New Order</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SETTINGS ── -->
+    <div class="panel" id="panel-settings">
+      <div class="panel-header"><div class="panel-title">⚙️ Settings & Payment Keys</div></div>
+
+      <!-- Business Info -->
+      <div class="settings-card">
+        <h4>📞 Business Contact Numbers</h4>
+        <p>These numbers receive Mobile Money payments and WhatsApp orders. Update if you change your number.</p>
+        <div class="settings-row">
+          <input type="tel" id="set-mtn" value="0706191725" placeholder="MTN MoMo Number">
+          <button class="save-btn" onclick="saveSetting('mtn',document.getElementById('set-mtn').value)">Save MTN</button>
+        </div>
+        <div class="settings-row">
+          <input type="tel" id="set-airtel" value="0706191725" placeholder="Airtel Money Number">
+          <button class="save-btn" onclick="saveSetting('airtel',document.getElementById('set-airtel').value)">Save Airtel</button>
+        </div>
+      </div>
+
+      <!-- Flutterwave -->
+      <div class="settings-card">
+        <h4>💳 Flutterwave API Key (Card Payments)</h4>
+        <p>Sign up free at <a href="https://flutterwave.com" target="_blank" style="color:var(--leaf);">flutterwave.com</a>, complete business verification, then copy your <strong>Public Key</strong> here. Enables Visa, Mastercard, American Express payments.</p>
+        <div class="settings-row">
+          <input type="text" id="set-flw" placeholder="FLWPUBK_TEST-xxxxxxxxxxxxxxxx-X">
+          <button class="save-btn" onclick="saveSetting('flw',document.getElementById('set-flw').value)">Save Key</button>
+        </div>
+        <p style="font-size:0.78rem;color:var(--sage);margin-top:0.5rem;">After saving, paste this into <code style="background:var(--mist);padding:0.1rem 0.4rem;border-radius:0.3rem;">shop.html</code> line where it says <code style="background:var(--mist);padding:0.1rem 0.4rem;border-radius:0.3rem;">YOUR_FLW_PUBLIC_KEY</code></p>
+        <div class="code-block">// In shop.html, find this line and replace:<br>const FLUTTERWAVE_KEY = 'YOUR_FLW_PUBLIC_KEY';<br><br>// Change to:<br>const FLUTTERWAVE_KEY = 'FLWPUBK_TEST-your-actual-key';</div>
+      </div>
+
+      <!-- Pesapal -->
+      <div class="settings-card">
+        <h4>🌍 Pesapal Setup</h4>
+        <p>Register at <a href="https://pesapal.com" target="_blank" style="color:var(--leaf);">pesapal.com/business</a> — it's popular in Uganda and East Africa. After approval, you get a payment link or iframe code.</p>
+        <div class="settings-row">
+          <input type="text" id="set-pesapal" placeholder="Your Pesapal Merchant Link or ID">
+          <button class="save-btn" onclick="saveSetting('pesapal',document.getElementById('set-pesapal').value)">Save</button>
+        </div>
+      </div>
+
+      <!-- Password change -->
+      <div class="settings-card">
+        <h4>🔑 Change Admin Password</h4>
+        <p>Change your admin panel login password. Default is <strong>EliteTree2024</strong> — change this immediately!</p>
+        <div class="settings-row">
+          <input type="password" id="set-pass1" placeholder="New Password">
+          <input type="password" id="set-pass2" placeholder="Confirm New Password">
+          <button class="save-btn" onclick="changePassword()">Change Password</button>
+        </div>
+        <div style="background:#fff3cd;border-radius:0.6rem;padding:0.8rem 1rem;font-size:0.8rem;color:#856404;margin-top:0.8rem;">
+          ⚠️ The password is stored in your browser. If you clear browser data, it resets to the default. For production security, use a proper backend.
+        </div>
+      </div>
+    </div>
+
+  </div><!-- admin-body -->
+</div><!-- adminScreen -->
+
+<!-- ADD/EDIT MODAL -->
+<div class="modal-backdrop" id="treeModal">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <h3 id="modalTitle">Add New Tree Species</h3>
+    <div class="tree-preview" id="treePreview">
+      <svg id="previewSVG" viewBox="0 0 160 130" style="width:120px;height:100px;"></svg>
+      <p>Preview updates as you type</p>
+    </div>
+    <div class="form-grid">
+      <div class="form-group">
+        <label>Common Name *</label>
+        <input type="text" id="f-name" placeholder="e.g. Mango" oninput="updatePreview()">
+      </div>
+      <div class="form-group">
+        <label>Latin / Scientific Name</label>
+        <input type="text" id="f-latin" placeholder="e.g. Mangifera indica">
+      </div>
+      <div class="form-group">
+        <label>Category *</label>
+        <select id="f-cat">
+          <option value="fruit">Fruit Tree</option>
+          <option value="shade">Shade Tree</option>
+          <option value="ornamental">Ornamental</option>
+          <option value="native">Native Species</option>
+          <option value="palm">Palm</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Type</label>
+        <select id="f-type">
+          <option value="grafted">Grafted</option>
+          <option value="seedling">Seedling</option>
+          <option value="mature">Mature Specimen</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Price (UGX) *</label>
+        <input type="number" id="f-price" placeholder="e.g. 18000" oninput="updatePreview()">
+      </div>
+      <div class="form-group">
+        <label>Original Price (if on sale)</label>
+        <input type="number" id="f-oldprice" placeholder="Leave empty if no sale">
+      </div>
+      <div class="form-group">
+        <label>Badge</label>
+        <select id="f-badge">
+          <option value="">None</option>
+          <option value="popular">⭐ Popular</option>
+          <option value="new">🆕 New</option>
+          <option value="rare">💎 Rare</option>
+          <option value="sale">🔥 Sale</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Fruit Colour (for fruit trees)</label>
+        <div class="color-row">
+          <input type="color" id="f-fruit" value="#f4a128">
+          <span class="color-label">Leave default if not a fruit tree</span>
+        </div>
+      </div>
+      <div class="form-group full">
+        <label>Tree Canopy Colour (top)</label>
+        <div class="color-row">
+          <input type="color" id="f-color1" value="#1a4a12" oninput="updatePreview()">
+          <span class="color-label">Main canopy colour</span>
+          <input type="color" id="f-color2" value="#2d7a1e" oninput="updatePreview()">
+          <span class="color-label">Secondary canopy</span>
+        </div>
+      </div>
+      <div class="form-group full">
+        <label>Upload Tree Photo (optional — replaces SVG illustration)</label>
+        <div class="img-upload-area" onclick="document.getElementById('f-img').click()">
+          <div style="font-size:1.5rem;">📷</div>
+          <p>Click to upload a photo of this tree<br><small>JPG, PNG, WEBP · Max 2MB</small></p>
+          <input type="file" id="f-img" accept="image/*" onchange="previewImage(event)">
+          <img id="imgPreviewEl" class="img-preview">
+        </div>
+      </div>
+      <div class="form-group full">
+        <label>Short Description</label>
+        <input type="text" id="f-desc" placeholder="e.g. Sweet, round, highly marketable">
+      </div>
+    </div>
+    <div style="display:flex;gap:1rem;margin-top:1.5rem;">
+      <button class="btn-primary" style="flex:1;" onclick="saveTree()">💾 Save Tree</button>
+      <button onclick="closeModal()" style="padding:0.7rem 1.5rem;border:1.5px solid rgba(13,40,24,0.15);border-radius:0.6rem;background:white;cursor:pointer;font-family:'DM Sans',sans-serif;">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ═══ AUTH ═══
+const DEFAULT_PASS = 'EliteTree2024';
+function doLogin(){
+  const pass = document.getElementById('loginPass').value;
+  const stored = localStorage.getItem('ets_admin_pass') || DEFAULT_PASS;
+  if(pass === stored){
+    document.getElementById('loginScreen').style.display='none';
+    document.getElementById('adminScreen').style.display='block';
+    loadTrees();
+    loadOrders();
+    updateStats();
+  } else {
+    document.getElementById('loginError').style.display='block';
+    document.getElementById('loginPass').value='';
+  }
+}
+document.getElementById('loginPass').addEventListener('keydown',e=>{if(e.key==='Enter')doLogin();});
+function logout(){
+  document.getElementById('loginScreen').style.display='flex';
+  document.getElementById('adminScreen').style.display='none';
+  document.getElementById('loginPass').value='';
+}
+function changePassword(){
+  const p1=document.getElementById('set-pass1').value;
+  const p2=document.getElementById('set-pass2').value;
+  if(!p1){showToast('Please enter a new password.');return;}
+  if(p1!==p2){showToast('Passwords do not match!');return;}
+  if(p1.length<6){showToast('Password must be at least 6 characters.');return;}
+  localStorage.setItem('ets_admin_pass',p1);
+  document.getElementById('set-pass1').value='';
+  document.getElementById('set-pass2').value='';
+  showToast('✅ Password changed successfully!');
+}
+
+// ═══ PANELS ═══
+function showPanel(name, btn){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.admin-tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('panel-'+name).classList.add('active');
+  if(btn) btn.classList.add('active');
+  if(name==='trees') renderAdminTable(getAllTrees());
+}
+
+// ═══ TREE DATA (localStorage + defaults) ═══
+const DEFAULT_TREES = [
+  {id:'t1',name:'Apple Mango',latin:'Mangifera indica',cat:'fruit',type:'grafted',price:18000,badge:'popular',color1:'#1a4a12',color2:'#2d7a1e',fruit:'#f4a128',desc:'Sweet, round, highly marketable'},
+  {id:'t2',name:'Kent Mango',latin:'Mangifera indica',cat:'fruit',type:'grafted',price:22000,badge:'new',color1:'#1a5a12',color2:'#3a8a24',fruit:'#e8902a',desc:'Late-season, ideal for export'},
+  {id:'t3',name:'Hass Avocado',latin:'Persea americana',cat:'fruit',type:'grafted',price:25000,badge:'popular',color1:'#1a5c12',color2:'#2d7a18',fruit:'#2d4a1a',desc:'Global gold standard variety'},
+  {id:'t4',name:'Washington Navel Orange',latin:'Citrus sinensis',cat:'fruit',type:'grafted',price:18000,badge:'',color1:'#2d5a10',color2:'#3a7a18',fruit:'#ff8c00',desc:'Seedless, sweet eating orange'},
+  {id:'t5',name:'Jackfruit',latin:'Artocarpus heterophyllus',cat:'fruit',type:'grafted',price:20000,badge:'popular',color1:'#2a5a10',color2:'#3a7a1a',fruit:'#8b8000',desc:"Uganda's giant sweet fruit tree"},
+  {id:'t6',name:'Jacaranda',latin:'Jacaranda mimosifolia',cat:'ornamental',type:'seedling',price:20000,badge:'popular',color1:'#3a1a7a',color2:'#5a2a9a',fruit:'',desc:'Purple flowering spectacle'},
+  {id:'t7',name:'Flamboyant Tree',latin:'Delonix regia',cat:'ornamental',type:'seedling',price:18000,badge:'popular',color1:'#7a2010',color2:'#a03020',fruit:'',desc:'Blazing red seasonal display'},
+  {id:'t8',name:'Natal Fig',latin:'Ficus natalensis',cat:'shade',type:'seedling',price:18000,badge:'popular',color1:'#1a4a12',color2:'#2d6a20',fruit:'',desc:"Uganda's beloved community tree"},
+  {id:'t9',name:'African Mahogany',latin:'Khaya senegalensis',cat:'shade',type:'seedling',price:25000,badge:'',color1:'#1a3a10',color2:'#2a5a18',fruit:'',desc:'Stately, long-lived hardwood'},
+  {id:'t10',name:'Mvule / African Teak',latin:'Milicia excelsa',cat:'native',type:'seedling',price:30000,badge:'rare',color1:'#1a3a10',color2:'#2a5a18',fruit:'',desc:"Uganda's most prized native timber"},
+  {id:'t11',name:'Royal Palm',latin:'Roystonea regia',cat:'palm',type:'seedling',price:45000,badge:'popular',color1:'#1a4a2e',color2:'#2d6a44',fruit:'',desc:'Majestic formal avenue palm'},
+  {id:'t12',name:'Moringa',latin:'Moringa oleifera',cat:'shade',type:'seedling',price:8000,badge:'new',color1:'#3a6a20',color2:'#4a8a2e',fruit:'',desc:'Nutritional superfood tree'},
+];
+
+function getAllTrees(){
+  const saved = localStorage.getItem('ets_trees');
+  return saved ? JSON.parse(saved) : DEFAULT_TREES;
+}
+function saveTrees(arr){
+  localStorage.setItem('ets_trees', JSON.stringify(arr));
+  updateStats();
+}
+function loadTrees(){ renderAdminTable(getAllTrees()); }
+
+// ═══ ADMIN TABLE ═══
+function renderAdminTable(list){
+  const body = document.getElementById('adminTableBody');
+  document.getElementById('tableCount').textContent = `${list.length} species`;
+  if(!list.length){
+    body.innerHTML=`<tr><td colspan="8" style="text-align:center;padding:2rem;color:var(--sage);">No trees found. Add one above!</td></tr>`;
+    return;
+  }
+  body.innerHTML = list.map(t=>`
+    <tr data-id="${t.id}">
+      <td>
+        <div class="tree-thumb-mini">
+          ${t.img ? `<img src="${t.img}" alt="${t.name}">` : miniTreeSVG(t)}
+        </div>
+      </td>
+      <td><strong>${t.name}</strong></td>
+      <td style="font-style:italic;color:var(--sage);">${t.latin||'—'}</td>
+      <td><span class="cat-badge cat-${t.cat}">${t.cat}</span></td>
+      <td style="color:var(--sage);">${t.type}</td>
+      <td class="price-cell">UGX ${Number(t.price).toLocaleString()}</td>
+      <td>${t.badge ? `<span style="font-size:0.75rem;">${t.badge==='popular'?'⭐':t.badge==='new'?'🆕':t.badge==='rare'?'💎':'🔥'} ${t.badge}</span>` : '—'}</td>
+      <td>
+        <div class="action-btns">
+          <button class="btn-edit" onclick="editTree('${t.id}')">✏️ Edit</button>
+          <button class="btn-danger" onclick="deleteTree('${t.id}')">🗑 Delete</button>
+        </div>
+      </td>
+    </tr>
+  `).join('');
+}
+
+function filterAdminTable(q){
+  const all = getAllTrees();
+  const filtered = all.filter(t=>
+    t.name.toLowerCase().includes(q.toLowerCase()) ||
+    (t.latin||'').toLowerCase().includes(q.toLowerCase())
+  );
+  renderAdminTable(filtered);
+}
+function filterAdminCat(cat){
+  const all = getAllTrees();
+  renderAdminTable(cat ? all.filter(t=>t.cat===cat) : all);
+}
+
+function miniTreeSVG(t){
+  const c1=t.color1||'#1a4a12', c2=t.color2||'#2d6a20';
+  return `<svg viewBox="0 0 40 40" fill="none"><rect width="40" height="40" fill="${c1}"/><ellipse cx="20" cy="18" rx="14" ry="12" fill="${c2}"/><ellipse cx="20" cy="12" rx="10" ry="9" fill="${c1}"/><path d="M17 35 C16 28 16 22 18 18 L22 18 C24 22 24 28 23 35Z" fill="#5c3a14"/></svg>`;
+}
+
+// ═══ ADD / EDIT ═══
+let editingId = null;
+function openAddModal(){
+  editingId = null;
+  document.getElementById('modalTitle').textContent = 'Add New Tree Species';
+  document.getElementById('f-name').value='';
+  document.getElementById('f-latin').value='';
+  document.getElementById('f-cat').value='fruit';
+  document.getElementById('f-type').value='grafted';
+  document.getElementById('f-price').value='';
+  document.getElementById('f-oldprice').value='';
+  document.getElementById('f-badge').value='';
+  document.getElementById('f-fruit').value='#f4a128';
+  document.getElementById('f-color1').value='#1a4a12';
+  document.getElementById('f-color2').value='#2d7a1e';
+  document.getElementById('f-desc').value='';
+  document.getElementById('imgPreviewEl').style.display='none';
+  document.getElementById('imgPreviewEl').src='';
+  updatePreview();
+  document.getElementById('treeModal').classList.add('open');
+}
+function editTree(id){
+  const trees = getAllTrees();
+  const t = trees.find(x=>x.id===id);
+  if(!t) return;
+  editingId = id;
+  document.getElementById('modalTitle').textContent = 'Edit Tree: '+t.name;
+  document.getElementById('f-name').value=t.name;
+  document.getElementById('f-latin').value=t.latin||'';
+  document.getElementById('f-cat').value=t.cat;
+  document.getElementById('f-type').value=t.type;
+  document.getElementById('f-price').value=t.price;
+  document.getElementById('f-oldprice').value=t.price_old||'';
+  document.getElementById('f-badge').value=t.badge||'';
+  document.getElementById('f-fruit').value=t.fruit||'#f4a128';
+  document.getElementById('f-color1').value=t.color1||'#1a4a12';
+  document.getElementById('f-color2').value=t.color2||'#2d7a1e';
+  document.getElementById('f-desc').value=t.desc||'';
+  if(t.img){
+    document.getElementById('imgPreviewEl').src=t.img;
+    document.getElementById('imgPreviewEl').style.display='block';
+  } else {
+    document.getElementById('imgPreviewEl').style.display='none';
+  }
+  updatePreview();
+  document.getElementById('treeModal').classList.add('open');
+}
+function saveTree(){
+  const name = document.getElementById('f-name').value.trim();
+  const price = parseInt(document.getElementById('f-price').value);
+  if(!name){showToast('Please enter a tree name.');return;}
+  if(!price||price<1){showToast('Please enter a valid price.');return;}
+  const imgEl = document.getElementById('imgPreviewEl');
+  const treeData = {
+    id: editingId || 'custom_'+Date.now(),
+    name,
+    latin: document.getElementById('f-latin').value.trim(),
+    cat: document.getElementById('f-cat').value,
+    type: document.getElementById('f-type').value,
+    price,
+    price_old: parseInt(document.getElementById('f-oldprice').value)||undefined,
+    badge: document.getElementById('f-badge').value,
+    fruit: document.getElementById('f-fruit').value,
+    color1: document.getElementById('f-color1').value,
+    color2: document.getElementById('f-color2').value,
+    desc: document.getElementById('f-desc').value.trim(),
+    img: (imgEl.style.display!=='none' && imgEl.src) ? imgEl.src : undefined,
+  };
+  let trees = getAllTrees();
+  if(editingId){
+    trees = trees.map(t=>t.id===editingId ? treeData : t);
+    showToast('✅ Tree updated successfully!');
+  } else {
+    trees.push(treeData);
+    showToast('✅ New tree added to catalogue!');
+  }
+  saveTrees(trees);
+  renderAdminTable(trees);
+  closeModal();
+}
+function deleteTree(id){
+  if(!confirm('Delete this tree from the catalogue? This cannot be undone.')) return;
+  let trees = getAllTrees().filter(t=>t.id!==id);
+  saveTrees(trees);
+  renderAdminTable(trees);
+  showToast('🗑 Tree deleted.');
+}
+function closeModal(){
+  document.getElementById('treeModal').classList.remove('open');
+  editingId = null;
+}
+
+// ═══ LIVE PREVIEW ═══
+function updatePreview(){
+  const c1=document.getElementById('f-color1').value;
+  const c2=document.getElementById('f-color2').value;
+  const fruit=document.getElementById('f-fruit').value;
+  const price=document.getElementById('f-price').value;
+  document.getElementById('previewSVG').innerHTML=`
+    <rect width="160" height="130" fill="${c1}"/>
+    <ellipse cx="80" cy="90" rx="55" ry="15" fill="rgba(0,0,0,0.2)"/>
+    <path d="M74 125 C72 100 70 85 72 72 C74 60 80 54 80 54 C80 54 86 60 88 72 C90 85 88 100 86 125Z" fill="#5c3a14"/>
+    <ellipse cx="80" cy="68" rx="45" ry="36" fill="${c1}"/>
+    <ellipse cx="56" cy="64" rx="30" ry="26" fill="${c2}"/>
+    <ellipse cx="104" cy="62" rx="28" ry="24" fill="${c1}"/>
+    <ellipse cx="80" cy="50" rx="36" ry="30" fill="${c2}"/>
+    <ellipse cx="80" cy="35" rx="26" ry="22" fill="${c1}"/>
+    <ellipse cx="80" cy="22" rx="17" ry="16" fill="${c2}"/>
+    ${fruit?`<ellipse cx="64" cy="72" rx="7" ry="9" fill="${fruit}" opacity="0.9"/>
+    <ellipse cx="96" cy="70" rx="6" ry="8" fill="${fruit}" opacity="0.9"/>
+    <ellipse cx="80" cy="82" rx="8" ry="10" fill="${fruit}"/>`:``}
+  `;
+}
+
+// ═══ IMAGE UPLOAD ═══
+function previewImage(e){
+  const file = e.target.files[0];
+  if(!file) return;
+  if(file.size > 2*1024*1024){showToast('Image too large — max 2MB please.');return;}
+  const reader = new FileReader();
+  reader.onload = ev=>{
+    const el = document.getElementById('imgPreviewEl');
+    el.src = ev.target.result;
+    el.style.display='block';
+  };
+  reader.readAsDataURL(file);
+}
+
+// ═══ ORDERS ═══
+function loadOrders(){
+  const orders = JSON.parse(localStorage.getItem('ets_orders')||'[]');
+  renderOrders(orders);
+}
+function renderOrders(orders){
+  const list = document.getElementById('ordersList');
+  if(!orders.length){
+    list.innerHTML=`<div style="background:white;border-radius:1rem;padding:2rem;text-align:center;color:var(--sage);"><div style="font-size:2rem;margin-bottom:0.5rem;">📭</div><p>No orders recorded yet.</p><button class="btn-primary" style="margin-top:1rem;" onclick="addDemoOrder()">+ Record a New Order</button></div>`;
+    return;
+  }
+  list.innerHTML = orders.map((o,i)=>`
+    <div class="order-card ${o.status}">
+      <div class="order-header">
+        <div class="order-id">#ETS-${String(i+1).padStart(3,'0')} · ${o.name}</div>
+        <span class="order-status status-${o.status}">${o.status==='completed'?'✅ Completed':'⏳ Pending'}</span>
+      </div>
+      <div class="order-details">
+        📞 ${o.phone} · 📍 ${o.location||'Location TBC'} · 💳 ${o.payment}<br>
+        🛒 ${o.items}
+      </div>
+      <div class="order-total">UGX ${Number(o.total).toLocaleString()}</div>
+      <div style="margin-top:0.8rem;display:flex;gap:0.7rem;">
+        <button class="btn-edit" onclick="markComplete(${i})">✅ Mark Complete</button>
+        <button class="btn-danger" onclick="deleteOrder(${i})">🗑 Delete</button>
+      </div>
+    </div>
+  `).join('');
+}
+function addDemoOrder(){
+  const name = prompt('Customer Name:');
+  if(!name) return;
+  const phone = prompt('Customer Phone:') || '';
+  const items = prompt('Items ordered:') || '';
+  const total = prompt('Total amount (UGX):') || 0;
+  const payment = prompt('Payment method (MTN/Airtel/Card/WhatsApp):') || 'WhatsApp';
+  const orders = JSON.parse(localStorage.getItem('ets_orders')||'[]');
+  orders.push({name,phone,items,total,payment,status:'pending',location:'',date:new Date().toLocaleDateString()});
+  localStorage.setItem('ets_orders',JSON.stringify(orders));
+  document.getElementById('stat-orders').textContent = orders.length;
+  renderOrders(orders);
+  showToast('✅ Order recorded!');
+}
+function markComplete(i){
+  const orders = JSON.parse(localStorage.getItem('ets_orders')||'[]');
+  if(orders[i]) orders[i].status='completed';
+  localStorage.setItem('ets_orders',JSON.stringify(orders));
+  renderOrders(orders);
+  showToast('✅ Order marked complete!');
+}
+function deleteOrder(i){
+  if(!confirm('Delete this order record?')) return;
+  const orders = JSON.parse(localStorage.getItem('ets_orders')||'[]');
+  orders.splice(i,1);
+  localStorage.setItem('ets_orders',JSON.stringify(orders));
+  renderOrders(orders);
+  showToast('🗑 Order deleted.');
+}
+
+// ═══ SETTINGS ═══
+function saveSetting(key, val){
+  if(!val){showToast('Please enter a value first.');return;}
+  localStorage.setItem('ets_'+key, val);
+  showToast('✅ Saved! Update the corresponding line in shop.html too.');
+}
+
+// ═══ STATS ═══
+function updateStats(){
+  const trees = getAllTrees();
+  document.getElementById('stat-trees').textContent = trees.length;
+  const orders = JSON.parse(localStorage.getItem('ets_orders')||'[]');
+  document.getElementById('stat-orders').textContent = orders.length;
+}
+
+// ═══ TOAST ═══
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),3000);
+}
+
+// Close modal on backdrop click
+document.getElementById('treeModal').addEventListener('click',e=>{
+  if(e.target===document.getElementById('treeModal')) closeModal();
+});
+
+// Init preview
+updatePreview();
+</script>
+</body>
+</html>
