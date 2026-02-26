@@ -448,7 +448,49 @@
   .reveal.visible { opacity: 1; transform: translateY(0); }
 
   /* ─── MOBILE ─── */
-  @media (max-width: 768px) {
+  /* ── MOBILE MENU ── */
+  .nav-burger {
+    display:none; flex-direction:column; gap:5px;
+    background:none; border:none; cursor:pointer; padding:4px; z-index:200;
+  }
+  .nav-burger span {
+    display:block; width:24px; height:2px;
+    background:var(--cream); border-radius:2px; transition:all 0.3s;
+  }
+  .nav-burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+  .nav-burger.open span:nth-child(2){opacity:0;}
+  .nav-burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+
+  .mobile-menu {
+    position:fixed; top:0; right:-280px; width:280px; height:100vh; z-index:150;
+    background:var(--forest); padding:5rem 2rem 2rem;
+    display:flex; flex-direction:column; gap:0.3rem;
+    transition:right 0.35s ease;
+    border-left:1px solid rgba(122,182,72,0.15);
+    box-shadow:-8px 0 40px rgba(0,0,0,0.4);
+  }
+  .mobile-menu.open { right:0; }
+  .mobile-menu a {
+    color:rgba(245,240,232,0.75); text-decoration:none;
+    font-size:1rem; padding:0.9rem 1rem; border-radius:0.6rem;
+    transition:all 0.2s; border-left:3px solid transparent;
+  }
+  .mobile-menu a:hover { color:var(--leaf); background:rgba(122,182,72,0.06); border-left-color:var(--leaf); }
+  .mobile-menu .mobile-cta {
+    margin-top:1rem; background:var(--leaf); color:var(--forest)!important;
+    text-align:center; border-radius:0.8rem; font-weight:500;
+    border-left:none!important;
+  }
+  .mobile-overlay {
+    position:fixed; inset:0; z-index:140;
+    background:rgba(0,0,0,0.5); opacity:0; pointer-events:none; transition:opacity 0.3s;
+  }
+  .mobile-overlay.open { opacity:1; pointer-events:all; }
+
+  @media(max-width:900px) {
+    .nav-links { display:none!important; }
+    .nav-burger { display:flex; }
+  }
     nav { padding: 1.2rem 1.5rem; }
     .nav-links { display: none; }
     .hero-content { padding: 7rem 1.5rem 3rem; }
@@ -493,7 +535,23 @@
     <a href="faq.html">FAQ</a>
     <a href="findus.html" class="nav-cta">Find Us</a>
   </div>
+  <!-- Hamburger for mobile -->
+  <button class="nav-burger" id="burgerBtn" onclick="toggleMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+
+<!-- Mobile menu drawer -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html">🏠 Home</a>
+  <a href="gallery.html">🖼 Gallery</a>
+  <a href="about.html">👤 About Us</a>
+  <a href="portfolio.html">🏆 Portfolio</a>
+  <a href="blog.html">📰 Blog</a>
+  <a href="faq.html">❓ FAQ</a>
+  <a href="findus.html" class="mobile-cta">📍 Find Us</a>
+</div>
+<div class="mobile-overlay" id="mobileOverlay" onclick="toggleMenu()"></div>
 
 <!-- HERO -->
 <section class="hero">
@@ -583,7 +641,7 @@
   .quicknav-label { font-size:0.72rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--sage); margin-bottom:0.8rem; display:flex; align-items:center; justify-content:center; gap:0.8rem; }
   .quicknav-label::before, .quicknav-label::after { content:''; display:block; width:25px; height:1px; background:var(--leaf); }
   .quicknav-title h2 { font-family:'Playfair Display',serif; font-size:clamp(1.6rem,3vw,2.5rem); font-weight:900; color:var(--forest); line-height:1.2; }
-  .quicknav-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:1rem; max-width:1100px; margin:0 auto; }
+  .quicknav-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; max-width:900px; margin:0 auto; }
   .qn-card { background:var(--forest); border-radius:1.2rem; padding:1.6rem 1.2rem; text-align:center; text-decoration:none; border:1px solid rgba(122,182,72,0.1); transition:transform 0.3s, border-color 0.3s, box-shadow 0.3s; display:block; }
   .qn-card:hover { transform:translateY(-5px); border-color:rgba(122,182,72,0.4); box-shadow:0 12px 35px rgba(13,40,24,0.2); }
   .qn-card svg { margin-bottom:0.8rem; }
@@ -659,6 +717,17 @@
       <div class="qn-card-title">Portfolio</div>
       <div class="qn-card-desc">Projects &amp; awards</div>
       <div class="qn-card-link" style="color:var(--gold);">Our Work →</div>
+    </a>
+
+    <a href="findus.html" class="qn-card">
+      <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+        <circle cx="24" cy="24" r="22" fill="rgba(122,182,72,0.1)" stroke="rgba(122,182,72,0.25)" stroke-width="1"/>
+        <circle cx="24" cy="21" r="6" stroke="#7ab648" stroke-width="1.5" fill="none"/>
+        <path d="M24 10C18.48 10 14 14.48 14 20C14 27.5 24 38 24 38C24 38 34 27.5 34 20C34 14.48 29.52 10 24 10Z" stroke="#7ab648" stroke-width="1.5" fill="rgba(122,182,72,0.1)"/>
+      </svg>
+      <div class="qn-card-title">Find Us</div>
+      <div class="qn-card-desc">Map &amp; directions</div>
+      <div class="qn-card-link">Get Directions →</div>
     </a>
 
   </div>
@@ -1098,5 +1167,17 @@
     container.appendChild(p);
   }
 
-  // Scroll reveal
+  function toggleMenu() {
+    document.getElementById('burgerBtn').classList.toggle('open');
+    document.getElementById('mobileMenu').classList.toggle('open');
+    document.getElementById('mobileOverlay').classList.toggle('open');
+  }
+  // Close menu when a link is clicked
+  document.querySelectorAll('.mobile-menu a').forEach(a => {
+    a.addEventListener('click', () => {
+      document.getElementById('burgerBtn').classList.remove('open');
+      document.getElementById('mobileMenu').classList.remove('open');
+      document.getElementById('mobileOverlay').classList.remove('open');
+    });
+  });
   const observer = new 
