@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shop — Elite Tree Solutions Uganda</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --forest:#0d2818;--moss:#1a4a2e;--sage:#4a7c59;
+  --leaf:#7ab648;--gold:#c8a96e;--cream:#f5f0e8;
+  --bark:#5c3d1e;--mist:#e8f0e4;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--forest);overflow-x:hidden;}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:1.2rem 4rem;backdrop-filter:blur(20px);background:rgba(13,40,24,0.93);border-bottom:1px solid rgba(122,182,72,0.15);}
+.nav-logo{display:flex;align-items:center;gap:0.8rem;font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--cream);text-decoration:none;}
+.nav-links{display:flex;gap:1.8rem;align-items:center;}
+.nav-links a{color:rgba(245,240,232,0.7);text-decoration:none;font-size:0.82rem;letter-spacing:0.07em;text-transform:uppercase;transition:color 0.3s;}
+.nav-links a:hover,.nav-links a.active{color:var(--leaf);}
+.nav-cta{background:var(--leaf);color:var(--forest)!important;padding:0.45rem 1.2rem;border-radius:2rem;font-weight:500;}
+.nav-cart{
+  display:flex;align-items:center;gap:0.5rem;
+  background:rgba(122,182,72,0.15);border:1px solid rgba(122,182,72,0.3);
+  color:var(--leaf)!important;padding:0.45rem 1rem;border-radius:2rem;cursor:pointer;
+  font-size:0.82rem;transition:all 0.3s;text-decoration:none;
+}
+.nav-cart:hover{background:rgba(122,182,72,0.25);}
+.cart-count{
+  background:var(--leaf);color:var(--forest);
+  width:18px;height:18px;border-radius:50%;
+  font-size:0.65rem;font-weight:700;
+  display:flex;align-items:center;justify-content:center;
+}
+
+/* ── HAMBURGER ── */
+.nav-burger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px;z-index:200;}
+.nav-burger span{display:block;width:24px;height:2px;background:var(--cream);border-radius:2px;transition:all 0.3s;}
+.nav-burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.nav-burger.open span:nth-child(2){opacity:0;}
+.nav-burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+.mobile-menu{position:fixed;top:0;right:-300px;width:300px;height:100vh;z-index:150;background:var(--forest);padding:5rem 2rem 2rem;display:flex;flex-direction:column;gap:0.3rem;transition:right 0.35s ease;border-left:1px solid rgba(122,182,72,0.15);}
+.mobile-menu.open{right:0;}
+.mobile-menu a{color:rgba(245,240,232,0.75);text-decoration:none;font-size:1rem;padding:0.9rem 1rem;border-radius:0.6rem;transition:all 0.2s;border-left:3px solid transparent;}
+.mobile-menu a:hover{color:var(--leaf);background:rgba(122,182,72,0.06);border-left-color:var(--leaf);}
+.mobile-menu .mob-cta{margin-top:1rem;background:var(--leaf);color:var(--forest)!important;text-align:center;border-radius:0.8rem;font-weight:500;border-left:none!important;}
+.mob-overlay{position:fixed;inset:0;z-index:140;background:rgba(0,0,0,0.5);opacity:0;pointer-events:none;transition:opacity 0.3s;}
+.mob-overlay.open{opacity:1;pointer-events:all;}
+
+/* ── HERO ── */
+.page-hero{min-height:42vh;background:var(--forest);display:flex;align-items:center;justify-content:center;flex-direction:column;text-align:center;position:relative;overflow:hidden;padding-top:5rem;}
+.page-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 80% at 50% 60%,#1a4a2e 0%,#0d2818 70%);}
+.hero-content{position:relative;z-index:2;padding:3rem 2rem;}
+.section-label{font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--leaf);margin-bottom:1rem;display:flex;align-items:center;justify-content:center;gap:0.8rem;}
+.section-label::before,.section-label::after{content:'';display:block;width:28px;height:1px;background:var(--leaf);}
+.page-hero h1{font-family:'Playfair Display',serif;font-size:clamp(2.5rem,6vw,5rem);font-weight:900;color:var(--cream);line-height:1.1;margin-bottom:1rem;}
+.page-hero h1 em{font-style:italic;color:var(--leaf);}
+.page-hero p{color:rgba(245,240,232,0.55);font-size:1rem;max-width:500px;line-height:1.7;font-weight:300;}
+
+/* ── SHOP LAYOUT ── */
+.shop-wrap{display:grid;grid-template-columns:260px 1fr;gap:0;min-height:100vh;}
+
+/* ── SIDEBAR ── */
+.shop-sidebar{background:white;border-right:1px solid rgba(13,40,24,0.08);padding:2.5rem 1.8rem;position:sticky;top:64px;height:calc(100vh - 64px);overflow-y:auto;}
+.sidebar-section{margin-bottom:2rem;}
+.sidebar-title{font-size:0.7rem;text-transform:uppercase;letter-spacing:0.12em;color:var(--sage);margin-bottom:0.8rem;padding-bottom:0.5rem;border-bottom:1px solid rgba(13,40,24,0.08);}
+.filter-list{display:flex;flex-direction:column;gap:0.2rem;}
+.filter-item{display:flex;align-items:center;gap:0.6rem;padding:0.5rem 0.6rem;border-radius:0.5rem;cursor:pointer;transition:all 0.2s;font-size:0.85rem;color:var(--sage);border:none;background:none;text-align:left;width:100%;}
+.filter-item:hover,.filter-item.active{background:var(--mist);color:var(--forest);}
+.filter-item.active{border-left:3px solid var(--leaf);padding-left:0.4rem;font-weight:500;color:var(--forest);}
+.filter-dot{width:8px;height:8px;border-radius:50%;background:var(--leaf);flex-shrink:0;opacity:0;}
+.filter-item.active .filter-dot{opacity:1;}
+.filter-count{margin-left:auto;font-size:0.7rem;background:var(--mist);color:var(--sage);padding:0.1rem 0.5rem;border-radius:1rem;}
+
+.price-range{margin-top:0.8rem;}
+.price-inputs{display:flex;gap:0.5rem;align-items:center;}
+.price-inputs input{flex:1;padding:0.5rem 0.7rem;border:1.5px solid rgba(13,40,24,0.12);border-radius:0.4rem;font-size:0.82rem;font-family:'DM Sans',sans-serif;color:var(--forest);outline:none;}
+.price-inputs input:focus{border-color:var(--leaf);}
+.price-sep{font-size:0.8rem;color:var(--sage);}
+
+/* ── MAIN SHOP AREA ── */
+.shop-main{padding:2.5rem;}
+
+/* SEARCH + SORT BAR */
+.shop-topbar{display:flex;gap:1rem;align-items:center;margin-bottom:2rem;flex-wrap:wrap;}
+.shop-search{flex:1;min-width:200px;position:relative;}
+.shop-search input{width:100%;padding:0.75rem 1rem 0.75rem 2.8rem;border:1.5px solid rgba(13,40,24,0.12);border-radius:0.6rem;font-family:'DM Sans',sans-serif;font-size:0.88rem;color:var(--forest);outline:none;transition:border-color 0.3s;background:white;}
+.shop-search input:focus{border-color:var(--leaf);}
+.shop-search svg{position:absolute;left:0.85rem;top:50%;transform:translateY(-50%);pointer-events:none;}
+.shop-sort select{padding:0.75rem 1rem;border:1.5px solid rgba(13,40,24,0.12);border-radius:0.6rem;font-family:'DM Sans',sans-serif;font-size:0.85rem;color:var(--forest);background:white;outline:none;cursor:pointer;}
+.results-count{font-size:0.82rem;color:var(--sage);white-space:nowrap;}
+
+/* TABS */
+.shop-tabs{display:flex;gap:0.5rem;margin-bottom:2rem;flex-wrap:wrap;}
+.shop-tab{padding:0.5rem 1.2rem;border-radius:2rem;border:1.5px solid rgba(13,40,24,0.12);background:transparent;font-family:'DM Sans',sans-serif;font-size:0.82rem;color:var(--sage);cursor:pointer;transition:all 0.3s;white-space:nowrap;}
+.shop-tab:hover,.shop-tab.active{background:var(--forest);color:var(--leaf);border-color:var(--forest);}
+
+/* PRODUCT GRID */
+.products-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;}
+.product-card{background:white;border-radius:1.2rem;overflow:hidden;border:1px solid rgba(13,40,24,0.07);transition:all 0.35s;cursor:pointer;}
+.product-card:hover{transform:translateY(-5px);box-shadow:0 16px 40px rgba(13,40,24,0.12);border-color:rgba(122,182,72,0.2);}
+.product-thumb{position:relative;overflow:hidden;}
+.product-thumb svg{display:block;width:100%;}
+.product-badge{position:absolute;top:0.7rem;left:0.7rem;font-size:0.65rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;padding:0.25rem 0.7rem;border-radius:1rem;}
+.badge-new{background:var(--leaf);color:var(--forest);}
+.badge-popular{background:var(--gold);color:var(--forest);}
+.badge-rare{background:#7c3aed;color:white;}
+.badge-sale{background:#e53935;color:white;}
+.product-wishlist{position:absolute;top:0.7rem;right:0.7rem;width:30px;height:30px;background:white;border-radius:50%;display:flex;align-items:center;justify-content:center;border:none;cursor:pointer;transition:all 0.3s;font-size:0.9rem;box-shadow:0 2px 8px rgba(0,0,0,0.1);}
+.product-wishlist:hover{transform:scale(1.15);}
+.product-body{padding:1.1rem;}
+.product-cat{font-size:0.65rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--sage);margin-bottom:0.3rem;}
+.product-name{font-family:'Playfair Display',serif;font-size:0.95rem;color:var(--forest);font-weight:700;margin-bottom:0.2rem;line-height:1.3;}
+.product-latin{font-size:0.72rem;color:var(--sage);font-style:italic;margin-bottom:0.7rem;}
+.product-footer{display:flex;align-items:center;justify-content:space-between;gap:0.5rem;}
+.product-price{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;color:var(--forest);}
+.product-price .old-price{font-size:0.75rem;color:var(--sage);text-decoration:line-through;font-family:'DM Sans',sans-serif;font-weight:300;margin-right:0.3rem;}
+.add-btn{background:var(--leaf);color:var(--forest);border:none;padding:0.45rem 0.9rem;border-radius:0.5rem;font-family:'DM Sans',sans-serif;font-size:0.78rem;font-weight:500;cursor:pointer;transition:all 0.3s;white-space:nowrap;}
+.add-btn:hover{background:var(--forest);color:var(--leaf);}
+
+/* SERVICE CARDS */
+.services-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.2rem;}
+.service-card{background:white;border-radius:1.2rem;padding:1.8rem;border:1px solid rgba(13,40,24,0.07);transition:all 0.35s;}
+.service-card:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(13,40,24,0.1);border-color:rgba(122,182,72,0.25);}
+.service-icon{width:52px;height:52px;border-radius:0.8rem;background:var(--mist);display:flex;align-items:center;justify-content:center;margin-bottom:1rem;}
+.service-card h3{font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--forest);margin-bottom:0.5rem;}
+.service-card p{font-size:0.82rem;color:var(--sage);line-height:1.6;margin-bottom:1rem;font-weight:300;}
+.service-includes{margin-bottom:1.2rem;}
+.service-includes li{font-size:0.78rem;color:var(--sage);margin-bottom:0.2rem;padding-left:1rem;position:relative;list-style:none;}
+.service-includes li::before{content:'✓';position:absolute;left:0;color:var(--leaf);font-weight:700;}
+.service-footer{display:flex;align-items:center;justify-content:space-between;}
+.service-price{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--forest);}
+.service-price span{font-family:'DM Sans',sans-serif;font-size:0.72rem;color:var(--sage);font-weight:300;}
+
+/* CONSULTATION CARDS */
+.consult-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;}
+.consult-card{background:var(--forest);border-radius:1.2rem;padding:1.8rem;border:1px solid rgba(122,182,72,0.1);transition:all 0.35s;text-align:center;}
+.consult-card:hover{transform:translateY(-4px);border-color:rgba(122,182,72,0.3);}
+.consult-card.featured{border-color:var(--gold);background:linear-gradient(145deg,#1a4a2e,#0d2818);}
+.consult-badge-top{background:var(--gold);color:var(--forest);font-size:0.65rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;padding:0.2rem 0.7rem;border-radius:1rem;display:inline-block;margin-bottom:1rem;}
+.consult-card h3{font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--cream);margin-bottom:0.4rem;}
+.consult-duration{font-size:0.75rem;color:var(--sage);margin-bottom:1rem;}
+.consult-price{font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:900;color:var(--leaf);line-height:1;margin-bottom:0.3rem;}
+.consult-price-sub{font-size:0.72rem;color:rgba(245,240,232,0.35);margin-bottom:1.2rem;}
+.consult-features{text-align:left;margin-bottom:1.5rem;}
+.consult-features li{font-size:0.78rem;color:rgba(245,240,232,0.55);margin-bottom:0.3rem;padding-left:1.2rem;position:relative;list-style:none;}
+.consult-features li::before{content:'✓';position:absolute;left:0;color:var(--leaf);}
+.consult-btn{width:100%;padding:0.75rem;border:none;border-radius:0.6rem;font-family:'DM Sans',sans-serif;font-size:0.85rem;font-weight:500;cursor:pointer;transition:all 0.3s;}
+.consult-btn.primary{background:var(--leaf);color:var(--forest);}
+.consult-btn.primary:hover{background:var(--gold);}
+.consult-btn.outline{background:transparent;color:var(--cream);border:1.5px solid rgba(245,240,232,0.2);}
+.consult-btn.outline:hover{border-color:var(--leaf);color:var(--leaf);}
+
+/* VOUCHER CARDS */
+.voucher-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;}
+.voucher-card{border-radius:1.2rem;overflow:hidden;position:relative;cursor:pointer;transition:all 0.35s;}
+.voucher-card:hover{transform:translateY(-5px);box-shadow:0 20px 50px rgba(13,40,24,0.2);}
+.voucher-inner{padding:2rem;position:relative;}
+.voucher-card.green .voucher-inner{background:linear-gradient(135deg,#1a4a2e,#2d6a20);}
+.voucher-card.gold .voucher-inner{background:linear-gradient(135deg,#5c3d1e,#8b6914);}
+.voucher-card.dark .voucher-inner{background:linear-gradient(135deg,#0d2818,#1a4a2e);}
+.voucher-pattern{position:absolute;inset:0;opacity:0.05;}
+.voucher-logo{font-family:'Playfair Display',serif;font-size:0.75rem;color:rgba(245,240,232,0.5);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:1.5rem;}
+.voucher-amount{font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:900;color:var(--cream);line-height:1;margin-bottom:0.3rem;}
+.voucher-label{font-size:0.75rem;color:rgba(245,240,232,0.55);margin-bottom:1.2rem;}
+.voucher-desc{font-size:0.78rem;color:rgba(245,240,232,0.5);line-height:1.5;margin-bottom:1.5rem;}
+.voucher-deco{position:absolute;right:1.2rem;bottom:1.5rem;opacity:0.15;}
+.voucher-btn{background:rgba(255,255,255,0.15);color:var(--cream);border:1px solid rgba(255,255,255,0.25);padding:0.6rem 1.2rem;border-radius:0.5rem;font-family:'DM Sans',sans-serif;font-size:0.8rem;cursor:pointer;transition:all 0.3s;width:100%;}
+.voucher-btn:hover{background:rgba(255,255,255,0.25);}
+
+/* ── CART DRAWER ── */
+.cart-drawer{position:fixed;top:0;right:-420px;width:420px;height:100vh;z-index:300;background:white;box-shadow:-8px 0 40px rgba(13,40,24,0.15);transition:right 0.4s ease;display:flex;flex-direction:column;}
+.cart-drawer.open{right:0;}
+.cart-header{padding:1.5rem 1.8rem;border-bottom:1px solid rgba(13,40,24,0.08);display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
+.cart-header h3{font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--forest);}
+.cart-close{background:none;border:none;cursor:pointer;font-size:1.3rem;color:var(--sage);padding:0.2rem;transition:color 0.2s;}
+.cart-close:hover{color:var(--forest);}
+.cart-items{flex:1;overflow-y:auto;padding:1.5rem 1.8rem;}
+.cart-empty{text-align:center;padding:3rem 1rem;color:var(--sage);}
+.cart-empty svg{margin-bottom:1rem;opacity:0.3;}
+.cart-empty p{font-size:0.9rem;}
+.cart-item{display:flex;gap:1rem;align-items:center;padding:1rem 0;border-bottom:1px solid rgba(13,40,24,0.06);}
+.cart-item:last-child{border-bottom:none;}
+.cart-item-thumb{width:56px;height:56px;border-radius:0.6rem;overflow:hidden;flex-shrink:0;background:var(--mist);}
+.cart-item-thumb svg{width:100%;height:100%;}
+.cart-item-info{flex:1;}
+.cart-item-name{font-size:0.88rem;font-weight:500;color:var(--forest);margin-bottom:0.2rem;}
+.cart-item-price{font-size:0.82rem;color:var(--sage);}
+.cart-item-qty{display:flex;align-items:center;gap:0.5rem;margin-top:0.4rem;}
+.qty-btn{width:24px;height:24px;border-radius:50%;border:1.5px solid rgba(13,40,24,0.15);background:none;cursor:pointer;font-size:0.85rem;display:flex;align-items:center;justify-content:center;transition:all 0.2s;color:var(--forest);}
+.qty-btn:hover{border-color:var(--leaf);color:var(--leaf);}
+.qty-num{font-size:0.85rem;font-weight:500;min-width:20px;text-align:center;}
+.cart-item-remove{background:none;border:none;cursor:pointer;color:rgba(13,40,24,0.25);font-size:1rem;padding:0.2rem;transition:color 0.2s;margin-left:auto;}
+.cart-item-remove:hover{color:#e53935;}
+.cart-footer{padding:1.5rem 1.8rem;border-top:1px solid rgba(13,40,24,0.08);flex-shrink:0;}
+.cart-subtotal{display:flex;justify-content:space-between;margin-bottom:0.5rem;font-size:0.88rem;color:var(--sage);}
+.cart-total{display:flex;justify-content:space-between;margin-bottom:1.5rem;font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--forest);}
+.checkout-btn{width:100%;padding:1rem;background:var(--leaf);color:var(--forest);border:none;border-radius:0.8rem;font-family:'DM Sans',sans-serif;font-size:0.95rem;font-weight:500;cursor:pointer;transition:all 0.3s;margin-bottom:0.7rem;}
+.checkout-btn:hover{background:var(--forest);color:var(--leaf);}
+.wa-checkout{width:100%;padding:0.9rem;background:#25D366;color:white;border:none;border-radius:0.8rem;font-family:'DM Sans',sans-serif;font-size:0.9rem;font-weight:500;cursor:pointer;transition:all 0.3s;display:flex;align-items:center;justify-content:center;gap:0.5rem;}
+.wa-checkout:hover{background:#1da851;}
+.cart-overlay{position:fixed;inset:0;z-index:290;background:rgba(0,0,0,0.4);opacity:0;pointer-events:none;transition:opacity 0.3s;}
+.cart-overlay.open{opacity:1;pointer-events:all;}
+
+/* ── CHECKOUT MODAL ── */
+.checkout-modal{position:fixed;inset:0;z-index:400;display:flex;align-items:center;justify-content:center;padding:1rem;opacity:0;pointer-events:none;transition:opacity 0.3s;}
+.checkout-modal.open{opacity:1;pointer-events:all;}
+.checkout-modal::before{content:'';position:absolute;inset:0;background:rgba(7,15,10,0.85);}
+.checkout-inner{position:relative;background:white;border-radius:1.5rem;padding:2.5rem;max-width:520px;width:100%;max-height:90vh;overflow-y:auto;}
+.checkout-inner h3{font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--forest);margin-bottom:0.5rem;}
+.checkout-inner p{font-size:0.85rem;color:var(--sage);margin-bottom:1.5rem;}
+.pay-methods{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin-bottom:1.5rem;}
+.pay-method{padding:1rem;border:2px solid rgba(13,40,24,0.1);border-radius:0.8rem;cursor:pointer;text-align:center;transition:all 0.3s;}
+.pay-method:hover,.pay-method.selected{border-color:var(--leaf);background:var(--mist);}
+.pay-method-icon{font-size:1.5rem;margin-bottom:0.3rem;}
+.pay-method-label{font-size:0.8rem;font-weight:500;color:var(--forest);}
+.pay-method-sub{font-size:0.7rem;color:var(--sage);}
+.checkout-form{display:flex;flex-direction:column;gap:0.8rem;}
+.checkout-form input,.checkout-form select{padding:0.8rem 1rem;border:1.5px solid rgba(13,40,24,0.12);border-radius:0.6rem;font-family:'DM Sans',sans-serif;font-size:0.88rem;color:var(--forest);outline:none;transition:border-color 0.3s;}
+.checkout-form input:focus,.checkout-form select:focus{border-color:var(--leaf);}
+.checkout-form-row{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;}
+.modal-close{position:absolute;top:1.2rem;right:1.2rem;background:var(--mist);border:none;width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;transition:background 0.2s;}
+.modal-close:hover{background:#ddd;}
+.order-success{text-align:center;padding:2rem 1rem;}
+.order-success h3{font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--forest);margin:1rem 0 0.5rem;}
+.order-success p{font-size:0.88rem;color:var(--sage);line-height:1.7;}
+
+/* ── REVEAL ── */
+.reveal{opacity:0;transform:translateY(25px);transition:all 0.6s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+
+/* ── FOOTER ── */
+footer{background:#070f0a;padding:2rem 4rem;display:flex;align-items:center;justify-content:space-between;border-top:1px solid rgba(122,182,72,0.1);flex-wrap:wrap;gap:1rem;}
+footer p{font-size:0.8rem;color:rgba(245,240,232,0.3);}
+.footer-logo{font-family:'Playfair Display',serif;font-size:1rem;color:rgba(245,240,232,0.4);}
+
+/* ── WHATSAPP ── */
+#waBtn{position:fixed;bottom:2rem;right:2rem;z-index:250;background:#25D366;width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(37,211,102,0.5);text-decoration:none;animation:waPulse 2.5s ease-in-out infinite;}
+@keyframes waPulse{0%,100%{box-shadow:0 4px 20px rgba(37,211,102,0.5);transform:scale(1);}50%{box-shadow:0 4px 40px rgba(37,211,102,0.8);transform:scale(1.08);}}
+
+/* ── MOBILE ── */
+@media(max-width:900px){
+  .nav-links{display:none!important;}
+  .nav-burger{display:flex;}
+  .shop-wrap{grid-template-columns:1fr;}
+  .shop-sidebar{display:none;}
+  .products-grid{grid-template-columns:1fr 1fr;}
+  .services-grid{grid-template-columns:1fr;}
+  .consult-grid{grid-template-columns:1fr;}
+  .voucher-grid{grid-template-columns:1fr;}
+  .cart-drawer{width:100%;right:-100%;}
+  .pay-methods{grid-template-columns:1fr 1fr;}
+}
+@media(max-width:768px){
+  nav{padding:1.2rem 1.5rem;}
+  .shop-main{padding:1.5rem;}
+  .products-grid{grid-template-columns:1fr 1fr;}
+  footer{flex-direction:column;text-align:center;padding:2rem 1.5rem;}
+}
+@media(max-width:480px){
+  .products-grid{grid-template-columns:1fr;}
+  .checkout-form-row{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">
+    <svg width="26" height="26" viewBox="0 0 28 28" fill="none">
+      <path d="M14 2C14 2 7 8 7 15C7 19.4 10.1 23 14 23C17.9 23 21 19.4 21 15C21 8 14 2 14 2Z" fill="#7ab648"/>
+      <path d="M14 8C14 8 9 13 9 17.5C9 20 11.2 22 14 22C16.8 22 19 20 19 17.5C19 13 14 8 14 8Z" fill="#4a7c59"/>
+      <line x1="14" y1="22" x2="14" y2="26" stroke="#5c3d1e" stroke-width="2" stroke-linecap="round"/>
+    </svg>
+    Elite Tree Solutions
+  </a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="portfolio.html">Portfolio</a>
+    <a href="blog.html">Blog</a>
+    <a href="shop.html" class="active">Shop</a>
+    <a href="findus.html" class="nav-cta">Find Us</a>
+  </div>
+  <button class="nav-cart" onclick="openCart()">
+    🛒 Cart <span class="cart-count" id="cartCount">0</span>
+  </button>
+  <button class="nav-burger" id="burgerBtn" onclick="toggleMobileMenu()">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html">🏠 Home</a>
+  <a href="gallery.html">🖼 Gallery</a>
+  <a href="about.html">👤 About</a>
+  <a href="portfolio.html">🏆 Portfolio</a>
+  <a href="blog.html">📰 Blog</a>
+  <a href="faq.html">❓ FAQ</a>
+  <a href="shop.html">🛒 Shop</a>
+  <a href="findus.html" class="mob-cta">📍 Find Us</a>
+</div>
+<div class="mob-overlay" id="mobOverlay" onclick="toggleMobileMenu()"></div>
+
+<!-- HERO -->
+<div class="page-hero">
+  <div class="hero-content">
+    <div class="section-label">Order Online</div>
+    <h1>The <em>Tree Shop</em></h1>
+    <p>Browse over 40 species, service packages, consultations and gift vouchers — order via WhatsApp or Mobile Money in minutes.</p>
+  </div>
+</div>
+
+<!-- SHOP -->
+<div class="shop-wrap">
+
+  <!-- SIDEBAR -->
+  <aside class="shop-sidebar">
+    <div class="sidebar-section">
+      <div class="sidebar-title">Category</div>
+      <div class="filter-list">
+        <button class="filter-item active" onclick="filterCategory('all',this)"><span class="filter-dot"></span>All Products <span class="filter-count" id="countAll">52</span></button>
+        <button class="filter-item" onclick="filterCategory('fruit',this)"><span class="filter-dot"></span>Fruit Trees <span class="filter-count">14</span></button>
+        <button class="filter-item" onclick="filterCategory('shade',this)"><span class="filter-dot"></span>Shade Trees <span class="filter-count">8</span></button>
+        <button class="filter-item" onclick="filterCategory('ornamental',this)"><span class="filter-dot"></span>Ornamental <span class="filter-count">9</span></button>
+        <button class="filter-item" onclick="filterCategory('native',this)"><span class="filter-dot"></span>Native Species <span class="filter-count">7</span></button>
+        <button class="filter-item" onclick="filterCategory('palm',this)"><span class="filter-dot"></span>Palms <span class="filter-count">4</span></button>
+        <button class="filter-item" onclick="filterCategory('services',this)"><span class="filter-dot"></span>Services <span class="filter-count">5</span></button>
+        <button class="filter-item" onclick="filterCategory('consult',this)"><span class="filter-dot"></span>Consultations <span class="filter-count">3</span></button>
+        <button class="filter-item" onclick="filterCategory('voucher',this)"><span class="filter-dot"></span>Gift Vouchers <span class="filter-count">3</span></button>
+      </div>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-title">Price Range (UGX)</div>
+      <div class="price-range">
+        <div class="price-inputs">
+          <input type="number" id="priceMin" placeholder="Min" value="0">
+          <span class="price-sep">—</span>
+          <input type="number" id="priceMax" placeholder="Max" value="500000">
+        </div>
+      </div>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-title">Type</div>
+      <div class="filter-list">
+        <button class="filter-item" onclick="filterType('grafted',this)"><span class="filter-dot"></span>Grafted Trees</button>
+        <button class="filter-item" onclick="filterType('seedling',this)"><span class="filter-dot"></span>Seedling Trees</button>
+        <button class="filter-item" onclick="filterType('mature',this)"><span class="filter-dot"></span>Mature Specimens</button>
+      </div>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-title">Special</div>
+      <div class="filter-list">
+        <button class="filter-item" onclick="filterSpecial('popular',this)"><span class="filter-dot"></span>⭐ Most Popular</button>
+        <button class="filter-item" onclick="filterSpecial('new',this)"><span class="filter-dot"></span>🆕 New Arrivals</button>
+        <button class="filter-item" onclick="filterSpecial('sale',this)"><span class="filter-dot"></span>🔥 On Sale</button>
+        <button class="filter-item" onclick="filterSpecial('rare',this)"><span class="filter-dot"></span>💎 Rare Specimens</button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <div class="shop-main">
+    <div class="shop-topbar">
+      <div class="shop-search">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <circle cx="6.5" cy="6.5" r="4.5" stroke="#4a7c59" stroke-width="1.5"/>
+          <path d="M10 10L14 14" stroke="#4a7c59" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+        <input type="text" id="searchInput" placeholder="Search trees, services..." oninput="searchProducts(this.value)">
+      </div>
+      <div class="shop-sort">
+        <select onchange="sortProducts(this.value)">
+          <option value="default">Sort: Featured</option>
+          <option value="price-asc">Price: Low to High</option>
+          <option value="price-desc">Price: High to Low</option>
+          <option value="name">Name A–Z</option>
+          <option value="popular">Most Popular</option>
+        </select>
+      </div>
+      <div class="results-count" id="resultsCount">Showing all products</div>
+    </div>
+
+    <!-- TABS -->
+    <div class="shop-tabs">
+      <button class="shop-tab active" onclick="switchTab('trees',this)">🌳 Trees (40+)</button>
+      <button class="shop-tab" onclick="switchTab('services',this)">🏡 Services</button>
+      <button class="shop-tab" onclick="switchTab('consultations',this)">📞 Consultations</button>
+      <button class="shop-tab" onclick="switchTab('vouchers',this)">🎁 Gift Vouchers</button>
+    </div>
+
+    <!-- ═══ TREES TAB ═══ -->
+    <div id="tab-trees">
+      <div class="products-grid" id="productsGrid">
+        <!-- Generated by JS below -->
+      </div>
+    </div>
+
+    <!-- ═══ SERVICES TAB ═══ -->
+    <div id="tab-services" style="display:none;">
+      <div class="services-grid reveal">
+
+        <div class="service-card">
+          <div class="service-icon">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+              <path d="M14 3C14 3 7 8 7 14C7 18.4 10.1 22 14 22C17.9 22 21 18.4 21 14C21 8 14 3 14 3Z" fill="#7ab648" opacity="0.8"/>
+              <line x1="14" y1="22" x2="14" y2="26" stroke="#5c3d1e" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <h3>Standard Planting Package</h3>
+          <p>Our most popular service — we deliver, plant, stake, mulch and water your trees. Ideal for 1–10 trees at a single location.</p>
+          <ul class="service-includes">
+            <li>Site assessment & soil check</li>
+            <li>Hole preparation (60cm deep)</li>
+            <li>Professional planting & staking</li>
+            <li>Mulching & initial watering</li>
+            <li>30-day aftercare check-in call</li>
+          </ul>
+          <div class="service-footer">
+            <div class="service-price">UGX 85,000 <span>per tree</span></div>
+            <button class="add-btn" onclick="addToCart({id:'svc1',name:'Standard Planting Package',price:85000,cat:'Service'})">Book Now</button>
+          </div>
+        </div>
+
+        <div class="service-card">
+          <div class="service-icon">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+              <rect x="4" y="14" width="20" height="10" rx="2" stroke="#7ab648" stroke-width="1.5" fill="none"/>
+              <path d="M8 14 C8 8 12 5 14 4 C16 5 20 8 20 14" stroke="#7ab648" stroke-width="1.5" fill="none"/>
+              <line x1="14" y1="4" x2="14" y2="1" stroke="#7ab648" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <h3>Full Landscape Design & Install</h3>
+          <p>Complete landscape transformation — from initial concept drawings to final planting. Perfect for estates, gardens and commercial properties.</p>
+          <ul class="service-includes">
+            <li>On-site design consultation (2 hrs)</li>
+            <li>Full planting plan & species selection</li>
+            <li>Supply of all trees & plants</li>
+            <li>Complete installation by our team</li>
+            <li>Irrigation system setup</li>
+            <li>3-month aftercare programme</li>
+          </ul>
+          <div class="service-footer">
+            <div class="service-price">From UGX 1,800,000 <span>per project</span></div>
+            <button class="add-btn" onclick="addToCart({id:'svc2',name:'Full Landscape Design & Install',price:1800000,cat:'Service'})">Book Now</button>
+          </div>
+        </div>
+
+        <div class="service-card">
+          <div class="service-icon">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+              <circle cx="14" cy="14" r="10" stroke="#7ab648" stroke-width="1.5" fill="none"/>
+              <path d="M14 8 L14 14 L18 16" stroke="#7ab648" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <h3>Annual Tree Maintenance Contract</h3>
+          <p>Year-round care for your existing trees — pruning, fertilising, pest treatment and health checks. Peace of mind all year.</p>
+          <ul class="service-includes">
+            <li>2× annual pruning & shaping visits</li>
+            <li>2× fertilisation treatments</li>
+            <li>Pest & disease monitoring</li>
+            <li>Emergency callout (48hr response)</li>
+            <li>Annual health report</li>
+          </ul>
+          <div class="service-footer">
+            <div class="service-price">UGX 450,000 <span>per year / tree</span></div>
+            <button class="add-btn" onclick="addToCart({id:'svc3',name:'Annual Tree Maintenance Contract',price:450000,cat:'Service'})">Book Now</button>
+          </div>
+        </div>
+
+        <div class="service-card">
+          <div class="service-icon">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+              <path d="M4 22 C6 16 10 13 14 10 C18 13 22 16 24 22" stroke="#7ab648" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+              <path d="M8 14 C6 10 5 7 6 4" stroke="#7ab648" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+              <path d="M20 14 C22 10 23 7 22 4" stroke="#7ab648" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <h3>Reforestation Bulk Package</h3>
+          <p>For farmers, NGOs, schools and communities. Bulk supply and planting of indigenous species with a 90-day survival guarantee.</p>
+          <ul class="service-includes">
+            <li>Minimum 50 trees</li>
+            <li>Species selection consultation</li>
+            <li>Bulk supply at wholesale pricing</li>
+            <li>Full planting by our field team</li>
+            <li>90-day survival guarantee</li>
+            <li>Replacement for any losses</li>
+          </ul>
+          <div class="service-footer">
+            <div class="service-price">From UGX 6,000 <span>per tree (bulk)</span></div>
+            <button class="add-btn" onclick="addToCart({id:'svc4',name:'Reforestation Bulk Package',price:6000,cat:'Service'})">Book Now</button>
+          </div>
+        </div>
+
+        <div class="service-card">
+          <div class="service-icon">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+              <path d="M7 10 C7 6 10 4 14 4 C18 4 21 6 21 10 C21 14 18 16 14 18 C10 16 7 14 7 10Z" stroke="#7ab648" stroke-width="1.5" fill="none"/>
+              <line x1="14" y1="18" x2="14" y2="24" stroke="#7ab648" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <h3>Tree Delivery Only</h3>
+          <p>Order your trees online and we deliver straight to your gate — anywhere in our 12-district delivery area. You plant yourself.</p>
+          <ul class="service-includes">
+            <li>Same-day delivery (Central Uganda)</li>
+            <li>Upcountry delivery (scheduled weekly)</li>
+            <li>Trees delivered in protective packaging</li>
+            <li>Planting instructions included</li>
+            <li>WhatsApp support on planting day</li>
+          </ul>
+          <div class="service-footer">
+            <div class="service-price">From UGX 15,000 <span>delivery fee</span></div>
+            <button class="add-btn" onclick="addToCart({id:'svc5',name:'Tree Delivery Service',price:15000,cat:'Service'})">Book Now</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ═══ CONSULTATIONS TAB ═══ -->
+    <div id="tab-consultations" style="display:none;">
+      <div class="consult-grid reveal">
+
+        <div class="consult-card">
+          <h3>Quick Chat</h3>
+          <div class="consult-duration">30 minutes · Phone or WhatsApp</div>
+          <div class="consult-price">UGX 35,000</div>
+          <div class="consult-price-sub">One-time session</div>
+          <ul class="consult-features">
+            <li>Species recommendation</li>
+            <li>Basic planting advice</li>
+            <li>Soil & site questions</li>
+            <li>Up to 5 questions answered</li>
+          </ul>
+          <button class="consult-btn outline" onclick="addToCart({id:'con1',name:'Quick Chat Consultation',price:35000,cat:'Consultation'})">Book Session</button>
+        </div>
+
+        <div class="consult-card featured">
+          <div class="consult-badge-top">Most Popular</div>
+          <h3>Full Garden Consultation</h3>
+          <div class="consult-duration">2 hours · In-person at your site</div>
+          <div class="consult-price">UGX 185,000</div>
+          <div class="consult-price-sub">Includes written report</div>
+          <ul class="consult-features">
+            <li>Full site assessment visit</li>
+            <li>Soil & drainage evaluation</li>
+            <li>Personalised species selection</li>
+            <li>Planting plan sketch</li>
+            <li>Written recommendations report</li>
+            <li>1 follow-up call included</li>
+          </ul>
+          <button class="consult-btn primary" onclick="addToCart({id:'con2',name:'Full Garden Consultation',price:185000,cat:'Consultation'})">Book Session</button>
+        </div>
+
+        <div class="consult-card">
+          <h3>Estate Master Plan</h3>
+          <div class="consult-duration">Full day · Large properties only</div>
+          <div class="consult-price">UGX 650,000</div>
+          <div class="consult-price-sub">Includes full design document</div>
+          <ul class="consult-features">
+            <li>Full-day on-site assessment</li>
+            <li>Comprehensive planting strategy</li>
+            <li>Species catalogue for your land</li>
+            <li>Phased planting timeline</li>
+            <li>Budget estimate included</li>
+            <li>3 follow-up calls included</li>
+          </ul>
+          <button class="consult-btn outline" onclick="addToCart({id:'con3',name:'Estate Master Plan Consultation',price:650000,cat:'Consultation'})">Book Session</button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ═══ VOUCHERS TAB ═══ -->
+    <div id="tab-vouchers" style="display:none;">
+      <div class="voucher-grid reveal">
+
+        <div class="voucher-card green">
+          <div class="voucher-inner">
+            <svg class="voucher-pattern" viewBox="0 0 300 200"><path d="M150 100C150 100 80 40 80 80C80 120 120 140 150 140C180 140 220 120 220 80C220 40 150 100 150 100Z" fill="white"/></svg>
+            <div class="voucher-logo">Elite Tree Solutions · Gift Voucher</div>
+            <div class="voucher-amount">UGX 50,000</div>
+            <div class="voucher-label">Starter Gift</div>
+            <div class="voucher-desc">Perfect for a friend planting their first tree. Redeemable on any tree or service in our catalogue.</div>
+            <svg class="voucher-deco" width="80" height="80" viewBox="0 0 80 80">
+              <path d="M40 10C40 10 20 25 20 40C20 55 29 65 40 65C51 65 60 55 60 40C60 25 40 10 40 10Z" fill="white"/>
+            </svg>
+            <button class="voucher-btn" onclick="addToCart({id:'vou1',name:'Gift Voucher — UGX 50,000',price:50000,cat:'Voucher'})">Purchase Gift Voucher</button>
+          </div>
+        </div>
+
+        <div class="voucher-card gold">
+          <div class="voucher-inner">
+            <svg class="voucher-pattern" viewBox="0 0 300 200"><circle cx="150" cy="100" r="80" fill="white"/></svg>
+            <div class="voucher-logo">Elite Tree Solutions · Gift Voucher</div>
+            <div class="voucher-amount">UGX 150,000</div>
+            <div class="voucher-label">Classic Gift</div>
+            <div class="voucher-desc">A generous gift — enough for a premium grafted fruit tree plus delivery. A gift that grows for decades.</div>
+            <svg class="voucher-deco" width="80" height="80" viewBox="0 0 80 80">
+              <path d="M40 8 L45 26 L64 26 L50 37 L55 55 L40 44 L25 55 L30 37 L16 26 L35 26Z" fill="white"/>
+            </svg>
+            <button class="voucher-btn" onclick="addToCart({id:'vou2',name:'Gift Voucher — UGX 150,000',price:150000,cat:'Voucher'})">Purchase Gift Voucher</button>
+          </div>
+        </div>
+
+        <div class="voucher-card dark">
+          <div class="voucher-inner">
+            <svg class="voucher-pattern" viewBox="0 0 300 200"><rect x="50" y="50" width="200" height="100" rx="20" fill="white"/></svg>
+            <div class="voucher-logo">Elite Tree Solutions · Gift Voucher</div>
+            <div class="voucher-amount">UGX 500,000</div>
+            <div class="voucher-label">Premium Gift</div>
+            <div class="voucher-desc">The ultimate tree gift — a full consultation plus several premium trees. An extraordinary present for a landowner.</div>
+            <svg class="voucher-deco" width="80" height="80" viewBox="0 0 80 80">
+              <circle cx="40" cy="40" r="30" fill="none" stroke="white" stroke-width="2"/>
+              <path d="M40 15C40 15 25 27 25 38C25 49 32 57 40 57C48 57 55 49 55 38C55 27 40 15 40 15Z" fill="white"/>
+            </svg>
+            <button class="voucher-btn" onclick="addToCart({id:'vou3',name:'Gift Voucher — UGX 500,000',price:500000,cat:'Voucher'})">Purchase Gift Voucher</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div><!-- end shop-main -->
+</div><!-- end shop-wrap -->
+
+<!-- ═══ CART DRAWER ═══ -->
+<div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+<div class="cart-drawer" id="cartDrawer">
+  <div class="cart-header">
+    <h3>Your Cart 🛒</h3>
+    <button class="cart-close" onclick="closeCart()">✕</button>
+  </div>
+  <div class="cart-items" id="cartItems">
+    <div class="cart-empty">
+      <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+        <circle cx="24" cy="24" r="22" stroke="rgba(13,40,24,0.15)" stroke-width="1.5" fill="none"/>
+        <path d="M14 16 L16 28 L32 28 L34 16" stroke="rgba(13,40,24,0.2)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+        <path d="M10 13 L14 13 L14 16" stroke="rgba(13,40,24,0.2)" stroke-width="1.5" stroke-linecap="round"/>
+        <circle cx="20" cy="32" r="2" fill="rgba(13,40,24,0.15)"/>
+        <circle cx="28" cy="32" r="2" fill="rgba(13,40,24,0.15)"/>
+      </svg>
+      <p>Your cart is empty.<br>Add some trees! 🌳</p>
+    </div>
+  </div>
+  <div class="cart-footer" id="cartFooter" style="display:none;">
+    <div class="cart-subtotal"><span>Subtotal</span><span id="cartSubtotal">UGX 0</span></div>
+    <div class="cart-subtotal"><span>Delivery (quote on order)</span><span>TBC</span></div>
+    <div class="cart-total"><span>Total</span><span id="cartTotal">UGX 0</span></div>
+    <button class="checkout-btn" onclick="openCheckout('mobilemoney')">💳 Pay via Mobile Money</button>
+    <button class="wa-checkout" onclick="openCheckout('whatsapp')">
+      <svg width="18" height="18" viewBox="0 0 28 28" fill="none"><path d="M14 2C7.37 2 2 7.37 2 14C2 16.39 2.68 18.62 3.85 20.5L2.1 25.9L7.65 24.18C9.47 25.24 11.67 25.86 14 25.86C20.63 25.86 26 20.49 26 13.86C26 7.37 20.63 2 14 2Z" fill="white" opacity="0.9"/><path d="M20.5 17.5C20.2 18.3 18.9 19 18 19.1C17.2 19.2 16.2 19.2 15.1 18.9C14.4 18.6 13.5 18.3 12.4 17.8C9.9 16.6 8.3 14.1 8.1 13.9C7.9 13.6 6.5 11.7 6.5 9.8C6.5 7.8 7.5 6.9 7.9 6.4C8.3 5.9 8.8 5.8 9.1 5.8C9.3 5.8 9.6 5.8 9.8 5.8C10.1 5.8 10.4 5.7 10.8 6.6C11.1 7.4 11.9 9.3 12 9.5C12.1 9.7 12.1 9.9 12 10.1C11.9 10.3 11.8 10.5 11.6 10.7C11.4 10.9 11.2 11.2 11 11.4C10.8 11.6 10.6 11.8 10.8 12.1C11 12.5 11.8 13.7 12.9 14.7C14.3 15.9 15.5 16.3 15.9 16.5C16.2 16.6 16.5 16.6 16.7 16.3C16.9 16 17.7 15.1 18 14.8C18.2 14.5 18.5 14.5 18.8 14.6C19.1 14.7 21 15.6 21.3 15.8C21.6 16 21.8 16.1 21.9 16.2C22 16.7 22 17.5 20.5 17.5Z" fill="#25D366"/></svg>
+      Order via WhatsApp
+    </button>
+  </div>
+</div>
+
+<!-- ═══ CHECKOUT MODAL ═══ -->
+<div class="checkout-modal" id="checkoutModal">
+  <div class="checkout-inner" id="checkoutInner">
+    <button class="modal-close" onclick="closeCheckout()">✕</button>
+    <div id="checkoutContent"></div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="footer-logo">Elite Tree Solutions</div>
+    <p style="margin-top:0.3rem;">Owned by Kakuye Hitler Musajja · Kabimbiri, Uganda 🇺🇬</p>
+  </div>
+  <p>© 2025 Elite Tree Solutions. All rights reserved.</p>
+  <div style="display:flex;gap:1.5rem;">
+    <a href="index.html" style="color:rgba(245,240,232,0.4);font-size:0.8rem;text-decoration:none;">Home</a>
+    <a href="gallery.html" style="color:rgba(245,240,232,0.4);font-size:0.8rem;text-decoration:none;">Gallery</a>
+    <a href="findus.html" style="color:var(--leaf);font-size:0.8rem;text-decoration:none;">Find Us</a>
+  </div>
+</footer>
+
+<a href="https://wa.me/256706191725?text=Hello%20Elite%20Tree%20Solutions!" target="_blank" id="waBtn">
+  <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+    <path d="M14 2C7.37 2 2 7.37 2 14C2 16.39 2.68 18.62 3.85 20.5L2.1 25.9L7.65 24.18C9.47 25.24 11.67 25.86 14 25.86C20.63 25.86 26 20.49 26 13.86C26 7.37 20.63 2 14 2Z" fill="white" opacity="0.95"/>
+    <path d="M20.5 17.5C20.2 18.3 18.9 19 18 19.1C17.2 19.2 16.2 19.2 15.1 18.9C14.4 18.6 13.5 18.3 12.4 17.8C9.9 16.6 8.3 14.1 8.1 13.9C7.9 13.6 6.5 11.7 6.5 9.8C6.5 7.8 7.5 6.9 7.9 6.4C8.3 5.9 8.8 5.8 9.1 5.8C9.3 5.8 9.6 5.8 9.8 5.8C10.1 5.8 10.4 5.7 10.8 6.6C11.1 7.4 11.9 9.3 12 9.5C12.1 9.7 12.1 9.9 12 10.1C11.9 10.3 11.8 10.5 11.6 10.7C11.4 10.9 11.2 11.2 11 11.4C10.8 11.6 10.6 11.8 10.8 12.1C11 12.5 11.8 13.7 12.9 14.7C14.3 15.9 15.5 16.3 15.9 16.5C16.2 16.6 16.5 16.6 16.7 16.3C16.9 16 17.7 15.1 18 14.8C18.2 14.5 18.5 14.5 18.8 14.6C19.1 14.7 21 15.6 21.3 15.8C21.6 16 21.8 16.1 21.9 16.2C22 16.7 22 17.5 20.5 17.5Z" fill="#25D366"/>
+  </svg>
+</a>
+
+<script>
+// ═══ PRODUCT DATA — 40+ Trees ═══
+const trees = [
+  // FRUIT TREES
+  {id:'t1',name:'Apple Mango',latin:'Mangifera indica',cat:'fruit',type:'grafted',price:18000,badge:'popular',color1:'#1a4a12',color2:'#2d7a1e',fruit:'#f4a128',desc:'Sweet, round, highly marketable'},
+  {id:'t2',name:'Kent Mango',latin:'Mangifera indica',cat:'fruit',type:'grafted',price:22000,badge:'new',color1:'#1a5a12',color2:'#3a8a24',fruit:'#e8902a',desc:'Late-season, ideal for export'},
+  {id:'t3',name:'Haden Mango',latin:'Mangifera indica',cat:'fruit',type:'grafted',price:15000,badge:'',color1:'#2d6a18',color2:'#4a9a2e',fruit:'#ffb347',desc:'Reliable, disease-resistant'},
+  {id:'t4',name:'Hass Avocado',latin:'Persea americana',cat:'fruit',type:'grafted',price:25000,badge:'popular',color1:'#1a5c12',color2:'#2d7a18',fruit:'#2d4a1a',desc:'Global gold standard variety'},
+  {id:'t5',name:'Fuerte Avocado',latin:'Persea americana',cat:'fruit',type:'grafted',price:20000,badge:'',color1:'#2a6a18',color2:'#3a7a24',fruit:'#3a5a20',desc:'Mid-altitude workhorse variety'},
+  {id:'t6',name:'Washington Navel Orange',latin:'Citrus sinensis',cat:'fruit',type:'grafted',price:18000,badge:'',color1:'#2d5a10',color2:'#3a7a18',fruit:'#ff8c00',desc:'Seedless, sweet eating orange'},
+  {id:'t7',name:'Eureka Lemon',latin:'Citrus limon',cat:'fruit',type:'grafted',price:16000,badge:'',color1:'#3a6a18',color2:'#4a8a24',fruit:'#ffd700',desc:'Year-round fruiting lemon'},
+  {id:'t8',name:'Jackfruit',latin:'Artocarpus heterophyllus',cat:'fruit',type:'grafted',price:20000,badge:'popular',color1:'#2a5a10',color2:'#3a7a1a',fruit:'#8b8000',desc:"Uganda's giant sweet fruit tree"},
+  {id:'t9',name:'Guava',latin:'Psidium guajava',cat:'fruit',type:'grafted',price:12000,badge:'',color1:'#3a7a18',color2:'#4a9a24',fruit:'#ffd700',desc:'Fast-bearing, nutritious fruit'},
+  {id:'t10',name:'Passion Fruit',latin:'Passiflora edulis',cat:'fruit',type:'grafted',price:10000,badge:'new',color1:'#4a3a78',color2:'#6a5a98',fruit:'#9b59b6',desc:'Climbing vine, commercial value'},
+  {id:'t11',name:'Pawpaw / Papaya',latin:'Carica papaya',cat:'fruit',type:'seedling',price:6000,badge:'sale',price_old:9000,color1:'#2d6a10',color2:'#3a8a1a',fruit:'#ff8c00',desc:'Fast-growing tropical fruit'},
+  {id:'t12',name:'Tamarind',latin:'Tamarindus indica',cat:'fruit',type:'grafted',price:22000,badge:'',color1:'#4a5a1a',color2:'#6a7a2a',fruit:'#8b4513',desc:'Long-lived specimen, sweet pods'},
+  {id:'t13',name:'Banana — Matooke',latin:'Musa acuminata',cat:'fruit',type:'seedling',price:8000,badge:'popular',color1:'#2d7a18',color2:'#4a9a28',fruit:'#ffd700',desc:"Uganda's staple food plant"},
+  {id:'t14',name:'Coconut Palm',latin:'Cocos nucifera',cat:'fruit',type:'seedling',price:15000,badge:'',color1:'#1a4a2e',color2:'#2d6a40',fruit:'#8b6914',desc:'Tropical icon, high value nuts'},
+  // SHADE TREES
+  {id:'t15',name:'Natal Fig',latin:'Ficus natalensis',cat:'shade',type:'seedling',price:18000,badge:'popular',color1:'#1a4a12',color2:'#2d6a20',fruit:'',desc:"Uganda's beloved community tree"},
+  {id:'t16',name:'African Mahogany',latin:'Khaya senegalensis',cat:'shade',type:'seedling',price:25000,badge:'',color1:'#1a3a10',color2:'#2a5a18',fruit:'',desc:'Stately, long-lived hardwood'},
+  {id:'t17',name:'Neem Tree',latin:'Azadirachta indica',cat:'shade',type:'seedling',price:10000,badge:'',color1:'#2d5a18',color2:'#3a7a24',fruit:'',desc:'Fast-growing, medicinal qualities'},
+  {id:'t18',name:'Moringa',latin:'Moringa oleifera',cat:'shade',type:'seedling',price:8000,badge:'new',color1:'#3a6a20',color2:'#4a8a2e',fruit:'',desc:'Nutritional superfood tree'},
+  {id:'t19',name:'Umbrella Thorn Acacia',latin:'Vachellia tortilis',cat:'shade',type:'seedling',price:15000,badge:'',color1:'#4a5a18',color2:'#6a7a28',fruit:'',desc:'Iconic African flat-topped silhouette'},
+  {id:'t20',name:'Cape Chestnut',latin:'Calodendrum capense',cat:'shade',type:'seedling',price:22000,badge:'',color1:'#2a3a50',color2:'#3a5a70',fruit:'',desc:'Stunning pink flowering canopy tree'},
+  {id:'t21',name:'Musizi / White Stinkwood',latin:'Cordia millenii',cat:'shade',type:'seedling',price:20000,badge:'popular',color1:'#1a4a18',color2:'#2d6a28',fruit:'',desc:'Native Uganda premium timber shade tree'},
+  {id:'t22',name:'East African Yellowwood',latin:'Podocarpus latifolius',cat:'shade',type:'seedling',price:28000,badge:'rare',color1:'#1a3a20',color2:'#2d5a30',fruit:'',desc:'Slow-growing, extremely long-lived'},
+  // ORNAMENTAL
+  {id:'t23',name:'Jacaranda',latin:'Jacaranda mimosifolia',cat:'ornamental',type:'seedling',price:20000,badge:'popular',color1:'#3a1a7a',color2:'#5a2a9a',fruit:'',desc:'Purple flowering spectacle'},
+  {id:'t24',name:'Flamboyant / Flame Tree',latin:'Delonix regia',cat:'ornamental',type:'seedling',price:18000,badge:'popular',color1:'#7a2010',color2:'#a03020',fruit:'',desc:'Blazing red seasonal display'},
+  {id:'t25',name:'Frangipani',latin:'Plumeria rubra',cat:'ornamental',type:'seedling',price:22000,badge:'',color1:'#3a1a3a',color2:'#6a3a5a',fruit:'',desc:'Heavenly scented tropical flower'},
+  {id:'t26',name:'African Tulip',latin:'Spathodea campanulata',cat:'ornamental',type:'seedling',price:16000,badge:'new',color1:'#6a1a10',color2:'#8a2a18',fruit:'',desc:'Uganda native, vivid orange blooms'},
+  {id:'t27',name:'Bougainvillea',latin:'Bougainvillea spectabilis',cat:'ornamental',type:'seedling',price:12000,badge:'',color1:'#7a1a5a',color2:'#9a3a7a',fruit:'',desc:'Blazing colour all year round'},
+  {id:'t28',name:'Pride of India',latin:'Lagerstroemia speciosa',cat:'ornamental',type:'seedling',price:24000,badge:'rare',color1:'#4a1a6a',color2:'#6a3a8a',fruit:'',desc:'Magnificent purple flowering tree'},
+  {id:'t29',name:'Yellow Cassia',latin:'Cassia fistula',cat:'ornamental',type:'seedling',price:16000,badge:'',color1:'#4a5a10',color2:'#6a7a20',fruit:'',desc:'Cascading golden flowers in season'},
+  {id:'t30',name:'Bottle Brush',latin:'Callistemon citrinus',cat:'ornamental',type:'seedling',price:14000,badge:'',color1:'#5a1a10',color2:'#7a2a18',fruit:'',desc:'Unique red brush-like flowers'},
+  {id:'t31',name:'Weeping Fig',latin:'Ficus benjamina',cat:'ornamental',type:'seedling',price:18000,badge:'popular',color1:'#1a4a18',color2:'#2d6a28',fruit:'',desc:'Classic elegant avenue tree'},
+  // NATIVE SPECIES
+  {id:'t32',name:'Mvule / African Teak',latin:'Milicia excelsa',cat:'native',type:'seedling',price:30000,badge:'rare',color1:'#1a3a10',color2:'#2a5a18',fruit:'',desc:"Uganda's most prized native timber"},
+  {id:'t33',name:'Elgon Olive',latin:'Olea europaea subsp. africana',cat:'native',type:'seedling',price:28000,badge:'rare',color1:'#3a4a18',color2:'#5a6a28',fruit:'',desc:'Native Ugandan olive, long-lived'},
+  {id:'t34',name:'Prunus africana',latin:'Prunus africana',cat:'native',type:'seedling',price:32000,badge:'rare',color1:'#2a3a18',color2:'#3a5a28',fruit:'',desc:'Medicinal bark, conservation species'},
+  {id:'t35',name:'Strangler Fig',latin:'Ficus thonningii',cat:'native',type:'seedling',price:18000,badge:'',color1:'#1a4a10',color2:'#2d6a18',fruit:'',desc:'Sacred Ugandan village tree'},
+  {id:'t36',name:'Warburgia',latin:'Warburgia ugandensis',cat:'native',type:'seedling',price:35000,badge:'rare',color1:'#1a3a18',color2:'#2a5a28',fruit:'',desc:'Uganda endemic, highly medicinal'},
+  {id:'t37',name:'Markhamia',latin:'Markhamia lutea',cat:'native',type:'seedling',price:14000,badge:'popular',color1:'#2a5a10',color2:'#3a7a1a',fruit:'',desc:'Fast-growing native shade tree'},
+  {id:'t38',name:'Albizia',latin:'Albizia coriaria',cat:'native',type:'seedling',price:16000,badge:'',color1:'#3a5a18',color2:'#4a7a28',fruit:'',desc:'Nitrogen-fixing, soil improving'},
+  // PALMS
+  {id:'t39',name:'Royal Palm',latin:'Roystonea regia',cat:'palm',type:'seedling',price:45000,badge:'popular',color1:'#1a4a2e',color2:'#2d6a44',fruit:'',desc:'Majestic formal avenue palm'},
+  {id:'t40',name:'Date Palm',latin:'Phoenix dactylifera',cat:'palm',type:'seedling',price:38000,badge:'',color1:'#2a4a20',color2:'#3a6a30',fruit:'#8b6914',desc:'Productive date-bearing palm'},
+  {id:'t41',name:'Fan Palm',latin:'Livistona chinensis',cat:'palm',type:'seedling',price:30000,badge:'new',color1:'#1a5a2e',color2:'#2d7a44',fruit:'',desc:'Dramatic spreading fan-shaped fronds'},
+  {id:'t42',name:'Bamboo Palm',latin:'Chamaedorea seifrizii',cat:'palm',type:'seedling',price:25000,badge:'',color1:'#2d5a28',color2:'#3a7a38',fruit:'',desc:'Elegant multi-stem indoor/outdoor palm'},
+];
+
+// ═══ CART STATE ═══
+let cart = [];
+
+function formatUGX(n){
+  return 'UGX '+n.toLocaleString('en-UG');
+}
+
+// ═══ GENERATE TREE SVG ═══
+function treeSVG(t, size=200){
+  const h = size === 200 ? 200 : 140;
+  const w = size;
+  const cx = w/2, trunk = h-10;
+  const c1 = t.color1 || '#1a4a12';
+  const c2 = t.color2 || '#2d6a20';
+  const fruit = t.fruit || '';
+  return `<svg viewBox="0 0 ${w} ${h}" fill="none">
+    <rect width="${w}" height="${h}" fill="${c1}"/>
+    <ellipse cx="${cx}" cy="${h*0.9}" rx="${w*0.38}" ry="${h*0.12}" fill="rgba(0,0,0,0.2)"/>
+    <path d="M${cx-6} ${trunk} C${cx-8} ${h*0.72} ${cx-9} ${h*0.58} ${cx-7} ${h*0.46} C${cx-5} ${h*0.36} ${cx} ${h*0.3} ${cx} ${h*0.3} C${cx} ${h*0.3} ${cx+5} ${h*0.36} ${cx+7} ${h*0.46} C${cx+9} ${h*0.58} ${cx+8} ${h*0.72} ${cx+6} ${trunk}Z" fill="#5c3a14"/>
+    <ellipse cx="${cx}" cy="${h*0.52}" rx="${w*0.38}" ry="${h*0.28}" fill="${c1}"/>
+    <ellipse cx="${cx*0.72}" cy="${h*0.48}" rx="${w*0.26}" ry="${h*0.22}" fill="${c2}"/>
+    <ellipse cx="${cx*1.28}" cy="${h*0.46}" rx="${w*0.25}" ry="${h*0.21}" fill="${c1}"/>
+    <ellipse cx="${cx}" cy="${h*0.38}" rx="${w*0.3}" ry="${h*0.24}" fill="${c2}"/>
+    <ellipse cx="${cx}" cy="${h*0.26}" rx="${w*0.22}" ry="${h*0.19}" fill="${c1}"/>
+    <ellipse cx="${cx}" cy="${h*0.17}" rx="${w*0.15}" ry="${h*0.14}" fill="${c2}"/>
+    ${fruit ? `<ellipse cx="${cx*0.78}" cy="${h*0.55}" rx="7" ry="9" fill="${fruit}" opacity="0.9"/>
+    <ellipse cx="${cx*1.22}" cy="${h*0.52}" rx="6" ry="8" fill="${fruit}" opacity="0.9"/>
+    <ellipse cx="${cx}" cy="${h*0.6}" rx="8" ry="10" fill="${fruit}"/>` : ''}
+  </svg>`;
+}
+
+// ═══ RENDER TREES ═══
+function renderTrees(list){
+  const grid = document.getElementById('productsGrid');
+  if(!list.length){
+    grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:3rem;color:var(--sage);">No trees found matching your search. <a href="#" onclick="resetFilters()" style="color:var(--leaf);">Clear filters</a></div>`;
+    return;
+  }
+  grid.innerHTML = list.map(t => `
+    <div class="product-card" data-cat="${t.cat}" data-type="${t.type}" data-badge="${t.badge}" data-price="${t.price}" data-name="${t.name.toLowerCase()}">
+      <div class="product-thumb">
+        ${treeSVG(t)}
+        ${t.badge ? `<span class="product-badge badge-${t.badge}">${t.badge==='popular'?'⭐ Popular':t.badge==='new'?'New':t.badge==='rare'?'💎 Rare':'🔥 Sale'}</span>` : ''}
+        <button class="product-wishlist" title="Save">🤍</button>
+      </div>
+      <div class="product-body">
+        <div class="product-cat">${t.cat.charAt(0).toUpperCase()+t.cat.slice(1)} Tree</div>
+        <div class="product-name">${t.name}</div>
+        <div class="product-latin">${t.latin}</div>
+        <div class="product-footer">
+          <div class="product-price">
+            ${t.price_old ? `<span class="old-price">${formatUGX(t.price_old)}</span>` : ''}
+            ${formatUGX(t.price)}
+          </div>
+          <button class="add-btn" onclick="addToCart({id:'${t.id}',name:'${t.name}',price:${t.price},cat:'${t.cat.charAt(0).toUpperCase()+t.cat.slice(1)} Tree'})">+ Add</button>
+        </div>
+      </div>
+    </div>
+  `).join('');
+  document.getElementById('resultsCount').textContent = `Showing ${list.length} products`;
+}
+
+renderTrees(trees);
+
+// ═══ FILTERS ═══
+let activeCategory = 'all';
+function filterCategory(cat, btn){
+  activeCategory = cat;
+  document.querySelectorAll('.filter-item').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  applyFilters();
+}
+function filterType(type, btn){
+  document.querySelectorAll('.filter-item').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  const filtered = trees.filter(t=>t.type===type);
+  renderTrees(filtered);
+}
+function filterSpecial(badge, btn){
+  document.querySelectorAll('.filter-item').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  const filtered = trees.filter(t=>t.badge===badge);
+  renderTrees(filtered);
+}
+function applyFilters(){
+  let list = activeCategory==='all' ? trees : trees.filter(t=>t.cat===activeCategory);
+  renderTrees(list);
+}
+function resetFilters(){
+  activeCategory='all';
+  document.querySelectorAll('.filter-item').forEach(b=>b.classList.remove('active'));
+  document.querySelector('.filter-item').classList.add('active');
+  renderTrees(trees);
+}
+function searchProducts(q){
+  const filtered = trees.filter(t=>
+    t.name.toLowerCase().includes(q.toLowerCase()) ||
+    t.latin.toLowerCase().includes(q.toLowerCase()) ||
+    t.cat.toLowerCase().includes(q.toLowerCase())
+  );
+  renderTrees(filtered);
+}
+function sortProducts(val){
+  let list = [...trees];
+  if(val==='price-asc') list.sort((a,b)=>a.price-b.price);
+  else if(val==='price-desc') list.sort((a,b)=>b.price-a.price);
+  else if(val==='name') list.sort((a,b)=>a.name.localeCompare(b.name));
+  else if(val==='popular') list = list.filter(t=>t.badge==='popular').concat(list.filter(t=>t.badge!=='popular'));
+  renderTrees(list);
+}
+
+// ═══ TABS ═══
+function switchTab(tab, btn){
+  document.querySelectorAll('.shop-tab').forEach(t=>t.classList.remove('active'));
+  btn.classList.add('active');
+  ['trees','services','consultations','vouchers'].forEach(t=>{
+    const el = document.getElementById('tab-'+t);
+    if(el) el.style.display = t===tab ? '' : 'none';
+  });
+}
+
+// ═══ CART ═══
+function addToCart(item){
+  const existing = cart.find(c=>c.id===item.id);
+  if(existing){ existing.qty++; }
+  else { cart.push({...item, qty:1}); }
+  updateCart();
+  openCart();
+}
+function removeFromCart(id){
+  cart = cart.filter(c=>c.id!==id);
+  updateCart();
+}
+function changeQty(id, delta){
+  const item = cart.find(c=>c.id===id);
+  if(item){
+    item.qty += delta;
+    if(item.qty <= 0) removeFromCart(id);
+    else updateCart();
+  }
+}
+function updateCart(){
+  const total = cart.reduce((s,i)=>s+i.price*i.qty,0);
+  document.getElementById('cartCount').textContent = cart.reduce((s,i)=>s+i.qty,0);
+  const itemsEl = document.getElementById('cartItems');
+  const footerEl = document.getElementById('cartFooter');
+  if(!cart.length){
+    itemsEl.innerHTML = `<div class="cart-empty"><svg width="48" height="48" viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="22" stroke="rgba(13,40,24,0.15)" stroke-width="1.5" fill="none"/><path d="M14 16 L16 28 L32 28 L34 16" stroke="rgba(13,40,24,0.2)" stroke-width="1.5" fill="none" stroke-linecap="round"/><path d="M10 13 L14 13 L14 16" stroke="rgba(13,40,24,0.2)" stroke-width="1.5" stroke-linecap="round"/><circle cx="20" cy="32" r="2" fill="rgba(13,40,24,0.15)"/><circle cx="28" cy="32" r="2" fill="rgba(13,40,24,0.15)"/></svg><p>Your cart is empty.<br>Add some trees! 🌳</p></div>`;
+    footerEl.style.display='none';
+    return;
+  }
+  itemsEl.innerHTML = cart.map(i=>`
+    <div class="cart-item">
+      <div class="cart-item-thumb">
+        ${treeSVG(trees.find(t=>t.id===i.id)||{color1:'#1a4a2e',color2:'#2d6a20',fruit:'',name:''}, 56)}
+      </div>
+      <div class="cart-item-info">
+        <div class="cart-item-name">${i.name}</div>
+        <div class="cart-item-price">${formatUGX(i.price)} × ${i.qty}</div>
+        <div class="cart-item-qty">
+          <button class="qty-btn" onclick="changeQty('${i.id}',-1)">−</button>
+          <span class="qty-num">${i.qty}</span>
+          <button class="qty-btn" onclick="changeQty('${i.id}',1)">+</button>
+        </div>
+      </div>
+      <button class="cart-item-remove" onclick="removeFromCart('${i.id}')">🗑</button>
+    </div>
+  `).join('');
+  document.getElementById('cartSubtotal').textContent = formatUGX(total);
+  document.getElementById('cartTotal').textContent = formatUGX(total);
+  footerEl.style.display='block';
+}
+function openCart(){
+  document.getElementById('cartDrawer').classList.add('open');
+  document.getElementById('cartOverlay').classList.add('open');
+}
+function closeCart(){
+  document.getElementById('cartDrawer').classList.remove('open');
+  document.getElementById('cartOverlay').classList.remove('open');
+}
+
+// ═══ CHECKOUT ═══
+function openCheckout(method){
+  closeCart();
+  const total = cart.reduce((s,i)=>s+i.price*i.qty,0);
+  const orderList = cart.map(i=>`${i.qty}× ${i.name}`).join(', ');
+  const modal = document.getElementById('checkoutModal');
+  const content = document.getElementById('checkoutContent');
+  if(method==='whatsapp'){
+    const msg = encodeURIComponent(`Hello Elite Tree Solutions! 🌳\n\nI would like to place an order:\n${orderList}\n\nTotal: ${formatUGX(total)}\n\nPlease confirm availability and delivery details. Thank you!`);
+    window.open(`https://wa.me/256706191725?text=${msg}`,'_blank');
+    return;
+  }
+  content.innerHTML = `
+    <h3>Complete Your Order</h3>
+    <p>Fill in your details below. We will send your Mobile Money payment instructions to your phone.</p>
+    <div class="pay-methods">
+      <div class="pay-method selected" onclick="selectPay(this,'mtn')">
+        <div class="pay-method-icon">📱</div>
+        <div class="pay-method-label">MTN MoMo</div>
+        <div class="pay-method-sub">MTN Mobile Money</div>
+      </div>
+      <div class="pay-method" onclick="selectPay(this,'airtel')">
+        <div class="pay-method-icon">📲</div>
+        <div class="pay-method-label">Airtel Money</div>
+        <div class="pay-method-sub">Airtel Uganda</div>
+      </div>
+    </div>
+    <div class="checkout-form">
+      <div class="checkout-form-row">
+        <input type="text" id="co-fname" placeholder="First Name" required>
+        <input type="text" id="co-lname" placeholder="Last Name" required>
+      </div>
+      <input type="tel" id="co-phone" placeholder="Your Phone Number (e.g. 0706 191 725)" required>
+      <input type="text" id="co-location" placeholder="Your Delivery Location / District">
+      <div style="background:var(--mist);border-radius:0.6rem;padding:1rem;font-size:0.82rem;color:var(--sage);line-height:1.6;">
+        <strong style="color:var(--forest);">Order Summary:</strong><br>${orderList}<br>
+        <strong style="color:var(--forest);">Total: ${formatUGX(total)}</strong> + delivery (quoted separately)
+      </div>
+      <button class="checkout-btn" onclick="placeOrder()" style="margin-top:0;">Confirm Order →</button>
+    </div>
+  `;
+  modal.classList.add('open');
+}
+function selectPay(el, method){
+  document.querySelectorAll('.pay-method').forEach(m=>m.classList.remove('selected'));
+  el.classList.add('selected');
+}
+function placeOrder(){
+  const name = document.getElementById('co-fname').value;
+  const phone = document.getElementById('co-phone').value;
+  if(!name||!phone){alert('Please fill in your name and phone number.');return;}
+  document.getElementById('checkoutContent').innerHTML = `
+    <div class="order-success">
+      <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
+        <circle cx="32" cy="32" r="30" fill="rgba(122,182,72,0.1)" stroke="#7ab648" stroke-width="2"/>
+        <path d="M20 32 L28 40 L44 24" stroke="#7ab648" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <h3>Order Received! 🌳</h3>
+      <p>Thank you, <strong>${name}</strong>! Your order has been received.<br><br>
+      Kakuye will call you on <strong>${phone}</strong> within a few hours to confirm your order and send Mobile Money payment details.<br><br>
+      You can also WhatsApp us directly on <a href="https://wa.me/256706191725" style="color:var(--leaf);">+256 706 191 725</a> for the fastest response.</p>
+    </div>
+  `;
+  cart = [];
+  updateCart();
+}
+function closeCheckout(){
+  document.getElementById('checkoutModal').classList.remove('open');
+}
+
+// ═══ MOBILE MENU ═══
+function toggleMobileMenu(){
+  document.getElementById('burgerBtn').classList.toggle('open');
+  document.getElementById('mobileMenu').classList.toggle('open');
+  document.getElementById('mobOverlay').classList.toggle('open');
+}
+
+// ═══ REVEAL ═══
+const observer = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});
+},{threshold:0.1});
+document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+</script>
+</body>
+</html>
