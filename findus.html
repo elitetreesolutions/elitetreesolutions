@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Find Us — Elite Tree Solutions Uganda</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --forest:#0d2818; --moss:#1a4a2e; --sage:#4a7c59;
+    --leaf:#7ab648; --gold:#c8a96e; --cream:#f5f0e8;
+    --bark:#5c3d1e; --mist:#e8f0e4;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--forest);overflow-x:hidden;}
+
+  /* ── NAV ── */
+  nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1.4rem 4rem;backdrop-filter:blur(20px);background:rgba(13,40,24,0.92);border-bottom:1px solid rgba(122,182,72,0.15);}
+  .nav-logo{display:flex;align-items:center;gap:0.8rem;font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700;color:var(--cream);text-decoration:none;letter-spacing:0.04em;}
+  .nav-links{display:flex;gap:2rem;}
+  .nav-links a{color:rgba(245,240,232,0.7);text-decoration:none;font-size:0.85rem;letter-spacing:0.08em;text-transform:uppercase;transition:color 0.3s;}
+  .nav-links a:hover,.nav-links a.active{color:var(--leaf);}
+  .nav-cta{background:var(--leaf);color:var(--forest)!important;padding:0.5rem 1.4rem;border-radius:2rem;font-weight:500;}
+
+  /* ── HERO ── */
+  .page-hero{min-height:42vh;background:var(--forest);display:flex;align-items:center;justify-content:center;flex-direction:column;text-align:center;position:relative;overflow:hidden;padding-top:5rem;}
+  .page-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 80% at 50% 60%,#1a4a2e 0%,#0d2818 70%);}
+  .page-hero-content{position:relative;z-index:2;padding:3rem 2rem;}
+  .section-label{font-size:0.75rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--leaf);margin-bottom:1rem;display:flex;align-items:center;justify-content:center;gap:0.8rem;}
+  .section-label::before,.section-label::after{content:'';display:block;width:30px;height:1px;background:var(--leaf);}
+  .page-hero h1{font-family:'Playfair Display',serif;font-size:clamp(2.5rem,6vw,5rem);font-weight:900;color:var(--cream);line-height:1.1;margin-bottom:1rem;}
+  .page-hero h1 em{font-style:italic;color:var(--leaf);}
+  .page-hero p{color:rgba(245,240,232,0.6);font-size:1rem;max-width:500px;line-height:1.7;font-weight:300;}
+
+  /* ── QUICK CONTACT STRIP ── */
+  .contact-strip{background:var(--leaf);padding:1.2rem 4rem;display:flex;justify-content:center;gap:4rem;flex-wrap:wrap;}
+  .cstrip-item{display:flex;align-items:center;gap:0.7rem;color:var(--forest);text-decoration:none;font-size:0.88rem;font-weight:500;transition:opacity 0.3s;}
+  .cstrip-item:hover{opacity:0.75;}
+  .cstrip-icon{width:32px;height:32px;background:rgba(13,40,24,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+
+  /* ── MAP + INFO LAYOUT ── */
+  .map-section{display:grid;grid-template-columns:1fr 400px;min-height:580px;}
+
+  /* ── MAP ── */
+  .map-container{position:relative;background:var(--forest);overflow:hidden;}
+  #gmap{width:100%;height:100%;min-height:580px;border:none;}
+
+  /* Placeholder shown before API key added */
+  .map-placeholder{
+    width:100%;height:100%;min-height:580px;
+    background:var(--forest);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    position:relative;overflow:hidden;
+  }
+  .map-placeholder::before{
+    content:'';position:absolute;inset:0;
+    background:radial-gradient(ellipse 60% 60% at 50% 50%,#1a4a2e 0%,#0d2818 70%);
+  }
+  .map-placeholder-inner{position:relative;z-index:2;text-align:center;padding:2rem;}
+  .map-placeholder-inner svg{margin-bottom:1.5rem;opacity:0.6;}
+  .map-placeholder-inner h3{font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--cream);margin-bottom:0.5rem;}
+  .map-placeholder-inner p{font-size:0.88rem;color:rgba(245,240,232,0.45);line-height:1.6;max-width:320px;}
+  .map-placeholder-inner .map-coords{
+    margin-top:1.5rem;background:rgba(122,182,72,0.1);
+    border:1px solid rgba(122,182,72,0.2);border-radius:0.8rem;
+    padding:0.8rem 1.4rem;font-size:0.82rem;color:var(--leaf);
+    font-family:monospace;letter-spacing:0.05em;
+  }
+
+  /* SVG illustrated map (shows when no API key) */
+  .illustrated-map{width:100%;height:100%;min-height:580px;position:relative;overflow:hidden;}
+  .illustrated-map svg{width:100%;height:100%;min-height:580px;}
+
+  /* ── INFO PANEL ── */
+  .info-panel{background:var(--forest);padding:3rem 2.5rem;display:flex;flex-direction:column;gap:2rem;overflow-y:auto;}
+  .info-panel-title{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:900;color:var(--cream);margin-bottom:0.3rem;}
+  .info-panel-sub{font-size:0.82rem;color:var(--leaf);text-transform:uppercase;letter-spacing:0.1em;}
+
+  .info-block{border-top:1px solid rgba(122,182,72,0.1);padding-top:1.5rem;}
+  .info-block-label{font-size:0.7rem;text-transform:uppercase;letter-spacing:0.12em;color:rgba(245,240,232,0.3);margin-bottom:0.8rem;}
+  .info-block-content{font-size:0.92rem;color:rgba(245,240,232,0.8);line-height:1.7;font-weight:300;}
+  .info-block-content strong{color:var(--cream);font-weight:500;}
+  .info-block-content a{color:var(--leaf);text-decoration:none;}
+  .info-block-content a:hover{text-decoration:underline;}
+
+  .hours-row{display:flex;justify-content:space-between;align-items:center;padding:0.4rem 0;border-bottom:1px solid rgba(122,182,72,0.06);}
+  .hours-row:last-child{border-bottom:none;}
+  .hours-day{font-size:0.82rem;color:rgba(245,240,232,0.5);}
+  .hours-time{font-size:0.82rem;color:var(--cream);font-weight:500;}
+  .hours-closed{color:rgba(245,240,232,0.25)!important;}
+  .open-badge{display:inline-flex;align-items:center;gap:0.4rem;background:rgba(122,182,72,0.15);color:var(--leaf);font-size:0.72rem;padding:0.25rem 0.7rem;border-radius:1rem;margin-left:0.5rem;}
+  .open-badge::before{content:'';width:6px;height:6px;background:var(--leaf);border-radius:50%;animation:blink 2s infinite;}
+  @keyframes blink{0%,100%{opacity:1;}50%{opacity:0.3;}}
+
+  .directions-btn{
+    display:flex;align-items:center;justify-content:center;gap:0.6rem;
+    background:var(--leaf);color:var(--forest);
+    padding:0.9rem 1.5rem;border-radius:0.8rem;
+    font-weight:500;text-decoration:none;font-size:0.9rem;
+    transition:all 0.3s;margin-top:0.5rem;
+  }
+  .directions-btn:hover{background:var(--gold);transform:translateY(-2px);}
+
+  .wa-btn{
+    display:flex;align-items:center;justify-content:center;gap:0.6rem;
+    background:#25D366;color:white;
+    padding:0.9rem 1.5rem;border-radius:0.8rem;
+    font-weight:500;text-decoration:none;font-size:0.9rem;
+    transition:all 0.3s;
+  }
+  .wa-btn:hover{background:#1da851;transform:translateY(-2px);}
+
+  /* ── HOW TO FIND US ── */
+  .find-section{padding:5rem 4rem;background:var(--mist);}
+  .find-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;margin-top:3rem;}
+  .find-steps{display:flex;flex-direction:column;gap:1.5rem;}
+  .find-step{display:flex;gap:1.2rem;align-items:flex-start;}
+  .step-num{
+    width:42px;height:42px;border-radius:50%;
+    background:var(--forest);color:var(--leaf);
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;
+    flex-shrink:0;border:1.5px solid rgba(122,182,72,0.2);
+  }
+  .step-content h4{font-weight:500;color:var(--forest);margin-bottom:0.3rem;font-size:0.95rem;}
+  .step-content p{font-size:0.85rem;color:var(--sage);line-height:1.6;font-weight:300;}
+
+  /* Illustrated route map */
+  .route-visual{background:var(--forest);border-radius:1.5rem;overflow:hidden;}
+  .route-visual svg{display:block;width:100%;}
+
+  /* ── LANDMARKS ── */
+  .landmarks{padding:5rem 4rem;background:var(--cream);}
+  .landmarks-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem;margin-top:2.5rem;}
+  .landmark-card{background:var(--forest);border-radius:1.2rem;padding:1.5rem;border:1px solid rgba(122,182,72,0.08);transition:all 0.3s;}
+  .landmark-card:hover{border-color:rgba(122,182,72,0.3);transform:translateY(-3px);}
+  .landmark-dist{font-size:0.72rem;color:var(--leaf);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.5rem;}
+  .landmark-name{font-family:'Playfair Display',serif;font-size:0.95rem;color:var(--cream);margin-bottom:0.3rem;}
+  .landmark-dir{font-size:0.78rem;color:rgba(245,240,232,0.4);line-height:1.5;}
+
+  /* ── SERVICE AREA ── */
+  .service-area{padding:5rem 4rem;background:var(--forest);}
+  .area-intro{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;}
+  .area-text h2{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3vw,2.8rem);font-weight:900;color:var(--cream);margin-bottom:1rem;}
+  .area-text p{font-size:0.92rem;color:rgba(245,240,232,0.55);line-height:1.8;font-weight:300;margin-bottom:1.5rem;}
+  .district-tags{display:flex;flex-wrap:wrap;gap:0.6rem;}
+  .dtag{background:rgba(122,182,72,0.1);border:1px solid rgba(122,182,72,0.2);color:var(--leaf);font-size:0.75rem;padding:0.3rem 0.9rem;border-radius:1rem;letter-spacing:0.05em;}
+
+  /* Uganda map SVG */
+  .uganda-map-wrap{border-radius:1.5rem;overflow:hidden;background:rgba(13,40,24,0.5);}
+
+  /* ── CONTACT FORM ── */
+  .contact-section{padding:5rem 4rem;background:var(--mist);display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start;}
+  .contact-intro h2{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3vw,2.8rem);font-weight:900;color:var(--forest);margin-bottom:1rem;}
+  .contact-intro p{font-size:0.92rem;color:var(--sage);line-height:1.8;font-weight:300;margin-bottom:2rem;}
+  .contact-methods{display:flex;flex-direction:column;gap:1rem;}
+  .contact-method{display:flex;align-items:center;gap:1rem;padding:1rem 1.2rem;background:white;border-radius:0.8rem;text-decoration:none;transition:all 0.3s;box-shadow:0 2px 12px rgba(13,40,24,0.06);}
+  .contact-method:hover{transform:translateX(4px);box-shadow:0 4px 20px rgba(13,40,24,0.1);}
+  .contact-method-icon{width:42px;height:42px;border-radius:0.6rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .contact-method-label{font-size:0.72rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--sage);}
+  .contact-method-value{font-size:0.92rem;color:var(--forest);font-weight:500;}
+
+  /* Form */
+  .contact-form{background:white;border-radius:1.5rem;padding:2.5rem;box-shadow:0 4px 30px rgba(13,40,24,0.08);}
+  .contact-form h3{font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--forest);margin-bottom:1.5rem;}
+  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+  .form-group{display:flex;flex-direction:column;gap:0.4rem;margin-bottom:1rem;}
+  .form-group label{font-size:0.75rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--sage);}
+  .form-group input,.form-group select,.form-group textarea{
+    padding:0.8rem 1rem;border:1.5px solid rgba(13,40,24,0.12);border-radius:0.6rem;
+    font-family:'DM Sans',sans-serif;font-size:0.9rem;color:var(--forest);
+    background:white;outline:none;transition:border-color 0.3s;
+  }
+  .form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--leaf);}
+  .form-group textarea{resize:vertical;min-height:110px;}
+  .form-submit{
+    width:100%;background:var(--leaf);color:var(--forest);
+    padding:1rem;border:none;border-radius:0.8rem;
+    font-family:'DM Sans',sans-serif;font-size:0.95rem;font-weight:500;
+    cursor:pointer;transition:all 0.3s;margin-top:0.5rem;
+  }
+  .form-submit:hover{background:var(--forest);color:var(--leaf);}
+  .form-success{display:none;text-align:center;padding:2rem;color:var(--forest);}
+  .form-success svg{margin-bottom:1rem;}
+  .form-success h4{font-family:'Playfair Display',serif;font-size:1.2rem;margin-bottom:0.5rem;}
+  .form-success p{font-size:0.88rem;color:var(--sage);}
+
+  /* ── REVEAL ── */
+  .reveal{opacity:0;transform:translateY(30px);transition:all 0.7s ease;}
+  .reveal.visible{opacity:1;transform:translateY(0);}
+
+  /* ── FOOTER ── */
+  footer{background:#070f0a;padding:2rem 4rem;display:flex;align-items:center;justify-content:space-between;border-top:1px solid rgba(122,182,72,0.1);flex-wrap:wrap;gap:1rem;}
+  footer p{font-size:0.8rem;color:rgba(245,240,232,0.3);}
+  .footer-logo{font-family:'Playfair Display',serif;font-size:1rem;color:rgba(245,240,232,0.4);}
+
+  /* ── WHATSAPP ── */
+  #waBtn{position:fixed;bottom:2rem;right:2rem;z-index:9998;background:#25D366;width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(37,211,102,0.5);text-decoration:none;animation:waPulse 2.5s ease-in-out infinite;}
+  @keyframes waPulse{0%,100%{box-shadow:0 4px 20px rgba(37,211,102,0.5);transform:scale(1);}50%{box-shadow:0 4px 40px rgba(37,211,102,0.8);transform:scale(1.08);}}
+
+  /* ── MOBILE ── */
+  @media(max-width:900px){
+    .map-section{grid-template-columns:1fr;}
+    .info-panel{padding:2.5rem 1.5rem;}
+    .find-grid{grid-template-columns:1fr;}
+    .landmarks-grid{grid-template-columns:1fr 1fr;}
+    .area-intro{grid-template-columns:1fr;}
+    .contact-section{grid-template-columns:1fr;}
+  }
+  @media(max-width:768px){
+    nav{padding:1.2rem 1.5rem;}
+    .nav-links{display:none;}
+    .contact-strip{padding:1rem 1.5rem;gap:1.5rem;}
+    .find-section,.landmarks,.service-area,.contact-section{padding:4rem 1.5rem;}
+    .landmarks-grid{grid-template-columns:1fr 1fr;}
+    .form-row{grid-template-columns:1fr;}
+    footer{flex-direction:column;text-align:center;padding:2rem 1.5rem;}
+  }
+  @media(max-width:480px){
+    .landmarks-grid{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">
+    <svg width="26" height="26" viewBox="0 0 28 28" fill="none">
+      <path d="M14 2C14 2 7 8 7 15C7 19.4 10.1 23 14 23C17.9 23 21 19.4 21 15C21 8 14 2 14 2Z" fill="#7ab648"/>
+      <path d="M14 8C14 8 9 13 9 17.5C9 20 11.2 22 14 22C16.8 22 19 20 19 17.5C19 13 14 8 14 8Z" fill="#4a7c59"/>
+      <line x1="14" y1="22" x2="14" y2="26" stroke="#5c3d1e" stroke-width="2" stroke-linecap="round"/>
+    </svg>
+    Elite Tree Solutions
+  </a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="about.html">About</a>
+    <a href="portfolio.html">Portfolio</a>
+    <a href="blog.html">Blog</a>
+    <a href="faq.html">FAQ</a>
+    <a href="findus.html" class="active nav-cta">Find Us</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="page-hero">
+  <div class="page-hero-content">
+    <div class="section-label">Visit Us</div>
+    <h1>Come <em>Find Us</em></h1>
+    <p>We're rooted in Kabimbiri, along the Kayunga Road — Uganda's home of extraordinary trees. Come visit, we'd love to meet you.</p>
+  </div>
+</div>
+
+<!-- QUICK CONTACT STRIP -->
+<div class="contact-strip">
+  <a href="tel:+256706191725" class="cstrip-item">
+    <div class="cstrip-icon">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+        <path d="M3 1C3 1 2 1 1.5 2C1 3 1 4 2 6C3 8 5 10 7 11.5C9 13 11 14.5 13 15C14 15.5 15 15 15 15L14 12L11.5 11.5L10.5 12.5C10.5 12.5 8.5 11.5 7 10C5.5 8.5 4.5 6.5 4.5 6.5L5.5 5.5L5 3L3 1Z" fill="#0d2818"/>
+      </svg>
+    </div>
+    <div>
+      <div style="font-size:0.68rem;opacity:0.6;">Call Us</div>
+      <div>+256 706 191 725</div>
+    </div>
+  </a>
+  <a href="mailto:elitetreesolutions26@gmail.com" class="cstrip-item">
+    <div class="cstrip-icon">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+        <rect x="1" y="3" width="14" height="10" rx="2" stroke="#0d2818" stroke-width="1.5" fill="none"/>
+        <path d="M1 5L8 9L15 5" stroke="#0d2818" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div>
+      <div style="font-size:0.68rem;opacity:0.6;">Email Us</div>
+      <div>elitetreesolutions26@gmail.com</div>
+    </div>
+  </a>
+  <a href="https://wa.me/256706191725" target="_blank" class="cstrip-item">
+    <div class="cstrip-icon">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+        <path d="M8 1C4.13 1 1 4.13 1 8C1 9.37 1.39 10.64 2.06 11.72L1.06 14.94L4.37 13.96C5.41 14.56 6.66 14.91 8 14.91C11.87 14.91 15 11.78 15 7.91C15 4.13 11.87 1 8 1Z" fill="#0d2818"/>
+      </svg>
+    </div>
+    <div>
+      <div style="font-size:0.68rem;opacity:0.6;">WhatsApp</div>
+      <div>Chat with us now</div>
+    </div>
+  </a>
+  <div class="cstrip-item">
+    <div class="cstrip-icon">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+        <circle cx="8" cy="7" r="3" stroke="#0d2818" stroke-width="1.5" fill="none"/>
+        <path d="M8 1C5.24 1 3 3.24 3 6C3 9.5 8 15 8 15C8 15 13 9.5 13 6C13 3.24 10.76 1 8 1Z" stroke="#0d2818" stroke-width="1.5" fill="none"/>
+      </svg>
+    </div>
+    <div>
+      <div style="font-size:0.68rem;opacity:0.6;">Open Today</div>
+      <div>Mon–Sat 8am – 6pm</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ MAP + INFO PANEL ═══ -->
+<div class="map-section">
+
+  <!-- MAP — Google Maps embeds here. Replace YOUR_API_KEY with your real key -->
+  <div class="map-container">
+    <!-- ✅ OPTION A: Once you have your API key, replace this entire div with:
+    <iframe
+      id="gmap"
+      src="https://www.google.com/maps/embed/v1/place?key=YOUR_API_KEY&q=Kabimbiri,Kayunga+Road,Uganda&zoom=15&maptype=roadmap"
+      width="100%" height="100%" style="border:0;min-height:580px;" allowfullscreen loading="lazy">
+    </iframe>
+
+    ✅ OPTION B (no API key needed, free forever):
+    <iframe
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.6!2d32.89!3d0.71!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMMKwNDInMzYuMCJOIDMywrA1Myc0NC4wIkU!5e0!3m2!1sen!2sug!4v1234567890"
+      width="100%" height="580" style="border:0;display:block;" allowfullscreen loading="lazy">
+    </iframe>
+    -->
+
+    <!-- Illustrated map shown until API key is added -->
+    <div class="illustrated-map">
+      <svg viewBox="0 0 700 580" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;min-height:580px;">
+        <!-- Map background -->
+        <rect width="700" height="580" fill="#1a3a12"/>
+        <!-- Road grid -->
+        <!-- Main Kayunga Road (horizontal) -->
+        <rect x="0" y="275" width="700" height="18" fill="#c8a96e" opacity="0.5"/>
+        <rect x="0" y="279" width="700" height="10" fill="#c8a96e" opacity="0.3"/>
+        <!-- Dashes on road -->
+        <rect x="50" y="283" width="40" height="2" fill="#c8a96e" opacity="0.6"/>
+        <rect x="130" y="283" width="40" height="2" fill="#c8a96e" opacity="0.6"/>
+        <rect x="210" y="283" width="40" height="2" fill="#c8a96e" opacity="0.6"/>
+        <rect x="290" y="283" width="40" height="2" fill="#c8a96e" opacity="0.6"/>
+        <rect x="370" y="283" width="40" height="2" fill="#c8a96e" opacity="0.6"/>
+        <rect x="450" y="283" width="40" height="2" fill="#c8a96e" opacity="0.6"/>
+        <rect x="530" y="283" width="40" height="2" fill="#c8a96e" opacity="0.6"/>
+        <rect x="610" y="283" width="40" height="2" fill="#c8a96e" opacity="0.6"/>
+
+        <!-- Secondary road (vertical) -->
+        <rect x="348" y="0" width="14" height="580" fill="#b89840" opacity="0.3"/>
+
+        <!-- Roundabout at intersection -->
+        <circle cx="355" cy="284" r="35" fill="#1a3a12" stroke="#c8a96e" stroke-width="3" opacity="0.7"/>
+        <circle cx="355" cy="284" r="20" fill="#2d5a1e" stroke="#c8a96e" stroke-width="1.5" opacity="0.5"/>
+        <!-- Mini roundabout tree -->
+        <ellipse cx="355" cy="284" rx="12" ry="10" fill="#3a7a28"/>
+        <ellipse cx="355" cy="278" rx="9" ry="8" fill="#4a8a34"/>
+
+        <!-- Trees lining the road -->
+        <ellipse cx="40" cy="255" rx="18" ry="15" fill="#1a5c12" opacity="0.8"/>
+        <ellipse cx="100" cy="258" rx="16" ry="14" fill="#2d6a20" opacity="0.8"/>
+        <ellipse cx="160" cy="254" rx="17" ry="15" fill="#1a5c12" opacity="0.8"/>
+        <ellipse cx="220" cy="257" rx="16" ry="13" fill="#2d6a20" opacity="0.7"/>
+        <ellipse cx="280" cy="255" rx="18" ry="15" fill="#1a5c12" opacity="0.8"/>
+        <ellipse cx="440" cy="258" rx="16" ry="14" fill="#2d6a20" opacity="0.8"/>
+        <ellipse cx="510" cy="254" rx="17" ry="15" fill="#1a5c12" opacity="0.8"/>
+        <ellipse cx="580" cy="257" rx="16" ry="13" fill="#2d6a20" opacity="0.7"/>
+        <ellipse cx="650" cy="255" rx="18" ry="15" fill="#1a5c12" opacity="0.8"/>
+
+        <!-- Same on south side -->
+        <ellipse cx="40" cy="312" rx="18" ry="15" fill="#1a5c12" opacity="0.7"/>
+        <ellipse cx="100" cy="309" rx="16" ry="14" fill="#2d6a20" opacity="0.7"/>
+        <ellipse cx="160" cy="313" rx="17" ry="15" fill="#1a5c12" opacity="0.7"/>
+        <ellipse cx="220" cy="310" rx="16" ry="13" fill="#2d6a20" opacity="0.6"/>
+        <ellipse cx="280" cy="312" rx="18" ry="15" fill="#1a5c12" opacity="0.7"/>
+        <ellipse cx="440" cy="309" rx="16" ry="14" fill="#2d6a20" opacity="0.7"/>
+        <ellipse cx="510" cy="313" rx="17" ry="15" fill="#1a5c12" opacity="0.7"/>
+        <ellipse cx="580" cy="310" rx="16" ry="13" fill="#2d6a20" opacity="0.6"/>
+        <ellipse cx="650" cy="312" rx="18" ry="15" fill="#1a5c12" opacity="0.7"/>
+
+        <!-- Fields / land blocks -->
+        <rect x="20" y="60" width="120" height="90" rx="4" fill="#2d5a1e" opacity="0.4"/>
+        <rect x="160" y="80" width="100" height="80" rx="4" fill="#3a6a24" opacity="0.3"/>
+        <rect x="420" y="70" width="130" height="95" rx="4" fill="#2d5a1e" opacity="0.35"/>
+        <rect x="560" y="90" width="100" height="70" rx="4" fill="#3a6a24" opacity="0.3"/>
+        <rect x="80" y="380" width="140" height="100" rx="4" fill="#2d5a1e" opacity="0.35"/>
+        <rect x="440" y="370" width="120" height="110" rx="4" fill="#3a6a24" opacity="0.3"/>
+        <rect x="580" y="400" width="90" height="80" rx="4" fill="#2d5a1e" opacity="0.3"/>
+
+        <!-- Nursery block (highlighted) -->
+        <rect x="150" y="170" width="130" height="95" rx="6" fill="#1a4a1a"/>
+        <rect x="152" y="172" width="126" height="91" rx="5" fill="#2a6020" opacity="0.8"/>
+        <!-- Nursery trees pattern -->
+        <circle cx="175" cy="195" r="8" fill="#3a8a28"/>
+        <circle cx="200" cy="192" r="7" fill="#4a9a32"/>
+        <circle cx="225" cy="195" r="8" fill="#3a8a28"/>
+        <circle cx="250" cy="192" r="7" fill="#4a9a32"/>
+        <circle cx="175" cy="218" r="8" fill="#4a9a32"/>
+        <circle cx="200" cy="215" r="7" fill="#3a8a28"/>
+        <circle cx="225" cy="218" r="8" fill="#4a9a32"/>
+        <circle cx="250" cy="215" r="7" fill="#3a8a28"/>
+        <!-- Nursery label -->
+        <rect x="148" y="162" width="138" height="22" rx="11" fill="#7ab648"/>
+        <text x="162" y="177" font-family="sans-serif" font-size="11" font-weight="bold" fill="#0d2818">🌳 Elite Tree Solutions</text>
+
+        <!-- PIN drop on nursery -->
+        <ellipse cx="215" cy="272" rx="10" ry="4" fill="rgba(0,0,0,0.3)"/>
+        <path d="M215 230 C215 230 200 246 200 256 C200 264.8 207 272 215 272 C223 272 230 264.8 230 256 C230 246 215 230 215 230Z" fill="#e53935"/>
+        <circle cx="215" cy="255" r="6" fill="white"/>
+
+        <!-- Distance marker: 500m from roundabout -->
+        <line x1="215" y1="284" x2="355" y2="284" stroke="#c8a96e" stroke-width="1.5" stroke-dasharray="6,4" opacity="0.7"/>
+        <rect x="255" y="270" width="58" height="18" rx="9" fill="rgba(200,169,110,0.2)" stroke="rgba(200,169,110,0.4)" stroke-width="1"/>
+        <text x="261" y="283" font-family="sans-serif" font-size="10" fill="#c8a96e">← 500m</text>
+
+        <!-- Road labels -->
+        <rect x="420" y="260" width="130" height="20" rx="0" fill="rgba(13,40,24,0)"/>
+        <text x="430" y="275" font-family="sans-serif" font-size="12" font-weight="bold" fill="#c8a96e" opacity="0.8">Kayunga Road →</text>
+
+        <!-- Compass -->
+        <circle cx="648" cy="48" r="28" fill="rgba(13,40,24,0.7)" stroke="rgba(200,169,110,0.3)" stroke-width="1"/>
+        <path d="M648 28 L653 48 L648 44 L643 48Z" fill="#c8a96e"/>
+        <path d="M648 68 L643 48 L648 52 L653 48Z" fill="rgba(200,169,110,0.3)"/>
+        <text x="645" y="24" font-family="sans-serif" font-size="10" fill="#c8a96e" font-weight="bold">N</text>
+
+        <!-- Scale bar -->
+        <rect x="30" y="540" width="100" height="3" fill="#c8a96e" opacity="0.5"/>
+        <rect x="30" y="537" width="2" height="9" fill="#c8a96e" opacity="0.5"/>
+        <rect x="130" y="537" width="2" height="9" fill="#c8a96e" opacity="0.5"/>
+        <text x="55" y="555" font-family="sans-serif" font-size="10" fill="rgba(245,240,232,0.4)">approx. 500m</text>
+
+        <!-- "Illustrated Map" watermark -->
+        <rect x="240" y="530" width="210" height="30" rx="15" fill="rgba(13,40,24,0.6)"/>
+        <text x="270" y="550" font-family="sans-serif" font-size="11" fill="rgba(245,240,232,0.3)">🗺 Illustrated — Not to Scale</text>
+      </svg>
+    </div>
+  </div>
+
+  <!-- INFO PANEL -->
+  <div class="info-panel">
+    <div>
+      <div class="info-panel-sub">You've Found Us</div>
+      <div class="info-panel-title">Elite Tree Solutions</div>
+    </div>
+
+    <div class="info-block">
+      <div class="info-block-label">📍 Address</div>
+      <div class="info-block-content">
+        <strong>Kabimbiri, along Kayunga Road</strong><br>
+        500m from the Roundabout<br>
+        Kayunga District, Uganda
+      </div>
+    </div>
+
+    <div class="info-block">
+      <div class="info-block-label">📞 Contact</div>
+      <div class="info-block-content">
+        <strong>Phone / WhatsApp:</strong><br>
+        <a href="tel:+256706191725">+256 706 191 725</a><br><br>
+        <strong>Email:</strong><br>
+        <a href="mailto:elitetreesolutions26@gmail.com">elitetreesolutions26@gmail.com</a>
+      </div>
+    </div>
+
+    <div class="info-block">
+      <div class="info-block-label">🕐 Opening Hours</div>
+      <div>
+        <div class="hours-row">
+          <span class="hours-day">Monday</span>
+          <span class="hours-time">8:00am – 6:00pm <span class="open-badge">Open</span></span>
+        </div>
+        <div class="hours-row">
+          <span class="hours-day">Tuesday</span>
+          <span class="hours-time">8:00am – 6:00pm</span>
+        </div>
+        <div class="hours-row">
+          <span class="hours-day">Wednesday</span>
+          <span class="hours-time">8:00am – 6:00pm</span>
+        </div>
+        <div class="hours-row">
+          <span class="hours-day">Thursday</span>
+          <span class="hours-time">8:00am – 6:00pm</span>
+        </div>
+        <div class="hours-row">
+          <span class="hours-day">Friday</span>
+          <span class="hours-time">8:00am – 6:00pm</span>
+        </div>
+        <div class="hours-row">
+          <span class="hours-day">Saturday</span>
+          <span class="hours-time">8:00am – 6:00pm</span>
+        </div>
+        <div class="hours-row">
+          <span class="hours-day">Sunday</span>
+          <span class="hours-time hours-closed">Closed</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="info-block" style="display:flex;flex-direction:column;gap:0.8rem;">
+      <a href="https://www.google.com/maps/dir/?api=1&destination=Kabimbiri+Kayunga+Road+Uganda" target="_blank" class="directions-btn">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+          <path d="M9 1L17 9L9 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M1 9H17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        Get Directions on Google Maps
+      </a>
+      <a href="https://wa.me/256706191725?text=Hello%20Elite%20Tree%20Solutions!%20I%20am%20planning%20to%20visit%20the%20nursery." target="_blank" class="wa-btn">
+        <svg width="18" height="18" viewBox="0 0 28 28" fill="none">
+          <path d="M14 2C7.37 2 2 7.37 2 14C2 16.39 2.68 18.62 3.85 20.5L2.1 25.9L7.65 24.18C9.47 25.24 11.67 25.86 14 25.86C20.63 25.86 26 20.49 26 13.86C26 7.37 20.63 2 14 2Z" fill="white" opacity="0.9"/>
+          <path d="M20.5 17.5C20.2 18.3 18.9 19 18 19.1C17.2 19.2 16.2 19.2 15.1 18.9C14.4 18.6 13.5 18.3 12.4 17.8C9.9 16.6 8.3 14.1 8.1 13.9C7.9 13.6 6.5 11.7 6.5 9.8C6.5 7.8 7.5 6.9 7.9 6.4C8.3 5.9 8.8 5.8 9.1 5.8C9.3 5.8 9.6 5.8 9.8 5.8C10.1 5.8 10.4 5.7 10.8 6.6C11.1 7.4 11.9 9.3 12 9.5C12.1 9.7 12.1 9.9 12 10.1C11.9 10.3 11.8 10.5 11.6 10.7C11.4 10.9 11.2 11.2 11 11.4C10.8 11.6 10.6 11.8 10.8 12.1C11 12.5 11.8 13.7 12.9 14.7C14.3 15.9 15.5 16.3 15.9 16.5C16.2 16.6 16.5 16.6 16.7 16.3C16.9 16 17.7 15.1 18 14.8C18.2 14.5 18.5 14.5 18.8 14.6C19.1 14.7 21 15.6 21.3 15.8C21.6 16 21.8 16.1 21.9 16.2C22 16.7 22 17.5 20.5 17.5Z" fill="#25D366"/>
+        </svg>
+        WhatsApp Before You Visit
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ HOW TO FIND US ═══ -->
+<section class="find-section reveal">
+  <div class="section-label" style="justify-content:flex-start;">
+    <span style="width:25px;height:1px;background:var(--leaf);display:block;"></span>
+    Directions
+  </div>
+  <h2 style="font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3vw,2.8rem);font-weight:900;margin-bottom:0.5rem;">How to Find Us</h2>
+  <p style="font-size:0.92rem;color:var(--sage);max-width:600px;line-height:1.7;font-weight:300;">Simple step-by-step directions from Kampala to our nursery in Kabimbiri — whether you're driving, using a boda-boda, or asking a local.</p>
+
+  <div class="find-grid">
+    <div class="find-steps">
+      <div class="find-step">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <h4>Start from Kampala City Centre</h4>
+          <p>Head northeast on the Jinja Road (Northern Bypass or through Mukono). The journey from Kampala takes approximately 1 hour 15 minutes by car.</p>
+        </div>
+      </div>
+      <div class="find-step">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <h4>Pass through Mukono Town</h4>
+          <p>Continue through Mukono, staying on the main road heading towards Kayunga. The road is tarmac and in good condition for most of the journey.</p>
+        </div>
+      </div>
+      <div class="find-step">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <h4>Turn onto Kayunga Road</h4>
+          <p>At the main Kayunga Road junction, turn and head along the Kayunga Road. Look for the signage for Kabimbiri village as you approach.</p>
+        </div>
+      </div>
+      <div class="find-step">
+        <div class="step-num">4</div>
+        <div class="step-content">
+          <h4>Find the Kabimbiri Roundabout</h4>
+          <p>When you reach the Kabimbiri Roundabout, you are almost there! Our nursery entrance is exactly <strong>500 metres from the roundabout</strong> along Kayunga Road.</p>
+        </div>
+      </div>
+      <div class="find-step">
+        <div class="step-num">5</div>
+        <div class="step-content">
+          <h4>Look for Our Sign — You've Arrived!</h4>
+          <p>Look for the Elite Tree Solutions signage on your left. You'll see our beautiful nursery grounds — hundreds of trees in full display. You can't miss it! 🌳</p>
+        </div>
+      </div>
+      <div style="margin-top:0.5rem;padding:1rem 1.2rem;background:var(--mist);border-radius:0.8rem;border-left:3px solid var(--leaf);">
+        <p style="font-size:0.85rem;color:var(--sage);line-height:1.6;"><strong style="color:var(--forest);">Lost?</strong> Just call or WhatsApp us on <a href="tel:+256706191725" style="color:var(--leaf);text-decoration:none;font-weight:500;">+256 706 191 725</a> and we'll guide you in!</p>
+      </div>
+    </div>
+
+    <!-- Illustrated route -->
+    <div class="route-visual">
+      <svg viewBox="0 0 380 460" fill="none">
+        <rect width="380" height="460" fill="#0d2010"/>
+        <!-- Road from bottom to top -->
+        <path d="M165 460 L165 60 Q165 40 180 30 Q195 20 210 30 Q225 40 225 60 L225 460Z" fill="#c8a96e" opacity="0.25"/>
+        <path d="M180 460 L180 65 Q180 48 190 40 L200 35 L210 40 Q220 48 220 65 L220 460Z" fill="#c8a96e" opacity="0.2"/>
+        <!-- Road dashes -->
+        <rect x="198" y="380" width="4" height="25" rx="2" fill="#c8a96e" opacity="0.5"/>
+        <rect x="198" y="340" width="4" height="25" rx="2" fill="#c8a96e" opacity="0.5"/>
+        <rect x="198" y="300" width="4" height="25" rx="2" fill="#c8a96e" opacity="0.5"/>
+        <rect x="198" y="260" width="4" height="25" rx="2" fill="#c8a96e" opacity="0.5"/>
+        <rect x="198" y="220" width="4" height="25" rx="2" fill="#c8a96e" opacity="0.5"/>
+        <rect x="198" y="180" width="4" height="25" rx="2" fill="#c8a96e" opacity="0.5"/>
+        <rect x="198" y="140" width="4" height="25" rx="2" fill="#c8a96e" opacity="0.5"/>
+
+        <!-- Stop 1: Kampala -->
+        <circle cx="200" cy="430" r="18" fill="#1a4a2e" stroke="#c8a96e" stroke-width="1.5"/>
+        <text x="192" y="435" font-family="sans-serif" font-size="11" fill="#c8a96e" font-weight="bold">KLA</text>
+        <rect x="228" y="420" width="120" height="26" rx="13" fill="rgba(200,169,110,0.1)" stroke="rgba(200,169,110,0.2)" stroke-width="1"/>
+        <text x="238" y="437" font-family="sans-serif" font-size="11" fill="rgba(245,240,232,0.6)">Kampala Centre</text>
+
+        <!-- Stop 2: Mukono -->
+        <circle cx="200" cy="330" r="14" fill="#1a3a1a" stroke="rgba(200,169,110,0.5)" stroke-width="1.5"/>
+        <text x="193" y="335" font-family="sans-serif" font-size="10" fill="#c8a96e">MK</text>
+        <rect x="222" y="320" width="100" height="24" rx="12" fill="rgba(200,169,110,0.08)" stroke="rgba(200,169,110,0.15)" stroke-width="1"/>
+        <text x="232" y="336" font-family="sans-serif" font-size="10" fill="rgba(245,240,232,0.5)">Mukono Town</text>
+        <rect x="20" y="323" width="70" height="20" rx="10" fill="rgba(122,182,72,0.1)"/>
+        <text x="28" y="337" font-family="sans-serif" font-size="9" fill="#7ab648">~35 mins</text>
+
+        <!-- Kayunga Road sign -->
+        <rect x="240" y="230" width="110" height="24" rx="4" fill="#1a5c12" stroke="rgba(122,182,72,0.4)" stroke-width="1"/>
+        <text x="252" y="246" font-family="sans-serif" font-size="10" font-weight="bold" fill="white">Kayunga Road →</text>
+
+        <!-- Stop 3: Roundabout -->
+        <circle cx="200" cy="195" r="28" fill="#0d2010" stroke="#c8a96e" stroke-width="2" opacity="0.8"/>
+        <circle cx="200" cy="195" r="16" fill="#1a4a1a" stroke="#c8a96e" stroke-width="1" opacity="0.6"/>
+        <ellipse cx="200" cy="195" rx="9" ry="8" fill="#3a7a28"/>
+        <rect x="224" y="183" width="118" height="24" rx="12" fill="rgba(200,169,110,0.1)" stroke="rgba(200,169,110,0.2)" stroke-width="1"/>
+        <text x="233" y="199" font-family="sans-serif" font-size="10" fill="rgba(245,240,232,0.6)">Kabimbiri Roundabout</text>
+
+        <!-- 500m arrow -->
+        <path d="M200 163 L200 120" stroke="#7ab648" stroke-width="2" stroke-dasharray="5,3"/>
+        <path d="M194 125 L200 110 L206 125" stroke="#7ab648" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        <rect x="218" y="128" width="80" height="20" rx="10" fill="rgba(122,182,72,0.15)" stroke="rgba(122,182,72,0.3)" stroke-width="1"/>
+        <text x="228" y="142" font-family="sans-serif" font-size="10" fill="#7ab648">500m ahead</text>
+
+        <!-- DESTINATION: Nursery -->
+        <rect x="140" y="60" width="120" height="44" rx="10" fill="#7ab648"/>
+        <text x="154" y="79" font-family="sans-serif" font-size="12" font-weight="bold" fill="#0d2818">🌳 You're Here!</text>
+        <text x="152" y="96" font-family="sans-serif" font-size="10" fill="#0d2818" opacity="0.8">Elite Tree Solutions</text>
+
+        <!-- Time indicator -->
+        <rect x="10" y="10" width="115" height="38" rx="8" fill="rgba(200,169,110,0.12)" stroke="rgba(200,169,110,0.25)" stroke-width="1"/>
+        <text x="20" y="28" font-family="sans-serif" font-size="11" fill="#c8a96e" font-weight="bold">Total Journey</text>
+        <text x="20" y="43" font-family="sans-serif" font-size="10" fill="rgba(245,240,232,0.5)">~1hr 15min from KLA</text>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ NEARBY LANDMARKS ═══ -->
+<section class="landmarks reveal">
+  <div class="section-label" style="justify-content:flex-start;">
+    <span style="width:25px;height:1px;background:var(--leaf);display:block;"></span>
+    Nearby
+  </div>
+  <h2 style="font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3vw,2.6rem);font-weight:900;">Nearby Landmarks</h2>
+  <p style="font-size:0.9rem;color:var(--sage);margin-top:0.5rem;font-weight:300;">Use these to orient yourself when you're close.</p>
+
+  <div class="landmarks-grid">
+    <div class="landmark-card">
+      <div class="landmark-dist">500m away</div>
+      <div class="landmark-name">Kabimbiri Roundabout</div>
+      <div class="landmark-dir">Our most important landmark. Once you see the roundabout, we are 500m along Kayunga Road from it. Look left.</div>
+    </div>
+    <div class="landmark-card">
+      <div class="landmark-dist">~3km away</div>
+      <div class="landmark-name">Kayunga Town Centre</div>
+      <div class="landmark-dir">The nearest major town. Good reference point if travelling from upcountry. Ask any local for Kayunga Road from here.</div>
+    </div>
+    <div class="landmark-card">
+      <div class="landmark-dist">~35km away</div>
+      <div class="landmark-name">Mukono Town</div>
+      <div class="landmark-dir">The last major town you'll pass through coming from Kampala. Continue northeast on the main road after Mukono.</div>
+    </div>
+    <div class="landmark-card">
+      <div class="landmark-dist">~75km away</div>
+      <div class="landmark-name">Kampala City Centre</div>
+      <div class="landmark-dir">Our starting point for most customers. The journey takes roughly 1 hour 15 minutes by car via the Jinja Road corridor.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SERVICE AREA ═══ -->
+<section class="service-area reveal">
+  <div class="area-intro">
+    <div class="area-text">
+      <div class="section-label" style="justify-content:flex-start;color:var(--leaf);">
+        <span style="width:25px;height:1px;background:var(--leaf);display:block;"></span>
+        We Come to You
+      </div>
+      <h2>Our Service Area Across Uganda</h2>
+      <p>Can't visit us? No problem. Our delivery and planting teams travel across Uganda to bring our trees directly to you. We currently serve 12 districts and growing.</p>
+      <div class="district-tags">
+        <span class="dtag">Kampala</span>
+        <span class="dtag">Wakiso</span>
+        <span class="dtag">Mukono</span>
+        <span class="dtag">Kayunga</span>
+        <span class="dtag">Jinja</span>
+        <span class="dtag">Buikwe</span>
+        <span class="dtag">Mpigi</span>
+        <span class="dtag">Entebbe</span>
+        <span class="dtag">Masaka</span>
+        <span class="dtag">Mbarara</span>
+        <span class="dtag">Kasese</span>
+        <span class="dtag">Mbale</span>
+        <span class="dtag">+ More on request</span>
+      </div>
+      <p style="margin-top:1.5rem;font-size:0.85rem;color:rgba(245,240,232,0.4);">For areas outside our standard coverage, contact us — we will do our best to find a solution.</p>
+    </div>
+
+    <!-- Uganda silhouette map -->
+    <div class="uganda-map-wrap">
+      <svg viewBox="0 0 340 380" fill="none">
+        <rect width="340" height="380" fill="#0d2010"/>
+        <!-- Simplified Uganda outline -->
+        <path d="M110 40 C130 30 160 25 190 30 C220 35 250 50 265 70 C280 90 285 115 280 140 C275 165 265 180 270 200 C275 220 285 235 280 255 C275 275 255 290 235 300 C215 310 190 315 170 310 C150 305 130 290 115 275 C100 260 88 240 80 215 C72 190 70 165 75 140 C80 115 90 95 95 75 C100 55 110 40 110 40Z" fill="#1a4a2e" stroke="rgba(122,182,72,0.3)" stroke-width="1.5"/>
+        <!-- Lake Victoria (simplified) -->
+        <path d="M195 295 C220 288 245 275 255 255 C265 235 258 215 245 205 C232 195 215 198 202 208 C189 218 185 235 188 255 C191 275 195 295 195 295Z" fill="#0d2840" opacity="0.8"/>
+        <text x="210" y="252" font-family="sans-serif" font-size="8" fill="rgba(144,188,212,0.6)">L. Victoria</text>
+        <!-- Service area dots -->
+        <circle cx="155" cy="210" r="8" fill="#7ab648" opacity="0.9"/><!-- Kampala -->
+        <text x="165" y="214" font-family="sans-serif" font-size="8" fill="rgba(245,240,232,0.7)">Kampala</text>
+        <circle cx="168" cy="195" r="5" fill="#7ab648" opacity="0.7"/><!-- Wakiso -->
+        <circle cx="178" cy="205" r="5" fill="#7ab648" opacity="0.7"/><!-- Mukono -->
+        <circle cx="188" cy="185" r="6" fill="#7ab648" opacity="0.8"/><!-- Kayunga (us!) -->
+        <circle cx="188" cy="185" r="10" fill="none" stroke="#7ab648" stroke-width="1.5" opacity="0.5"/>
+        <text x="198" y="183" font-family="sans-serif" font-size="7" fill="#7ab648">← Us</text>
+        <circle cx="198" cy="215" r="5" fill="#7ab648" opacity="0.7"/><!-- Jinja -->
+        <text x="204" y="218" font-family="sans-serif" font-size="7" fill="rgba(245,240,232,0.5)">Jinja</text>
+        <circle cx="195" cy="225" r="4" fill="#7ab648" opacity="0.6"/><!-- Buikwe -->
+        <circle cx="145" cy="220" r="4" fill="#7ab648" opacity="0.6"/><!-- Mpigi -->
+        <circle cx="162" cy="228" r="4" fill="#7ab648" opacity="0.6"/><!-- Entebbe -->
+        <circle cx="140" cy="255" r="5" fill="#7ab648" opacity="0.7"/><!-- Masaka -->
+        <text x="147" y="258" font-family="sans-serif" font-size="7" fill="rgba(245,240,232,0.5)">Masaka</text>
+        <circle cx="130" cy="295" r="5" fill="#7ab648" opacity="0.6"/><!-- Mbarara -->
+        <text x="137" y="298" font-family="sans-serif" font-size="7" fill="rgba(245,240,232,0.5)">Mbarara</text>
+        <circle cx="110" cy="230" r="4" fill="#7ab648" opacity="0.5"/><!-- Kasese -->
+        <text x="115" y="233" font-family="sans-serif" font-size="7" fill="rgba(245,240,232,0.4)">Kasese</text>
+        <circle cx="230" cy="195" r="4" fill="#7ab648" opacity="0.6"/><!-- Mbale -->
+        <text x="236" y="198" font-family="sans-serif" font-size="7" fill="rgba(245,240,232,0.5)">Mbale</text>
+        <!-- Legend -->
+        <circle cx="25" cy="345" r="5" fill="#7ab648" opacity="0.8"/>
+        <text x="34" y="349" font-family="sans-serif" font-size="9" fill="rgba(245,240,232,0.5)">Service Area</text>
+        <circle cx="25" cy="362" r="5" fill="#7ab648" opacity="0.9"/>
+        <circle cx="25" cy="362" r="9" fill="none" stroke="#7ab648" stroke-width="1.5" opacity="0.5"/>
+        <text x="38" y="366" font-family="sans-serif" font-size="9" fill="#7ab648">Our Nursery</text>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CONTACT FORM ═══ -->
+<section class="contact-section reveal">
+  <div class="contact-intro">
+    <div class="section-label" style="justify-content:flex-start;">
+      <span style="width:25px;height:1px;background:var(--leaf);display:block;"></span>
+      Get In Touch
+    </div>
+    <h2>Send Us a Message</h2>
+    <p>Whether you want to place an order, ask for advice, plan a visit, or discuss a big project — we're here and we reply quickly.</p>
+    <div class="contact-methods">
+      <a href="tel:+256706191725" class="contact-method">
+        <div class="contact-method-icon" style="background:#e8f5e9;">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <path d="M4 2C4 2 3 2 2.5 3C2 4 2 5 3 7C4 9 6 11 8 12.5C10 14 12 15.5 14 16C15 16.5 16 16 16 16L15 13L12.5 12.5L11.5 13.5C11.5 13.5 9.5 12.5 8 11C6.5 9.5 5.5 7.5 5.5 7.5L6.5 6.5L6 4L4 2Z" fill="#4a7c59"/>
+          </svg>
+        </div>
+        <div>
+          <div class="contact-method-label">Call Direct</div>
+          <div class="contact-method-value">+256 706 191 725</div>
+        </div>
+      </a>
+      <a href="mailto:elitetreesolutions26@gmail.com" class="contact-method">
+        <div class="contact-method-icon" style="background:#e8f5e9;">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <rect x="2" y="4" width="16" height="12" rx="2" stroke="#4a7c59" stroke-width="1.5" fill="none"/>
+            <path d="M2 7L10 11L18 7" stroke="#4a7c59" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div>
+          <div class="contact-method-label">Email</div>
+          <div class="contact-method-value">elitetreesolutions26@gmail.com</div>
+        </div>
+      </a>
+      <a href="https://wa.me/256706191725" target="_blank" class="contact-method">
+        <div class="contact-method-icon" style="background:#e8f5e9;">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <path d="M10 2C5.58 2 2 5.58 2 10C2 11.7 2.5 13.27 3.37 14.59L2.08 18L5.59 16.72C6.87 17.52 8.38 18 10 18C14.42 18 18 14.42 18 10C18 5.58 14.42 2 10 2Z" fill="#25D366" opacity="0.9"/>
+          </svg>
+        </div>
+        <div>
+          <div class="contact-method-label">WhatsApp (fastest)</div>
+          <div class="contact-method-value">+256 706 191 725</div>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <div class="contact-form">
+    <h3>Send a Message</h3>
+    <div id="contactFormInner">
+      <div class="form-row">
+        <div class="form-group">
+          <label>First Name</label>
+          <input type="text" id="fname" placeholder="Kakuye">
+        </div>
+        <div class="form-group">
+          <label>Last Name</label>
+          <input type="text" id="lname" placeholder="Musajja">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Phone / WhatsApp</label>
+        <input type="tel" id="phone" placeholder="+256 700 000 000">
+      </div>
+      <div class="form-group">
+        <label>What are you interested in?</label>
+        <select id="interest">
+          <option value="">Select an option...</option>
+          <option>Buying trees from the nursery</option>
+          <option>Delivery to my location</option>
+          <option>Landscape design project</option>
+          <option>Reforestation / bulk order</option>
+          <option>Arborist consultation</option>
+          <option>Planning a nursery visit</option>
+          <option>Something else</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Your Message</label>
+        <textarea id="message" placeholder="Tell us what you need and we'll get back to you the same day..."></textarea>
+      </div>
+      <button class="form-submit" onclick="submitForm()">Send Message →</button>
+    </div>
+    <div class="form-success" id="formSuccess">
+      <svg width="56" height="56" viewBox="0 0 56 56" fill="none">
+        <circle cx="28" cy="28" r="26" fill="rgba(122,182,72,0.1)" stroke="#7ab648" stroke-width="2"/>
+        <path d="M18 28 L25 35 L38 20" stroke="#7ab648" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <h4>Message Sent!</h4>
+      <p>Thank you! Kakuye and the team will get back to you shortly — usually within a few hours. You can also reach us directly on WhatsApp for the fastest reply.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="footer-logo">Elite Tree Solutions</div>
+    <p style="margin-top:0.3rem;">Owned by Kakuye Hitler Musajja &middot; Kabimbiri, Uganda 🇺🇬</p>
+  </div>
+  <p>&#169; 2025 Elite Tree Solutions. All rights reserved.</p>
+  <div style="display:flex;gap:1.5rem;">
+    <a href="index.html" style="color:rgba(245,240,232,0.4);font-size:0.8rem;text-decoration:none;">Home</a>
+    <a href="gallery.html" style="color:rgba(245,240,232,0.4);font-size:0.8rem;text-decoration:none;">Gallery</a>
+    <a href="portfolio.html" style="color:rgba(245,240,232,0.4);font-size:0.8rem;text-decoration:none;">Portfolio</a>
+  </div>
+</footer>
+
+<a href="https://wa.me/256706191725?text=Hello%20Elite%20Tree%20Solutions!" target="_blank" id="waBtn" title="Chat on WhatsApp">
+  <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+    <path d="M14 2C7.37 2 2 7.37 2 14C2 16.39 2.68 18.62 3.85 20.5L2.1 25.9L7.65 24.18C9.47 25.24 11.67 25.86 14 25.86C20.63 25.86 26 20.49 26 13.86C26 7.37 20.63 2 14 2Z" fill="white" opacity="0.95"/>
+    <path d="M20.5 17.5C20.2 18.3 18.9 19 18 19.1C17.2 19.2 16.2 19.2 15.1 18.9C14.4 18.6 13.5 18.3 12.4 17.8C9.9 16.6 8.3 14.1 8.1 13.9C7.9 13.6 6.5 11.7 6.5 9.8C6.5 7.8 7.5 6.9 7.9 6.4C8.3 5.9 8.8 5.8 9.1 5.8C9.3 5.8 9.6 5.8 9.8 5.8C10.1 5.8 10.4 5.7 10.8 6.6C11.1 7.4 11.9 9.3 12 9.5C12.1 9.7 12.1 9.9 12 10.1C11.9 10.3 11.8 10.5 11.6 10.7C11.4 10.9 11.2 11.2 11 11.4C10.8 11.6 10.6 11.8 10.8 12.1C11 12.5 11.8 13.7 12.9 14.7C14.3 15.9 15.5 16.3 15.9 16.5C16.2 16.6 16.5 16.6 16.7 16.3C16.9 16 17.7 15.1 18 14.8C18.2 14.5 18.5 14.5 18.8 14.6C19.1 14.7 21 15.6 21.3 15.8C21.6 16 21.8 16.1 21.9 16.2C22 16.7 22 17.5 20.5 17.5Z" fill="#25D366"/>
+  </svg>
+</a>
+
+<script>
+  function submitForm() {
+    const name = document.getElementById('fname').value;
+    const interest = document.getElementById('interest').value;
+    if(!name || !interest) {
+      alert('Please fill in your name and what you\'re interested in!');
+      return;
+    }
+    document.getElementById('contactFormInner').style.display = 'none';
+    document.getElementById('formSuccess').style.display = 'block';
+  }
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
