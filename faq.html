@@ -296,7 +296,7 @@
 
       <div class="faq-item" onclick="toggleFaq(this)">
         <button class="faq-q">How do I get in touch or visit the nursery? <span class="faq-icon">+</span></button>
-        <div class="faq-a"><p>You can reach us anytime by phone or WhatsApp on <a href="tel:+256706191725">+256 706 191 725</a>, or by email at <a href="mailto:elitetreesolutions26@gmail.com">elitetreesolutions26@gmail.com</a>. Our nursery is in Kabimbiri, along the Kayunga Road, 500 metres from the roundabout. Open Monday to Saturday, 8am to 6pm. We look forward to welcoming you!</p></div>
+        <div class="faq-a"><p>You can reach us anytime by phone or WhatsApp on <a href="tel:+256706191725">+256 706 191 725</a>, or by email at <a href="/cdn-cgi/l/email-protection#aecbc2c7dacbdadccbcbddc1c2dbdac7c1c0dd9c98eec9c3cfc7c280cdc1c3"><span class="__cf_email__" data-cfemail="d1b4bdb8a5b4a5a3b4b4a2bebda4a5b8bebfa2e3e791b6bcb0b8bdffb2bebc">[email&#160;protected]</span></a>. Our nursery is in Kabimbiri, along the Kayunga Road, 500 metres from the roundabout. Open Monday to Saturday, 8am to 6pm. We look forward to welcoming you!</p></div>
       </div>
     </div>
 
@@ -324,9 +324,9 @@
 <footer>
   <div>
     <div class="footer-logo">Elite Tree Solutions</div>
-    <p style="margin-top:0.3rem;">Owned by Kabuye Hitler Musujja &middot; Kabimbiri, Uganda</p>
+    <p style="margin-top:0.3rem;">Owned by Kakuye Hitler Musajja &middot; Kabimbiri, Uganda</p>
   </div>
-  <p>&#169; 2026 Elite Tree Solutions. All rights reserved.</p>
+  <p>&#169; 2025 Elite Tree Solutions. All rights reserved.</p>
   <div style="display:flex;gap:1.5rem;">
     <a href="index.html" style="color:rgba(245,240,232,0.4);font-size:0.8rem;text-decoration:none;">Home</a>
     <a href="gallery.html" style="color:rgba(245,240,232,0.4);font-size:0.8rem;text-decoration:none;">Gallery</a>
@@ -341,7 +341,7 @@
   </svg>
 </a>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
   function toggleFaq(item) {
     const isOpen = item.classList.contains('open');
     document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
@@ -367,10 +367,23 @@
     return false;
   }
 
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
-  }, { threshold: 0.1 });
-  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  const
 </script>
+
+<!-- ADVERSE AI FLOATING BUBBLE -->
+<style>
+#adverseBtn{position:fixed;bottom:2rem;left:2rem;z-index:400;text-decoration:none;display:flex;align-items:center;}
+.adverse-bubble{width:52px;height:52px;background:linear-gradient(135deg,#1a4a2e,#0d2818);border:1.5px solid rgba(122,182,72,0.35);border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(0,0,0,0.4);animation:adversePulse 3s ease infinite;transition:all 0.3s;flex-shrink:0;}
+@keyframes adversePulse{0%,100%{box-shadow:0 4px 20px rgba(0,0,0,0.4),0 0 0 0 rgba(122,182,72,0.25);}60%{box-shadow:0 4px 20px rgba(0,0,0,0.4),0 0 0 8px rgba(122,182,72,0);}}
+#adverseBtn:hover .adverse-bubble{transform:scale(1.1);border-color:rgba(122,182,72,0.7);}
+.adverse-label{background:#0d2818;border:1.5px solid rgba(122,182,72,0.25);color:rgba(122,182,72,0.85);font-family:sans-serif;font-size:0.7rem;padding:0.35rem 0.8rem 0.35rem 0.5rem;border-radius:0 2rem 2rem 0;margin-left:-4px;white-space:nowrap;opacity:0;transform:translateX(-8px);transition:all 0.25s;pointer-events:none;font-weight:500;}
+#adverseBtn:hover .adverse-label{opacity:1;transform:translateX(0);}
+</style>
+<a href="adverse.html" id="adverseBtn" title="Ask Adverse AI">
+  <div class="adverse-bubble">
+    <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><ellipse cx="11" cy="9" rx="7.5" ry="6.5" fill="#7ab648" opacity="0.92"/><ellipse cx="11" cy="6.5" rx="5" ry="4.5" fill="#0d2818" opacity="0.55"/><rect x="9.8" y="14" width="2.4" height="7" rx="1.2" fill="#5c3d1e"/></svg>
+  </div>
+  <div class="adverse-label">🌿 Ask Adverse AI</div>
+</a>
 </body>
 </html>
