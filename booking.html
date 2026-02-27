@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Book an Appointment — Elite Tree Solutions Uganda</title>
+<meta name="description" content="Book a nursery visit, tree planting consultation, or landscape assessment with Kakuye at Elite Tree Solutions, Kabimbiri, Uganda.">
+<meta name="keywords" content="tree planting consultation Uganda, nursery visit Kabimbiri, landscape design Uganda, Elite Tree Solutions booking">
+<meta property="og:title" content="Book Appointment — Elite Tree Solutions">
+<meta property="og:description" content="Schedule a consultation or nursery visit at Kabimbiri, Kayunga Road.">
+<link rel="canonical" href="https://meech148.github.io/elitetreesolutions/booking.html">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--forest:#0d2818;--moss:#1a4a2e;--sage:#4a7c59;--leaf:#7ab648;--gold:#c8a96e;--cream:#f5f0e8;--mist:#e8f0e4;--bark:#5c3d1e;}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--forest);overflow-x:hidden;}
+nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:1.2rem 4rem;backdrop-filter:blur(20px);background:rgba(13,40,24,0.93);border-bottom:1px solid rgba(122,182,72,0.15);}
+.nav-logo{display:flex;align-items:center;gap:0.8rem;font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--cream);text-decoration:none;}
+.nav-links{display:flex;gap:1.6rem;align-items:center;}
+.nav-links a{color:rgba(245,240,232,0.7);text-decoration:none;font-size:0.8rem;letter-spacing:0.07em;text-transform:uppercase;transition:color 0.3s;}
+.nav-links a:hover,.nav-links a.active{color:var(--leaf);}
+.nav-cta{background:var(--leaf);color:var(--forest)!important;padding:0.45rem 1.2rem;border-radius:2rem;font-weight:500;}
+.nav-burger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px;}
+.nav-burger span{display:block;width:24px;height:2px;background:var(--cream);border-radius:2px;transition:all 0.3s;}
+.nav-burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.nav-burger.open span:nth-child(2){opacity:0;}
+.nav-burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+.mobile-menu{position:fixed;top:0;right:-300px;width:300px;height:100vh;z-index:250;background:var(--forest);padding:5rem 2rem 2rem;display:flex;flex-direction:column;gap:0.3rem;transition:right 0.35s ease;border-left:1px solid rgba(122,182,72,0.15);}
+.mobile-menu.open{right:0;}
+.mobile-menu a{color:rgba(245,240,232,0.75);text-decoration:none;font-size:0.95rem;padding:0.8rem 1rem;border-radius:0.6rem;transition:all 0.2s;border-left:3px solid transparent;}
+.mobile-menu a:hover{color:var(--leaf);background:rgba(122,182,72,0.06);border-left-color:var(--leaf);}
+.mob-cta{margin-top:0.5rem;background:var(--leaf)!important;color:var(--forest)!important;text-align:center;border-radius:0.8rem!important;font-weight:600;border-left:none!important;}
+.mob-overlay{position:fixed;inset:0;z-index:240;background:rgba(0,0,0,0.5);opacity:0;pointer-events:none;transition:opacity 0.3s;}
+.mob-overlay.open{opacity:1;pointer-events:all;}
+
+/* HERO */
+.hero{min-height:42vh;background:var(--forest);display:flex;align-items:center;justify-content:center;flex-direction:column;text-align:center;position:relative;overflow:hidden;padding-top:5rem;}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 70% at 50% 60%,#1a4a2e,#0d2818);}
+.hero-content{position:relative;z-index:2;padding:3rem 2rem;}
+.section-label{font-size:0.72rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--leaf);margin-bottom:1rem;display:flex;align-items:center;justify-content:center;gap:0.8rem;}
+.section-label::before,.section-label::after{content:'';display:block;width:30px;height:1px;background:var(--leaf);opacity:0.5;}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(2.4rem,5vw,4rem);font-weight:900;color:var(--cream);line-height:1.1;margin-bottom:0.8rem;}
+.hero h1 em{color:var(--gold);font-style:italic;}
+.hero p{font-size:0.95rem;color:rgba(245,240,232,0.6);max-width:500px;margin:0 auto;line-height:1.7;}
+
+/* BOOKING LAYOUT */
+.booking-wrap{max-width:1100px;margin:0 auto;padding:5rem 2rem;display:grid;grid-template-columns:1fr 420px;gap:4rem;align-items:start;}
+
+/* SERVICE SELECTION */
+.step-label{font-size:0.68rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--leaf);margin-bottom:0.8rem;}
+.step-title{font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--forest);margin-bottom:1.5rem;}
+.services-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:2.5rem;}
+.service-option{border:2px solid rgba(13,40,24,0.1);border-radius:1rem;padding:1.4rem;cursor:pointer;transition:all 0.25s;background:white;position:relative;}
+.service-option:hover{border-color:var(--leaf);transform:translateY(-2px);}
+.service-option.selected{border-color:var(--leaf);background:rgba(122,182,72,0.06);}
+.service-option.selected::after{content:'✓';position:absolute;top:0.7rem;right:0.8rem;color:var(--leaf);font-weight:700;font-size:0.9rem;}
+.service-icon{font-size:1.8rem;margin-bottom:0.5rem;}
+.service-name{font-family:'Playfair Display',serif;font-size:0.95rem;color:var(--forest);font-weight:700;margin-bottom:0.2rem;}
+.service-desc{font-size:0.72rem;color:var(--sage);line-height:1.5;}
+.service-price{font-size:0.72rem;color:var(--leaf);font-weight:600;margin-top:0.4rem;}
+
+/* DATE/TIME PICKER */
+.picker-section{margin-bottom:2.5rem;}
+.month-nav{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;}
+.month-nav button{background:none;border:1px solid rgba(13,40,24,0.15);border-radius:50%;width:32px;height:32px;cursor:pointer;font-size:0.9rem;color:var(--forest);transition:all 0.2s;}
+.month-nav button:hover{background:var(--leaf);color:var(--forest);border-color:var(--leaf);}
+.month-name{font-family:'Playfair Display',serif;font-size:1rem;color:var(--forest);font-weight:700;}
+.calendar-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;}
+.cal-header{text-align:center;font-size:0.65rem;text-transform:uppercase;letter-spacing:0.1em;color:rgba(13,40,24,0.35);padding:0.3rem 0;font-weight:500;}
+.cal-day{text-align:center;padding:0.45rem;border-radius:0.5rem;font-size:0.82rem;cursor:pointer;transition:all 0.2s;color:var(--forest);}
+.cal-day:hover:not(.disabled):not(.empty){background:rgba(122,182,72,0.12);color:var(--leaf);}
+.cal-day.selected{background:var(--leaf);color:var(--forest);font-weight:700;}
+.cal-day.today{border:1.5px solid rgba(122,182,72,0.4);}
+.cal-day.disabled{color:rgba(13,40,24,0.2);cursor:default;}
+.cal-day.empty{cursor:default;}
+.time-slots{display:grid;grid-template-columns:repeat(3,1fr);gap:0.5rem;margin-top:1.2rem;}
+.time-slot{padding:0.6rem;text-align:center;border:1.5px solid rgba(13,40,24,0.1);border-radius:0.6rem;font-size:0.78rem;cursor:pointer;transition:all 0.2s;background:white;color:var(--forest);}
+.time-slot:hover:not(.unavailable){border-color:var(--leaf);}
+.time-slot.selected{background:var(--leaf);color:var(--forest);border-color:var(--leaf);font-weight:600;}
+.time-slot.unavailable{color:rgba(13,40,24,0.25);cursor:default;background:rgba(13,40,24,0.03);}
+
+/* CONTACT FORM */
+.form-section{margin-bottom:2rem;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem;}
+.form-group{margin-bottom:0;}
+.form-group label{display:block;font-size:0.72rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--sage);margin-bottom:0.4rem;font-weight:500;}
+.form-group input,.form-group select,.form-group textarea{width:100%;padding:0.75rem 1rem;border:1.5px solid rgba(13,40,24,0.12);border-radius:0.7rem;font-family:'DM Sans',sans-serif;font-size:0.85rem;color:var(--forest);background:white;outline:none;transition:border-color 0.2s;}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--leaf);}
+.form-group textarea{resize:vertical;min-height:90px;}
+.form-full{grid-column:1/-1;}
+
+/* SUBMIT */
+.submit-btn{width:100%;padding:1rem;background:var(--leaf);color:var(--forest);border:none;border-radius:0.8rem;font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;cursor:pointer;transition:all 0.3s;display:flex;align-items:center;justify-content:center;gap:0.6rem;}
+.submit-btn:hover{background:var(--gold);transform:translateY(-1px);}
+
+/* SIDEBAR */
+.booking-sidebar{}
+.info-card{background:var(--forest);border-radius:1.2rem;padding:1.8rem;margin-bottom:1.5rem;border:1px solid rgba(122,182,72,0.12);}
+.info-card-title{font-family:'Playfair Display',serif;font-size:1rem;color:var(--cream);margin-bottom:1.2rem;}
+.info-row{display:flex;align-items:flex-start;gap:0.8rem;padding:0.8rem 0;border-bottom:1px solid rgba(122,182,72,0.08);}
+.info-row:last-child{border-bottom:none;}
+.info-icon{font-size:1.1rem;flex-shrink:0;margin-top:0.1rem;}
+.info-label{font-size:0.7rem;text-transform:uppercase;letter-spacing:0.1em;color:rgba(245,240,232,0.3);margin-bottom:0.2rem;}
+.info-val{font-size:0.85rem;color:rgba(245,240,232,0.8);line-height:1.5;}
+
+/* SUMMARY CARD */
+.summary-card{background:white;border-radius:1.2rem;padding:1.8rem;border:1px solid rgba(13,40,24,0.08);margin-bottom:1.5rem;}
+.summary-title{font-family:'Playfair Display',serif;font-size:1rem;color:var(--forest);margin-bottom:1.2rem;padding-bottom:0.8rem;border-bottom:1px solid rgba(13,40,24,0.06);}
+.summary-row{display:flex;justify-content:space-between;align-items:center;padding:0.5rem 0;font-size:0.82rem;}
+.summary-label{color:var(--sage);}
+.summary-val{color:var(--forest);font-weight:500;}
+.summary-val.highlight{color:var(--leaf);font-weight:700;}
+
+/* SUCCESS */
+.success-overlay{position:fixed;inset:0;z-index:500;background:rgba(7,15,10,0.85);display:none;align-items:center;justify-content:center;padding:2rem;}
+.success-overlay.open{display:flex;}
+.success-card{background:var(--forest);border-radius:1.5rem;padding:3rem 2.5rem;max-width:480px;width:100%;text-align:center;border:1px solid rgba(122,182,72,0.2);}
+.success-icon{width:72px;height:72px;background:rgba(122,182,72,0.1);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem;}
+.success-card h3{font-family:'Playfair Display',serif;font-size:1.8rem;color:var(--cream);margin-bottom:0.8rem;}
+.success-card p{font-size:0.85rem;color:rgba(245,240,232,0.6);line-height:1.8;margin-bottom:1.5rem;}
+.success-actions{display:flex;flex-direction:column;gap:0.7rem;}
+.success-actions a{padding:0.8rem 1.5rem;border-radius:0.8rem;font-size:0.88rem;font-weight:600;text-decoration:none;transition:all 0.3s;}
+.sa-primary{background:var(--leaf);color:var(--forest);}
+.sa-secondary{background:rgba(122,182,72,0.1);color:var(--leaf);border:1px solid rgba(122,182,72,0.2);}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(20px);transition:all 0.7s ease;}
+.reveal.visible{opacity:1;transform:none;}
+
+footer{background:var(--forest);padding:3rem 4rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1.5rem;border-top:1px solid rgba(122,182,72,0.1);}
+.footer-logo{font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--cream);}
+footer p{font-size:0.78rem;color:rgba(245,240,232,0.35);}
+footer a{color:rgba(245,240,232,0.4);font-size:0.78rem;text-decoration:none;}
+footer a:hover{color:var(--leaf);}
+#waBtn{position:fixed;bottom:2rem;right:2rem;z-index:150;width:54px;height:54px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(37,211,102,0.4);transition:all 0.3s;text-decoration:none;}
+#waBtn:hover{transform:scale(1.1);}
+
+@media(max-width:960px){.booking-wrap{grid-template-columns:1fr;}.services-grid{grid-template-columns:1fr 1fr;}}
+@media(max-width:700px){nav{padding:1rem 1.5rem;}.nav-links{display:none;}.nav-burger{display:flex;}.booking-wrap{padding:3rem 1.2rem;}.form-row{grid-template-columns:1fr;}.services-grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">
+    <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><ellipse cx="14" cy="12" rx="10" ry="9" fill="#7ab648" opacity="0.9"/><ellipse cx="14" cy="8" rx="7" ry="6.5" fill="#0d2818" opacity="0.4"/><rect x="12.5" y="19" width="3" height="8" rx="1.5" fill="#5c3d1e"/></svg>
+    Elite Tree Solutions
+  </a>
+  <div class="nav-links">
+    <a href="gallery.html">Gallery</a>
+    <a href="about.html">About</a>
+    <a href="portfolio.html">Portfolio</a>
+    <a href="blog.html">Blog</a>
+    <a href="faq.html">FAQ</a>
+    <a href="shop.html">Shop</a>
+    <a href="booking.html" class="active">Book</a>
+    <a href="findus.html" class="nav-cta">Find Us</a>
+  </div>
+  <button class="nav-burger" id="burgerBtn" onclick="toggleMenu()" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="gallery.html">🖼 Gallery</a><a href="about.html">ℹ️ About</a><a href="portfolio.html">🏆 Portfolio</a>
+  <a href="blog.html">📝 Blog</a><a href="faq.html">❓ FAQ</a><a href="shop.html">🛒 Shop</a>
+  <a href="team.html">👥 Our Team</a><a href="tips.html">🌿 Tree Tips</a><a href="testimonials.html">⭐ Reviews</a>
+  <a href="booking.html" class="mob-cta">📅 Book Appointment</a>
+  <a href="findus.html" class="mob-cta">📍 Find Us</a>
+</div>
+<div class="mob-overlay" id="mobOverlay" onclick="toggleMenu()"></div>
+
+<div class="hero">
+  <div class="hero-content">
+    <div class="section-label">Consultations & Visits</div>
+    <h1>Book an <em>Appointment</em></h1>
+    <p>Choose a service, pick your preferred date and we'll confirm by WhatsApp within 2 hours</p>
+  </div>
+</div>
+
+<div class="booking-wrap">
+  <div class="booking-form reveal">
+
+    <!-- STEP 1: SERVICE -->
+    <div class="step-label">Step 1 — Choose Service</div>
+    <div class="step-title">What can we help you with?</div>
+    <div class="services-grid" id="servicesGrid">
+      <div class="service-option selected" onclick="selectService(this,'Nursery Visit','Free','Come and see the full collection at Kabimbiri. Browse 42+ species, get expert advice, take away seedlings same day.')">
+        <div class="service-icon">🌱</div>
+        <div class="service-name">Nursery Visit</div>
+        <div class="service-desc">Walk the nursery, see all species, get hands-on advice.</div>
+        <div class="service-price">Free admission</div>
+      </div>
+      <div class="service-option" onclick="selectService(this,'Tree Planting Consultation','UGX 50,000','On-site visit to your property. We assess your soil, space and climate, then recommend the best species and layout for your goals.')">
+        <div class="service-icon">🏡</div>
+        <div class="service-name">Planting Consultation</div>
+        <div class="service-desc">On-site visit — soil assessment, species selection, planting plan.</div>
+        <div class="service-price">UGX 50,000 (credited against purchase)</div>
+      </div>
+      <div class="service-option" onclick="selectService(this,'Landscape Design Session','UGX 120,000','Full design session for your garden, estate or commercial property. Includes sketched layout and plant list.')">
+        <div class="service-icon">📐</div>
+        <div class="service-name">Landscape Design</div>
+        <div class="service-desc">Full garden or estate design with plant list and layout plan.</div>
+        <div class="service-price">UGX 120,000</div>
+      </div>
+      <div class="service-option" onclick="selectService(this,'Tree Health Assessment','UGX 80,000','Expert diagnosis of sick or struggling trees. Includes pest/disease ID, treatment plan and follow-up.')">
+        <div class="service-icon">🔬</div>
+        <div class="service-name">Tree Health Check</div>
+        <div class="service-desc">Diagnose and treat diseased or struggling trees on your land.</div>
+        <div class="service-price">UGX 80,000</div>
+      </div>
+      <div class="service-option" onclick="selectService(this,'Bulk Order Consultation','Free','Planning a large order for a farm, estate, school or institution? Let\'s discuss species, quantities, pricing and delivery.')">
+        <div class="service-icon">📦</div>
+        <div class="service-name">Bulk Order Enquiry</div>
+        <div class="service-desc">For farms, estates, schools and institutions — 50+ trees.</div>
+        <div class="service-price">Free consultation</div>
+      </div>
+      <div class="service-option" onclick="selectService(this,'Reforestation Planning','Free','Community or commercial reforestation project? We\'ll design a full programme with native species, phased planting and monitoring.')">
+        <div class="service-icon">🌍</div>
+        <div class="service-name">Reforestation Project</div>
+        <div class="service-desc">Community or commercial reforestation — full programme design.</div>
+        <div class="service-price">Free initial consultation</div>
+      </div>
+    </div>
+
+    <!-- STEP 2: DATE -->
+    <div class="picker-section">
+      <div class="step-label">Step 2 — Pick a Date</div>
+      <div class="step-title" style="font-size:1.2rem;margin-bottom:1rem;">Choose your preferred day</div>
+      <div class="month-nav">
+        <button onclick="prevMonth()">‹</button>
+        <div class="month-name" id="monthName"></div>
+        <button onclick="nextMonth()">›</button>
+      </div>
+      <div class="calendar-grid" id="calendarGrid"></div>
+      <div style="margin-top:1.2rem;">
+        <div class="step-label" style="margin-bottom:0.6rem;">Available Time Slots</div>
+        <div class="time-slots" id="timeSlots"></div>
+      </div>
+    </div>
+
+    <!-- STEP 3: DETAILS -->
+    <div class="form-section">
+      <div class="step-label">Step 3 — Your Details</div>
+      <div class="step-title" style="font-size:1.2rem;margin-bottom:1.2rem;">How can we reach you?</div>
+      <div class="form-row">
+        <div class="form-group"><label>Full Name</label><input type="text" id="bkName" placeholder="e.g. John Kiggundu"></div>
+        <div class="form-group"><label>Phone / WhatsApp</label><input type="tel" id="bkPhone" placeholder="+256 700 000 000"></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>Email (optional)</label><input type="email" id="bkEmail" placeholder="your@email.com"></div>
+        <div class="form-group"><label>Your District / Location</label><input type="text" id="bkLocation" placeholder="e.g. Kampala, Wakiso, Kayunga"></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group form-full"><label>Tell us more about what you need (optional)</label>
+        <textarea id="bkNotes" placeholder="e.g. I have 2 acres and want fruit trees, or I need 200 shade trees for a school..."></textarea></div>
+      </div>
+    </div>
+
+    <button class="submit-btn" onclick="submitBooking()">
+      📅 Confirm Booking Request
+    </button>
+    <div style="font-size:0.72rem;color:var(--sage);text-align:center;margin-top:0.8rem;">We'll confirm via WhatsApp within 2 hours · No payment required to book</div>
+
+  </div>
+
+  <!-- SIDEBAR -->
+  <aside class="booking-sidebar">
+
+    <!-- Summary -->
+    <div class="summary-card reveal" id="summaryCard">
+      <div class="summary-title">📋 Your Booking Summary</div>
+      <div class="summary-row"><span class="summary-label">Service</span><span class="summary-val highlight" id="sumService">Nursery Visit</span></div>
+      <div class="summary-row"><span class="summary-label">Date</span><span class="summary-val" id="sumDate">Not selected</span></div>
+      <div class="summary-row"><span class="summary-label">Time</span><span class="summary-val" id="sumTime">Not selected</span></div>
+      <div class="summary-row"><span class="summary-label">Fee</span><span class="summary-val" id="sumPrice">Free</span></div>
+    </div>
+
+    <!-- Info -->
+    <div class="info-card reveal">
+      <div class="info-card-title">📍 Visit Information</div>
+      <div class="info-row"><div class="info-icon">📌</div><div><div class="info-label">Location</div><div class="info-val">Kabimbiri, Kayunga Road<br>500m past the roundabout, left side</div></div></div>
+      <div class="info-row"><div class="info-icon">🕐</div><div><div class="info-label">Open Hours</div><div class="info-val">Mon–Sat: 7:00am – 6:00pm<br>Sunday: 8:00am – 2:00pm</div></div></div>
+      <div class="info-row"><div class="info-icon">📱</div><div><div class="info-label">Direct WhatsApp</div><div class="info-val"><a href="https://wa.me/256706191725" style="color:var(--leaf);">+256 706 191 725</a></div></div></div>
+      <div class="info-row"><div class="info-icon">🚗</div><div><div class="info-label">Getting Here</div><div class="info-val">Taxi: board Kayunga-bound taxi at Kampala Old Taxi Park. Tell conductor "Kabimbiri nursery".</div></div></div>
+    </div>
+
+    <!-- What to expect -->
+    <div style="background:white;border-radius:1.2rem;padding:1.8rem;border:1px solid rgba(13,40,24,0.06);" class="reveal">
+      <div style="font-family:'Playfair Display',serif;font-size:1rem;color:var(--forest);margin-bottom:1.2rem;">What to Expect</div>
+      <div style="display:flex;flex-direction:column;gap:0.8rem;">
+        <div style="display:flex;gap:0.8rem;align-items:flex-start;">
+          <div style="width:22px;height:22px;border-radius:50%;background:rgba(122,182,72,0.15);display:flex;align-items:center;justify-content:center;font-size:0.7rem;color:var(--leaf);font-weight:700;flex-shrink:0;">1</div>
+          <div style="font-size:0.82rem;color:var(--sage);line-height:1.6;">Submit your request below — takes 2 minutes.</div>
+        </div>
+        <div style="display:flex;gap:0.8rem;align-items:flex-start;">
+          <div style="width:22px;height:22px;border-radius:50%;background:rgba(122,182,72,0.15);display:flex;align-items:center;justify-content:center;font-size:0.7rem;color:var(--leaf);font-weight:700;flex-shrink:0;">2</div>
+          <div style="font-size:0.82rem;color:var(--sage);line-height:1.6;">Kakuye personally confirms via WhatsApp within 2 hours.</div>
+        </div>
+        <div style="display:flex;gap:0.8rem;align-items:flex-start;">
+          <div style="width:22px;height:22px;border-radius:50%;background:rgba(122,182,72,0.15);display:flex;align-items:center;justify-content:center;font-size:0.7rem;color:var(--leaf);font-weight:700;flex-shrink:0;">3</div>
+          <div style="font-size:0.82rem;color:var(--sage);line-height:1.6;">Show up on the day — bring your questions and leave with a plan.</div>
+        </div>
+      </div>
+    </div>
+
+  </aside>
+</div>
+
+<!-- SUCCESS -->
+<div class="success-overlay" id="successOverlay">
+  <div class="success-card">
+    <div class="success-icon">
+      <svg width="36" height="36" viewBox="0 0 36 36" fill="none"><path d="M10 18 L16 24 L26 12" stroke="#7ab648" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+    <h3>Booking Sent! 🌳</h3>
+    <p id="successMsg">Your appointment request has been sent. Kakuye will confirm via WhatsApp shortly. See you soon at Kabimbiri!</p>
+    <div class="success-actions">
+      <a href="https://wa.me/256706191725" class="sa-primary" target="_blank">Open WhatsApp to Chat →</a>
+      <a href="shop.html" class="sa-secondary">Browse the Shop While You Wait</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div><div class="footer-logo">Elite Tree Solutions</div><p style="margin-top:0.3rem;">Kabimbiri, Kayunga Road · Uganda 🇺🇬</p></div>
+  <p>© 2025 Elite Tree Solutions. All rights reserved.</p>
+  <div style="display:flex;gap:1.5rem;"><a href="index.html">Home</a><a href="shop.html">Shop</a><a href="findus.html">Find Us</a></div>
+</footer>
+<a href="https://wa.me/256706191725?text=Hello%20Elite%20Tree%20Solutions!" target="_blank" id="waBtn" title="WhatsApp">
+  <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M14 2C7.37 2 2 7.37 2 14C2 16.39 2.68 18.62 3.85 20.5L2.1 25.9L7.65 24.18C9.47 25.24 11.67 25.86 14 25.86C20.63 25.86 26 20.49 26 13.86C26 7.37 20.63 2 14 2Z" fill="white" opacity="0.95"/><path d="M20.5 17.5C20.2 18.3 18.9 19 18 19.1C17.2 19.2 16.2 19.2 15.1 18.9C14.4 18.6 13.5 18.3 12.4 17.8C9.9 16.6 8.3 14.1 8.1 13.9C7.9 13.6 6.5 11.7 6.5 9.8C6.5 7.8 7.5 6.9 7.9 6.4C8.3 5.9 8.8 5.8 9.1 5.8C9.3 5.8 9.6 5.8 9.8 5.8C10.1 5.8 10.4 5.7 10.8 6.6C11.1 7.4 11.9 9.3 12 9.5C12.1 9.7 12.1 9.9 12 10.1C11.9 10.3 11.8 10.5 11.6 10.7C11.4 10.9 11.2 11.2 11 11.4C10.8 11.6 10.6 11.8 10.8 12.1C11 12.5 11.8 13.7 12.9 14.7C14.3 15.9 15.5 16.3 15.9 16.5C16.2 16.6 16.5 16.6 16.7 16.3C16.9 16 17.7 15.1 18 14.8C18.2 14.5 18.5 14.5 18.8 14.6C19.1 14.7 21 15.6 21.3 15.8C21.6 16 21.8 16.1 21.9 16.2C22 16.7 22 17.5 20.5 17.5Z" fill="#25D366"/></svg>
+</a>
+
+<script>
+function toggleMenu(){
+  document.getElementById('burgerBtn').classList.toggle('open');
+  document.getElementById('mobileMenu').classList.toggle('open');
+  document.getElementById('mobOverlay').classList.toggle('open');
+}
+
+// ── SERVICE SELECTION ──
+let selectedService = 'Nursery Visit', selectedPrice = 'Free', selectedDesc = '';
+function selectService(el, name, price, desc){
+  document.querySelectorAll('.service-option').forEach(o=>o.classList.remove('selected'));
+  el.classList.add('selected');
+  selectedService = name; selectedPrice = price; selectedDesc = desc;
+  document.getElementById('sumService').textContent = name;
+  document.getElementById('sumPrice').textContent = price;
+}
+
+// ── CALENDAR ──
+let currentDate = new Date();
+let viewYear = currentDate.getFullYear();
+let viewMonth = currentDate.getMonth();
+let selectedDay = null, selectedTime = null;
+const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+const TIMES = ['7:00am','8:00am','9:00am','10:00am','11:00am','12:00pm','2:00pm','3:00pm','4:00pm'];
+const UNAVAILABLE = [0]; // Sundays
+
+function renderCalendar(){
+  document.getElementById('monthName').textContent = MONTHS[viewMonth]+' '+viewYear;
+  const grid = document.getElementById('calendarGrid');
+  const days = ['Su','Mo','Tu','We','Th','Fr','Sa'];
+  const first = new Date(viewYear, viewMonth, 1).getDay();
+  const total = new Date(viewYear, viewMonth+1, 0).getDate();
+  const today = new Date(); today.setHours(0,0,0,0);
+
+  grid.innerHTML = days.map(d=>`<div class="cal-header">${d}</div>`).join('');
+  for(let i=0;i<first;i++) grid.innerHTML+=`<div class="cal-day empty"></div>`;
+  for(let d=1;d<=total;d++){
+    const date = new Date(viewYear,viewMonth,d);
+    const isToday = date.getTime()===today.getTime();
+    const isPast = date < today;
+    const isSun = date.getDay()===0;
+    const isSel = selectedDay && selectedDay.getDate()===d && selectedDay.getMonth()===viewMonth;
+    const cls = [isPast||isSun?'disabled':'', isToday?'today':'', isSel?'selected':''].join(' ');
+    grid.innerHTML+=`<div class="cal-day ${cls}" onclick="${!isPast&&!isSun?`pickDay(${d})`:''}"> ${d}</div>`;
+  }
+}
+
+function pickDay(d){
+  selectedDay = new Date(viewYear,viewMonth,d);
+  const label = selectedDay.toLocaleDateString('en-UG',{weekday:'long',day:'numeric',month:'long'});
+  document.getElementById('sumDate').textContent = label;
+  selectedTime = null;
+  document.getElementById('sumTime').textContent = 'Not selected';
+  renderCalendar();
+  renderTimeSlots();
+}
+
+function renderTimeSlots(){
+  const wrap = document.getElementById('timeSlots');
+  // Random unavailable slots for realism
+  const unavail = [2,5];
+  wrap.innerHTML = TIMES.map((t,i)=>`
+    <div class="time-slot ${unavail.includes(i)?'unavailable':''}" onclick="${!unavail.includes(i)?`pickTime('${t}',this)`:''}">
+      ${unavail.includes(i)?'<s style="opacity:0.4">'+t+'</s>':t}
+    </div>`).join('');
+}
+
+function pickTime(t,el){
+  document.querySelectorAll('.time-slot').forEach(s=>s.classList.remove('selected'));
+  el.classList.add('selected');
+  selectedTime = t;
+  document.getElementById('sumTime').textContent = t;
+}
+
+function prevMonth(){ if(viewMonth===0){viewMonth=11;viewYear--;}else viewMonth--; renderCalendar(); }
+function nextMonth(){ if(viewMonth===11){viewMonth=0;viewYear++;}else viewMonth++; renderCalendar(); }
+
+// ── SUBMIT ──
+function submitBooking(){
+  const name = document.getElementById('bkName').value.trim();
+  const phone = document.getElementById('bkPhone').value.trim();
+  if(!name||!phone){alert('Please enter your name and phone number.');return;}
+  if(!selectedDay){alert('Please select a preferred date.');return;}
+  if(!selectedTime){alert('Please select a preferred time slot.');return;}
+
+  const dateStr = selectedDay.toLocaleDateString('en-UG',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+  const location = document.getElementById('bkLocation').value||'Not specified';
+  const notes = document.getElementById('bkNotes').value||'None';
+  const email = document.getElementById('bkEmail').value||'Not provided';
+
+  const msg = encodeURIComponent(
+    `Hello Elite Tree Solutions! 🌳\n\n`+
+    `📅 BOOKING REQUEST\n\n`+
+    `Service: ${selectedService}\n`+
+    `Date: ${dateStr}\n`+
+    `Time: ${selectedTime}\n`+
+    `Fee: ${selectedPrice}\n\n`+
+    `👤 Name: ${name}\n`+
+    `📞 Phone: ${phone}\n`+
+    `📧 Email: ${email}\n`+
+    `📍 Location: ${location}\n\n`+
+    `📝 Notes: ${notes}\n\n`+
+    `Please confirm this appointment. Thank you!`
+  );
+  window.open(`https://wa.me/256706191725?text=${msg}`,'_blank');
+
+  document.getElementById('successMsg').textContent =
+    `Your ${selectedService} on ${dateStr} at ${selectedTime} has been sent to Kakuye. He will confirm via WhatsApp shortly. See you at Kabimbiri!`;
+  document.getElementById('successOverlay').classList.add('open');
+}
+
+document.getElementById('successOverlay').addEventListener('click', function(e){
+  if(e.target===this) this.classList.remove('open');
+});
+
+renderCalendar(); renderTimeSlots();
+
+// REVEAL
+const observer = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});
+},{threshold:0.1});
+document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+</script>
+</body>
+</html>
