@@ -4,28 +4,29 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Admin — Elite Tree Solutions</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<meta name="robots" content="noindex, nofollow">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root{
   --forest:#0d2818;--moss:#1a4a2e;--sage:#4a7c59;
   --leaf:#7ab648;--gold:#c8a96e;--cream:#f5f0e8;--mist:#e8f0e4;
+  --red:#e53935;--amber:#f59e0b;--blue:#3b82f6;
 }
 *{margin:0;padding:0;box-sizing:border-box;}
 body{font-family:'DM Sans',sans-serif;background:#f0f4f0;color:var(--forest);min-height:100vh;}
 
 /* ── LOGIN ── */
 #loginScreen{
-  position:fixed;inset:0;background:var(--forest);
+  position:fixed;inset:0;background:radial-gradient(ellipse 70% 70% at 50% 50%,#1a4a2e,#0d2818);
   display:flex;align-items:center;justify-content:center;z-index:1000;
-  background:radial-gradient(ellipse 70% 70% at 50% 50%,#1a4a2e,#0d2818);
 }
 .login-box{
   background:rgba(255,255,255,0.05);border:1px solid rgba(122,182,72,0.2);
   border-radius:1.5rem;padding:3rem;width:100%;max-width:380px;text-align:center;
   backdrop-filter:blur(20px);
 }
-.login-logo{font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--cream);margin-bottom:0.3rem;}
-.login-sub{font-size:0.78rem;color:var(--sage);margin-bottom:2rem;text-transform:uppercase;letter-spacing:0.1em;}
+.login-logo{font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--cream);margin-bottom:0.3rem;}
+.login-sub{font-size:0.75rem;color:var(--sage);margin-bottom:2rem;text-transform:uppercase;letter-spacing:0.1em;}
 .login-box input{
   width:100%;padding:0.9rem 1rem;border:1.5px solid rgba(122,182,72,0.2);
   border-radius:0.7rem;background:rgba(255,255,255,0.05);
@@ -40,64 +41,158 @@ body{font-family:'DM Sans',sans-serif;background:#f0f4f0;color:var(--forest);min
   font-size:0.95rem;font-weight:600;cursor:pointer;transition:all 0.3s;
 }
 .login-btn:hover{background:var(--gold);}
-.login-error{color:#e57373;font-size:0.8rem;margin-top:0.5rem;display:none;}
-.login-hint{font-size:0.72rem;color:rgba(245,240,232,0.25);margin-top:1.5rem;}
+.login-error{color:#ef5350;font-size:0.8rem;margin-top:0.5rem;display:none;}
+.login-hint{font-size:0.7rem;color:rgba(245,240,232,0.2);margin-top:1.5rem;line-height:1.6;}
 
 /* ── ADMIN LAYOUT ── */
 #adminScreen{display:none;}
 .admin-nav{
   background:var(--forest);padding:1rem 2rem;
-  display:flex;align-items:center;justify-content:space-between;
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;
   position:sticky;top:0;z-index:100;border-bottom:1px solid rgba(122,182,72,0.15);
+  flex-wrap:wrap;
 }
-.admin-nav-logo{font-family:'Playfair Display',serif;color:var(--cream);font-size:1rem;}
+.admin-nav-logo{font-family:'Playfair Display',serif;color:var(--cream);font-size:1rem;white-space:nowrap;}
 .admin-nav-logo span{color:var(--leaf);}
-.admin-tabs{display:flex;gap:0.5rem;}
-.admin-tab{padding:0.45rem 1rem;border-radius:1rem;border:1px solid rgba(122,182,72,0.2);background:transparent;color:rgba(245,240,232,0.6);font-family:'DM Sans',sans-serif;font-size:0.8rem;cursor:pointer;transition:all 0.2s;}
+.admin-tabs{display:flex;gap:0.4rem;flex-wrap:wrap;}
+.admin-tab{
+  padding:0.4rem 0.9rem;border-radius:1rem;border:1px solid rgba(122,182,72,0.2);
+  background:transparent;color:rgba(245,240,232,0.6);font-family:'DM Sans',sans-serif;
+  font-size:0.78rem;cursor:pointer;transition:all 0.2s;white-space:nowrap;
+}
 .admin-tab.active,.admin-tab:hover{background:var(--leaf);color:var(--forest);border-color:var(--leaf);}
-.logout-btn{padding:0.4rem 1rem;background:rgba(229,115,115,0.15);border:1px solid rgba(229,115,115,0.3);color:#e57373;border-radius:1rem;font-size:0.78rem;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.2s;}
+.logout-btn{
+  padding:0.4rem 1rem;background:rgba(229,115,115,0.15);border:1px solid rgba(229,115,115,0.3);
+  color:#ef9a9a;border-radius:1rem;font-size:0.75rem;cursor:pointer;
+  font-family:'DM Sans',sans-serif;transition:all 0.2s;white-space:nowrap;
+}
 .logout-btn:hover{background:rgba(229,115,115,0.25);}
 
 .admin-body{padding:2rem;max-width:1200px;margin:0 auto;}
+
+/* ── PANELS ── */
+.panel{display:none;}
+.panel.active{display:block;}
+.panel-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;flex-wrap:wrap;gap:1rem;}
+.panel-title{font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--forest);}
+
+/* ── BUTTONS ── */
+.btn-primary{padding:0.65rem 1.4rem;background:var(--leaf);color:var(--forest);border:none;border-radius:0.6rem;font-family:'DM Sans',sans-serif;font-size:0.85rem;font-weight:600;cursor:pointer;transition:all 0.3s;}
+.btn-primary:hover{background:var(--forest);color:var(--leaf);}
+.btn-danger{padding:0.5rem 0.9rem;background:rgba(229,57,53,0.1);color:var(--red);border:1px solid rgba(229,57,53,0.2);border-radius:0.5rem;font-family:'DM Sans',sans-serif;font-size:0.78rem;cursor:pointer;transition:all 0.2s;}
+.btn-danger:hover{background:rgba(229,57,53,0.2);}
+.btn-edit{padding:0.5rem 0.9rem;background:rgba(122,182,72,0.1);color:var(--sage);border:1px solid rgba(122,182,72,0.2);border-radius:0.5rem;font-family:'DM Sans',sans-serif;font-size:0.78rem;cursor:pointer;transition:all 0.2s;}
+.btn-edit:hover{background:var(--mist);}
 
 /* ── STATS ── */
 .stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:2rem;}
 .stat-card{background:white;border-radius:1rem;padding:1.4rem;border:1px solid rgba(13,40,24,0.07);}
 .stat-val{font-family:'Playfair Display',serif;font-size:2rem;font-weight:900;color:var(--forest);line-height:1;}
-.stat-label{font-size:0.75rem;color:var(--sage);margin-top:0.3rem;text-transform:uppercase;letter-spacing:0.06em;}
-.stat-change{font-size:0.72rem;color:var(--leaf);margin-top:0.4rem;}
+.stat-label{font-size:0.72rem;color:var(--sage);margin-top:0.3rem;text-transform:uppercase;letter-spacing:0.06em;}
+.stat-change{font-size:0.7rem;color:var(--leaf);margin-top:0.3rem;}
 
-/* ── PANEL SECTIONS ── */
-.panel{display:none;}
-.panel.active{display:block;}
-.panel-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;flex-wrap:wrap;gap:1rem;}
-.panel-title{font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--forest);}
-.btn-primary{padding:0.65rem 1.4rem;background:var(--leaf);color:var(--forest);border:none;border-radius:0.6rem;font-family:'DM Sans',sans-serif;font-size:0.85rem;font-weight:500;cursor:pointer;transition:all 0.3s;}
-.btn-primary:hover{background:var(--forest);color:var(--leaf);}
-.btn-danger{padding:0.55rem 1rem;background:rgba(229,57,53,0.1);color:#e53935;border:1px solid rgba(229,57,53,0.2);border-radius:0.5rem;font-family:'DM Sans',sans-serif;font-size:0.8rem;cursor:pointer;transition:all 0.2s;}
-.btn-danger:hover{background:rgba(229,57,53,0.2);}
-.btn-edit{padding:0.55rem 1rem;background:rgba(122,182,72,0.1);color:var(--sage);border:1px solid rgba(122,182,72,0.2);border-radius:0.5rem;font-family:'DM Sans',sans-serif;font-size:0.8rem;cursor:pointer;transition:all 0.2s;}
-.btn-edit:hover{background:var(--mist);}
+/* ── PHOTO MANAGER ── */
+.photo-intro{
+  background:var(--forest);border-radius:1.2rem;padding:2rem;margin-bottom:2rem;
+  border:1px solid rgba(122,182,72,0.15);
+}
+.photo-intro h3{font-family:'Playfair Display',serif;color:var(--cream);font-size:1.2rem;margin-bottom:0.5rem;}
+.photo-intro p{font-size:0.83rem;color:rgba(245,240,232,0.55);line-height:1.7;}
+.how-it-works{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-top:1.5rem;}
+.how-step{text-align:center;}
+.how-num{width:32px;height:32px;border-radius:50%;background:rgba(122,182,72,0.15);border:1px solid rgba(122,182,72,0.3);color:var(--leaf);font-family:'Playfair Display',serif;font-weight:700;font-size:0.9rem;display:flex;align-items:center;justify-content:center;margin:0 auto 0.6rem;}
+.how-text{font-size:0.73rem;color:rgba(245,240,232,0.5);line-height:1.5;}
+
+.photo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;}
+.photo-card{background:white;border-radius:1rem;overflow:hidden;border:1px solid rgba(13,40,24,0.07);transition:box-shadow 0.3s;}
+.photo-card:hover{box-shadow:0 8px 24px rgba(13,40,24,0.1);}
+.photo-card-thumb{
+  height:150px;position:relative;overflow:hidden;
+  background:linear-gradient(135deg,#1a4a2e,#0d2818);
+  display:flex;align-items:center;justify-content:center;
+}
+.photo-card-thumb img{width:100%;height:100%;object-fit:cover;display:block;}
+.photo-card-thumb.has-photo::after{
+  content:'✓ Photo set';position:absolute;top:0.5rem;right:0.5rem;
+  background:rgba(122,182,72,0.9);color:white;font-size:0.6rem;
+  padding:0.2rem 0.5rem;border-radius:1rem;font-weight:600;
+}
+.photo-card-thumb.no-photo{cursor:pointer;}
+.photo-card-thumb.no-photo:hover{background:linear-gradient(135deg,#2a6a3e,#1a3828);}
+.photo-placeholder-icon{text-align:center;}
+.photo-placeholder-icon div{font-size:1.8rem;margin-bottom:0.4rem;}
+.photo-placeholder-icon p{font-size:0.68rem;color:rgba(245,240,232,0.4);}
+.photo-card-body{padding:1rem;}
+.photo-card-name{font-family:'Playfair Display',serif;font-size:0.95rem;color:var(--forest);font-weight:700;margin-bottom:0.2rem;}
+.photo-card-cat{font-size:0.65rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--sage);margin-bottom:0.8rem;}
+.photo-card-actions{display:flex;gap:0.5rem;flex-wrap:wrap;}
+.photo-upload-btn{
+  flex:1;padding:0.5rem;background:rgba(122,182,72,0.08);border:1.5px dashed rgba(122,182,72,0.3);
+  border-radius:0.5rem;color:var(--sage);font-size:0.73rem;cursor:pointer;
+  font-family:'DM Sans',sans-serif;transition:all 0.2s;text-align:center;
+}
+.photo-upload-btn:hover{background:rgba(122,182,72,0.15);border-color:var(--leaf);color:var(--leaf);}
+.photo-url-btn{
+  flex:1;padding:0.5rem;background:rgba(59,130,246,0.08);border:1.5px solid rgba(59,130,246,0.2);
+  border-radius:0.5rem;color:var(--blue);font-size:0.73rem;cursor:pointer;
+  font-family:'DM Sans',sans-serif;transition:all 0.2s;text-align:center;
+}
+.photo-url-btn:hover{background:rgba(59,130,246,0.15);}
+.photo-clear-btn{
+  padding:0.5rem 0.8rem;background:rgba(229,57,53,0.06);border:1px solid rgba(229,57,53,0.15);
+  border-radius:0.5rem;color:rgba(229,57,53,0.6);font-size:0.73rem;cursor:pointer;
+  font-family:'DM Sans',sans-serif;transition:all 0.2s;
+}
+.photo-clear-btn:hover{background:rgba(229,57,53,0.12);}
+
+/* ── CODE GENERATOR ── */
+.code-panel{background:white;border-radius:1.2rem;padding:1.8rem;margin-top:2rem;border:1px solid rgba(13,40,24,0.07);}
+.code-panel h3{font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--forest);margin-bottom:0.5rem;}
+.code-panel p{font-size:0.82rem;color:var(--sage);margin-bottom:1.2rem;line-height:1.6;}
+.code-block{
+  background:#0d2818;color:#9dd460;padding:1.2rem 1.4rem;border-radius:0.8rem;
+  font-family:'IBM Plex Mono',monospace;font-size:0.78rem;line-height:1.8;
+  overflow-x:auto;position:relative;white-space:pre;
+}
+.code-copy-btn{
+  position:absolute;top:0.8rem;right:0.8rem;
+  background:rgba(122,182,72,0.15);border:1px solid rgba(122,182,72,0.25);
+  color:var(--leaf);padding:0.3rem 0.8rem;border-radius:0.4rem;
+  font-family:'DM Sans',sans-serif;font-size:0.7rem;cursor:pointer;transition:all 0.2s;
+}
+.code-copy-btn:hover{background:rgba(122,182,72,0.3);}
+.github-steps{margin-top:1.5rem;}
+.github-step{
+  display:flex;gap:1rem;align-items:flex-start;padding:0.8rem 0;
+  border-bottom:1px solid rgba(13,40,24,0.05);
+}
+.github-step:last-child{border-bottom:none;}
+.step-num{
+  width:26px;height:26px;border-radius:50%;background:rgba(122,182,72,0.12);
+  color:var(--leaf);font-size:0.75rem;font-weight:700;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;margin-top:0.1rem;
+}
+.step-text{font-size:0.82rem;color:var(--sage);line-height:1.6;}
+.step-text strong{color:var(--forest);}
+.step-text code{background:var(--mist);padding:0.1rem 0.4rem;border-radius:0.3rem;font-family:'IBM Plex Mono',monospace;font-size:0.78rem;}
 
 /* ── TREE TABLE ── */
 .tree-table{width:100%;border-collapse:collapse;background:white;border-radius:1rem;overflow:hidden;box-shadow:0 2px 12px rgba(13,40,24,0.06);}
-.tree-table th{background:var(--forest);color:rgba(245,240,232,0.7);padding:0.9rem 1rem;text-align:left;font-size:0.72rem;text-transform:uppercase;letter-spacing:0.08em;font-weight:500;}
-.tree-table td{padding:0.9rem 1rem;border-bottom:1px solid rgba(13,40,24,0.05);font-size:0.85rem;color:var(--forest);vertical-align:middle;}
+.tree-table th{background:var(--forest);color:rgba(245,240,232,0.7);padding:0.9rem 1rem;text-align:left;font-size:0.7rem;text-transform:uppercase;letter-spacing:0.08em;font-weight:500;}
+.tree-table td{padding:0.85rem 1rem;border-bottom:1px solid rgba(13,40,24,0.05);font-size:0.83rem;color:var(--forest);vertical-align:middle;}
 .tree-table tr:last-child td{border-bottom:none;}
 .tree-table tr:hover td{background:rgba(232,240,228,0.3);}
 .tree-thumb-mini{width:40px;height:40px;border-radius:0.5rem;overflow:hidden;flex-shrink:0;}
 .tree-thumb-mini img{width:100%;height:100%;object-fit:cover;}
-.tree-thumb-mini svg{width:100%;height:100%;}
-.cat-badge{display:inline-block;padding:0.2rem 0.6rem;border-radius:1rem;font-size:0.68rem;font-weight:500;text-transform:capitalize;}
+.cat-badge{display:inline-block;padding:0.2rem 0.6rem;border-radius:1rem;font-size:0.66rem;font-weight:500;text-transform:capitalize;}
 .cat-fruit{background:#fff3e0;color:#e65100;}
 .cat-shade{background:#e8f5e9;color:#2e7d32;}
 .cat-ornamental{background:#f3e5f5;color:#6a1b9a;}
 .cat-native{background:#e3f2fd;color:#1565c0;}
 .cat-palm{background:#fce4ec;color:#880e4f;}
 .price-cell{font-family:'Playfair Display',serif;font-weight:700;}
-.action-btns{display:flex;gap:0.5rem;}
+.action-btns{display:flex;gap:0.4rem;flex-wrap:wrap;}
 
-/* ── SEARCH BAR ── */
 .table-toolbar{display:flex;gap:1rem;margin-bottom:1rem;align-items:center;flex-wrap:wrap;}
 .search-bar{position:relative;flex:1;min-width:200px;}
 .search-bar input{width:100%;padding:0.65rem 0.9rem 0.65rem 2.4rem;border:1.5px solid rgba(13,40,24,0.1);border-radius:0.6rem;font-family:'DM Sans',sans-serif;font-size:0.85rem;outline:none;color:var(--forest);transition:border-color 0.3s;}
@@ -105,33 +200,30 @@ body{font-family:'DM Sans',sans-serif;background:#f0f4f0;color:var(--forest);min
 .search-bar svg{position:absolute;left:0.7rem;top:50%;transform:translateY(-50%);}
 .filter-select{padding:0.65rem 0.9rem;border:1.5px solid rgba(13,40,24,0.1);border-radius:0.6rem;font-family:'DM Sans',sans-serif;font-size:0.85rem;color:var(--forest);outline:none;background:white;}
 
-/* ── ADD / EDIT MODAL ── */
+/* ── MODAL ── */
 .modal-backdrop{position:fixed;inset:0;background:rgba(7,15,10,0.7);z-index:500;display:none;align-items:center;justify-content:center;padding:1rem;}
 .modal-backdrop.open{display:flex;}
 .modal-box{background:white;border-radius:1.5rem;padding:2.5rem;width:100%;max-width:580px;max-height:90vh;overflow-y:auto;position:relative;}
 .modal-box h3{font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--forest);margin-bottom:1.5rem;}
 .modal-close{position:absolute;top:1.2rem;right:1.2rem;background:var(--mist);border:none;width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;}
 .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
-.form-group{display:flex;flex-direction:column;gap:0.4rem;margin-bottom:0.2rem;}
+.form-group{display:flex;flex-direction:column;gap:0.4rem;}
 .form-group.full{grid-column:1/-1;}
-.form-group label{font-size:0.72rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--sage);}
-.form-group input,.form-group select,.form-group textarea{
-  padding:0.75rem 0.9rem;border:1.5px solid rgba(13,40,24,0.12);
-  border-radius:0.6rem;font-family:'DM Sans',sans-serif;font-size:0.88rem;
-  color:var(--forest);outline:none;transition:border-color 0.3s;
-}
-.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--leaf);}
-.form-group textarea{resize:vertical;min-height:80px;}
+.form-group label{font-size:0.7rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--sage);}
+.form-group input,.form-group select,.form-group textarea{padding:0.75rem 0.9rem;border:1.5px solid rgba(13,40,24,0.12);border-radius:0.6rem;font-family:'DM Sans',sans-serif;font-size:0.88rem;color:var(--forest);outline:none;transition:border-color 0.3s;}
+.form-group input:focus,.form-group select:focus{border-color:var(--leaf);}
 .color-row{display:flex;gap:0.8rem;align-items:center;}
 .color-row input[type=color]{width:48px;height:38px;border:1.5px solid rgba(13,40,24,0.12);border-radius:0.5rem;cursor:pointer;padding:2px;}
-.color-label{font-size:0.8rem;color:var(--sage);}
 .tree-preview{border:2px dashed rgba(13,40,24,0.12);border-radius:0.8rem;padding:1rem;text-align:center;margin-bottom:1rem;background:var(--mist);}
-.tree-preview p{font-size:0.75rem;color:var(--sage);margin-top:0.5rem;}
-.img-upload-area{border:2px dashed rgba(13,40,24,0.15);border-radius:0.8rem;padding:1.5rem;text-align:center;cursor:pointer;transition:all 0.3s;background:white;}
-.img-upload-area:hover{border-color:var(--leaf);background:var(--mist);}
-.img-upload-area p{font-size:0.8rem;color:var(--sage);margin-top:0.5rem;}
-.img-upload-area input{display:none;}
-.img-preview{max-width:100%;max-height:140px;border-radius:0.5rem;margin-top:0.5rem;display:none;}
+.tree-preview p{font-size:0.72rem;color:var(--sage);margin-top:0.4rem;}
+
+/* ── URL MODAL ── */
+.url-modal-box{background:white;border-radius:1.2rem;padding:2rem;width:100%;max-width:460px;position:relative;}
+.url-modal-box h3{font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--forest);margin-bottom:0.5rem;}
+.url-modal-box p{font-size:0.8rem;color:var(--sage);margin-bottom:1rem;line-height:1.6;}
+.url-modal-box input{width:100%;padding:0.75rem 0.9rem;border:1.5px solid rgba(13,40,24,0.12);border-radius:0.6rem;font-family:'DM Sans',sans-serif;font-size:0.85rem;outline:none;color:var(--forest);margin-bottom:1rem;}
+.url-modal-box input:focus{border-color:var(--leaf);}
+.url-preview-img{width:100%;height:120px;object-fit:cover;border-radius:0.5rem;margin-bottom:0.8rem;display:none;}
 
 /* ── SETTINGS ── */
 .settings-card{background:white;border-radius:1rem;padding:1.8rem;margin-bottom:1.2rem;border:1px solid rgba(13,40,24,0.07);}
@@ -140,37 +232,29 @@ body{font-family:'DM Sans',sans-serif;background:#f0f4f0;color:var(--forest);min
 .settings-row{display:flex;gap:1rem;align-items:center;margin-bottom:0.8rem;flex-wrap:wrap;}
 .settings-row input{flex:1;min-width:200px;padding:0.7rem 0.9rem;border:1.5px solid rgba(13,40,24,0.12);border-radius:0.6rem;font-family:'DM Sans',sans-serif;font-size:0.85rem;outline:none;color:var(--forest);}
 .settings-row input:focus{border-color:var(--leaf);}
-.save-btn{padding:0.7rem 1.4rem;background:var(--leaf);color:var(--forest);border:none;border-radius:0.6rem;font-family:'DM Sans',sans-serif;font-weight:500;cursor:pointer;white-space:nowrap;transition:all 0.3s;}
+.save-btn{padding:0.7rem 1.4rem;background:var(--leaf);color:var(--forest);border:none;border-radius:0.6rem;font-family:'DM Sans',sans-serif;font-weight:600;cursor:pointer;white-space:nowrap;transition:all 0.3s;}
 .save-btn:hover{background:var(--forest);color:var(--leaf);}
-.code-block{background:#0d2818;color:#7ab648;padding:1rem;border-radius:0.6rem;font-family:monospace;font-size:0.78rem;line-height:1.7;overflow-x:auto;margin-top:0.8rem;}
 
 /* ── ORDERS ── */
-.orders-list{display:flex;flex-direction:column;gap:1rem;}
-.order-card{background:white;border-radius:1rem;padding:1.4rem;border:1px solid rgba(13,40,24,0.07);border-left:4px solid var(--leaf);}
-.order-card.pending{border-left-color:var(--gold);}
+.order-card{background:white;border-radius:1rem;padding:1.4rem;border:1px solid rgba(13,40,24,0.07);border-left:4px solid var(--gold);margin-bottom:1rem;}
 .order-card.completed{border-left-color:var(--leaf);}
 .order-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:0.8rem;flex-wrap:wrap;gap:0.5rem;}
 .order-id{font-family:'Playfair Display',serif;font-size:0.9rem;font-weight:700;color:var(--forest);}
-.order-status{font-size:0.72rem;padding:0.2rem 0.7rem;border-radius:1rem;font-weight:500;}
+.order-status{font-size:0.7rem;padding:0.2rem 0.7rem;border-radius:1rem;font-weight:500;}
 .status-pending{background:#fff3cd;color:#856404;}
 .status-completed{background:#d4edda;color:#155724;}
-.order-details{font-size:0.82rem;color:var(--sage);line-height:1.7;}
-.order-total{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:var(--forest);margin-top:0.5rem;}
 
 /* ── TOAST ── */
-.toast{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%) translateY(80px);background:var(--forest);color:var(--leaf);padding:0.8rem 1.8rem;border-radius:2rem;font-size:0.85rem;font-weight:500;z-index:9999;transition:transform 0.4s ease;border:1px solid rgba(122,182,72,0.3);}
+.toast{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%) translateY(80px);background:var(--forest);color:var(--leaf);padding:0.8rem 1.8rem;border-radius:2rem;font-size:0.85rem;font-weight:500;z-index:9999;transition:transform 0.4s ease;border:1px solid rgba(122,182,72,0.3);white-space:nowrap;}
 .toast.show{transform:translateX(-50%) translateY(0);}
 
-@media(max-width:768px){
-  .stats-row{grid-template-columns:1fr 1fr;}
-  .form-grid{grid-template-columns:1fr;}
-  .admin-tabs{display:none;}
-}
+@media(max-width:900px){.stats-row{grid-template-columns:1fr 1fr;}.photo-grid{grid-template-columns:1fr 1fr;}.how-it-works{grid-template-columns:1fr 1fr;}}
+@media(max-width:600px){.stats-row{grid-template-columns:1fr 1fr;}.photo-grid{grid-template-columns:1fr;}.form-grid{grid-template-columns:1fr;}.admin-body{padding:1rem;}.how-it-works{grid-template-columns:1fr 1fr;}}
 </style>
 </head>
 <body>
 
-<!-- LOGIN -->
+<!-- ══ LOGIN ══ -->
 <div id="loginScreen">
   <div class="login-box">
     <div style="font-size:2.5rem;margin-bottom:1rem;">🌳</div>
@@ -179,16 +263,17 @@ body{font-family:'DM Sans',sans-serif;background:#f0f4f0;color:var(--forest);min
     <input type="password" id="loginPass" placeholder="Enter your password" onkeydown="if(event.key==='Enter')doLogin()">
     <button class="login-btn" onclick="doLogin()">Sign In →</button>
     <div class="login-error" id="loginError">❌ Incorrect password. Try again.</div>
-    <div class="login-hint">Owned by Kakuye Hitler Musajja<br>Contact support if you're locked out.</div>
+    <div class="login-hint">Owned by Kakuye Hitler Musajja<br>Default password: <strong style="color:rgba(122,182,72,0.6);">EliteTree2024</strong><br>Change it in Settings after first login.</div>
   </div>
 </div>
 
-<!-- ADMIN -->
+<!-- ══ ADMIN ══ -->
 <div id="adminScreen">
   <nav class="admin-nav">
     <div class="admin-nav-logo">🌳 <span>Elite Tree</span> Admin</div>
     <div class="admin-tabs">
       <button class="admin-tab active" onclick="showPanel('dashboard',this)">📊 Dashboard</button>
+      <button class="admin-tab" onclick="showPanel('photos',this)">📷 Photos</button>
       <button class="admin-tab" onclick="showPanel('trees',this)">🌳 Trees</button>
       <button class="admin-tab" onclick="showPanel('orders',this)">🛒 Orders</button>
       <button class="admin-tab" onclick="showPanel('settings',this)">⚙️ Settings</button>
@@ -198,28 +283,28 @@ body{font-family:'DM Sans',sans-serif;background:#f0f4f0;color:var(--forest);min
 
   <div class="admin-body">
 
-    <!-- ── DASHBOARD ── -->
+    <!-- ══ DASHBOARD ══ -->
     <div class="panel active" id="panel-dashboard">
       <div class="stats-row">
         <div class="stat-card">
           <div class="stat-val" id="stat-trees">42</div>
           <div class="stat-label">Tree Species</div>
-          <div class="stat-change">↑ Add more below</div>
+          <div class="stat-change">↑ Manage in Trees tab</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-val" id="stat-photos">0</div>
+          <div class="stat-label">Photos Added</div>
+          <div class="stat-change">↑ Add in Photos tab</div>
         </div>
         <div class="stat-card">
           <div class="stat-val" id="stat-orders">0</div>
-          <div class="stat-label">Orders Received</div>
-          <div class="stat-change">Via shop & WhatsApp</div>
+          <div class="stat-label">Orders Recorded</div>
+          <div class="stat-change">Via WhatsApp & MoMo</div>
         </div>
         <div class="stat-card">
-          <div class="stat-val">4</div>
-          <div class="stat-label">Payment Methods</div>
-          <div class="stat-change">MTN · Airtel · FLW · Pesapal</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-val">7</div>
+          <div class="stat-val">12</div>
           <div class="stat-label">Site Pages Live</div>
-          <div class="stat-change">Home · Shop · Portfolio ···</div>
+          <div class="stat-change">All pages deployed</div>
         </div>
       </div>
 
@@ -227,45 +312,108 @@ body{font-family:'DM Sans',sans-serif;background:#f0f4f0;color:var(--forest);min
         <div style="background:white;border-radius:1rem;padding:1.5rem;border:1px solid rgba(13,40,24,0.07);">
           <div style="font-family:'Playfair Display',serif;font-size:1rem;margin-bottom:1rem;color:var(--forest);">Quick Actions</div>
           <div style="display:flex;flex-direction:column;gap:0.7rem;">
-            <button class="btn-primary" onclick="showPanel('trees',document.querySelector('.admin-tab:nth-child(2))'));openAddModal()">+ Add New Tree Species</button>
-            <button class="btn-primary" style="background:var(--gold);" onclick="showPanel('settings',document.querySelectorAll('.admin-tab')[3])">⚙️ Update Payment Keys</button>
+            <button class="btn-primary" onclick="showPanel('photos',document.querySelectorAll('.admin-tab')[1])">📷 Manage Tree Photos</button>
+            <button class="btn-primary" onclick="showPanel('trees',document.querySelectorAll('.admin-tab')[2])">+ Add New Tree Species</button>
             <a href="shop.html" target="_blank" class="btn-primary" style="display:block;text-align:center;text-decoration:none;background:var(--moss);">🛒 Preview Live Shop</a>
-            <a href="index.html" target="_blank" class="btn-primary" style="display:block;text-align:center;text-decoration:none;background:var(--moss);">🏠 View Live Website</a>
+            <a href="adverse.html" target="_blank" class="btn-primary" style="display:block;text-align:center;text-decoration:none;background:var(--moss);">🌿 Test Adverse AI</a>
           </div>
         </div>
         <div style="background:white;border-radius:1rem;padding:1.5rem;border:1px solid rgba(13,40,24,0.07);">
-          <div style="font-family:'Playfair Display',serif;font-size:1rem;margin-bottom:1rem;color:var(--forest);">Payment Status</div>
-          <div style="display:flex;flex-direction:column;gap:0.8rem;font-size:0.85rem;">
-            <div style="display:flex;justify-content:space-between;align-items:center;padding:0.6rem 0;border-bottom:1px solid rgba(13,40,24,0.06);">
-              <span>📱 MTN MoMo USSD</span><span style="color:var(--leaf);font-weight:600;">✅ Active</span>
+          <div style="font-family:'Playfair Display',serif;font-size:1rem;margin-bottom:1rem;color:var(--forest);">Site Status</div>
+          <div style="display:flex;flex-direction:column;gap:0.6rem;font-size:0.83rem;">
+            <div style="display:flex;justify-content:space-between;padding:0.5rem 0;border-bottom:1px solid rgba(13,40,24,0.05);">
+              <span>📱 MTN MoMo</span><span style="color:var(--leaf);font-weight:600;">✅ Active</span>
             </div>
-            <div style="display:flex;justify-content:space-between;align-items:center;padding:0.6rem 0;border-bottom:1px solid rgba(13,40,24,0.06);">
-              <span>📲 Airtel Money USSD</span><span style="color:var(--leaf);font-weight:600;">✅ Active</span>
+            <div style="display:flex;justify-content:space-between;padding:0.5rem 0;border-bottom:1px solid rgba(13,40,24,0.05);">
+              <span>📲 Airtel Money</span><span style="color:var(--leaf);font-weight:600;">✅ Active</span>
             </div>
-            <div style="display:flex;justify-content:space-between;align-items:center;padding:0.6rem 0;border-bottom:1px solid rgba(13,40,24,0.06);">
-              <span>💳 Flutterwave Cards</span><span style="color:var(--gold);font-weight:600;">⚠️ Key Needed</span>
+            <div style="display:flex;justify-content:space-between;padding:0.5rem 0;border-bottom:1px solid rgba(13,40,24,0.05);">
+              <span>🌍 International Transfer</span><span style="color:var(--leaf);font-weight:600;">✅ Active</span>
             </div>
-            <div style="display:flex;justify-content:space-between;align-items:center;padding:0.6rem 0;">
-              <span>🌍 Pesapal</span><span style="color:var(--gold);font-weight:600;">⚠️ Key Needed</span>
+            <div style="display:flex;justify-content:space-between;padding:0.5rem 0;">
+              <span>🌿 Adverse AI</span><span style="color:var(--leaf);font-weight:600;">✅ Live</span>
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- ── TREES PANEL ── -->
+    <!-- ══ PHOTO MANAGER ══ -->
+    <div class="panel" id="panel-photos">
+      <div class="panel-header">
+        <div class="panel-title">📷 Photo Manager</div>
+        <button class="btn-primary" onclick="generateAllCode()">⬇ Generate shop.html Code</button>
+      </div>
+
+      <!-- How it works -->
+      <div class="photo-intro">
+        <h3>How Photo Manager Works</h3>
+        <p>Because the website is hosted on GitHub (not a server), photos can't be uploaded directly from here. Instead, this tool helps you set the photo URL for each tree, then generates the exact code line you copy into shop.html. Simple — no coding knowledge needed.</p>
+        <div class="how-it-works">
+          <div class="how-step">
+            <div class="how-num">1</div>
+            <div class="how-text">Take a photo of your tree with your phone</div>
+          </div>
+          <div class="how-step">
+            <div class="how-num">2</div>
+            <div class="how-text">Upload it to your GitHub <code style="color:rgba(157,212,96,0.8);font-size:0.7rem;">images/</code> folder — or paste any web URL</div>
+          </div>
+          <div class="how-step">
+            <div class="how-num">3</div>
+            <div class="how-text">Click "Set URL" on the tree card below and enter the path</div>
+          </div>
+          <div class="how-step">
+            <div class="how-num">4</div>
+            <div class="how-text">Click "Generate Code" — copy and paste into shop.html</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Photo grid -->
+      <div class="photo-grid" id="photoGrid"></div>
+
+      <!-- Code generator -->
+      <div class="code-panel" id="codePanel" style="display:none;">
+        <h3>📋 Generated Code for shop.html</h3>
+        <p>Copy everything inside the box below. Open <strong>shop.html</strong> in a text editor, find the <code>const trees = [</code> section, and replace it with this updated version. Then save and upload to GitHub.</p>
+        <div class="code-block" id="generatedCode" style="max-height:300px;overflow-y:auto;"><span style="color:rgba(157,212,96,0.4);">// Click "Generate shop.html Code" above to generate</span></div>
+        <button class="code-copy-btn" onclick="copyCode()">📋 Copy All</button>
+
+        <div class="github-steps" style="margin-top:2rem;">
+          <div style="font-family:'Playfair Display',serif;font-size:1rem;color:var(--forest);margin-bottom:1rem;">How to Apply — Step by Step</div>
+          <div class="github-step">
+            <div class="step-num">1</div>
+            <div class="step-text"><strong>Upload your photos to GitHub first.</strong> Go to your repository → click the <code>images</code> folder → drag and drop your photos → commit. Name them simply: <code>mango.jpg</code>, <code>avocado.jpg</code> etc.</div>
+          </div>
+          <div class="github-step">
+            <div class="step-num">2</div>
+            <div class="step-text"><strong>Copy the generated code</strong> from the box above using the Copy button.</div>
+          </div>
+          <div class="github-step">
+            <div class="step-num">3</div>
+            <div class="step-text"><strong>Open shop.html in GitHub.</strong> Click the pencil icon to edit. Find the line that says <code>const trees = [</code> and select everything from there down to the matching <code>];</code> — then paste the copied code to replace it.</div>
+          </div>
+          <div class="github-step">
+            <div class="step-num">4</div>
+            <div class="step-text"><strong>Commit the change.</strong> Scroll down, click "Commit changes". Your live shop will update within 2 minutes and show real photos.</div>
+          </div>
+          <div class="github-step">
+            <div class="step-num">5</div>
+            <div class="step-text"><strong>Check it worked.</strong> Visit your live shop, find that tree — if the photo shows, you're done. If not, check the image filename matches exactly (lowercase, no spaces).</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ TREES PANEL ══ -->
     <div class="panel" id="panel-trees">
       <div class="panel-header">
         <div class="panel-title">🌳 Tree Catalogue</div>
         <button class="btn-primary" onclick="openAddModal()">+ Add New Tree</button>
       </div>
-
       <div class="table-toolbar">
         <div class="search-bar">
-          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" style="top:52%">
-            <circle cx="6.5" cy="6.5" r="4.5" stroke="#4a7c59" stroke-width="1.5"/>
-            <path d="M10 10L14 14" stroke="#4a7c59" stroke-width="1.5" stroke-linecap="round"/>
-          </svg>
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" style="top:52%"><circle cx="6.5" cy="6.5" r="4.5" stroke="#4a7c59" stroke-width="1.5"/><path d="M10 10L14 14" stroke="#4a7c59" stroke-width="1.5" stroke-linecap="round"/></svg>
           <input type="text" placeholder="Search trees..." oninput="filterAdminTable(this.value)">
         </div>
         <select class="filter-select" onchange="filterAdminCat(this.value)">
@@ -276,51 +424,32 @@ body{font-family:'DM Sans',sans-serif;background:#f0f4f0;color:var(--forest);min
           <option value="native">Native</option>
           <option value="palm">Palm</option>
         </select>
-        <span id="tableCount" style="font-size:0.82rem;color:var(--sage);"></span>
+        <span id="tableCount" style="font-size:0.8rem;color:var(--sage);"></span>
       </div>
-
       <div style="overflow-x:auto;">
         <table class="tree-table" id="adminTable">
-          <thead>
-            <tr>
-              <th>Preview</th>
-              <th>Name</th>
-              <th>Latin Name</th>
-              <th>Category</th>
-              <th>Type</th>
-              <th>Price (UGX)</th>
-              <th>Badge</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
+          <thead><tr><th>Photo</th><th>Name</th><th>Latin</th><th>Category</th><th>Type</th><th>Price (UGX)</th><th>Badge</th><th>Actions</th></tr></thead>
           <tbody id="adminTableBody"></tbody>
         </table>
       </div>
     </div>
 
-    <!-- ── ORDERS PANEL ── -->
+    <!-- ══ ORDERS ══ -->
     <div class="panel" id="panel-orders">
       <div class="panel-header">
         <div class="panel-title">🛒 Orders</div>
-        <div style="font-size:0.82rem;color:var(--sage);">Orders placed via WhatsApp and Mobile Money appear here when you add them manually.</div>
+        <button class="btn-primary" onclick="addNewOrder()">+ Record Order</button>
       </div>
-      <div class="orders-list" id="ordersList">
-        <div style="background:white;border-radius:1rem;padding:2rem;text-align:center;color:var(--sage);">
-          <div style="font-size:2rem;margin-bottom:0.5rem;">📭</div>
-          <p>No orders recorded yet. When customers order via WhatsApp or Mobile Money, you can add them here to track them.</p>
-          <button class="btn-primary" style="margin-top:1rem;" onclick="addDemoOrder()">+ Record a New Order</button>
-        </div>
-      </div>
+      <div id="ordersList"></div>
     </div>
 
-    <!-- ── SETTINGS ── -->
+    <!-- ══ SETTINGS ══ -->
     <div class="panel" id="panel-settings">
-      <div class="panel-header"><div class="panel-title">⚙️ Settings & Payment Keys</div></div>
+      <div class="panel-header"><div class="panel-title">⚙️ Settings</div></div>
 
-      <!-- Business Info -->
       <div class="settings-card">
         <h4>📞 Business Contact Numbers</h4>
-        <p>These numbers receive Mobile Money payments and WhatsApp orders. Update if you change your number.</p>
+        <p>The MTN and Airtel numbers that receive Mobile Money payments and WhatsApp orders.</p>
         <div class="settings-row">
           <input type="tel" id="set-mtn" value="0706191725" placeholder="MTN MoMo Number">
           <button class="save-btn" onclick="saveSetting('mtn',document.getElementById('set-mtn').value)">Save MTN</button>
@@ -331,129 +460,62 @@ body{font-family:'DM Sans',sans-serif;background:#f0f4f0;color:var(--forest);min
         </div>
       </div>
 
-      <!-- Flutterwave -->
       <div class="settings-card">
-        <h4>💳 Flutterwave API Key (Card Payments)</h4>
-        <p>Sign up free at <a href="https://flutterwave.com" target="_blank" style="color:var(--leaf);">flutterwave.com</a>, complete business verification, then copy your <strong>Public Key</strong> here. Enables Visa, Mastercard, American Express payments.</p>
+        <h4>🌿 Adverse AI Key</h4>
+        <p>Your Anthropic API key for Adverse AI. If it stops working, replace it here and then update adverse.html manually.</p>
         <div class="settings-row">
-          <input type="text" id="set-flw" placeholder="FLWPUBK_TEST-xxxxxxxxxxxxxxxx-X">
-          <button class="save-btn" onclick="saveSetting('flw',document.getElementById('set-flw').value)">Save Key</button>
-        </div>
-        <p style="font-size:0.78rem;color:var(--sage);margin-top:0.5rem;">After saving, paste this into <code style="background:var(--mist);padding:0.1rem 0.4rem;border-radius:0.3rem;">shop.html</code> line where it says <code style="background:var(--mist);padding:0.1rem 0.4rem;border-radius:0.3rem;">YOUR_FLW_PUBLIC_KEY</code></p>
-        <div class="code-block">// In shop.html, find this line and replace:<br>const FLUTTERWAVE_KEY = 'YOUR_FLW_PUBLIC_KEY';<br><br>// Change to:<br>const FLUTTERWAVE_KEY = 'FLWPUBK_TEST-your-actual-key';</div>
-      </div>
-
-      <!-- Pesapal -->
-      <div class="settings-card">
-        <h4>🌍 Pesapal Setup</h4>
-        <p>Register at <a href="https://pesapal.com" target="_blank" style="color:var(--leaf);">pesapal.com/business</a> — it's popular in Uganda and East Africa. After approval, you get a payment link or iframe code.</p>
-        <div class="settings-row">
-          <input type="text" id="set-pesapal" placeholder="Your Pesapal Merchant Link or ID">
-          <button class="save-btn" onclick="saveSetting('pesapal',document.getElementById('set-pesapal').value)">Save</button>
+          <input type="password" id="set-aikey" placeholder="sk-ant-api03-...">
+          <button class="save-btn" onclick="saveSetting('aikey',document.getElementById('set-aikey').value)">Save Key</button>
         </div>
       </div>
 
-      <!-- Password change -->
       <div class="settings-card">
         <h4>🔑 Change Admin Password</h4>
-        <p>Change your admin panel login password. Default is <strong>EliteTree2024</strong> — change this immediately!</p>
+        <p>Change your login password. Default is <strong>EliteTree2024</strong> — please change this.</p>
         <div class="settings-row">
           <input type="password" id="set-pass1" placeholder="New Password">
-          <input type="password" id="set-pass2" placeholder="Confirm New Password">
-          <button class="save-btn" onclick="changePassword()">Change Password</button>
+          <input type="password" id="set-pass2" placeholder="Confirm Password">
+          <button class="save-btn" onclick="changePassword()">Change</button>
         </div>
-        <div style="background:#fff3cd;border-radius:0.6rem;padding:0.8rem 1rem;font-size:0.8rem;color:#856404;margin-top:0.8rem;">
-          ⚠️ The password is stored in your browser. If you clear browser data, it resets to the default. For production security, use a proper backend.
+        <div style="background:#fff3cd;border-radius:0.6rem;padding:0.8rem 1rem;font-size:0.78rem;color:#856404;margin-top:0.8rem;">
+          ⚠️ Password is stored in your browser. Don't clear browser data or you'll need to use the default again.
         </div>
       </div>
     </div>
 
-  </div><!-- admin-body -->
-</div><!-- adminScreen -->
+  </div>
+</div>
 
-<!-- ADD/EDIT MODAL -->
+<!-- ══ ADD/EDIT TREE MODAL ══ -->
 <div class="modal-backdrop" id="treeModal">
   <div class="modal-box">
     <button class="modal-close" onclick="closeModal()">✕</button>
     <h3 id="modalTitle">Add New Tree Species</h3>
-    <div class="tree-preview" id="treePreview">
+    <div class="tree-preview">
       <svg id="previewSVG" viewBox="0 0 160 130" style="width:120px;height:100px;"></svg>
       <p>Preview updates as you type</p>
     </div>
     <div class="form-grid">
-      <div class="form-group">
-        <label>Common Name *</label>
-        <input type="text" id="f-name" placeholder="e.g. Mango" oninput="updatePreview()">
+      <div class="form-group"><label>Common Name *</label><input type="text" id="f-name" placeholder="e.g. Mango" oninput="updatePreview()"></div>
+      <div class="form-group"><label>Latin Name</label><input type="text" id="f-latin" placeholder="e.g. Mangifera indica"></div>
+      <div class="form-group"><label>Category *</label>
+        <select id="f-cat"><option value="fruit">Fruit Tree</option><option value="shade">Shade Tree</option><option value="ornamental">Ornamental</option><option value="native">Native Species</option><option value="palm">Palm</option></select>
       </div>
-      <div class="form-group">
-        <label>Latin / Scientific Name</label>
-        <input type="text" id="f-latin" placeholder="e.g. Mangifera indica">
+      <div class="form-group"><label>Type</label>
+        <select id="f-type"><option value="grafted">Grafted</option><option value="seedling">Seedling</option></select>
       </div>
-      <div class="form-group">
-        <label>Category *</label>
-        <select id="f-cat">
-          <option value="fruit">Fruit Tree</option>
-          <option value="shade">Shade Tree</option>
-          <option value="ornamental">Ornamental</option>
-          <option value="native">Native Species</option>
-          <option value="palm">Palm</option>
-        </select>
+      <div class="form-group"><label>Price (UGX) *</label><input type="number" id="f-price" placeholder="e.g. 18000"></div>
+      <div class="form-group"><label>Badge</label>
+        <select id="f-badge"><option value="">None</option><option value="popular">⭐ Popular</option><option value="new">🆕 New</option><option value="rare">💎 Rare</option><option value="sale">🔥 Sale</option></select>
       </div>
-      <div class="form-group">
-        <label>Type</label>
-        <select id="f-type">
-          <option value="grafted">Grafted</option>
-          <option value="seedling">Seedling</option>
-          <option value="mature">Mature Specimen</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label>Price (UGX) *</label>
-        <input type="number" id="f-price" placeholder="e.g. 18000" oninput="updatePreview()">
-      </div>
-      <div class="form-group">
-        <label>Original Price (if on sale)</label>
-        <input type="number" id="f-oldprice" placeholder="Leave empty if no sale">
-      </div>
-      <div class="form-group">
-        <label>Badge</label>
-        <select id="f-badge">
-          <option value="">None</option>
-          <option value="popular">⭐ Popular</option>
-          <option value="new">🆕 New</option>
-          <option value="rare">💎 Rare</option>
-          <option value="sale">🔥 Sale</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label>Fruit Colour (for fruit trees)</label>
+      <div class="form-group full"><label>Canopy Colours</label>
         <div class="color-row">
-          <input type="color" id="f-fruit" value="#f4a128">
-          <span class="color-label">Leave default if not a fruit tree</span>
+          <input type="color" id="f-color1" value="#1a4a12" oninput="updatePreview()"><span style="font-size:0.78rem;color:var(--sage);">Main</span>
+          <input type="color" id="f-color2" value="#2d7a1e" oninput="updatePreview()"><span style="font-size:0.78rem;color:var(--sage);">Secondary</span>
+          <input type="color" id="f-fruit" value="#f4a128"><span style="font-size:0.78rem;color:var(--sage);">Fruit colour</span>
         </div>
       </div>
-      <div class="form-group full">
-        <label>Tree Canopy Colour (top)</label>
-        <div class="color-row">
-          <input type="color" id="f-color1" value="#1a4a12" oninput="updatePreview()">
-          <span class="color-label">Main canopy colour</span>
-          <input type="color" id="f-color2" value="#2d7a1e" oninput="updatePreview()">
-          <span class="color-label">Secondary canopy</span>
-        </div>
-      </div>
-      <div class="form-group full">
-        <label>Upload Tree Photo (optional — replaces SVG illustration)</label>
-        <div class="img-upload-area" onclick="document.getElementById('f-img').click()">
-          <div style="font-size:1.5rem;">📷</div>
-          <p>Click to upload a photo of this tree<br><small>JPG, PNG, WEBP · Max 2MB</small></p>
-          <input type="file" id="f-img" accept="image/*" onchange="previewImage(event)">
-          <img id="imgPreviewEl" class="img-preview">
-        </div>
-      </div>
-      <div class="form-group full">
-        <label>Short Description</label>
-        <input type="text" id="f-desc" placeholder="e.g. Sweet, round, highly marketable">
-      </div>
+      <div class="form-group full"><label>Short Description</label><input type="text" id="f-desc" placeholder="e.g. Sweet, round, highly marketable"></div>
     </div>
     <div style="display:flex;gap:1rem;margin-top:1.5rem;">
       <button class="btn-primary" style="flex:1;" onclick="saveTree()">💾 Save Tree</button>
@@ -462,11 +524,28 @@ body{font-family:'DM Sans',sans-serif;background:#f0f4f0;color:var(--forest);min
   </div>
 </div>
 
+<!-- ══ URL INPUT MODAL ══ -->
+<div class="modal-backdrop" id="urlModal">
+  <div class="url-modal-box">
+    <button class="modal-close" onclick="closeUrlModal()">✕</button>
+    <h3>Set Photo URL</h3>
+    <p>Enter the path to your photo. If you've uploaded it to your GitHub <code>images/</code> folder, just type <code>images/filename.jpg</code>. Or paste a full web URL from Google Photos, Imgur etc.</p>
+    <input type="text" id="urlInput" placeholder="images/mango.jpg  or  https://..." oninput="previewUrl(this.value)">
+    <img id="urlPreviewImg" class="url-preview-img" alt="Preview">
+    <div style="display:flex;gap:0.8rem;">
+      <button class="btn-primary" style="flex:1;" onclick="confirmUrl()">✅ Set This Photo</button>
+      <button onclick="closeUrlModal()" style="padding:0.7rem 1.2rem;border:1.5px solid rgba(13,40,24,0.12);border-radius:0.6rem;background:white;cursor:pointer;font-family:'DM Sans',sans-serif;">Cancel</button>
+    </div>
+  </div>
+</div>
+
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
 <script>
-// ═══ AUTH ═══
+// ══════════════════════════════════
+// AUTH
+// ══════════════════════════════════
 const DEFAULT_PASS = 'EliteTree2024';
 function doLogin(){
   const pass = document.getElementById('loginPass').value;
@@ -474,214 +553,341 @@ function doLogin(){
   if(pass === stored){
     document.getElementById('loginScreen').style.display='none';
     document.getElementById('adminScreen').style.display='block';
-    loadTrees();
-    loadOrders();
-    updateStats();
+    initAdmin();
   } else {
     document.getElementById('loginError').style.display='block';
     document.getElementById('loginPass').value='';
   }
 }
-document.getElementById('loginPass').addEventListener('keydown',e=>{if(e.key==='Enter')doLogin();});
 function logout(){
   document.getElementById('loginScreen').style.display='flex';
   document.getElementById('adminScreen').style.display='none';
-  document.getElementById('loginPass').value='';
 }
 function changePassword(){
   const p1=document.getElementById('set-pass1').value;
   const p2=document.getElementById('set-pass2').value;
-  if(!p1){showToast('Please enter a new password.');return;}
+  if(!p1||p1.length<6){showToast('Password must be at least 6 characters.');return;}
   if(p1!==p2){showToast('Passwords do not match!');return;}
-  if(p1.length<6){showToast('Password must be at least 6 characters.');return;}
   localStorage.setItem('ets_admin_pass',p1);
   document.getElementById('set-pass1').value='';
   document.getElementById('set-pass2').value='';
-  showToast('✅ Password changed successfully!');
+  showToast('✅ Password changed!');
 }
 
-// ═══ PANELS ═══
+// ══════════════════════════════════
+// PANELS
+// ══════════════════════════════════
 function showPanel(name, btn){
   document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.admin-tab').forEach(t=>t.classList.remove('active'));
   document.getElementById('panel-'+name).classList.add('active');
   if(btn) btn.classList.add('active');
   if(name==='trees') renderAdminTable(getAllTrees());
+  if(name==='photos') renderPhotoGrid();
+  if(name==='orders') renderOrders();
+  if(name==='dashboard') updateStats();
 }
 
-// ═══ TREE DATA (localStorage + defaults) ═══
-const DEFAULT_TREES = [
+// ══════════════════════════════════
+// TREE DATA
+// ══════════════════════════════════
+const MASTER_TREES = [
   {id:'t1',name:'Apple Mango',latin:'Mangifera indica',cat:'fruit',type:'grafted',price:18000,badge:'popular',color1:'#1a4a12',color2:'#2d7a1e',fruit:'#f4a128',desc:'Sweet, round, highly marketable'},
   {id:'t2',name:'Kent Mango',latin:'Mangifera indica',cat:'fruit',type:'grafted',price:22000,badge:'new',color1:'#1a5a12',color2:'#3a8a24',fruit:'#e8902a',desc:'Late-season, ideal for export'},
-  {id:'t3',name:'Hass Avocado',latin:'Persea americana',cat:'fruit',type:'grafted',price:25000,badge:'popular',color1:'#1a5c12',color2:'#2d7a18',fruit:'#2d4a1a',desc:'Global gold standard variety'},
-  {id:'t4',name:'Washington Navel Orange',latin:'Citrus sinensis',cat:'fruit',type:'grafted',price:18000,badge:'',color1:'#2d5a10',color2:'#3a7a18',fruit:'#ff8c00',desc:'Seedless, sweet eating orange'},
-  {id:'t5',name:'Jackfruit',latin:'Artocarpus heterophyllus',cat:'fruit',type:'grafted',price:20000,badge:'popular',color1:'#2a5a10',color2:'#3a7a1a',fruit:'#8b8000',desc:"Uganda's giant sweet fruit tree"},
-  {id:'t6',name:'Jacaranda',latin:'Jacaranda mimosifolia',cat:'ornamental',type:'seedling',price:20000,badge:'popular',color1:'#3a1a7a',color2:'#5a2a9a',fruit:'',desc:'Purple flowering spectacle'},
-  {id:'t7',name:'Flamboyant Tree',latin:'Delonix regia',cat:'ornamental',type:'seedling',price:18000,badge:'popular',color1:'#7a2010',color2:'#a03020',fruit:'',desc:'Blazing red seasonal display'},
-  {id:'t8',name:'Natal Fig',latin:'Ficus natalensis',cat:'shade',type:'seedling',price:18000,badge:'popular',color1:'#1a4a12',color2:'#2d6a20',fruit:'',desc:"Uganda's beloved community tree"},
-  {id:'t9',name:'African Mahogany',latin:'Khaya senegalensis',cat:'shade',type:'seedling',price:25000,badge:'',color1:'#1a3a10',color2:'#2a5a18',fruit:'',desc:'Stately, long-lived hardwood'},
-  {id:'t10',name:'Mvule / African Teak',latin:'Milicia excelsa',cat:'native',type:'seedling',price:30000,badge:'rare',color1:'#1a3a10',color2:'#2a5a18',fruit:'',desc:"Uganda's most prized native timber"},
-  {id:'t11',name:'Royal Palm',latin:'Roystonea regia',cat:'palm',type:'seedling',price:45000,badge:'popular',color1:'#1a4a2e',color2:'#2d6a44',fruit:'',desc:'Majestic formal avenue palm'},
-  {id:'t12',name:'Moringa',latin:'Moringa oleifera',cat:'shade',type:'seedling',price:8000,badge:'new',color1:'#3a6a20',color2:'#4a8a2e',fruit:'',desc:'Nutritional superfood tree'},
+  {id:'t3',name:'Haden Mango',latin:'Mangifera indica',cat:'fruit',type:'grafted',price:15000,badge:'',color1:'#2d6a18',color2:'#4a9a2e',fruit:'#ffb347',desc:'Reliable, disease-resistant'},
+  {id:'t4',name:'Hass Avocado',latin:'Persea americana',cat:'fruit',type:'grafted',price:25000,badge:'popular',color1:'#1a5c12',color2:'#2d7a18',fruit:'#2d4a1a',desc:'Global gold standard variety'},
+  {id:'t5',name:'Fuerte Avocado',latin:'Persea americana',cat:'fruit',type:'grafted',price:20000,badge:'',color1:'#2a6a18',color2:'#3a7a24',fruit:'#3a5a20',desc:'Mid-altitude workhorse variety'},
+  {id:'t6',name:'Washington Navel Orange',latin:'Citrus sinensis',cat:'fruit',type:'grafted',price:18000,badge:'',color1:'#2d5a10',color2:'#3a7a18',fruit:'#ff8c00',desc:'Seedless, sweet eating orange'},
+  {id:'t7',name:'Eureka Lemon',latin:'Citrus limon',cat:'fruit',type:'grafted',price:16000,badge:'',color1:'#3a6a18',color2:'#4a8a24',fruit:'#ffd700',desc:'Year-round fruiting lemon'},
+  {id:'t8',name:'Jackfruit',latin:'Artocarpus heterophyllus',cat:'fruit',type:'grafted',price:20000,badge:'popular',color1:'#2a5a10',color2:'#3a7a1a',fruit:'#8b8000',desc:"Uganda's giant sweet fruit tree"},
+  {id:'t9',name:'Guava',latin:'Psidium guajava',cat:'fruit',type:'grafted',price:12000,badge:'',color1:'#3a7a18',color2:'#4a9a24',fruit:'#ffd700',desc:'Fast-bearing, nutritious fruit'},
+  {id:'t10',name:'Passion Fruit',latin:'Passiflora edulis',cat:'fruit',type:'grafted',price:10000,badge:'new',color1:'#4a3a78',color2:'#6a5a98',fruit:'#9b59b6',desc:'Climbing vine, commercial value'},
+  {id:'t11',name:'Pawpaw / Papaya',latin:'Carica papaya',cat:'fruit',type:'seedling',price:6000,badge:'sale',price_old:9000,color1:'#2d6a10',color2:'#3a8a1a',fruit:'#ff8c00',desc:'Fast-growing tropical fruit'},
+  {id:'t12',name:'Tamarind',latin:'Tamarindus indica',cat:'fruit',type:'grafted',price:22000,badge:'',color1:'#4a5a1a',color2:'#6a7a2a',fruit:'#8b4513',desc:'Long-lived specimen, sweet pods'},
+  {id:'t13',name:'Banana — Matooke',latin:'Musa acuminata',cat:'fruit',type:'seedling',price:8000,badge:'popular',color1:'#2d7a18',color2:'#4a9a28',fruit:'#ffd700',desc:"Uganda's staple food plant"},
+  {id:'t14',name:'Coconut Palm',latin:'Cocos nucifera',cat:'fruit',type:'seedling',price:15000,badge:'',color1:'#1a4a2e',color2:'#2d6a40',fruit:'#8b6914',desc:'Tropical icon, high value nuts'},
+  {id:'t15',name:'Natal Fig',latin:'Ficus natalensis',cat:'shade',type:'seedling',price:18000,badge:'popular',color1:'#1a4a12',color2:'#2d6a20',fruit:'',desc:"Uganda's beloved community tree"},
+  {id:'t16',name:'African Mahogany',latin:'Khaya senegalensis',cat:'shade',type:'seedling',price:25000,badge:'',color1:'#1a3a10',color2:'#2a5a18',fruit:'',desc:'Stately, long-lived hardwood'},
+  {id:'t17',name:'Neem Tree',latin:'Azadirachta indica',cat:'shade',type:'seedling',price:10000,badge:'',color1:'#2d5a18',color2:'#3a7a24',fruit:'',desc:'Fast-growing, medicinal qualities'},
+  {id:'t18',name:'Moringa',latin:'Moringa oleifera',cat:'shade',type:'seedling',price:8000,badge:'new',color1:'#3a6a20',color2:'#4a8a2e',fruit:'',desc:'Nutritional superfood tree'},
+  {id:'t19',name:'Umbrella Thorn Acacia',latin:'Vachellia tortilis',cat:'shade',type:'seedling',price:15000,badge:'',color1:'#4a5a18',color2:'#6a7a28',fruit:'',desc:'Iconic African flat-topped silhouette'},
+  {id:'t20',name:'Cape Chestnut',latin:'Calodendrum capense',cat:'shade',type:'seedling',price:22000,badge:'',color1:'#2a3a50',color2:'#3a5a70',fruit:'',desc:'Stunning pink flowering canopy'},
+  {id:'t21',name:'Musizi / White Stinkwood',latin:'Cordia millenii',cat:'shade',type:'seedling',price:20000,badge:'popular',color1:'#1a4a18',color2:'#2d6a28',fruit:'',desc:'Native Uganda premium timber shade'},
+  {id:'t22',name:'East African Yellowwood',latin:'Podocarpus latifolius',cat:'shade',type:'seedling',price:28000,badge:'rare',color1:'#1a3a20',color2:'#2d5a30',fruit:'',desc:'Slow-growing, extremely long-lived'},
+  {id:'t23',name:'Jacaranda',latin:'Jacaranda mimosifolia',cat:'ornamental',type:'seedling',price:20000,badge:'popular',color1:'#3a1a7a',color2:'#5a2a9a',fruit:'',desc:'Purple flowering spectacle'},
+  {id:'t24',name:'Flamboyant / Flame Tree',latin:'Delonix regia',cat:'ornamental',type:'seedling',price:18000,badge:'popular',color1:'#7a2010',color2:'#a03020',fruit:'',desc:'Blazing red seasonal display'},
+  {id:'t25',name:'Frangipani',latin:'Plumeria rubra',cat:'ornamental',type:'seedling',price:22000,badge:'',color1:'#3a1a3a',color2:'#6a3a5a',fruit:'',desc:'Heavenly scented tropical flower'},
+  {id:'t26',name:'African Tulip',latin:'Spathodea campanulata',cat:'ornamental',type:'seedling',price:16000,badge:'new',color1:'#6a1a10',color2:'#8a2a18',fruit:'',desc:'Uganda native, vivid orange blooms'},
+  {id:'t27',name:'Bougainvillea',latin:'Bougainvillea spectabilis',cat:'ornamental',type:'seedling',price:12000,badge:'',color1:'#7a1a5a',color2:'#9a3a7a',fruit:'',desc:'Blazing colour all year round'},
+  {id:'t28',name:'Pride of India',latin:'Lagerstroemia speciosa',cat:'ornamental',type:'seedling',price:24000,badge:'rare',color1:'#4a1a6a',color2:'#6a3a8a',fruit:'',desc:'Magnificent purple flowering tree'},
+  {id:'t29',name:'Yellow Cassia',latin:'Cassia fistula',cat:'ornamental',type:'seedling',price:16000,badge:'',color1:'#4a5a10',color2:'#6a7a20',fruit:'',desc:'Cascading golden flowers in season'},
+  {id:'t30',name:'Bottle Brush',latin:'Callistemon citrinus',cat:'ornamental',type:'seedling',price:14000,badge:'',color1:'#5a1a10',color2:'#7a2a18',fruit:'',desc:'Unique red brush-like flowers'},
+  {id:'t31',name:'Weeping Fig',latin:'Ficus benjamina',cat:'ornamental',type:'seedling',price:18000,badge:'popular',color1:'#1a4a18',color2:'#2d6a28',fruit:'',desc:'Classic elegant avenue tree'},
+  {id:'t32',name:'Mvule / African Teak',latin:'Milicia excelsa',cat:'native',type:'seedling',price:30000,badge:'rare',color1:'#1a3a10',color2:'#2a5a18',fruit:'',desc:"Uganda's most prized native timber"},
+  {id:'t33',name:'Elgon Olive',latin:'Olea europaea subsp. africana',cat:'native',type:'seedling',price:28000,badge:'rare',color1:'#3a4a18',color2:'#5a6a28',fruit:'',desc:'Native Ugandan olive, long-lived'},
+  {id:'t34',name:'Prunus africana',latin:'Prunus africana',cat:'native',type:'seedling',price:32000,badge:'rare',color1:'#2a3a18',color2:'#3a5a28',fruit:'',desc:'Medicinal bark, conservation species'},
+  {id:'t35',name:'Strangler Fig',latin:'Ficus thonningii',cat:'native',type:'seedling',price:18000,badge:'',color1:'#1a4a10',color2:'#2d6a18',fruit:'',desc:'Sacred Ugandan village tree'},
+  {id:'t36',name:'Warburgia',latin:'Warburgia ugandensis',cat:'native',type:'seedling',price:35000,badge:'rare',color1:'#1a3a18',color2:'#2a5a28',fruit:'',desc:'Uganda endemic, highly medicinal'},
+  {id:'t37',name:'Markhamia',latin:'Markhamia lutea',cat:'native',type:'seedling',price:14000,badge:'popular',color1:'#2a5a10',color2:'#3a7a1a',fruit:'',desc:'Fast-growing native shade tree'},
+  {id:'t38',name:'Albizia',latin:'Albizia coriaria',cat:'native',type:'seedling',price:16000,badge:'',color1:'#3a5a18',color2:'#4a7a28',fruit:'',desc:'Nitrogen-fixing, soil improving'},
+  {id:'t39',name:'Royal Palm',latin:'Roystonea regia',cat:'palm',type:'seedling',price:45000,badge:'popular',color1:'#1a4a2e',color2:'#2d6a44',fruit:'',desc:'Majestic formal avenue palm'},
+  {id:'t40',name:'Date Palm',latin:'Phoenix dactylifera',cat:'palm',type:'seedling',price:38000,badge:'',color1:'#2a4a20',color2:'#3a6a30',fruit:'#8b6914',desc:'Productive date-bearing palm'},
+  {id:'t41',name:'Fan Palm',latin:'Livistona chinensis',cat:'palm',type:'seedling',price:30000,badge:'new',color1:'#1a5a2e',color2:'#2d7a44',fruit:'',desc:'Dramatic spreading fan-shaped fronds'},
+  {id:'t42',name:'Bamboo Palm',latin:'Chamaedorea seifrizii',cat:'palm',type:'seedling',price:25000,badge:'',color1:'#2d5a28',color2:'#3a7a38',fruit:'',desc:'Elegant multi-stem indoor/outdoor palm'},
 ];
 
 function getAllTrees(){
   const saved = localStorage.getItem('ets_trees');
-  return saved ? JSON.parse(saved) : DEFAULT_TREES;
+  return saved ? JSON.parse(saved) : MASTER_TREES;
 }
 function saveTrees(arr){
   localStorage.setItem('ets_trees', JSON.stringify(arr));
   updateStats();
 }
-function loadTrees(){ renderAdminTable(getAllTrees()); }
 
-// ═══ ADMIN TABLE ═══
+// Photo storage — separate from tree data
+function getPhotos(){
+  return JSON.parse(localStorage.getItem('ets_photos')||'{}');
+}
+function savePhoto(treeId, url){
+  const photos = getPhotos();
+  if(url) photos[treeId] = url;
+  else delete photos[treeId];
+  localStorage.setItem('ets_photos', JSON.stringify(photos));
+  updateStats();
+}
+
+// ══════════════════════════════════
+// PHOTO MANAGER
+// ══════════════════════════════════
+function renderPhotoGrid(){
+  const trees = getAllTrees();
+  const photos = getPhotos();
+  const grid = document.getElementById('photoGrid');
+  grid.innerHTML = trees.map(t => {
+    const hasPhoto = !!photos[t.id];
+    const imgUrl = photos[t.id] || '';
+    return `
+    <div class="photo-card">
+      <div class="photo-card-thumb ${hasPhoto?'has-photo':'no-photo'}" onclick="${!hasPhoto?`openUrlModal('${t.id}')`:''}" title="${!hasPhoto?'Click to add photo':''}">
+        ${hasPhoto
+          ? `<img src="${imgUrl}" alt="${t.name}" onerror="this.style.display='none';this.nextSibling.style.display='flex'">`
+          : ''
+        }
+        <div class="photo-placeholder-icon" ${hasPhoto?'style="display:none"':''}> 
+          <div>📷</div>
+          <p>No photo yet<br>Click to add</p>
+        </div>
+      </div>
+      <div class="photo-card-body">
+        <div class="photo-card-name">${t.name}</div>
+        <div class="photo-card-cat">${t.cat} · ${t.type} · UGX ${t.price.toLocaleString()}</div>
+        <div class="photo-card-actions">
+          <button class="photo-upload-btn" onclick="openUrlModal('${t.id}')">
+            ${hasPhoto ? '🔄 Change Photo' : '📎 Set URL'}
+          </button>
+          ${hasPhoto ? `<button class="photo-clear-btn" onclick="clearPhoto('${t.id}')">✕</button>` : ''}
+        </div>
+        ${imgUrl ? `<div style="font-size:0.62rem;color:var(--sage);margin-top:0.4rem;word-break:break-all;opacity:0.7;">${imgUrl}</div>` : ''}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function clearPhoto(treeId){
+  if(!confirm('Remove photo for this tree?')) return;
+  savePhoto(treeId, null);
+  renderPhotoGrid();
+  updateStats();
+  showToast('📷 Photo removed.');
+}
+
+// ── URL MODAL ──
+let currentUrlTreeId = null;
+function openUrlModal(treeId){
+  currentUrlTreeId = treeId;
+  const photos = getPhotos();
+  document.getElementById('urlInput').value = photos[treeId] || '';
+  document.getElementById('urlPreviewImg').style.display = 'none';
+  document.getElementById('urlModal').classList.add('open');
+  setTimeout(()=>document.getElementById('urlInput').focus(), 100);
+}
+function closeUrlModal(){
+  document.getElementById('urlModal').classList.remove('open');
+  currentUrlTreeId = null;
+}
+function previewUrl(val){
+  const img = document.getElementById('urlPreviewImg');
+  if(val && (val.startsWith('http')||val.startsWith('images/'))){
+    img.src = val;
+    img.style.display = 'block';
+  } else {
+    img.style.display = 'none';
+  }
+}
+function confirmUrl(){
+  const url = document.getElementById('urlInput').value.trim();
+  if(!url){showToast('Please enter a URL or file path.');return;}
+  savePhoto(currentUrlTreeId, url);
+  closeUrlModal();
+  renderPhotoGrid();
+  updateStats();
+  showToast('✅ Photo URL saved!');
+}
+
+// ── CODE GENERATOR ──
+function generateAllCode(){
+  const trees = getAllTrees();
+  const photos = getPhotos();
+  let count = 0;
+
+  const lines = trees.map(t => {
+    const photo = photos[t.id];
+    if(photo) count++;
+    const img = photo ? `,\n    img:'${photo}'` : '';
+    const priceOld = t.price_old ? `,price_old:${t.price_old}` : '';
+    return `  {id:'${t.id}',name:'${t.name}',latin:'${t.latin||''}',cat:'${t.cat}',type:'${t.type}',price:${t.price}${priceOld},badge:'${t.badge||''}',color1:'${t.color1||'#1a4a12'}',color2:'${t.color2||'#2d7a1e'}',fruit:'${t.fruit||''}',desc:'${(t.desc||'').replace(/'/g,"\\'")}'\${img}}`;
+  }).join(',\n');
+
+  const code = `const trees = [\n${lines}\n];`;
+  document.getElementById('generatedCode').textContent = code;
+  document.getElementById('codePanel').style.display = 'block';
+  document.getElementById('codePanel').scrollIntoView({behavior:'smooth'});
+  showToast(`✅ Code generated! ${count} tree${count!==1?'s':''} have photos.`);
+}
+
+function copyCode(){
+  const code = document.getElementById('generatedCode').textContent;
+  navigator.clipboard.writeText(code).then(()=>{
+    showToast('✅ Code copied to clipboard!');
+  }).catch(()=>{
+    // Fallback
+    const ta = document.createElement('textarea');
+    ta.value = code;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    showToast('✅ Code copied!');
+  });
+}
+
+// ══════════════════════════════════
+// ADMIN TABLE
+// ══════════════════════════════════
 function renderAdminTable(list){
+  const photos = getPhotos();
   const body = document.getElementById('adminTableBody');
   document.getElementById('tableCount').textContent = `${list.length} species`;
   if(!list.length){
-    body.innerHTML=`<tr><td colspan="8" style="text-align:center;padding:2rem;color:var(--sage);">No trees found. Add one above!</td></tr>`;
+    body.innerHTML=`<tr><td colspan="8" style="text-align:center;padding:2rem;color:var(--sage);">No trees found.</td></tr>`;
     return;
   }
   body.innerHTML = list.map(t=>`
-    <tr data-id="${t.id}">
+    <tr>
       <td>
         <div class="tree-thumb-mini">
-          ${t.img ? `<img src="${t.img}" alt="${t.name}">` : miniTreeSVG(t)}
+          ${photos[t.id]
+            ? `<img src="${photos[t.id]}" alt="${t.name}" onerror="this.style.display='none'">`
+            : miniSVG(t)
+          }
         </div>
       </td>
       <td><strong>${t.name}</strong></td>
-      <td style="font-style:italic;color:var(--sage);">${t.latin||'—'}</td>
+      <td style="font-style:italic;color:var(--sage);font-size:0.78rem;">${t.latin||'—'}</td>
       <td><span class="cat-badge cat-${t.cat}">${t.cat}</span></td>
       <td style="color:var(--sage);">${t.type}</td>
       <td class="price-cell">UGX ${Number(t.price).toLocaleString()}</td>
-      <td>${t.badge ? `<span style="font-size:0.75rem;">${t.badge==='popular'?'⭐':t.badge==='new'?'🆕':t.badge==='rare'?'💎':'🔥'} ${t.badge}</span>` : '—'}</td>
+      <td>${t.badge?`<span style="font-size:0.75rem;">${t.badge==='popular'?'⭐':t.badge==='new'?'🆕':t.badge==='rare'?'💎':'🔥'} ${t.badge}</span>`:'—'}</td>
       <td>
         <div class="action-btns">
           <button class="btn-edit" onclick="editTree('${t.id}')">✏️ Edit</button>
-          <button class="btn-danger" onclick="deleteTree('${t.id}')">🗑 Delete</button>
+          <button class="btn-danger" onclick="deleteTree('${t.id}')">🗑</button>
         </div>
       </td>
-    </tr>
-  `).join('');
+    </tr>`).join('');
 }
-
+function miniSVG(t){
+  const c1=t.color1||'#1a4a12',c2=t.color2||'#2d6a20';
+  return `<svg viewBox="0 0 40 40" fill="none"><rect width="40" height="40" fill="${c1}"/><ellipse cx="20" cy="18" rx="14" ry="12" fill="${c2}"/><ellipse cx="20" cy="12" rx="10" ry="9" fill="${c1}"/><path d="M17 38 C16 30 16 24 18 18 L22 18 C24 24 24 30 23 38Z" fill="#5c3a14"/></svg>`;
+}
 function filterAdminTable(q){
-  const all = getAllTrees();
-  const filtered = all.filter(t=>
-    t.name.toLowerCase().includes(q.toLowerCase()) ||
-    (t.latin||'').toLowerCase().includes(q.toLowerCase())
-  );
-  renderAdminTable(filtered);
+  renderAdminTable(getAllTrees().filter(t=>t.name.toLowerCase().includes(q.toLowerCase())||(t.latin||'').toLowerCase().includes(q.toLowerCase())));
 }
 function filterAdminCat(cat){
-  const all = getAllTrees();
-  renderAdminTable(cat ? all.filter(t=>t.cat===cat) : all);
+  renderAdminTable(cat ? getAllTrees().filter(t=>t.cat===cat) : getAllTrees());
 }
 
-function miniTreeSVG(t){
-  const c1=t.color1||'#1a4a12', c2=t.color2||'#2d6a20';
-  return `<svg viewBox="0 0 40 40" fill="none"><rect width="40" height="40" fill="${c1}"/><ellipse cx="20" cy="18" rx="14" ry="12" fill="${c2}"/><ellipse cx="20" cy="12" rx="10" ry="9" fill="${c1}"/><path d="M17 35 C16 28 16 22 18 18 L22 18 C24 22 24 28 23 35Z" fill="#5c3a14"/></svg>`;
-}
-
-// ═══ ADD / EDIT ═══
+// ── ADD / EDIT ──
 let editingId = null;
 function openAddModal(){
-  editingId = null;
-  document.getElementById('modalTitle').textContent = 'Add New Tree Species';
-  document.getElementById('f-name').value='';
-  document.getElementById('f-latin').value='';
+  editingId=null;
+  document.getElementById('modalTitle').textContent='Add New Tree Species';
+  ['f-name','f-latin','f-price','f-desc'].forEach(id=>document.getElementById(id).value='');
   document.getElementById('f-cat').value='fruit';
   document.getElementById('f-type').value='grafted';
-  document.getElementById('f-price').value='';
-  document.getElementById('f-oldprice').value='';
   document.getElementById('f-badge').value='';
-  document.getElementById('f-fruit').value='#f4a128';
   document.getElementById('f-color1').value='#1a4a12';
   document.getElementById('f-color2').value='#2d7a1e';
-  document.getElementById('f-desc').value='';
-  document.getElementById('imgPreviewEl').style.display='none';
-  document.getElementById('imgPreviewEl').src='';
+  document.getElementById('f-fruit').value='#f4a128';
   updatePreview();
   document.getElementById('treeModal').classList.add('open');
 }
 function editTree(id){
-  const trees = getAllTrees();
-  const t = trees.find(x=>x.id===id);
+  const t = getAllTrees().find(x=>x.id===id);
   if(!t) return;
-  editingId = id;
-  document.getElementById('modalTitle').textContent = 'Edit Tree: '+t.name;
+  editingId=id;
+  document.getElementById('modalTitle').textContent='Edit: '+t.name;
   document.getElementById('f-name').value=t.name;
   document.getElementById('f-latin').value=t.latin||'';
   document.getElementById('f-cat').value=t.cat;
   document.getElementById('f-type').value=t.type;
   document.getElementById('f-price').value=t.price;
-  document.getElementById('f-oldprice').value=t.price_old||'';
   document.getElementById('f-badge').value=t.badge||'';
-  document.getElementById('f-fruit').value=t.fruit||'#f4a128';
   document.getElementById('f-color1').value=t.color1||'#1a4a12';
   document.getElementById('f-color2').value=t.color2||'#2d7a1e';
+  document.getElementById('f-fruit').value=t.fruit||'#f4a128';
   document.getElementById('f-desc').value=t.desc||'';
-  if(t.img){
-    document.getElementById('imgPreviewEl').src=t.img;
-    document.getElementById('imgPreviewEl').style.display='block';
-  } else {
-    document.getElementById('imgPreviewEl').style.display='none';
-  }
   updatePreview();
   document.getElementById('treeModal').classList.add('open');
 }
 function saveTree(){
-  const name = document.getElementById('f-name').value.trim();
-  const price = parseInt(document.getElementById('f-price').value);
+  const name=document.getElementById('f-name').value.trim();
+  const price=parseInt(document.getElementById('f-price').value);
   if(!name){showToast('Please enter a tree name.');return;}
   if(!price||price<1){showToast('Please enter a valid price.');return;}
-  const imgEl = document.getElementById('imgPreviewEl');
-  const treeData = {
-    id: editingId || 'custom_'+Date.now(),
-    name,
-    latin: document.getElementById('f-latin').value.trim(),
-    cat: document.getElementById('f-cat').value,
-    type: document.getElementById('f-type').value,
-    price,
-    price_old: parseInt(document.getElementById('f-oldprice').value)||undefined,
-    badge: document.getElementById('f-badge').value,
-    fruit: document.getElementById('f-fruit').value,
-    color1: document.getElementById('f-color1').value,
-    color2: document.getElementById('f-color2').value,
-    desc: document.getElementById('f-desc').value.trim(),
-    img: (imgEl.style.display!=='none' && imgEl.src) ? imgEl.src : undefined,
+  const treeData={
+    id:editingId||'custom_'+Date.now(),
+    name,latin:document.getElementById('f-latin').value.trim(),
+    cat:document.getElementById('f-cat').value,
+    type:document.getElementById('f-type').value,
+    price,badge:document.getElementById('f-badge').value,
+    color1:document.getElementById('f-color1').value,
+    color2:document.getElementById('f-color2').value,
+    fruit:document.getElementById('f-fruit').value,
+    desc:document.getElementById('f-desc').value.trim(),
   };
-  let trees = getAllTrees();
-  if(editingId){
-    trees = trees.map(t=>t.id===editingId ? treeData : t);
-    showToast('✅ Tree updated successfully!');
-  } else {
-    trees.push(treeData);
-    showToast('✅ New tree added to catalogue!');
-  }
+  let trees=getAllTrees();
+  if(editingId){trees=trees.map(t=>t.id===editingId?treeData:t);showToast('✅ Tree updated!');}
+  else{trees.push(treeData);showToast('✅ Tree added!');}
   saveTrees(trees);
   renderAdminTable(trees);
   closeModal();
 }
 function deleteTree(id){
-  if(!confirm('Delete this tree from the catalogue? This cannot be undone.')) return;
-  let trees = getAllTrees().filter(t=>t.id!==id);
-  saveTrees(trees);
-  renderAdminTable(trees);
+  if(!confirm('Delete this tree? Cannot be undone.')) return;
+  saveTrees(getAllTrees().filter(t=>t.id!==id));
+  renderAdminTable(getAllTrees());
   showToast('🗑 Tree deleted.');
 }
 function closeModal(){
   document.getElementById('treeModal').classList.remove('open');
-  editingId = null;
+  editingId=null;
 }
-
-// ═══ LIVE PREVIEW ═══
 function updatePreview(){
   const c1=document.getElementById('f-color1').value;
   const c2=document.getElementById('f-color2').value;
   const fruit=document.getElementById('f-fruit').value;
-  const price=document.getElementById('f-price').value;
   document.getElementById('previewSVG').innerHTML=`
     <rect width="160" height="130" fill="${c1}"/>
     <ellipse cx="80" cy="90" rx="55" ry="15" fill="rgba(0,0,0,0.2)"/>
@@ -694,113 +900,110 @@ function updatePreview(){
     <ellipse cx="80" cy="22" rx="17" ry="16" fill="${c2}"/>
     ${fruit?`<ellipse cx="64" cy="72" rx="7" ry="9" fill="${fruit}" opacity="0.9"/>
     <ellipse cx="96" cy="70" rx="6" ry="8" fill="${fruit}" opacity="0.9"/>
-    <ellipse cx="80" cy="82" rx="8" ry="10" fill="${fruit}"/>`:``}
-  `;
+    <ellipse cx="80" cy="82" rx="8" ry="10" fill="${fruit}"/>`:''}`;
 }
 
-// ═══ IMAGE UPLOAD ═══
-function previewImage(e){
-  const file = e.target.files[0];
-  if(!file) return;
-  if(file.size > 2*1024*1024){showToast('Image too large — max 2MB please.');return;}
-  const reader = new FileReader();
-  reader.onload = ev=>{
-    const el = document.getElementById('imgPreviewEl');
-    el.src = ev.target.result;
-    el.style.display='block';
-  };
-  reader.readAsDataURL(file);
-}
-
-// ═══ ORDERS ═══
-function loadOrders(){
-  const orders = JSON.parse(localStorage.getItem('ets_orders')||'[]');
-  renderOrders(orders);
-}
-function renderOrders(orders){
-  const list = document.getElementById('ordersList');
+// ══════════════════════════════════
+// ORDERS
+// ══════════════════════════════════
+function renderOrders(){
+  const orders=JSON.parse(localStorage.getItem('ets_orders')||'[]');
+  const list=document.getElementById('ordersList');
   if(!orders.length){
-    list.innerHTML=`<div style="background:white;border-radius:1rem;padding:2rem;text-align:center;color:var(--sage);"><div style="font-size:2rem;margin-bottom:0.5rem;">📭</div><p>No orders recorded yet.</p><button class="btn-primary" style="margin-top:1rem;" onclick="addDemoOrder()">+ Record a New Order</button></div>`;
+    list.innerHTML=`<div style="background:white;border-radius:1rem;padding:2.5rem;text-align:center;color:var(--sage);border:1px solid rgba(13,40,24,0.07);">
+      <div style="font-size:2.5rem;margin-bottom:0.8rem;">📭</div>
+      <p style="margin-bottom:1.2rem;">No orders yet. When customers order via WhatsApp, record them here.</p>
+      <button class="btn-primary" onclick="addNewOrder()">+ Record First Order</button>
+    </div>`;
     return;
   }
-  list.innerHTML = orders.map((o,i)=>`
+  list.innerHTML=orders.map((o,i)=>`
     <div class="order-card ${o.status}">
       <div class="order-header">
         <div class="order-id">#ETS-${String(i+1).padStart(3,'0')} · ${o.name}</div>
         <span class="order-status status-${o.status}">${o.status==='completed'?'✅ Completed':'⏳ Pending'}</span>
       </div>
-      <div class="order-details">
-        📞 ${o.phone} · 📍 ${o.location||'Location TBC'} · 💳 ${o.payment}<br>
-        🛒 ${o.items}
+      <div style="font-size:0.82rem;color:var(--sage);line-height:1.8;">
+        📞 ${o.phone||'—'} · 📍 ${o.location||'—'} · 💳 ${o.payment||'WhatsApp'}<br>
+        🛒 ${o.items||'—'} · 📅 ${o.date||'—'}
       </div>
-      <div class="order-total">UGX ${Number(o.total).toLocaleString()}</div>
-      <div style="margin-top:0.8rem;display:flex;gap:0.7rem;">
-        <button class="btn-edit" onclick="markComplete(${i})">✅ Mark Complete</button>
+      <div style="font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:var(--forest);margin-top:0.6rem;">UGX ${Number(o.total||0).toLocaleString()}</div>
+      <div style="display:flex;gap:0.7rem;margin-top:0.8rem;">
+        ${o.status!=='completed'?`<button class="btn-edit" onclick="markComplete(${i})">✅ Mark Complete</button>`:''}
         <button class="btn-danger" onclick="deleteOrder(${i})">🗑 Delete</button>
       </div>
-    </div>
-  `).join('');
+    </div>`).join('');
 }
-function addDemoOrder(){
-  const name = prompt('Customer Name:');
-  if(!name) return;
-  const phone = prompt('Customer Phone:') || '';
-  const items = prompt('Items ordered:') || '';
-  const total = prompt('Total amount (UGX):') || 0;
-  const payment = prompt('Payment method (MTN/Airtel/Card/WhatsApp):') || 'WhatsApp';
-  const orders = JSON.parse(localStorage.getItem('ets_orders')||'[]');
-  orders.push({name,phone,items,total,payment,status:'pending',location:'',date:new Date().toLocaleDateString()});
+function addNewOrder(){
+  const name=prompt('Customer Name:'); if(!name) return;
+  const phone=prompt('Phone Number:')||'';
+  const items=prompt('Items ordered (e.g. 5× Apple Mango, 2× Hass Avocado):')||'';
+  const total=prompt('Total amount (UGX):')||0;
+  const payment=prompt('Payment method (MTN / Airtel / International / WhatsApp):')||'WhatsApp';
+  const location=prompt('Customer district/location:')||'';
+  const orders=JSON.parse(localStorage.getItem('ets_orders')||'[]');
+  orders.push({name,phone,items,total,payment,location,status:'pending',date:new Date().toLocaleDateString('en-UG')});
   localStorage.setItem('ets_orders',JSON.stringify(orders));
-  document.getElementById('stat-orders').textContent = orders.length;
-  renderOrders(orders);
+  renderOrders();
+  updateStats();
   showToast('✅ Order recorded!');
 }
 function markComplete(i){
-  const orders = JSON.parse(localStorage.getItem('ets_orders')||'[]');
+  const orders=JSON.parse(localStorage.getItem('ets_orders')||'[]');
   if(orders[i]) orders[i].status='completed';
   localStorage.setItem('ets_orders',JSON.stringify(orders));
-  renderOrders(orders);
+  renderOrders();
   showToast('✅ Order marked complete!');
 }
 function deleteOrder(i){
   if(!confirm('Delete this order record?')) return;
-  const orders = JSON.parse(localStorage.getItem('ets_orders')||'[]');
+  const orders=JSON.parse(localStorage.getItem('ets_orders')||'[]');
   orders.splice(i,1);
   localStorage.setItem('ets_orders',JSON.stringify(orders));
-  renderOrders(orders);
-  showToast('🗑 Order deleted.');
+  renderOrders();
+  showToast('🗑 Deleted.');
 }
 
-// ═══ SETTINGS ═══
-function saveSetting(key, val){
-  if(!val){showToast('Please enter a value first.');return;}
-  localStorage.setItem('ets_'+key, val);
-  showToast('✅ Saved! Update the corresponding line in shop.html too.');
+// ══════════════════════════════════
+// SETTINGS
+// ══════════════════════════════════
+function saveSetting(key,val){
+  if(!val){showToast('Please enter a value.');return;}
+  localStorage.setItem('ets_'+key,val);
+  showToast('✅ Saved!');
 }
 
-// ═══ STATS ═══
+// ══════════════════════════════════
+// STATS
+// ══════════════════════════════════
 function updateStats(){
-  const trees = getAllTrees();
-  document.getElementById('stat-trees').textContent = trees.length;
-  const orders = JSON.parse(localStorage.getItem('ets_orders')||'[]');
-  document.getElementById('stat-orders').textContent = orders.length;
+  document.getElementById('stat-trees').textContent=getAllTrees().length;
+  document.getElementById('stat-photos').textContent=Object.keys(getPhotos()).length;
+  document.getElementById('stat-orders').textContent=JSON.parse(localStorage.getItem('ets_orders')||'[]').length;
 }
 
-// ═══ TOAST ═══
+// ══════════════════════════════════
+// TOAST
+// ══════════════════════════════════
 function showToast(msg){
   const t=document.getElementById('toast');
-  t.textContent=msg;
-  t.classList.add('show');
+  t.textContent=msg; t.classList.add('show');
   setTimeout(()=>t.classList.remove('show'),3000);
 }
 
-// Close modal on backdrop click
-document.getElementById('treeModal').addEventListener('click',e=>{
-  if(e.target===document.getElementById('treeModal')) closeModal();
-});
+// ══════════════════════════════════
+// INIT
+// ══════════════════════════════════
+function initAdmin(){
+  updateStats();
+  updatePreview();
+  renderAdminTable(getAllTrees());
+}
 
-// Init preview
-updatePreview();
+// Close modals on backdrop click
+document.getElementById('treeModal').addEventListener('click',e=>{if(e.target===document.getElementById('treeModal'))closeModal();});
+document.getElementById('urlModal').addEventListener('click',e=>{if(e.target===document.getElementById('urlModal'))closeUrlModal();});
+document.getElementById('loginPass').addEventListener('keydown',e=>{if(e.key==='Enter')doLogin();});
 </script>
 </body>
 </html>
