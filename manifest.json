@@ -1,0 +1,104 @@
+{
+  "name": "Elite Tree Solutions",
+  "short_name": "Elite Trees",
+  "description": "Uganda's premier tree nursery — shop 42+ species, book consultations, and get expert advice from Adverse AI.",
+  "start_url": "/elitetreesolutions/index.html",
+  "scope": "/elitetreesolutions/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#0d2818",
+  "theme_color": "#0d2818",
+  "lang": "en-UG",
+  "categories": ["shopping", "lifestyle", "food"],
+  "icons": [
+    {
+      "src": "icons/icon-72.png",
+      "sizes": "72x72",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-96.png",
+      "sizes": "96x96",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-128.png",
+      "sizes": "128x128",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-144.png",
+      "sizes": "144x144",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-152.png",
+      "sizes": "152x152",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icons/icon-384.png",
+      "sizes": "384x384",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "icons/screenshot-mobile.png",
+      "sizes": "390x844",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Elite Tree Solutions — Home"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Shop Trees",
+      "short_name": "Shop",
+      "description": "Browse and buy 42+ tree species",
+      "url": "/elitetreesolutions/shop.html",
+      "icons": [{ "src": "icons/icon-96.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "Book Appointment",
+      "short_name": "Book",
+      "description": "Schedule a nursery visit or consultation",
+      "url": "/elitetreesolutions/booking.html",
+      "icons": [{ "src": "icons/icon-96.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "Ask Adverse AI",
+      "short_name": "Ask AI",
+      "description": "Get expert tree & agriculture advice",
+      "url": "/elitetreesolutions/adverse.html",
+      "icons": [{ "src": "icons/icon-96.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "Find Us",
+      "short_name": "Directions",
+      "description": "Get directions to our nursery",
+      "url": "/elitetreesolutions/findus.html",
+      "icons": [{ "src": "icons/icon-96.png", "sizes": "96x96" }]
+    }
+  ],
+  "related_applications": [],
+  "prefer_related_applications": false
+}
