@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Terms & Conditions — Elite Tree Solutions Uganda</title>
+<meta name="description" content="Terms and Conditions and Privacy Policy for Elite Tree Solutions, Kabimbiri, Uganda. Read before purchasing or using this website.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://meech148.github.io/elitetreesolutions/terms.html">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --forest:#0d2818;--moss:#1a4a2e;--sage:#4a7c59;
+  --leaf:#7ab648;--gold:#c8a96e;--cream:#f5f0e8;--mist:#e8f0e4;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--forest);overflow-x:hidden;}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:1.2rem 4rem;backdrop-filter:blur(20px);background:rgba(13,40,24,0.93);border-bottom:1px solid rgba(122,182,72,0.15);}
+.nav-logo{display:flex;align-items:center;gap:0.8rem;font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--cream);text-decoration:none;}
+.nav-links{display:flex;gap:1.6rem;align-items:center;}
+.nav-links a{color:rgba(245,240,232,0.7);text-decoration:none;font-size:0.8rem;letter-spacing:0.07em;text-transform:uppercase;transition:color 0.3s;}
+.nav-links a:hover{color:var(--leaf);}
+.nav-cta{background:var(--leaf);color:var(--forest)!important;padding:0.45rem 1.2rem;border-radius:2rem;font-weight:500;}
+.nav-burger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px;}
+.nav-burger span{display:block;width:24px;height:2px;background:var(--cream);border-radius:2px;transition:all 0.3s;}
+.nav-burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.nav-burger.open span:nth-child(2){opacity:0;}
+.nav-burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+.mobile-menu{position:fixed;top:0;right:-300px;width:300px;height:100vh;z-index:250;background:var(--forest);padding:5rem 2rem 2rem;display:flex;flex-direction:column;gap:0.3rem;transition:right 0.35s ease;border-left:1px solid rgba(122,182,72,0.15);}
+.mobile-menu.open{right:0;}
+.mobile-menu a{color:rgba(245,240,232,0.75);text-decoration:none;font-size:0.95rem;padding:0.8rem 1rem;border-radius:0.6rem;transition:all 0.2s;border-left:3px solid transparent;}
+.mobile-menu a:hover{color:var(--leaf);background:rgba(122,182,72,0.06);border-left-color:var(--leaf);}
+.mob-cta{margin-top:0.5rem;background:var(--leaf)!important;color:var(--forest)!important;text-align:center;border-radius:0.8rem!important;font-weight:600;border-left:none!important;}
+.mob-overlay{position:fixed;inset:0;z-index:240;background:rgba(0,0,0,0.5);opacity:0;pointer-events:none;transition:opacity 0.3s;}
+.mob-overlay.open{opacity:1;pointer-events:all;}
+
+/* ── HERO ── */
+.hero{min-height:36vh;background:var(--forest);display:flex;align-items:center;justify-content:center;flex-direction:column;text-align:center;position:relative;overflow:hidden;padding-top:5rem;}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 70% at 50% 60%,#1a4a2e,#0d2818);}
+.hero-content{position:relative;z-index:2;padding:3rem 2rem;}
+.section-label{font-size:0.72rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--leaf);margin-bottom:1rem;display:flex;align-items:center;justify-content:center;gap:0.8rem;}
+.section-label::before,.section-label::after{content:'';display:block;width:30px;height:1px;background:var(--leaf);opacity:0.5;}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3.2rem);font-weight:900;color:var(--cream);line-height:1.15;margin-bottom:0.6rem;}
+.hero h1 em{color:var(--gold);font-style:italic;}
+.hero p{font-size:0.88rem;color:rgba(245,240,232,0.5);max-width:480px;margin:0 auto;}
+.last-updated{font-size:0.72rem;color:rgba(245,240,232,0.3);margin-top:0.6rem;font-style:italic;}
+
+/* ── LAYOUT ── */
+.page-wrap{max-width:1000px;margin:0 auto;padding:5rem 2rem 4rem;display:grid;grid-template-columns:220px 1fr;gap:4rem;align-items:start;}
+
+/* ── SIDEBAR TOC ── */
+.toc{position:sticky;top:6rem;}
+.toc-title{font-size:0.65rem;text-transform:uppercase;letter-spacing:0.15em;color:var(--sage);margin-bottom:1rem;}
+.toc-list{list-style:none;display:flex;flex-direction:column;gap:0.15rem;}
+.toc-list li a{
+  font-size:0.78rem;color:var(--sage);text-decoration:none;
+  padding:0.4rem 0.7rem;display:block;border-left:2px solid transparent;
+  border-radius:0 0.4rem 0.4rem 0;transition:all 0.2s;line-height:1.4;
+}
+.toc-list li a:hover,.toc-list li a.active{color:var(--leaf);border-left-color:var(--leaf);background:rgba(122,182,72,0.05);}
+.toc-divider{height:1px;background:rgba(13,40,24,0.08);margin:0.6rem 0;}
+.toc-cta{margin-top:1.5rem;background:var(--forest);border-radius:0.8rem;padding:1.2rem;text-align:center;}
+.toc-cta p{font-size:0.72rem;color:rgba(245,240,232,0.4);margin-bottom:0.7rem;line-height:1.5;}
+.toc-cta a{display:block;background:var(--leaf);color:var(--forest);text-decoration:none;padding:0.55rem 1rem;border-radius:0.6rem;font-size:0.78rem;font-weight:600;transition:all 0.2s;}
+.toc-cta a:hover{background:var(--gold);}
+
+/* ── DOCUMENT ── */
+.doc-content{}
+.doc-section{margin-bottom:3.5rem;scroll-margin-top:6rem;}
+.doc-section:last-child{margin-bottom:0;}
+
+.section-num{font-size:0.65rem;text-transform:uppercase;letter-spacing:0.15em;color:var(--leaf);margin-bottom:0.4rem;font-weight:600;}
+.doc-section h2{font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--forest);margin-bottom:1.2rem;padding-bottom:0.8rem;border-bottom:1px solid rgba(13,40,24,0.08);}
+
+.doc-section p{font-size:0.88rem;color:#2a3a2e;line-height:1.85;margin-bottom:1rem;}
+.doc-section p:last-child{margin-bottom:0;}
+
+.doc-section ul,.doc-section ol{padding-left:1.4rem;margin:0.8rem 0 1rem;}
+.doc-section li{font-size:0.88rem;color:#2a3a2e;line-height:1.85;margin-bottom:0.4rem;}
+
+/* Clause boxes */
+.clause{background:white;border-radius:0.8rem;padding:1.4rem 1.6rem;margin-bottom:1rem;border:1px solid rgba(13,40,24,0.06);}
+.clause-title{font-weight:600;color:var(--forest);font-size:0.88rem;margin-bottom:0.5rem;}
+.clause p{margin-bottom:0;}
+
+/* Highlight box */
+.highlight-box{background:rgba(122,182,72,0.06);border-left:3px solid var(--leaf);border-radius:0 0.6rem 0.6rem 0;padding:1rem 1.3rem;margin:1.2rem 0;}
+.highlight-box p{color:var(--sage);font-size:0.84rem;margin:0;}
+.highlight-box strong{color:var(--forest);}
+
+/* Warning box */
+.warning-box{background:rgba(200,169,110,0.08);border-left:3px solid var(--gold);border-radius:0 0.6rem 0.6rem 0;padding:1rem 1.3rem;margin:1.2rem 0;}
+.warning-box p{color:#7a5a28;font-size:0.84rem;margin:0;}
+
+/* Contact box */
+.contact-box{background:var(--forest);border-radius:1rem;padding:1.8rem;margin-top:2rem;}
+.contact-box h3{font-family:'Playfair Display',serif;color:var(--cream);font-size:1.1rem;margin-bottom:1rem;}
+.contact-row{display:flex;align-items:center;gap:0.8rem;padding:0.6rem 0;border-bottom:1px solid rgba(122,182,72,0.08);font-size:0.84rem;}
+.contact-row:last-child{border-bottom:none;}
+.contact-row span:first-child{color:rgba(245,240,232,0.35);font-size:0.72rem;text-transform:uppercase;letter-spacing:0.08em;width:90px;flex-shrink:0;}
+.contact-row a,.contact-row span:last-child{color:rgba(245,240,232,0.75);}
+.contact-row a{color:var(--leaf);text-decoration:none;}
+.contact-row a:hover{text-decoration:underline;}
+
+/* Divider between T&C and Privacy */
+.doc-divider{background:var(--forest);border-radius:1.2rem;padding:2rem;text-align:center;margin:4rem 0 3rem;}
+.doc-divider h2{font-family:'Playfair Display',serif;color:var(--cream);font-size:1.4rem;margin-bottom:0.5rem;}
+.doc-divider p{font-size:0.82rem;color:rgba(245,240,232,0.4);}
+
+.reveal{opacity:0;transform:translateY(16px);transition:all 0.6s ease;}
+.reveal.visible{opacity:1;transform:none;}
+
+footer{background:var(--forest);padding:3rem 4rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1.5rem;border-top:1px solid rgba(122,182,72,0.1);}
+.footer-logo{font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--cream);}
+footer p{font-size:0.78rem;color:rgba(245,240,232,0.35);}
+footer a{color:rgba(245,240,232,0.4);font-size:0.78rem;text-decoration:none;}
+footer a:hover{color:var(--leaf);}
+
+#waBtn{position:fixed;bottom:2rem;right:2rem;z-index:150;width:54px;height:54px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(37,211,102,0.4);transition:all 0.3s;text-decoration:none;}
+#waBtn:hover{transform:scale(1.1);}
+
+/* Adverse AI bubble */
+#adverseBtn{position:fixed;bottom:2rem;left:2rem;z-index:400;text-decoration:none;display:flex;align-items:center;}
+.adverse-bubble{width:52px;height:52px;background:linear-gradient(135deg,#1a4a2e,#0d2818);border:1.5px solid rgba(122,182,72,0.35);border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(0,0,0,0.4);transition:all 0.3s;}
+#adverseBtn:hover .adverse-bubble{transform:scale(1.1);border-color:rgba(122,182,72,0.7);}
+.adverse-label{background:#0d2818;border:1.5px solid rgba(122,182,72,0.25);color:rgba(122,182,72,0.85);font-family:sans-serif;font-size:0.7rem;padding:0.35rem 0.8rem 0.35rem 0.5rem;border-radius:0 2rem 2rem 0;margin-left:-4px;white-space:nowrap;opacity:0;transform:translateX(-8px);transition:all 0.25s;pointer-events:none;font-weight:500;}
+#adverseBtn:hover .adverse-label{opacity:1;transform:translateX(0);}
+
+@media(max-width:860px){.page-wrap{grid-template-columns:1fr;}.toc{display:none;}}
+@media(max-width:640px){nav{padding:1rem 1.5rem;}.nav-links{display:none;}.nav-burger{display:flex;}.page-wrap{padding:3rem 1.2rem;}}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">
+    <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><ellipse cx="14" cy="12" rx="10" ry="9" fill="#7ab648" opacity="0.9"/><ellipse cx="14" cy="8" rx="7" ry="6.5" fill="#0d2818" opacity="0.4"/><rect x="12.5" y="19" width="3" height="8" rx="1.5" fill="#5c3d1e"/></svg>
+    Elite Tree Solutions
+  </a>
+  <div class="nav-links">
+    <a href="gallery.html">Gallery</a>
+    <a href="shop.html">Shop</a>
+    <a href="blog.html">Blog</a>
+    <a href="booking.html">Book</a>
+    <a href="testimonials.html">Reviews</a>
+    <a href="findus.html" class="nav-cta">Find Us</a>
+  </div>
+  <button class="nav-burger" id="burgerBtn" onclick="toggleMenu()" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html">🏠 Home</a>
+  <a href="gallery.html">🖼 Gallery</a>
+  <a href="about.html">ℹ️ About</a>
+  <a href="shop.html">🛒 Shop</a>
+  <a href="blog.html">📝 Blog</a>
+  <a href="booking.html">📅 Book</a>
+  <a href="tips.html">🌿 Tree Tips</a>
+  <a href="testimonials.html">⭐ Reviews</a>
+  <a href="findus.html" class="mob-cta">📍 Find Us</a>
+</div>
+<div class="mob-overlay" id="mobOverlay" onclick="toggleMenu()"></div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-content">
+    <div class="section-label">Legal Documents</div>
+    <h1>Terms & <em>Conditions</em></h1>
+    <p>Please read these terms carefully before purchasing from or using our website and services.</p>
+    <div class="last-updated">Last updated: March 2025 · Elite Tree Solutions, Uganda</div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="page-wrap">
+
+  <!-- TABLE OF CONTENTS -->
+  <aside class="toc">
+    <div class="toc-title">On This Page</div>
+    <ul class="toc-list">
+      <li><a href="#who-we-are">1. Who We Are</a></li>
+      <li><a href="#using-site">2. Using This Website</a></li>
+      <li><a href="#purchases">3. Purchases & Payment</a></li>
+      <li><a href="#delivery">4. Delivery & Collection</a></li>
+      <li><a href="#returns">5. Returns & Refunds</a></li>
+      <li><a href="#ai-disclaimer">6. Adverse AI Disclaimer</a></li>
+      <li><a href="#liability">7. Liability</a></li>
+      <li><a href="#governing-law">8. Governing Law</a></li>
+      <div class="toc-divider"></div>
+      <li><a href="#privacy">9. Privacy Policy</a></li>
+      <li><a href="#data-collected">10. Data We Collect</a></li>
+      <li><a href="#data-use">11. How We Use Data</a></li>
+      <li><a href="#whatsapp">12. WhatsApp & Messaging</a></li>
+      <li><a href="#cookies">13. Cookies</a></li>
+      <li><a href="#your-rights">14. Your Rights</a></li>
+      <li><a href="#contact-legal">15. Contact Us</a></li>
+    </ul>
+    <div class="toc-cta">
+      <p>Questions about these terms?</p>
+      <a href="https://wa.me/256706191725?text=Hello%20Elite%20Tree%20Solutions%2C%20I%20have%20a%20question%20about%20your%20terms%20and%20conditions." target="_blank">Ask on WhatsApp →</a>
+    </div>
+  </aside>
+
+  <!-- DOCUMENT CONTENT -->
+  <div class="doc-content">
+
+    <!-- ════════════════════════════ -->
+    <!-- TERMS & CONDITIONS          -->
+    <!-- ════════════════════════════ -->
+
+    <!-- 1. WHO WE ARE -->
+    <div class="doc-section reveal" id="who-we-are">
+      <div class="section-num">Section 01</div>
+      <h2>Who We Are</h2>
+      <p>These Terms and Conditions govern your use of the Elite Tree Solutions website and your purchase of any products or services from us.</p>
+      <div class="clause">
+        <div class="clause-title">Business Details</div>
+        <p><strong>Business Name:</strong> Elite Tree Solutions<br>
+        <strong>Owner:</strong> Kakuye Hitler Musajja<br>
+        <strong>Location:</strong> Kabimbiri, Kayunga Road, Kayunga District, Uganda<br>
+        <strong>Phone / WhatsApp:</strong> +256 706 191 725<br>
+        <strong>Website:</strong> meech148.github.io/elitetreesolutions<br>
+        <strong>In business since:</strong> 2004</p>
+      </div>
+      <p>By visiting this website, placing an order, making a booking, or using any of our services — including Adverse AI — you agree to be bound by these terms. If you do not agree, please do not use our services.</p>
+    </div>
+
+    <!-- 2. USING THIS WEBSITE -->
+    <div class="doc-section reveal" id="using-site">
+      <div class="section-num">Section 02</div>
+      <h2>Using This Website</h2>
+      <p>This website is provided for the purpose of browsing our tree catalogue, placing orders, making bookings, reading tree care information, and using Adverse AI for agricultural guidance.</p>
+      <p>You agree not to:</p>
+      <ul>
+        <li>Use this website for any unlawful purpose</li>
+        <li>Attempt to damage, disrupt or gain unauthorised access to any part of this website</li>
+        <li>Copy, reproduce or republish content from this website without written permission</li>
+        <li>Use any automated tools to scrape, harvest or extract data from this website</li>
+        <li>Impersonate Elite Tree Solutions or its owner in any way</li>
+      </ul>
+      <p>We reserve the right to restrict access to this website at any time, for any reason, without notice.</p>
+      <div class="highlight-box">
+        <p><strong>Note:</strong> All content on this website — including tree descriptions, articles, guides, prices and images — is the property of Elite Tree Solutions and may not be copied or republished without permission.</p>
+      </div>
+    </div>
+
+    <!-- 3. PURCHASES & PAYMENT -->
+    <div class="doc-section reveal" id="purchases">
+      <div class="section-num">Section 03</div>
+      <h2>Purchases & Payment</h2>
+      <p>All prices on this website are displayed in Ugandan Shillings (UGX) and are correct at the time of publication. We reserve the right to change prices at any time without notice.</p>
+
+      <div class="clause">
+        <div class="clause-title">How to Order</div>
+        <p>Orders are placed by adding items to your cart on the Shop page and completing checkout via WhatsApp. An order is only confirmed once you have received a confirmation message from Kakuye on WhatsApp.</p>
+      </div>
+
+      <div class="clause">
+        <div class="clause-title">Accepted Payment Methods</div>
+        <p>We currently accept the following payment methods:</p>
+        <ul style="margin-top:0.6rem;">
+          <li><strong>MTN Mobile Money (MoMo)</strong> — Send to 0706 191 725</li>
+          <li><strong>Airtel Money</strong> — Send to 0706 191 725</li>
+          <li><strong>International Bank Transfer</strong> — Details provided on request via WhatsApp</li>
+        </ul>
+        <p style="margin-top:0.6rem;">Payment is required before dispatch or collection unless otherwise agreed in writing with Kakuye.</p>
+      </div>
+
+      <div class="clause">
+        <div class="clause-title">Pricing & Availability</div>
+        <p>Prices shown are per seedling unless otherwise stated. Stock availability is subject to season and growing cycles. If a species you have ordered is temporarily out of stock, we will contact you via WhatsApp within 24 hours to arrange an alternative or a refund.</p>
+      </div>
+
+      <div class="clause">
+        <div class="clause-title">Bulk Orders</div>
+        <p>For orders of 50 or more trees, pricing is negotiated directly with Kakuye via WhatsApp. Bulk orders require a 50% deposit before we begin preparation, with the balance due before dispatch.</p>
+      </div>
+    </div>
+
+    <!-- 4. DELIVERY & COLLECTION -->
+    <div class="doc-section reveal" id="delivery">
+      <div class="section-num">Section 04</div>
+      <h2>Delivery & Collection</h2>
+
+      <div class="clause">
+        <div class="clause-title">Collection at the Nursery</div>
+        <p>You may collect your trees directly from our nursery at Kabimbiri, Kayunga Road. Collection is available Monday to Saturday 7:00am–6:00pm and Sunday 8:00am–2:00pm. Please confirm your collection time via WhatsApp before visiting.</p>
+      </div>
+
+      <div class="clause">
+        <div class="clause-title">Nationwide Delivery</div>
+        <p>We deliver across Uganda. Delivery costs are calculated based on your location and the size of your order and will be confirmed via WhatsApp before payment. Typical delivery timelines are 1–5 business days depending on your district.</p>
+      </div>
+
+      <div class="clause">
+        <div class="clause-title">Tree Condition on Arrival</div>
+        <p>We take great care in packaging trees for transport. However, we cannot be held responsible for damage caused by conditions beyond our control during delivery — including extreme weather, road conditions, or mishandling by third-party transport providers.</p>
+        <p>If your trees arrive in poor condition due to our packaging, please photograph them immediately and contact us on WhatsApp within 24 hours of receipt. We will assess the situation and offer a fair solution.</p>
+      </div>
+
+      <div class="highlight-box">
+        <p><strong>Our promise:</strong> Every tree that leaves our nursery is healthy, well-rooted and correctly labelled. We have maintained over 95% survival rates across all deliveries since 2004.</p>
+      </div>
+    </div>
+
+    <!-- 5. RETURNS & REFUNDS -->
+    <div class="doc-section reveal" id="returns">
+      <div class="section-num">Section 05</div>
+      <h2>Returns & Refunds</h2>
+      <p>Because trees are living organisms and their survival after purchase depends largely on how they are planted, watered and cared for, we have a fair and reasonable returns policy.</p>
+
+      <div class="clause">
+        <div class="clause-title">Dead on Arrival</div>
+        <p>If a tree arrives clearly dead or severely damaged due to our fault, contact us within <strong>24 hours</strong> of receipt with photos. We will offer a replacement at no extra cost or a full refund at our discretion.</p>
+      </div>
+
+      <div class="clause">
+        <div class="clause-title">Tree Dies After Planting</div>
+        <p>We are not able to offer refunds for trees that die after they have been planted, unless there is clear evidence that the tree was already diseased when it left our nursery. Survival rates depend heavily on correct planting, watering, soil preparation and aftercare — all of which are the customer's responsibility.</p>
+        <p>We strongly recommend booking a <a href="booking.html" style="color:var(--leaf);">planting consultation</a> or reading our <a href="tips.html" style="color:var(--leaf);">Tree Care Guides</a> to maximise survival chances.</p>
+      </div>
+
+      <div class="clause">
+        <div class="clause-title">Change of Mind</div>
+        <p>We do not offer refunds for change of mind once an order has been prepared and ready for collection or dispatch. If you need to cancel before preparation has begun, please contact us immediately on WhatsApp.</p>
+      </div>
+
+      <div class="clause">
+        <div class="clause-title">Refund Processing</div>
+        <p>Approved refunds are processed via the same payment method used for the original purchase (MTN MoMo, Airtel Money, or bank transfer) within <strong>5 business days</strong> of approval.</p>
+      </div>
+    </div>
+
+    <!-- 6. ADVERSE AI DISCLAIMER -->
+    <div class="doc-section reveal" id="ai-disclaimer">
+      <div class="section-num">Section 06</div>
+      <h2>Adverse AI Disclaimer</h2>
+      <p>Adverse AI is an artificial intelligence tool provided on this website to help customers with general tree care, planting guidance and agricultural questions in a Uganda context.</p>
+
+      <div class="warning-box">
+        <p><strong>Important:</strong> Adverse AI is not a substitute for professional agricultural, horticultural or legal advice. Responses generated by Adverse AI are for general guidance only and may not be accurate in every situation.</p>
+      </div>
+
+      <p>By using Adverse AI you agree that:</p>
+      <ul>
+        <li>All advice provided by Adverse AI is general in nature and not tailored to your specific farm, soil, climate or circumstances</li>
+        <li>Elite Tree Solutions accepts no liability for any loss, crop failure, financial loss or other damage resulting from following advice given by Adverse AI</li>
+        <li>You will use your own judgement and, where significant decisions are involved, consult a qualified agronomist or contact Kakuye directly for a professional assessment</li>
+        <li>Adverse AI is powered by Claude (Anthropic) — conversations may be processed by Anthropic's systems subject to their own privacy policy</li>
+        <li>Adverse AI is provided "as is" without warranty of any kind</li>
+      </ul>
+      <p>For proper farm assessment, we recommend <a href="booking.html" style="color:var(--leaf);">booking an on-site consultation</a> with Kakuye.</p>
+    </div>
+
+    <!-- 7. LIABILITY -->
+    <div class="doc-section reveal" id="liability">
+      <div class="section-num">Section 07</div>
+      <h2>Limitation of Liability</h2>
+      <p>To the fullest extent permitted by Ugandan law, Elite Tree Solutions shall not be liable for:</p>
+      <ul>
+        <li>Any indirect, incidental or consequential loss arising from the use of this website or our products</li>
+        <li>Loss of profit, revenue, crops or business resulting from tree death, poor growth or disease after purchase</li>
+        <li>Any errors, inaccuracies or omissions in the information on this website</li>
+        <li>Any damage to your device or data resulting from downloading content from this website</li>
+        <li>Advice or recommendations given by Adverse AI</li>
+      </ul>
+      <p>Our total liability to you in respect of any claim arising out of or in connection with a purchase shall not exceed the amount you paid for the specific products in question.</p>
+      <p>Nothing in these terms limits our liability for death or personal injury caused by our negligence, or any other liability that cannot be excluded under Ugandan law.</p>
+    </div>
+
+    <!-- 8. GOVERNING LAW -->
+    <div class="doc-section reveal" id="governing-law">
+      <div class="section-num">Section 08</div>
+      <h2>Governing Law</h2>
+      <p>These Terms and Conditions are governed by the laws of the Republic of Uganda. Any dispute arising from these terms or your use of our website or services shall be subject to the jurisdiction of the courts of Uganda.</p>
+      <p>We always prefer to resolve disputes informally and fairly. Before taking any formal action, please contact Kakuye directly on WhatsApp — in over 20 years of business, we have always found a fair solution.</p>
+      <p>We reserve the right to update these Terms and Conditions at any time. The "Last Updated" date at the top of this page will reflect any changes. Continued use of our website after changes are made constitutes acceptance of the updated terms.</p>
+    </div>
+
+    <!-- ════════════════════════════ -->
+    <!-- PRIVACY POLICY              -->
+    <!-- ════════════════════════════ -->
+    <div class="doc-divider" id="privacy">
+      <h2>Privacy Policy</h2>
+      <p>How Elite Tree Solutions collects, uses and protects your personal information</p>
+    </div>
+
+    <!-- 9. INTRO -->
+    <div class="doc-section reveal">
+      <div class="section-num">Section 09</div>
+      <h2>Our Approach to Privacy</h2>
+      <p>Elite Tree Solutions is a small, family-run business. We collect only the information we genuinely need to serve you — and we treat it with the same care and respect we give our trees.</p>
+      <p>We do not sell your data. We do not share it with advertisers. We do not use it for any purpose beyond running our business and communicating with you about your orders and enquiries.</p>
+      <p>This Privacy Policy applies to all personal information collected through this website, our WhatsApp business number, our booking system, and our Adverse AI tool.</p>
+    </div>
+
+    <!-- 10. DATA COLLECTED -->
+    <div class="doc-section reveal" id="data-collected">
+      <div class="section-num">Section 10</div>
+      <h2>Information We Collect</h2>
+      <p>We may collect the following types of personal information:</p>
+
+      <div class="clause">
+        <div class="clause-title">Information You Give Us Directly</div>
+        <ul>
+          <li><strong>Name</strong> — when you place an order, make a booking, or leave a review</li>
+          <li><strong>Phone number</strong> — for order confirmation, delivery coordination and WhatsApp communication</li>
+          <li><strong>Email address</strong> — if you choose to provide it (optional on all our forms)</li>
+          <li><strong>Location / district</strong> — for delivery calculation and site visit bookings</li>
+          <li><strong>Order details</strong> — the trees and services you purchase</li>
+          <li><strong>Messages</strong> — questions or notes you send us through forms or WhatsApp</li>
+        </ul>
+      </div>
+
+      <div class="clause">
+        <div class="clause-title">Information Collected Automatically</div>
+        <ul>
+          <li><strong>Cookies</strong> — small files stored in your browser (see Section 13)</li>
+          <li><strong>Page visit data</strong> — which pages you view, how long you stay, and where you came from. This is anonymous and used only to improve the website.</li>
+        </ul>
+      </div>
+
+      <div class="clause">
+        <div class="clause-title">Adverse AI Conversations</div>
+        <p>Questions you ask Adverse AI are sent to Anthropic's Claude API for processing. We do not store your Adverse AI conversations on our systems. However, Anthropic may process and retain them subject to their own privacy policy at <a href="https://anthropic.com/privacy" target="_blank" style="color:var(--leaf);">anthropic.com/privacy</a>.</p>
+      </div>
+    </div>
+
+    <!-- 11. HOW WE USE DATA -->
+    <div class="doc-section reveal" id="data-use">
+      <div class="section-num">Section 11</div>
+      <h2>How We Use Your Information</h2>
+      <p>We use your personal information only for the following purposes:</p>
+      <ul>
+        <li>To process and fulfil your orders</li>
+        <li>To confirm and coordinate bookings and consultations</li>
+        <li>To communicate with you about your enquiries via WhatsApp</li>
+        <li>To arrange delivery of your trees</li>
+        <li>To send you occasional messages about new stock, seasonal promotions or tree care reminders — only if you have opted in via WhatsApp</li>
+        <li>To improve our website and services based on how people use them</li>
+        <li>To comply with legal obligations</li>
+      </ul>
+      <p>We will never use your information for automated profiling, targeted advertising, or selling to third parties.</p>
+    </div>
+
+    <!-- 12. WHATSAPP -->
+    <div class="doc-section reveal" id="whatsapp">
+      <div class="section-num">Section 12</div>
+      <h2>WhatsApp & Messaging</h2>
+      <p>A significant part of our business communication happens through WhatsApp. When you message us on WhatsApp (+256 706 191 725), your messages are handled according to WhatsApp's own Privacy Policy (Meta Platforms).</p>
+      <p>By messaging us on WhatsApp you are consenting to:</p>
+      <ul>
+        <li>Receiving replies and order-related messages from Kakuye on that platform</li>
+        <li>Being added to our broadcast list for seasonal promotions if you explicitly request this</li>
+      </ul>
+      <div class="highlight-box">
+        <p><strong>You can opt out at any time.</strong> Simply send us a message saying "Remove me from your list" and we will immediately stop sending you promotional messages. This will not affect your ability to place orders or contact us for support.</p>
+      </div>
+    </div>
+
+    <!-- 13. COOKIES -->
+    <div class="doc-section reveal" id="cookies">
+      <div class="section-num">Section 13</div>
+      <h2>Cookies</h2>
+      <p>Cookies are small text files placed on your device when you visit a website. They help the site remember your preferences and understand how visitors use the site.</p>
+      <p>Elite Tree Solutions uses the following types of cookies:</p>
+
+      <div class="clause">
+        <div class="clause-title">Essential Cookies</div>
+        <p>These are necessary for the website to function. They include your cookie consent preference and your shopping cart contents. You cannot opt out of these while using the site.</p>
+      </div>
+
+      <div class="clause">
+        <div class="clause-title">Analytics Cookies</div>
+        <p>If enabled, these help us understand how visitors use the site — which pages are most popular, where visitors come from, and how long they stay. This data is anonymous and is used only to improve the website.</p>
+      </div>
+
+      <p>You can control and delete cookies through your browser settings at any time. Note that disabling cookies may affect how some parts of the website function.</p>
+      <p>The cookie consent banner at the bottom of our website allows you to accept or decline non-essential cookies. Your choice is remembered for 12 months.</p>
+    </div>
+
+    <!-- 14. YOUR RIGHTS -->
+    <div class="doc-section reveal" id="your-rights">
+      <div class="section-num">Section 14</div>
+      <h2>Your Rights</h2>
+      <p>As a customer or user of our website, you have the following rights regarding your personal information:</p>
+      <ul>
+        <li><strong>Right to access:</strong> You can ask us what personal information we hold about you</li>
+        <li><strong>Right to correction:</strong> You can ask us to correct inaccurate information</li>
+        <li><strong>Right to deletion:</strong> You can ask us to delete your personal information from our records. We will comply unless we are legally required to retain it (e.g. for tax or financial records)</li>
+        <li><strong>Right to opt out:</strong> You can opt out of promotional communications at any time</li>
+        <li><strong>Right to complain:</strong> If you believe we have mishandled your data, you have the right to raise a complaint with the relevant authority in Uganda</li>
+      </ul>
+      <p>To exercise any of these rights, please contact Kakuye directly on WhatsApp or by phone. We will respond within 7 business days.</p>
+      <p>We retain your personal information only for as long as necessary to fulfil the purpose for which it was collected, or as required by Ugandan law. Order records are typically retained for 5 years for financial compliance purposes.</p>
+    </div>
+
+    <!-- 15. CONTACT -->
+    <div class="doc-section reveal" id="contact-legal">
+      <div class="section-num">Section 15</div>
+      <h2>Contact Us About These Terms</h2>
+      <p>If you have any questions about these Terms and Conditions or our Privacy Policy — or if you wish to exercise your data rights — please contact us directly:</p>
+      <div class="contact-box">
+        <h3>Get in Touch</h3>
+        <div class="contact-row"><span>Business</span><span>Elite Tree Solutions</span></div>
+        <div class="contact-row"><span>Owner</span><span>Kakuye Hitler Musajja</span></div>
+        <div class="contact-row"><span>WhatsApp</span><a href="https://wa.me/256706191725" target="_blank">+256 706 191 725</a></div>
+        <div class="contact-row"><span>Location</span><span>Kabimbiri, Kayunga Road, Uganda</span></div>
+        <div class="contact-row"><span>Hours</span><span>Mon–Sat 7am–6pm · Sun 8am–2pm</span></div>
+        <div class="contact-row"><span>Response</span><span>Within 24 hours on WhatsApp</span></div>
+      </div>
+      <p style="margin-top:1.5rem;font-size:0.82rem;color:var(--sage);line-height:1.7;">These Terms and Conditions and Privacy Policy were last reviewed and updated in March 2025. Elite Tree Solutions reserves the right to update this document at any time. Significant changes will be communicated to active customers via WhatsApp.</p>
+    </div>
+
+  </div><!-- doc-content -->
+</div><!-- page-wrap -->
+
+<footer>
+  <div><div class="footer-logo">Elite Tree Solutions</div><p style="margin-top:0.3rem;">Kabimbiri, Kayunga Road · Uganda 🇺🇬</p></div>
+  <p>© 2025 Elite Tree Solutions. All rights reserved.</p>
+  <div style="display:flex;gap:1.5rem;flex-wrap:wrap;">
+    <a href="index.html">Home</a>
+    <a href="shop.html">Shop</a>
+    <a href="booking.html">Book</a>
+    <a href="terms.html" style="color:rgba(122,182,72,0.6);">Terms & Privacy</a>
+    <a href="findus.html">Find Us</a>
+  </div>
+</footer>
+
+<a href="https://wa.me/256706191725?text=Hello%20Elite%20Tree%20Solutions!" target="_blank" id="waBtn" title="WhatsApp">
+  <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M14 2C7.37 2 2 7.37 2 14C2 16.39 2.68 18.62 3.85 20.5L2.1 25.9L7.65 24.18C9.47 25.24 11.67 25.86 14 25.86C20.63 25.86 26 20.49 26 13.86C26 7.37 20.63 2 14 2Z" fill="white" opacity="0.95"/><path d="M20.5 17.5C20.2 18.3 18.9 19 18 19.1C17.2 19.2 16.2 19.2 15.1 18.9C14.4 18.6 13.5 18.3 12.4 17.8C9.9 16.6 8.3 14.1 8.1 13.9C7.9 13.6 6.5 11.7 6.5 9.8C6.5 7.8 7.5 6.9 7.9 6.4C8.3 5.9 8.8 5.8 9.1 5.8C9.3 5.8 9.6 5.8 9.8 5.8C10.1 5.8 10.4 5.7 10.8 6.6C11.1 7.4 11.9 9.3 12 9.5C12.1 9.7 12.1 9.9 12 10.1C11.9 10.3 11.8 10.5 11.6 10.7C11.4 10.9 11.2 11.2 11 11.4C10.8 11.6 10.6 11.8 10.8 12.1C11 12.5 11.8 13.7 12.9 14.7C14.3 15.9 15.5 16.3 15.9 16.5C16.2 16.6 16.5 16.6 16.7 16.3C16.9 16 17.7 15.1 18 14.8C18.2 14.5 18.5 14.5 18.8 14.6C19.1 14.7 21 15.6 21.3 15.8C21.6 16 21.8 16.1 21.9 16.2C22 16.7 22 17.5 20.5 17.5Z" fill="#25D366"/></svg>
+</a>
+
+<a href="adverse.html" id="adverseBtn" title="Ask Adverse AI">
+  <div class="adverse-bubble">
+    <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><ellipse cx="11" cy="9" rx="7.5" ry="6.5" fill="#7ab648" opacity="0.92"/><ellipse cx="11" cy="6.5" rx="5" ry="4.5" fill="#0d2818" opacity="0.55"/><rect x="9.8" y="14" width="2.4" height="7" rx="1.2" fill="#5c3d1e"/></svg>
+  </div>
+  <div class="adverse-label">🌿 Ask Adverse AI</div>
+</a>
+
+<script>
+// NAV
+function toggleMenu(){
+  document.getElementById('burgerBtn').classList.toggle('open');
+  document.getElementById('mobileMenu').classList.toggle('open');
+  document.getElementById('mobOverlay').classList.toggle('open');
+}
+
+// REVEAL ON SCROLL
+const observer = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});
+},{threshold:0.08});
+document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+
+// ACTIVE TOC LINK
+const sections = document.querySelectorAll('.doc-section[id], .doc-divider[id]');
+const tocLinks = document.querySelectorAll('.toc-list a');
+const scrollSpy = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      tocLinks.forEach(l=>l.classList.remove('active'));
+      const link = document.querySelector(`.toc-list a[href="#${e.target.id}"]`);
+      if(link) link.classList.add('active');
+    }
+  });
+},{rootMargin:'-20% 0px -70% 0px'});
+sections.forEach(s=>scrollSpy.observe(s));
+</script>
+</body>
+</html>
