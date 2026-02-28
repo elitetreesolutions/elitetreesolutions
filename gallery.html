@@ -1,8 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <script src="adv-pre.js"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0d2818">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Elite Trees">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="icons/icon-152.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="icons/icon-144.png">
+  <link rel="apple-touch-icon" sizes="128x128" href="icons/icon-128.png">
 <title>Gallery — Elite Tree Solutions Uganda</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
@@ -239,7 +250,7 @@
 
     <!-- 1 · MANGO -->
     <div class="gallery-item reveal" data-category="fruit" onclick="openLightbox(0)">
-<img src="images/a.jpg" alt="Mango" style="width:100%;display:block;">
+      <div class="img-placeholder" style="height:320px;" data-label="African Mango Tree" data-file="images/mango.jpg" data-color="#1a4a12,#0d2818"></div>
       <div class="gallery-overlay"><div class="gallery-info">
         <h4>African Mango — Mangifera indica</h4>
         <p>Fruit Tree · Kabimbiri Estate</p>
@@ -248,7 +259,7 @@
 
     <!-- 2 · AVENUE PLANTING -->
     <div class="gallery-item reveal" data-category="landscape" onclick="openLightbox(1)">
-      <img src="images/b.jpg" alt="Mango" style="width:100%;display:block;">
+      <div class="img-placeholder" style="height:240px;" data-label="Avenue Tree Planting" data-file="images/avenue.jpg" data-color="#0d2818,#1a3a20"></div>
       <div class="gallery-overlay"><div class="gallery-info">
         <h4>Avenue Tree Planting</h4>
         <p>Landscape · Kayunga Road Project</p>
@@ -257,7 +268,7 @@
 
     <!-- 3 · JACARANDA -->
     <div class="gallery-item reveal" data-category="ornamental" onclick="openLightbox(2)">
-      <img src="images/b.jpg" alt="Mango" style="width:100%;display:block;">
+      <div class="img-placeholder" style="height:300px;" data-label="Jacaranda in Full Bloom" data-file="images/jacaranda.jpg" data-color="#1a1230,#0d0a20" data-accent="#9b59b6"></div>
       <div class="gallery-overlay"><div class="gallery-info">
         <h4>Jacaranda mimosifolia</h4>
         <p>Ornamental · Signature Specimen</p>
@@ -266,7 +277,7 @@
 
     <!-- 4 · NATAL FIG -->
     <div class="gallery-item reveal" data-category="shade" onclick="openLightbox(3)">
-      <img src="images/d.jpg" alt="Mango" style="width:100%;display:block;">
+      <div class="img-placeholder" style="height:270px;" data-label="Ficus natalensis Shade Tree" data-file="images/natal-fig.jpg" data-color="#0d2818,#1a4a1a"></div>
       <div class="gallery-overlay"><div class="gallery-info">
         <h4>Ficus natalensis — Natal Fig</h4>
         <p>Shade Tree · Community Planting</p>
@@ -275,7 +286,7 @@
 
     <!-- 5 · COCONUT PALM -->
     <div class="gallery-item reveal" data-category="specimen" onclick="openLightbox(4)">
-      <img src="images/e.jpg" alt="Mango" style="width:100%;display:block;">
+      <div class="img-placeholder" style="height:350px;" data-label="Royal Coconut Palm" data-file="images/coconut-palm.jpg" data-color="#0a1f14,#1a4a2e" data-accent="#c8a96e"></div>
       <div class="gallery-overlay"><div class="gallery-info">
         <h4>Cocos nucifera — Coconut Palm</h4>
         <p>Specimen · Rare & Mature</p>
@@ -284,7 +295,7 @@
 
     <!-- 6 · GARDEN DESIGN -->
     <div class="gallery-item reveal" data-category="landscape" onclick="openLightbox(5)">
-      <img src="images/f.jpg" alt="Mango" style="width:100%;display:block;">
+      <div class="img-placeholder" style="height:260px;" data-label="Garden Design & Installation" data-file="images/garden-design.jpg" data-color="#1a3a12,#0d2010"></div>
       <div class="gallery-overlay"><div class="gallery-info">
         <h4>Garden Design & Installation</h4>
         <p>Landscape · Residential Project</p>
@@ -293,7 +304,7 @@
 
     <!-- 7 · EUCALYPTUS -->
     <div class="gallery-item reveal" data-category="specimen" onclick="openLightbox(6)">
-      <img src="images/g.jpg" alt="Mango" style="width:100%;display:block;">
+      <div class="img-placeholder" style="height:380px;" data-label="Eucalyptus — Tall Specimen" data-file="images/eucalyptus.jpg" data-color="#0a1a0a,#1a5c20"></div>
       <div class="gallery-overlay"><div class="gallery-info">
         <h4>Eucalyptus grandis</h4>
         <p>Specimen · Timber & Windbreak</p>
@@ -302,7 +313,7 @@
 
     <!-- 8 · AVOCADO -->
     <div class="gallery-item reveal" data-category="fruit" onclick="openLightbox(7)">
-      <img src="images/a.jpg" alt="Mango" style="width:100%;display:block;">
+      <div class="img-placeholder" style="height:260px;" data-label="Hass Avocado Tree" data-file="images/avocado.jpg" data-color="#142810,#0d2010"></div>
       <div class="gallery-overlay"><div class="gallery-info">
         <h4>Persea americana — Avocado</h4>
         <p>Fruit Tree · Grafted Variety</p>
@@ -311,7 +322,7 @@
 
     <!-- 9 · REFORESTATION -->
     <div class="gallery-item reveal" data-category="landscape" onclick="openLightbox(8)">
-      <img src="images/c.jpg" alt="Mango" style="width:100%;display:block;">
+      <div class="img-placeholder" style="height:230px;" data-label="Uganda Reforestation Initiative" data-file="images/reforestation.jpg" data-color="#0a1a08,#1a4a0e"></div>
       <div class="gallery-overlay"><div class="gallery-info">
         <h4>Uganda Reforestation Initiative</h4>
         <p>Landscape · 500 Trees Planted</p>
@@ -365,6 +376,7 @@
     <a href="about.html" style="color:rgba(245,240,232,0.4);font-size:0.8rem;text-decoration:none;">About</a>
     <a href="shop.html" style="color:rgba(245,240,232,0.4);font-size:0.8rem;text-decoration:none;">Shop</a>
   </div>
+<a href="terms.html" style="font-size:0.75rem;color:rgba(245,240,232,0.3);text-decoration:none;display:block;margin-top:0.5rem;">Terms &amp; Privacy</a>
 </footer>
 
 <a href="https://wa.me/256706191725?text=Hello%20Elite%20Tree%20Solutions!" target="_blank" id="waBtn" title="Chat on WhatsApp">
@@ -465,5 +477,22 @@
   }, { threshold: 0.1 });
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 </script>
+
+<!-- ADVERSE AI FLOATING BUBBLE -->
+<style>
+#adverseBtn{position:fixed;bottom:2rem;left:2rem;z-index:400;text-decoration:none;display:flex;align-items:center;}
+.adverse-bubble{width:52px;height:52px;background:linear-gradient(135deg,#1a4a2e,#0d2818);border:1.5px solid rgba(122,182,72,0.35);border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(0,0,0,0.4);animation:adversePulse 3s ease infinite;transition:all 0.3s;flex-shrink:0;}
+@keyframes adversePulse{0%,100%{box-shadow:0 4px 20px rgba(0,0,0,0.4),0 0 0 0 rgba(122,182,72,0.25);}60%{box-shadow:0 4px 20px rgba(0,0,0,0.4),0 0 0 8px rgba(122,182,72,0);}}
+#adverseBtn:hover .adverse-bubble{transform:scale(1.1);border-color:rgba(122,182,72,0.7);background:linear-gradient(135deg,#2a6a3e,#1a3828);}
+.adverse-label{background:#0d2818;border:1.5px solid rgba(122,182,72,0.25);color:rgba(122,182,72,0.85);font-family:sans-serif;font-size:0.7rem;padding:0.35rem 0.8rem 0.35rem 0.5rem;border-radius:0 2rem 2rem 0;margin-left:-4px;white-space:nowrap;opacity:0;transform:translateX(-8px);transition:all 0.25s;pointer-events:none;font-weight:500;}
+#adverseBtn:hover .adverse-label{opacity:1;transform:translateX(0);}
+</style>
+<a href="adverse.html" id="adverseBtn" title="Ask Adverse AI">
+  <div class="adverse-bubble">
+    <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><ellipse cx="11" cy="9" rx="7.5" ry="6.5" fill="#7ab648" opacity="0.92"/><ellipse cx="11" cy="6.5" rx="5" ry="4.5" fill="#0d2818" opacity="0.55"/><rect x="9.8" y="14" width="2.4" height="7" rx="1.2" fill="#5c3d1e"/><circle cx="7.5" cy="8" r="1.2" fill="#c8a96e" opacity="0.7"/></svg>
+  </div>
+  <div class="adverse-label">🌿 Ask Adverse AI</div>
+</a>
+  <script src="pwa.js" defer></script>
 </body>
 </html>

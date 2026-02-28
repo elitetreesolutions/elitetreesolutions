@@ -1,8 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <script src="adv-pre.js"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0d2818">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Elite Trees">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="icons/icon-152.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="icons/icon-144.png">
+  <link rel="apple-touch-icon" sizes="128x128" href="icons/icon-128.png">
 <title>About Us — Elite Tree Solutions Uganda</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
@@ -296,7 +307,7 @@
       Meet the Owner
     </div>
     <h2>Two Decades of Trees, One Unwavering Passion</h2>
-    <p>Kakuye Hitler Musajja founded Elite Tree Solutions with a single, powerful belief: that <strong>Uganda deserves world-class trees and world-class service.</strong> What began as a modest nursery in Kabimbiri along the Kayunga Road has grown into one of Uganda's most respected tree cultivation businesses.</p>
+    <p>Kabuye Hitler Musujja founded Elite Tree Solutions with a single, powerful belief: that <strong>Uganda deserves world-class trees and world-class service.</strong> What began as a modest nursery in Kabimbiri along the Kayunga Road has grown into one of Uganda's most respected tree cultivation businesses.</p>
     <p>With over 20 years of hands-on experience in horticulture, arboriculture, and landscape design, Kakuye personally oversees every tree that leaves the nursery — ensuring that quality, health, and beauty are never compromised.</p>
     <p>His deep knowledge of Uganda's soils, climates, and native species means that every recommendation is tailored, every planting is precise, and every client relationship is built on <strong>trust, expertise, and genuine care.</strong></p>
     <p>From humble farmers wanting a mango tree to large estates requiring full landscape design — Kakuye treats every project with the same dedication and passion that has defined Elite Tree Solutions since day one.</p>
@@ -392,7 +403,7 @@
       <div class="tl-dot">2004</div>
       <div class="tl-content">
         <h4>The Beginning</h4>
-        <p>Kakuye Hitler Musajja plants his first seedlings in Kabimbiri, Kayunga. A dream of creating Uganda's finest tree nursery takes root.</p>
+        <p>Kabuye Hitler Musujja plants his first seedlings in Kabimbiri, Kayunga. A dream of creating Uganda's finest tree nursery takes root.</p>
       </div>
     </div>
     <div class="tl-item">
@@ -494,6 +505,7 @@
     <a href="gallery.html" style="color:rgba(245,240,232,0.4);font-size:0.8rem;text-decoration:none;">Gallery</a>
     <a href="index.html#contact" style="color:var(--leaf);font-size:0.8rem;text-decoration:none;">Contact</a>
   </div>
+<a href="terms.html" style="font-size:0.75rem;color:rgba(245,240,232,0.3);text-decoration:none;display:block;margin-top:0.5rem;">Terms &amp; Privacy</a>
 </footer>
 
 <a href="https://wa.me/256706191725?text=Hello%20Elite%20Tree%20Solutions!" target="_blank" id="waBtn" title="Chat on WhatsApp">
@@ -509,5 +521,22 @@
   }, { threshold: 0.1 });
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 </script>
+
+<!-- ADVERSE AI FLOATING BUBBLE -->
+<style>
+#adverseBtn{position:fixed;bottom:2rem;left:2rem;z-index:400;text-decoration:none;display:flex;align-items:center;}
+.adverse-bubble{width:52px;height:52px;background:linear-gradient(135deg,#1a4a2e,#0d2818);border:1.5px solid rgba(122,182,72,0.35);border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(0,0,0,0.4);animation:adversePulse 3s ease infinite;transition:all 0.3s;flex-shrink:0;}
+@keyframes adversePulse{0%,100%{box-shadow:0 4px 20px rgba(0,0,0,0.4),0 0 0 0 rgba(122,182,72,0.25);}60%{box-shadow:0 4px 20px rgba(0,0,0,0.4),0 0 0 8px rgba(122,182,72,0);}}
+#adverseBtn:hover .adverse-bubble{transform:scale(1.1);border-color:rgba(122,182,72,0.7);background:linear-gradient(135deg,#2a6a3e,#1a3828);}
+.adverse-label{background:#0d2818;border:1.5px solid rgba(122,182,72,0.25);color:rgba(122,182,72,0.85);font-family:sans-serif;font-size:0.7rem;padding:0.35rem 0.8rem 0.35rem 0.5rem;border-radius:0 2rem 2rem 0;margin-left:-4px;white-space:nowrap;opacity:0;transform:translateX(-8px);transition:all 0.25s;pointer-events:none;font-weight:500;}
+#adverseBtn:hover .adverse-label{opacity:1;transform:translateX(0);}
+</style>
+<a href="adverse.html" id="adverseBtn" title="Ask Adverse AI">
+  <div class="adverse-bubble">
+    <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><ellipse cx="11" cy="9" rx="7.5" ry="6.5" fill="#7ab648" opacity="0.92"/><ellipse cx="11" cy="6.5" rx="5" ry="4.5" fill="#0d2818" opacity="0.55"/><rect x="9.8" y="14" width="2.4" height="7" rx="1.2" fill="#5c3d1e"/><circle cx="7.5" cy="8" r="1.2" fill="#c8a96e" opacity="0.7"/></svg>
+  </div>
+  <div class="adverse-label">🌿 Ask Adverse AI</div>
+</a>
+  <script src="pwa.js" defer></script>
 </body>
 </html>

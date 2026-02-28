@@ -1,8 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <script src="adv-pre.js"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0d2818">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Elite Trees">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="icons/icon-152.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="icons/icon-144.png">
+  <link rel="apple-touch-icon" sizes="128x128" href="icons/icon-128.png">
 <title>Adverse AI — Elite Tree Solutions Agriculture Advisor</title>
 <meta name="description" content="Ask Adverse AI anything about trees, planting, pests and agriculture in Uganda. Powered by Elite Tree Solutions.">
 <meta name="robots" content="noindex">
@@ -365,7 +376,7 @@ body::before{
   <div class="topbar-actions">
     <button class="btn-ghost mob-sidebar-btn" onclick="toggleSidebar()">☰ Topics</button>
     <button class="btn-ghost" onclick="clearChat()" title="Clear conversation">↺ Clear</button>
-    <a href="index.html" class="btn-home">← Site</a>
+    <a href="terms.html" class="btn-ghost" style="font-size:0.7rem;">Terms</a><a href="index.html" class="btn-home">← Site</a>
   </div>
 </div>
 
@@ -518,7 +529,7 @@ const TREE_INVENTORY = TREES.map(t =>
 ).join('\n');
 
 // ── SYSTEM PROMPT ──
-const SYSTEM_PROMPT = `You are Adverse AI — the agriculture and tree advisor for Elite Tree Solutions, a premier tree nursery in Kabimbiri, Kayunga Road, Uganda, owned by Kakuye Hitler Musajja (phone: +256 706 191 725).
+const SYSTEM_PROMPT = `You are Adverse AI — the agriculture and tree advisor for Elite Tree Solutions, a premier tree nursery in Kabimbiri, Kayunga Road, Uganda, owned by Kabuye Hitler Musujja (phone: +256 706 191 725).
 
 You speak in Kakuye's voice: warm, expert, Ugandan, like a deeply knowledgeable farmer friend who genuinely loves trees. You are confident, practical, and specific. You occasionally use gentle warmth ("That's a great question for this season", "Many farmers in Buganda ask me this").
 
@@ -758,5 +769,6 @@ function toggleSidebar(){
 renderPills();
 document.getElementById('userInput').focus();
 </script>
+  <script src="pwa.js" defer></script>
 </body>
 </html>
