@@ -1,8 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <script src="adv-pre.js"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0d2818">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Elite Trees">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="icons/icon-152.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="icons/icon-144.png">
+  <link rel="apple-touch-icon" sizes="128x128" href="icons/icon-128.png">
 <title>Admin — Elite Tree Solutions</title>
 <meta name="robots" content="noindex, nofollow">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -263,7 +274,7 @@ body{font-family:'DM Sans',sans-serif;background:#f0f4f0;color:var(--forest);min
     <input type="password" id="loginPass" placeholder="Enter your password" onkeydown="if(event.key==='Enter')doLogin()">
     <button class="login-btn" onclick="doLogin()">Sign In →</button>
     <div class="login-error" id="loginError">❌ Incorrect password. Try again.</div>
-    <div class="login-hint">Owned by Kakuye Hitler Musajja<br>Default password: <strong style="color:rgba(122,182,72,0.6);">EliteTree2024</strong><br>Change it in Settings after first login.</div>
+    <div class="login-hint">Owned by Kabuye Hitler Musujja<br>Default password: <strong style="color:rgba(122,182,72,0.6);">EliteTree2024</strong><br>Change it in Settings after first login.</div>
   </div>
 </div>
 
@@ -1005,5 +1016,6 @@ document.getElementById('treeModal').addEventListener('click',e=>{if(e.target===
 document.getElementById('urlModal').addEventListener('click',e=>{if(e.target===document.getElementById('urlModal'))closeUrlModal();});
 document.getElementById('loginPass').addEventListener('keydown',e=>{if(e.key==='Enter')doLogin();});
 </script>
+  <script src="pwa.js" defer></script>
 </body>
 </html>
