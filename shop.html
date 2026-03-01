@@ -1427,78 +1427,143 @@ function renderPayForm(method, total, orderList){
   }
 }
 
+// ═══════════════════════════════════════════════════
+// FORMSPREE ENDPOINT — SETUP INSTRUCTIONS FOR KABUYE:
+// 1. Go to https://formspree.io
+// 2. Sign up free with your email
+// 3. Click "New Form" → name it "ETS Orders"
+// 4. Copy your form ID (looks like: xpwzabcd)
+// 5. Replace YOUR_FORMSPREE_ID below with that ID
+// ═══════════════════════════════════════════════════
+const FORMSPREE_ID = 'YOUR_FORMSPREE_ID';
+
+// ── Send silent email notification to owner ──
+async function notifyOwnerByEmail(orderData){
+  if(FORMSPREE_ID === 'YOUR_FORMSPREE_ID') return; // not set up yet
+  try {
+    await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
+      body: JSON.stringify({
+        _subject: `🌳 New Order ${orderData.orderRef} — ${orderData.method} — UGX ${orderData.total}`,
+        _replyto: 'elitetreesolutions26@gmail.com',
+        notify_email: 'elitetreesolutions26@gmail.com',
+        order_reference: orderData.orderRef,
+        payment_method: orderData.method,
+        order_time: orderData.now,
+        customer_name: orderData.name,
+        customer_phone: orderData.phone,
+        delivery_location: orderData.location || 'Not specified',
+        country: orderData.country || 'Uganda',
+        order_items: orderData.lines,
+        total_amount: `UGX ${Number(orderData.total).toLocaleString()}`,
+        message: `A customer has just completed checkout on the Elite Tree Solutions website. Order reference: ${orderData.orderRef}. Payment method: ${orderData.method}. Please confirm receipt and arrange delivery.`,
+      })
+    });
+    console.log('[ETS] ✅ Owner email notification sent.');
+  } catch(err) {
+    console.warn('[ETS] Email notification failed silently:', err);
+    // Fail silently — WhatsApp message is still the primary channel
+  }
+}
+
+// ── Build WhatsApp message ──
+function buildWAMessage(orderData){
+  return encodeURIComponent(
+    `🌳 *ELITE TREE SOLUTIONS — ${orderData.method === 'International Transfer' ? 'INTERNATIONAL ORDER' : 'PAYMENT CONFIRMATION'}*\n` +
+    `━━━━━━━━━━━━━━━━━━━━━━━━\n\n` +
+    `${orderData.method === 'International Transfer' ? '🌍' : '✅'} *Payment Method:* ${orderData.method}\n` +
+    `🕐 *Time:* ${orderData.now}\n` +
+    `🔖 *Order Ref:* ${orderData.orderRef}\n\n` +
+    `👤 *CUSTOMER DETAILS*\n` +
+    `Name: ${orderData.name}\n` +
+    `Phone: ${orderData.phone}\n` +
+    (orderData.country ? `Country: ${orderData.country}\n` : '') +
+    `Delivery: ${orderData.location || 'To be confirmed'}\n\n` +
+    `🛒 *ORDER SUMMARY*\n` +
+    `${orderData.lines}\n\n` +
+    `💰 *${orderData.method === 'International Transfer' ? 'ORDER TOTAL' : 'TOTAL PAID'}: UGX ${Number(orderData.total).toLocaleString()}*\n\n` +
+    `━━━━━━━━━━━━━━━━━━━━━━━━\n` +
+    (orderData.method === 'International Transfer'
+      ? `I am an international customer. Please send payment details and confirm how to proceed. Thank you! 🙏`
+      : `I have completed my payment to 0706 191 725. Please confirm receipt and arrange delivery. Thank you! 🙏`)
+  );
+}
+
 function confirmMoMoOrder(network){
   const name = document.getElementById('co-fname')?.value.trim()||'';
   const phone = document.getElementById('co-phone')?.value.trim()||'';
   const location = document.getElementById('co-location')?.value.trim()||'To be confirmed';
+  if(!name||!phone){alert('Please enter your name and phone number first.');return;}
+
   const total = cart.reduce((s,i)=>s+i.price*i.qty,0);
   const lines = cart.map(i=>`  • ${i.qty}× ${i.name} — UGX ${(i.price*i.qty).toLocaleString()}`).join('\n');
   const orderRef = 'ETS-' + Date.now().toString().slice(-6);
   const now = new Date().toLocaleString('en-UG',{dateStyle:'medium',timeStyle:'short'});
-  if(!name||!phone){alert('Please enter your name and phone number first.');return;}
-  const msg = encodeURIComponent(
-    `🌳 *ELITE TREE SOLUTIONS — PAYMENT CONFIRMATION*\n` +
-    `━━━━━━━━━━━━━━━━━━━━━━━━\n\n` +
-    `✅ *Payment Method:* ${network} Mobile Money\n` +
-    `🕐 *Time:* ${now}\n` +
-    `🔖 *Order Ref:* ${orderRef}\n\n` +
-    `👤 *CUSTOMER DETAILS*\n` +
-    `Name: ${name}\n` +
-    `Phone: ${phone}\n` +
-    `Delivery Location: ${location}\n\n` +
-    `🛒 *ORDER SUMMARY*\n` +
-    `${lines}\n\n` +
-    `💰 *TOTAL PAID: UGX ${total.toLocaleString()}*\n\n` +
-    `━━━━━━━━━━━━━━━━━━━━━━━━\n` +
-    `I have completed my ${network} MoMo payment to 0706 191 725.\n` +
-    `Please confirm receipt and arrange delivery. Thank you! 🙏`
-  );
-  window.open(`https://wa.me/256706191725?text=${msg}`,'_blank');
-  showOrderSuccess(name, phone, network+' Mobile Money', orderRef);
+
+  const orderData = {
+    name, phone, location, total, lines, orderRef, now,
+    method: network + ' Mobile Money',
+  };
+
+  // 1. Send silent email to owner (guaranteed, no customer action needed)
+  notifyOwnerByEmail(orderData);
+
+  // 2. Open WhatsApp pre-filled — customer taps Send
+  window.open(`https://wa.me/256706191725?text=${buildWAMessage(orderData)}`, '_blank');
+
+  // 3. Show success screen
+  showOrderSuccess(orderData);
 }
 
 function confirmIntlOrder(){
   const name = document.getElementById('co-fname')?.value.trim()||'';
   const phone = document.getElementById('co-phone')?.value.trim()||'';
   const country = document.getElementById('co-country')?.value.trim()||'Not specified';
+  if(!name||!phone){alert('Please enter your name and phone number first.');return;}
+
   const total = cart.reduce((s,i)=>s+i.price*i.qty,0);
   const lines = cart.map(i=>`  • ${i.qty}× ${i.name} — UGX ${(i.price*i.qty).toLocaleString()}`).join('\n');
   const orderRef = 'ETS-' + Date.now().toString().slice(-6);
   const now = new Date().toLocaleString('en-UG',{dateStyle:'medium',timeStyle:'short'});
-  if(!name||!phone){alert('Please enter your name and phone number first.');return;}
-  const msg = encodeURIComponent(
-    `🌳 *ELITE TREE SOLUTIONS — INTERNATIONAL ORDER*\n` +
-    `━━━━━━━━━━━━━━━━━━━━━━━━\n\n` +
-    `🌍 *Payment Method:* International Transfer\n` +
-    `🕐 *Time:* ${now}\n` +
-    `🔖 *Order Ref:* ${orderRef}\n\n` +
-    `👤 *CUSTOMER DETAILS*\n` +
-    `Name: ${name}\n` +
-    `Country: ${country}\n` +
-    `Contact: ${phone}\n\n` +
-    `🛒 *ORDER SUMMARY*\n` +
-    `${lines}\n\n` +
-    `💰 *ORDER TOTAL: UGX ${total.toLocaleString()}*\n\n` +
-    `━━━━━━━━━━━━━━━━━━━━━━━━\n` +
-    `I am an international customer and would like to complete payment.\n` +
-    `Please send me your bank/transfer details and confirm how to proceed. Thank you! 🙏`
-  );
-  window.open(`https://wa.me/256706191725?text=${msg}`,'_blank');
-  showOrderSuccess(name, phone, 'International Transfer', orderRef);
+
+  const orderData = {
+    name, phone, country, total, lines, orderRef, now,
+    method: 'International Transfer',
+    location: 'International',
+  };
+
+  // 1. Send silent email to owner
+  notifyOwnerByEmail(orderData);
+
+  // 2. Open WhatsApp pre-filled
+  window.open(`https://wa.me/256706191725?text=${buildWAMessage(orderData)}`, '_blank');
+
+  // 3. Show success screen
+  showOrderSuccess(orderData);
 }
 
-function showOrderSuccess(name, phone, method, orderRef){
+function showOrderSuccess(o){
   document.getElementById('checkoutContent').innerHTML = `
     <div class="order-success">
       <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
         <circle cx="32" cy="32" r="30" fill="rgba(122,182,72,0.1)" stroke="#7ab648" stroke-width="2"/>
         <path d="M20 32 L28 40 L44 24" stroke="#7ab648" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
-      <h3>Order Sent! 🌳</h3>
-      <p>Thank you, <strong>${name}</strong>! Your order confirmation has been sent directly to Kabuye's WhatsApp.<br><br>
-      <strong>Order Ref: ${orderRef}</strong><br><br>
-      Kabuye will contact you on <strong>${phone}</strong> to confirm your ${method} payment and arrange delivery. Please keep this reference number.<br><br>
-      Questions? WhatsApp us: <a href="https://wa.me/256706191725" style="color:var(--leaf);">+256 706 191 725</a></p>
+      <h3>Order Placed! 🌳</h3>
+      <div style="background:rgba(122,182,72,0.06);border:1px solid rgba(122,182,72,0.15);border-radius:0.8rem;padding:1rem;margin:1rem 0;text-align:left;">
+        <div style="font-size:0.7rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--sage);margin-bottom:0.5rem;">What just happened</div>
+        <div style="font-size:0.82rem;color:var(--forest);line-height:1.8;">
+          ✅ Email notification sent to Kabuye<br>
+          📱 WhatsApp opened with your order details<br>
+          🔖 Your order ref: <strong>${o.orderRef}</strong>
+        </div>
+      </div>
+      <p style="font-size:0.83rem;color:var(--sage);line-height:1.7;">
+        Thank you, <strong>${o.name}</strong>! Kabuye will contact you on <strong>${o.phone}</strong> to confirm your ${o.method} payment and arrange delivery.<br><br>
+        Save your order ref <strong>${o.orderRef}</strong> for follow-up.<br><br>
+        Direct line: <a href="https://wa.me/256706191725" style="color:var(--leaf);">+256 706 191 725</a>
+      </p>
     </div>
   `;
   cart=[];updateCart();
