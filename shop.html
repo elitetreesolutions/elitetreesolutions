@@ -1428,53 +1428,76 @@ function renderPayForm(method, total, orderList){
 }
 
 function confirmMoMoOrder(network){
-  const name = document.getElementById('co-fname')?.value||'';
-  const phone = document.getElementById('co-phone')?.value||'';
-  const location = document.getElementById('co-location')?.value||'TBC';
+  const name = document.getElementById('co-fname')?.value.trim()||'';
+  const phone = document.getElementById('co-phone')?.value.trim()||'';
+  const location = document.getElementById('co-location')?.value.trim()||'To be confirmed';
   const total = cart.reduce((s,i)=>s+i.price*i.qty,0);
-  const lines = cart.map(i=>`${i.qty}× ${i.name}`).join('\n');
+  const lines = cart.map(i=>`  • ${i.qty}× ${i.name} — UGX ${(i.price*i.qty).toLocaleString()}`).join('\n');
+  const orderRef = 'ETS-' + Date.now().toString().slice(-6);
+  const now = new Date().toLocaleString('en-UG',{dateStyle:'medium',timeStyle:'short'});
   if(!name||!phone){alert('Please enter your name and phone number first.');return;}
   const msg = encodeURIComponent(
-    `Hello Elite Tree Solutions! 🌳\n\n` +
-    `✅ I have just paid via ${network} Mobile Money.\n\n` +
-    `👤 Name: ${name}\n📞 My Phone: ${phone}\n📍 Delivery: ${location}\n\n` +
-    `🛒 My Order:\n${lines}\n\n` +
-    `💰 Amount Paid: UGX ${total.toLocaleString()}\n\n` +
-    `Please confirm receipt and arrange delivery. Thank you!`
+    `🌳 *ELITE TREE SOLUTIONS — PAYMENT CONFIRMATION*\n` +
+    `━━━━━━━━━━━━━━━━━━━━━━━━\n\n` +
+    `✅ *Payment Method:* ${network} Mobile Money\n` +
+    `🕐 *Time:* ${now}\n` +
+    `🔖 *Order Ref:* ${orderRef}\n\n` +
+    `👤 *CUSTOMER DETAILS*\n` +
+    `Name: ${name}\n` +
+    `Phone: ${phone}\n` +
+    `Delivery Location: ${location}\n\n` +
+    `🛒 *ORDER SUMMARY*\n` +
+    `${lines}\n\n` +
+    `💰 *TOTAL PAID: UGX ${total.toLocaleString()}*\n\n` +
+    `━━━━━━━━━━━━━━━━━━━━━━━━\n` +
+    `I have completed my ${network} MoMo payment to 0706 191 725.\n` +
+    `Please confirm receipt and arrange delivery. Thank you! 🙏`
   );
   window.open(`https://wa.me/256706191725?text=${msg}`,'_blank');
-  showOrderSuccess(name, phone, network+' Mobile Money');
+  showOrderSuccess(name, phone, network+' Mobile Money', orderRef);
 }
 
 function confirmIntlOrder(){
-  const name = document.getElementById('co-fname')?.value||'';
-  const phone = document.getElementById('co-phone')?.value||'';
-  const country = document.getElementById('co-country')?.value||'';
+  const name = document.getElementById('co-fname')?.value.trim()||'';
+  const phone = document.getElementById('co-phone')?.value.trim()||'';
+  const country = document.getElementById('co-country')?.value.trim()||'Not specified';
   const total = cart.reduce((s,i)=>s+i.price*i.qty,0);
-  const lines = cart.map(i=>`${i.qty}× ${i.name}`).join('\n');
+  const lines = cart.map(i=>`  • ${i.qty}× ${i.name} — UGX ${(i.price*i.qty).toLocaleString()}`).join('\n');
+  const orderRef = 'ETS-' + Date.now().toString().slice(-6);
+  const now = new Date().toLocaleString('en-UG',{dateStyle:'medium',timeStyle:'short'});
   if(!name||!phone){alert('Please enter your name and phone number first.');return;}
   const msg = encodeURIComponent(
-    `Hello Elite Tree Solutions! 🌳\n\n` +
-    `🌍 I am an international customer interested in placing an order.\n\n` +
-    `👤 Name: ${name}\n🌐 Country: ${country||'Not specified'}\n📞 Contact: ${phone}\n\n` +
-    `🛒 My Order:\n${lines}\n\n` +
-    `💰 Order Total: UGX ${total.toLocaleString()}\n\n` +
-    `Please send me the payment details and confirm how to proceed. Thank you!`
+    `🌳 *ELITE TREE SOLUTIONS — INTERNATIONAL ORDER*\n` +
+    `━━━━━━━━━━━━━━━━━━━━━━━━\n\n` +
+    `🌍 *Payment Method:* International Transfer\n` +
+    `🕐 *Time:* ${now}\n` +
+    `🔖 *Order Ref:* ${orderRef}\n\n` +
+    `👤 *CUSTOMER DETAILS*\n` +
+    `Name: ${name}\n` +
+    `Country: ${country}\n` +
+    `Contact: ${phone}\n\n` +
+    `🛒 *ORDER SUMMARY*\n` +
+    `${lines}\n\n` +
+    `💰 *ORDER TOTAL: UGX ${total.toLocaleString()}*\n\n` +
+    `━━━━━━━━━━━━━━━━━━━━━━━━\n` +
+    `I am an international customer and would like to complete payment.\n` +
+    `Please send me your bank/transfer details and confirm how to proceed. Thank you! 🙏`
   );
   window.open(`https://wa.me/256706191725?text=${msg}`,'_blank');
-  showOrderSuccess(name, phone, 'International Transfer');
+  showOrderSuccess(name, phone, 'International Transfer', orderRef);
 }
 
-function showOrderSuccess(name, phone, method){
+function showOrderSuccess(name, phone, method, orderRef){
   document.getElementById('checkoutContent').innerHTML = `
     <div class="order-success">
       <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
         <circle cx="32" cy="32" r="30" fill="rgba(122,182,72,0.1)" stroke="#7ab648" stroke-width="2"/>
         <path d="M20 32 L28 40 L44 24" stroke="#7ab648" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
-      <h3>Order Confirmed! 🌳</h3>
-      <p>Thank you, <strong>${name}</strong>!<br><br>
-      Kabuye will contact you on <strong>${phone}</strong> to confirm your ${method} payment and arrange delivery.<br><br>
+      <h3>Order Sent! 🌳</h3>
+      <p>Thank you, <strong>${name}</strong>! Your order confirmation has been sent directly to Kabuye's WhatsApp.<br><br>
+      <strong>Order Ref: ${orderRef}</strong><br><br>
+      Kabuye will contact you on <strong>${phone}</strong> to confirm your ${method} payment and arrange delivery. Please keep this reference number.<br><br>
       Questions? WhatsApp us: <a href="https://wa.me/256706191725" style="color:var(--leaf);">+256 706 191 725</a></p>
     </div>
   `;
